@@ -1,0 +1,53 @@
+/* Preserve the author's emphasis and harmonize hierarchy across all themes. */
+:root {
+  --note-emphasis: #165a78;
+  --note-priority: #a13b25;
+}
+html[data-theme="focus"] {
+  --note-emphasis: #283c47;
+  --note-priority: #8f3c29;
+}
+html[data-theme="mono"] {
+  --note-emphasis: #000000;
+  --note-priority: #000000;
+}
+html[data-theme="glass"] {
+  --note-emphasis: #4de0ba;
+  --note-priority: #f28482;
+}
+html[data-theme="momo"] {
+  --note-emphasis: #0d7d67;
+  --note-priority: #d96226;
+}
+html[data-theme="dark"] {
+  --note-emphasis: #7fc0d6;
+  --note-priority: #f2a88d;
+}
+.article strong {
+  color: var(--note-emphasis);
+  font-weight: 700;
+}
+.article :is(h1, h2, h3, h4) strong {
+  color: inherit;
+  font-weight: inherit;
+}
+.article strong em,
+.article em strong,
+.article strong u,
+.article u strong,
+.article .callout-warning strong {
+  color: var(--note-priority);
+}
+.article strong u,
+.article u strong {
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1.5px;
+}
+html[data-theme="mono"] .article strong em,
+html[data-theme="mono"] .article em strong,
+html[data-theme="mono"] .article .callout-warning strong,
+html[data-theme="mono"] .article .callout-danger strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}

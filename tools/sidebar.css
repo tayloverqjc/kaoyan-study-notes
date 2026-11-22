@@ -1,0 +1,26 @@
+/* The desktop outline can be collapsed without losing its reopen control. */
+.sidebar-toggle { display: none; }
+@media (min-width: 761px) {
+  .sidebar-heading { align-items: center; }
+  .sidebar-heading small { display: none; }
+  .sidebar-toggle {
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    color: var(--muted);
+  }
+  .sidebar-toggle:hover { color: var(--accent); background: var(--accent-soft); }
+  .sidebar-heading .sidebar-toggle { display: inline-flex; }
+  .topbar .sidebar-restore { display: none; }
+  html.sidebar-collapsed .topbar .sidebar-restore { display: inline-flex; }
+  html.sidebar-collapsed .layout { display: block; }
+  html.sidebar-collapsed .sidebar { display: none; }
+  html.sidebar-collapsed .layout main { margin-left: auto; margin-right: auto; }
+  html.sidebar-collapsed .reader-dock { left: 50%; }
+}
+@media print { .sidebar-toggle { display: none !important; } }

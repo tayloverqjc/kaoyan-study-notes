@@ -1,0 +1,2160 @@
+{
+  "essays": [
+    {
+      "id": "s01",
+      "number": 1,
+      "kind": "short",
+      "title": "新生欢迎会通知",
+      "type": "通知／邀请",
+      "available": true,
+      "paragraphs": [
+        "Notice/Announcement",
+        "Friday, June 10",
+        "It is so great to hear that you, international students, have arrived at our university. This notice/announcement is for the purpose of inviting you to attend a welcome party.",
+        "To begin with, the party is scheduled to start at 19:00 on June 20 in the Center of Students’ Activities and last for approximately two hours. In addition, this party is characterized by a variety of interesting activities, including singing, dancing, Chinese culture introduction, and fun competitions. Of course, some traditional Chinese snacks will be served at the party. To conclude, it is advisable for you to participate in this party, which will bring you opportunities to make friends, arouse your passion for the campus life, and help you know China better.",
+        "Finally, we are looking forward to your participation.",
+        "The Students’ Union"
+      ],
+      "prompt": "Suppose your university is going to host a welcome party for new international students. Write a notice (or an announcement) in the name of the Students’ Union to (1) briefly introduce the party, and (2) invite the international students to attend it. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your notice; use “The Students’ Union” instead. (10 points)",
+      "translation": "通知/告示 6 月10 日,星期五 很高兴得知各位留学生已经抵校。本通知/告示旨在邀请各位参加欢迎会。 首先,欢迎会定于6 月20 日19:00 在学生活动中心举行,时长约2 小时。 此外,这次欢迎会的特色是活动精彩丰富,包括唱歌、跳舞、中国文化介绍和趣味 比赛。当然,欢迎会上还会提供一些中国传统小吃。总之,建议你们参加这次欢迎 会,它将带给你们结交新朋友的机会,激发你们对校园生活的热情,并帮助你们更 好地了解中国。 最后,期待你们的参与。",
+      "cues": [
+        "交代通知目的",
+        "时间、地点、活动内容与益处",
+        "期待参与与落款"
+      ],
+      "words": 136,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s02",
+      "number": 2,
+      "kind": "short",
+      "title": "推荐 AI 学习工具",
+      "type": "推荐／说明",
+      "available": true,
+      "paragraphs": [
+        "Dear Sky,",
+        "I am quite pleased to hear that you are looking for AI tools to promote learning efficiency. Today, I am writing to make a recommendation.",
+        "It is advisable for you to try out several AI tools in learning since it is by trying them out that you can know which one can best suit your needs. A case in point is myself. As a senior who is preparing for the national entrance exams for postgraduate studies, I tried ERNIE Bot, Tongyi, and Kimi. In the end, I chose Kimi, which is characterized by its excellent performance in information collection. This AI tool can bring me high efficiency, inspire my passion for learning, and help me save time and energy.",
+        "I am looking forward to discussing more details of the AI tools after you use",
+        "them. Best wishes,",
+        "Li Ming"
+      ],
+      "prompt": "Suppose a foreign friend of yours has been looking for AI tools to enhance learning efficiency. Write him/her an e-mail to make a recommendation and explain your reasons. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your e-mail; use “Li Ming” instead. (10 points)",
+      "translation": "亲爱的斯凯: 很高兴得知你在寻找AI 工具来提高学习效率。今天我写信来是想做个推荐。 建议你在学习中尝试几个AI 工具,因为通过试用这些工具,你能够知道哪 个最符合你的需求。一个典型的例子就是我自己。作为一名正在准备全国研究生 入学考试的大四学生,我试过文心一言、通义和Kimi。最终,我选择了Kimi,它 的特点是在信息搜集方面表现出色。这个AI 工具能够让我更高效,激发我对学习 的热情,并帮助我节省时间和精力。 等你试用之后,我期待跟你探讨AI 工具的更多细节。 祝好, 李明",
+      "cues": [
+        "回应需求并推荐",
+        "尝试工具—亲身案例—选择理由",
+        "期待后续交流"
+      ],
+      "words": 141,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s03",
+      "number": 3,
+      "kind": "short",
+      "title": "介绍同伴指导项目",
+      "type": "介绍／建议",
+      "available": true,
+      "paragraphs": [
+        "Dear Michael,",
+        "I’m quite pleased to know that you are interested in the peer mentoring program for new students.",
+        "Today, I am writing for the purpose of introducing certain details.",
+        "This program pairs freshmen with seniors to help them adapt to college life. To begin with, college life is characterized by the fact that students have more spare time. Then, compared with high schools, there are a wider variety of campus activities, clubs and organizations in college. Thus we, as senior students, are supposed to help you develop a new pace of study and life suited for college. To conclude, it’s advisable for you to sign up for the peer mentoring program. I’m convinced that you will benefit a lot from it.",
+        "Of course, if you have any other questions, please feel free to ask me.",
+        "Yours truly,",
+        "Li Ming"
+      ],
+      "prompt": "Suppose you are a senior student. Read the following e-mail from a first-year student in your department and write a reply. Dear Li Ming, I’ve heard that our university has launched a peer mentoring program for new students, but I don’t know much about it. Could you give me more details? Yours, Michael Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your e-mail; use “Li Ming” instead. (10 points)",
+      "translation": "亲爱的迈克尔: 得知你对面向新生的同伴指导项目感兴趣,我十分高兴。今天我写这封信是 想介绍一些相关细节。 本项目将新生与高年级学生结对,来帮助他们适应大学生活。首先,大学生 活的特点是学生拥有更多空闲时间。其次,与高中相比,大学里有更加丰富多样的 校园活动、社团和学生组织。因此,作为高年级学生,我们应当帮助你们形成一套 新的、适合大学的学习和生活节奏。总之,建议你报名参加同伴指导项目。我相信 你将会从中获益良多。 当然,如果你还有其他问题,随时可以问我。",
+      "cues": [
+        "回应咨询",
+        "项目机制—大学特点—报名建议",
+        "邀请继续提问"
+      ],
+      "words": 140,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s04",
+      "number": 4,
+      "kind": "short",
+      "title": "感谢暑期项目导师并邀请",
+      "type": "感谢／邀请",
+      "available": true,
+      "paragraphs": [
+        "Dear Prof. Thomas,",
+        "I am quite pleased to recall the summer when I attended the study abroad program in your country. Today, I am writing for the purpose of extending my gratitude and inviting you to visit China.",
+        "To begin with, it was your tremendous help that enabled me to enjoy a comfortable and fruitful trip of learning.",
+        "Thus, I am deeply grateful to you for your help. In addition, I know that you are fond of China’s ancient architecture. Accordingly, I deem that it is advisable for you to visit in person the Great Wall, the Summer Palace, the Forbidden City and so on in your spare time.",
+        "I am looking forward to your favorable reply at your earliest convenience so that I can repay you.",
+        "Yours sincerely, Li Ming"
+      ],
+      "prompt": "Suppose you received much help from Prof. Thomas during your summer study abroad program. Write an e-mail to (1) thank him, and (2) invite him to visit China. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your e-mail; use “Li Ming” instead. (10 points)",
+      "translation": "亲爱的托马斯教授: 回想起在贵国参加留学项目的那个暑假,我非常高兴。今天写信来是想表达 感谢,并邀请您来中国旅行。 首先,正是您的鼎力相助,使得我享受一段舒适且获益良多的学习之旅。因 此,我非常感激您的帮助。此外,我知道您很喜欢中国的古建筑。因此,我觉得您 可以在闲暇时亲自参观一下长城、颐和园和故宫等。 期待早日收到您的肯定答复,好让我报答您。 谨上,",
+      "cues": [
+        "表达感谢",
+        "回顾活动收获并发出邀请",
+        "表达期待"
+      ],
+      "words": 131,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s05",
+      "number": 5,
+      "kind": "short",
+      "title": "中国文化演讲选题建议",
+      "type": "建议／说明",
+      "available": true,
+      "paragraphs": [
+        "Dear Jane,",
+        "So glad to hear that you are going to participate in a speech contest on Chinese culture. I am writing to suggest a topic.",
+        "To begin with, it is advisable for you to choose China’s ancient architecture as your topic since China is characterized by its time-honored history and I know that you are fond of China’s ancient buildings. In addition, you are supposed to visit the Great Wall, the Summer Palace, and the Forbidden City, which will bring you distinctive experience, arouse your passion for Chinese culture, and help you prepare fully for the contest.",
+        "Finally, if you have any other questions, please call me and I will be available every Friday morning.",
+        "Best wishes, Li Ming"
+      ],
+      "prompt": "Read the following e-mail from one of your foreign friends and write a reply. Dear Li Ming, I’m going to participate in a speech contest on Chinese culture, but I haven’t decided on my topic yet. Could you give me some advice? Maybe we could arrange a time to discuss it over a video call. Looking forward to your reply! Yours, Jane Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your e-mail; use “Li Ming” instead. (10 points)",
+      "translation": "亲爱的简: 很高兴得知你打算参加关于中国文化的演讲比赛。我写信来是想推荐一个主 题。 首先,我建议你选择中国古代建筑作为演讲主题,因为中国的特点是历史悠 久,而且我知道你很喜欢中国的古代建筑。此外,你可以去参观一下长城、颐和园 和故宫,这将会带给你独特的体验,唤起你对中国文化的热情,并帮助你为比赛做 好充分的准备。 最后,如果你有任何问题,可以给我打电话,我每周五早上都有空。 祝好, 李明",
+      "cues": [
+        "回应演讲选题咨询",
+        "推荐文化话题并解释原因",
+        "约定视频交流"
+      ],
+      "words": 120,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s06",
+      "number": 6,
+      "kind": "short",
+      "title": "不能接机的道歉与解决方案",
+      "type": "道歉／建议",
+      "available": true,
+      "paragraphs": [
+        "Dear James, I am quite pleased to hear that you are coming to China and I originally planned to pick you up at the airport. However, I am writing for the purpose of making an apology since I am afraid I can’t make it. You know that during the past half year, I have been exceedingly busy because I allocated nearly all my time and energy for preparing for the national entrance exams for postgraduate studies, which is of great significance to me. Then, due to my carelessness, I did not notice that the date of the test is the day when you will arrive in China until two minutes ago. Accordingly, I have no option but to ask my best friend, Sky, to pick you up at the airport this Saturday. I am deeply sorry and I plan to show you around Beijing after the test.",
+        "Best wishes,",
+        "Li Ming"
+      ],
+      "prompt": "Suppose your foreign friend James is coming to China this Saturday. You originally planned to pick him up at the airport, but could not make it now. Write him an e-mail to (1) make an apology, and (2) propose a solution. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your e-mail; use “Li Ming” instead. (10 points)",
+      "translation": "亲爱的詹姆斯: 很高兴得知你将来到中国,我原本计划去机场接你。但是,我写信来是想道 歉,因为我恐怕去不了了。 你知道我过去半年特别忙,因为我几乎把所有时间和精力都用在了准备全国 研究生入学考试上,这个考试对我来说非常重要。而且,由于我的粗心,直到两分 钟前我才意识到考试当天就是你抵达中国的那天。因此,我别无选择,只能请我最 好的朋友斯凯本周六去机场接你。 真的很抱歉。等考完试以后,我计划带你在北京四处逛逛。 祝好, 李明",
+      "cues": [
+        "为不能接机真诚道歉",
+        "解释原因并给替代接机方案",
+        "再次致歉并表达期待"
+      ],
+      "words": 151,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s07",
+      "number": 7,
+      "kind": "short",
+      "title": "申请文化交流志愿者",
+      "type": "申请／说明",
+      "available": true,
+      "paragraphs": [
+        "Dear Sir/Madam, As a senior student at Peking University who is quite interested in cultural communication, I am writing for the purpose of applying for the volunteer position at your center. I am convinced that I am qualified for this position for two reasons. To begin with, during my college years, I have devoted nearly all my time and energy to my major, Cross-cultural Exchange. It was my hard work that enabled me to accumulate adequate professional knowledge and skills. In addition, compared with others, I possess richer experience in communicating with foreigners, since I have served as a volunteer for several international conferences. If I am lucky enough to be a volunteer for your center, I will do my utmost to fulfill my duties.",
+        "Yours sincerely,",
+        "Li Ming"
+      ],
+      "prompt": "Suppose you are to write an e-mail applying for a volunteer position at the Center of Cultural Interchange. Write an e-mail to the organization to (1) express your intention, and (2) show why you are qualified. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your e-mail; use “Li Ming” instead. (10 points)",
+      "translation": "尊敬的先生/女士: 作为北京大学的一名大四学生,我对文化交流非常感兴趣,写信来是为了申 请贵中心的志愿者岗位。 我坚信我可以胜任这个岗位,原因有两个。首先,在大学期间,我几乎把所 有时间和精力都投入我的专业“跨文化交流”中。正是努力学习使我积累了足够的 专业知识和技能。此外,与其他人相比,我与外国人交流的经验更丰富,因为我曾 担任过数场国际会议的志愿者。 如果我有幸成为贵中心的志愿者,我将尽最大努力履行我的职责。 谨上, 李明",
+      "cues": [
+        "说明申请目的",
+        "经历、能力及匹配理由",
+        "请求考虑并致谢"
+      ],
+      "words": 129,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s08",
+      "number": 8,
+      "kind": "short",
+      "title": "职业体验项目的感谢与建议",
+      "type": "感谢／建议",
+      "available": true,
+      "paragraphs": [
+        "Dear Sir/Madam, So excited to recall the one-day career exploration program organized by you. Today, I am writing to express my thanks and make one suggestion. This program did help us broaden our horizons, inspire our passion for exploring future career paths, and provide us with an opportunity to put theoretical knowledge into practice. Thus, we are quite grateful to you for your excellent organization. However, compared with students’practical requirements, the duration and depth of the program were not sufficient. Therefore, it is advisable for our university’s Career Center to organize more programs lasting two days or longer to further our career exploration. Finally, I am convinced that with your support, students will benefit more from future programs.",
+        "Best wishes,",
+        "Li Ming"
+      ],
+      "prompt": "Suppose you have just taken part in a one-day career exploration program organized by your university’s Career Center. Write an e-mail to the program coordinators to (1) express your thanks, (2) briefly describe what you learned from the program, and (3) make one suggestion for future programs. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your e-mail; use “Li Ming” instead. (10 points)",
+      "translation": "尊敬的先生/女士: 回想起您组织的一日职业探索项目,我十分激动。今天我写这封信,是为了 向您表达感谢,并提出一条建议。 该项目确实帮助我们开阔了视野,激发了我们探索未来职业道路的热情,并 为我们提供了一个将理论知识运用于实践的机会。因此,我们非常感谢您出色的组 织工作。然而,相较于学生的实际需求,该项目的持续时间与探索深度尚有不足。 所以,建议我校就业指导中心组织更多为期两天或更长时间的项目,以此促进我们 的职业探索。 最后,我坚信,在您的支持下,学生将会从未来的项目中获得更多益处。 祝好, 李明",
+      "cues": [
+        "感谢职业体验项目",
+        "说明活动收获并提出改进建议",
+        "结束语与署名"
+      ],
+      "words": 124,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s09",
+      "number": 9,
+      "kind": "short",
+      "title": "安慰考试失利的朋友",
+      "type": "建议／鼓励",
+      "available": true,
+      "paragraphs": [
+        "Dear Jack, I am deeply sorry to hear that you did not do well in your recent maths midterm exam. Today, I am writing for the purpose of sharing my suggestions and encouraging you. To begin with, it is advisable for you to prepare in advance since it is full preparation that enables you to accumulate adequate knowledge and skills for the test. A case in point is myself. Compared with others, I am not smarter, but full preparation can bring me confidence, arouse my passion for learning, and help me succeed in maths tests. In addition, it is of great necessity for you to summarize your errors as success derives from failure. To conclude, I am convinced that if you do your utmost to prepare and practice in advance, you will do better in the next exam.",
+        "Best wishes,",
+        "Li Ming"
+      ],
+      "prompt": "Suppose your friend Jack did not do well in his maths midterm exam. He wrote you an e-mail asking for advice. Write him a reply to (1) give your advice, and (2) encourage him. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your e-mail; use “Li Ming” instead. (10 points)",
+      "translation": "亲爱的杰克: 很遗憾得知最近的数学期中考试你没考好。今天,我写信来是想分享一些我的 建议并给你一些鼓励。 首先,建议你提前准备,因为正是充分的准备使你能够积累足够的知识和考试 技巧。一个典型的例子就是我自己。与其他人相比,我不算聪明,但充分的准备 能够带给我自信,唤起我对学习的热情,并帮助我在数学考试中获得成功。此外, 你还有必要总结自己的错误,因为失败是成功之母。 总之,我坚信,你如果竭尽全力提前准备和练习,下次会考得更好。 祝好 李明",
+      "cues": [
+        "回应失利并共情",
+        "分析与建议，提供鼓励",
+        "表达支持"
+      ],
+      "words": 142,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "s10",
+      "number": 10,
+      "kind": "short",
+      "title": "避免食物浪费的会议纪要",
+      "type": "会议纪要",
+      "available": true,
+      "paragraphs": [
+        "Minutes This meeting was for the purpose of discussing how to prevent food waste in everyday life and finally all participants came to the same conclusion. The meeting began at 14:00 on June 20 in Classroom 201 and lasted for two hours. Professor Sky raised the question and pointed out that compared to the past years, we enjoy a richer life and thus an increasing number of youngsters do not cherish food. Then, all classmates agreed that this phenomenon is particularly worth attention. We deemed that it is of great necessity for us to stop wasting not only food, but also time, electricity, water, and the like. The conclusion is that we are supposed to take immediate actions to prevent food waste in daily life, such as only buying what we need and not throwing away leftovers.",
+        "Minutes recorder: Li Ming"
+      ],
+      "prompt": "Suppose your class held a meeting to discuss how to prevent food waste in daily life. Please write the minutes for the meeting. Your minutes should include (1) basic information about the discussion, and (2) issues and solutions raised in the discussion. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in your minutes; use “Li Ming” instead. (10 points)",
+      "translation": "会议纪要 本次会议旨在讨论如何在日常生活中避免食物浪费,最终所有与会人员得出一 致结论。 会议于6 月20 日14:00 在201 教室举行,持续时长为2 小时。斯凯教授提出了 这一问题,并指出,与过去相比,我们的生活更加富裕,于是越来越多的年轻人 不珍惜食物。接着,全班同学一致同意这一现象非常值得关注。大家认为,我们 不仅很有必要杜绝食物浪费,还要避免浪费时间、电、水以及其他类似资源。 结论是,我们应该立刻采取行动来避免日常生活中的食物浪费,例如只买需要 的,以及不扔掉剩饭剩菜。 记录人:李明",
+      "cues": [
+        "会议目的",
+        "时间地点、讨论内容与一致结论",
+        "后续行动"
+      ],
+      "words": 141,
+      "sources": [],
+      "sourceNote": "小作文通用资料文字版；与大册小作文话题去重。"
+    },
+    {
+      "id": "l01",
+      "number": 1,
+      "kind": "long",
+      "title": "燃油车与新能源汽车销量",
+      "type": "图表作文",
+      "available": true,
+      "paragraphs": [
+        "This is a table, clearly illustrating the changes in the domestic sales of gasoline-powered and new-energy vehicles in China during the first half of 2025. In this period, the sales of new-energy cars increased steadily, from 0.79 million in January to 1.12 million in June. By contrast, the sales of gasoline cars fluctuated around 1.1 million. It is particularly noteworthy that the sales of new-energy vehicles surpassed those of gasoline-powered vehicles in May.",
+        "Such statistics, apparently, can be associated with the fierce competition between new-energy vehicles and traditional cars. Then, what resulted in the phenomenon above? For one thing, in recent years, China has been characterized by its boom and prosperity in economy, which has enabled a host of families to possess additional income to purchase gasoline-powered or new-energy cars. For another, compared with traditional cars, new-energy vehicles are much cheaper, more eco-friendly, more efficient and require less maintenance. Thus, an increasing number of people have chosen new-energy cars.",
+        "To my understanding, China’s car manufacturers are supposed to pay more attention to the new-energy car market due to its huge potential. Meanwhile, it is advisable for them to work out comprehensive strategies to develop more types of new-energy vehicles, such as solar-powered cars."
+      ],
+      "prompt": "Write an essay based on the table below. In your essay, you should (1) describe and interpret the table, and (2) give your comments. Write your answer in about 150 words on the ANSWER SHEET. (15 points)",
+      "translation": "这是一张表格，清晰展示了2025年上半年中国燃油车和新能源汽车国内销量的变化。在此期间，新能源汽车的销量稳步上升，从1月的79万辆增加到6月的112万辆。相比之下，燃油车的销量在110万辆上下波动。尤其值得注意的是，新能源汽车的销量在5月份超过了燃油车。\n\n显然，这样的数据能让人联想到新能源汽车和传统汽车之间的激烈竞争。那么，出现上述现象的原因是什么？一方面，近年来，中国的典型特征在于其经济的繁荣发展，这使得很多家庭有了额外的收入来购买燃油车或新能源汽车。另一方面，与传统汽车相比，新能源汽车更加便宜、环保、高效，需要的保养也更少。因此，越来越多的人选择了新能源汽车。\n\n在我看来，中国的汽车制造商应该更关注新能源汽车市场，因为其潜力巨大。同时，制造商们还应制定综合策略来开发更多种类的新能源汽车，比如太阳能汽车。",
+      "cues": [
+        "概述表格、两类车的变化与反超",
+        "经济条件与新能源车优势",
+        "关注市场潜力并开发新车型"
+      ],
+      "words": 203,
+      "sources": [],
+      "modelPages": [
+        42,
+        43
+      ],
+      "sourceNote": "扫描原文整理，正文已与范文原页逐段对照。"
+    },
+    {
+      "id": "l02",
+      "number": 2,
+      "kind": "long",
+      "title": "在职群体继续学习的目的",
+      "type": "图表作文",
+      "available": true,
+      "paragraphs": [
+        "Given is a bar chart, which clearly illustrates the striking contrasts in employed residents’ purposes for further study in a certain city in 2025. To be specific, enhancing current job skills ranked first, accounting for 65%. The next was acquiring knowledge in a new area, at 48%, followed by developing personal interests at 37%. Finally came gaining diplomas or vocational certificates, at 26%.",
+        "Such statistics, definitely, can be associated with the growing significance of further study after beginning one’s career. Then, what resulted in this phenomenon? For one thing, contemporary society is characterized by fierce competition and rapid technological advances, which causes employed people to have no option but to continue learning for the purpose of adapting to job requirements. A case in point is AI, as it is transforming many fields. For another, compared to the past, employed people today possess better financial conditions to pursue their interests or make up for deficiencies in educational backgrounds.",
+        "In the final analysis, I am convinced that it is advisable for everyone to develop the habit and awareness of lifelong learning, which can give us a competitive edge, inspire our passion for striving, and help us seize opportunities."
+      ],
+      "prompt": "Write an essay based on the chart below. In your essay, you should (1) describe and interpret the chart, and (2) give your comments. Write your answer in about 150 words on the ANSWER SHEET. (15 points)",
+      "translation": "这是一幅条形图，它清楚地展示了2025年某市在职居民在继续学习目的方面的显著差异。具体来看，提升现有岗位技能位居第一，占65%。其次是学习新领域知识，占48%。发展个人兴趣紧随其后，占37%。最后是获得文凭或职业证书，占26%。\n\n这样的数据无疑可以让人联想到，人们在工作后继续学习的重要性正与日俱增。那么，出现上述现象的原因是什么？一方面，当代社会的特点是竞争激烈与科技的迅速发展，这使在职人群为了适应岗位要求而不得不继续学习。一个典型的例子就是人工智能，它正在改变众多领域。另一方面，与过去相比，如今的在职者拥有更好的经济条件，可以追求自己的兴趣爱好，或者弥补学历方面的不足。\n\n总而言之，我认为每个人都有必要培养终身学习的习惯和意识。终身学习能够给我们带来竞争优势，激发我们奋斗的热情，并帮助我们抓住机遇。",
+      "cues": [
+        "依次呈现四类学习目的",
+        "竞争、科技变化与经济条件",
+        "终身学习的习惯与价值"
+      ],
+      "words": 196,
+      "sources": [],
+      "modelPages": [
+        48
+      ],
+      "sourceNote": "扫描原文整理，正文已与范文原页逐段对照。"
+    },
+    {
+      "id": "l03",
+      "number": 3,
+      "kind": "long",
+      "title": "居民日常出行选择",
+      "type": "图表作文",
+      "available": true,
+      "paragraphs": [
+        "Given is a column chart, clearly illustrating the striking contrasts in residents’ daily transportation choices in a certain city in 2015 and 2021. In contrast to 2015, the percentages of people who took the bus and who drove private cars decreased in 2021, from approximately 51% and 20% to 27% and 16% respectively. Meanwhile, larger proportions of citizens chose to use online car-hailing or shared bikes, both increasing from less than 10% to nearly 25%.",
+        "Such statistics, apparently, can be associated with the diversity of transportation means in contemporary society. Then, what resulted in the phenomenon above? For one thing, in recent years, China has been characterized by the rapid development of science and technology, which has enabled a host of companies to develop more types of transportation means. For another, compared to the past years, citizens become richer and more eco-conscious. Thus, many prefer online car-hailing or shared bikes instead of crowded buses.",
+        "Therefore, the government is supposed to provide citizens with safer, more convenient, and more cost-effective modes of transportation. In addition, it is of great necessity to work out comprehensive strategies to enhance public transportation services."
+      ],
+      "prompt": "Write an essay based on the chart below. In your essay, you should (1) describe and interpret the chart, and (2) give your comments. Write your answer in about 150 words on the ANSWER SHEET. (15 points)",
+      "translation": "所给的是一个柱状图，清晰展示了2015年和2021年某城市居民日常出行方式选择的显著差异。与2015年相比，2021年乘坐公交车和开私家车的人所占比重明显下降，分别从约51%和20%降至27%和16%。与此同时，更高比例的市民选择使用网约车或共享单车，二者均从不到10%上升到近25%。\n\n显然，这样的数据能让人联想到当今社会交通工具的多样性。那么，出现上述现象的原因是什么？一方面，近年来，中国的典型特征在于其科学技术的飞速发展，这使得许多公司开发出了更多类型的交通工具。另一方面，与过去相比，居民变得更加富有，也更具环保意识。因此，很多人更喜欢网约车或共享单车，而不是拥挤的公交车。\n\n所以，政府应该为居民提供更安全、更便捷、性价比更高的出行方式。此外，很有必要制定综合策略来提升公共交通服务。",
+      "cues": [
+        "对比两年四种出行方式",
+        "科技发展与富裕、环保意识",
+        "优化出行方式和公共交通"
+      ],
+      "words": 189,
+      "sources": [],
+      "modelPages": [
+        54,
+        55
+      ],
+      "sourceNote": "扫描原文整理，正文已与范文原页逐段对照。"
+    },
+    {
+      "id": "l04",
+      "number": 4,
+      "kind": "long",
+      "title": "大学生 AI 使用倾向",
+      "type": "图表作文",
+      "available": true,
+      "paragraphs": [
+        "Given is a bar chart, clearly illustrating the remarkable contrasts in students' purposes of utilizing AI in their studies at a certain university. To be specific, searching for and collecting materials ranks first, accounting for 75%. Then, the next is organizing writing ideas, at 67%, followed by translating or revising language, at 60%. Finally comes interpreting data or concepts, at 50%.",
+        "Such statistics, apparently, can be associated with the growing significance of AI in college students' academic pursuits in reality. Then, what results in this phenomenon? For one thing, in recent years, AI tools have been characterized by diverse and powerful functions which have encouraged an increasing number of youngsters to use AI in accomplishing various academic assignments. For another, compared with traditional tools, AI can undoubtedly enhance students' learning efficiency. I am a case in point. As a youngster who is preparing for the national entrance exams for postgraduate studies, I prefer using AI to assist me in collecting materials and making plans.",
+        "In a nutshell, it is AI that enables us to enjoy tremendous convenience. However, I deem that it is not advisable for us to rely excessively on AI. We are supposed to view it as a collaborative partner rather than a replacement for human thinking."
+      ],
+      "prompt": "Directions: Write an essay based on the chart below. In your essay, you should (1) describe and interpret the chart, and (2) give your comments. Write your answer in about 150 words on the ANSWER SHEET. (15 points) 图表或图画见原题页。",
+      "translation": "这是一幅条形图，它清楚地展示了，某高校大学生在其学习中使用人工智能的目的存在显著差异。具体来看，查询和收集资料位居第一，占75%。其次是整理写作思路，占67%。随后是翻译或修改语言，占60%。最后是解释数据或概念，占50%。\n\n显然，这些数据可以让人联想到人工智能在大学生实际学习中的重要性正与日俱增。那么，导致这一现象的原因是什么？一方面，近年来，人工智能工具的特点是功能多样而强大，这鼓励了越来越多的年轻人使用人工智能完成各种作业。另一方面，与传统工具相比，人工智能无疑能够提高学生的学习效率。我就是一个典型的例子。作为一名正在准备全国研究生入学考试的年轻人，我喜欢使用人工智能来辅助我收集资料和制订计划。\n\n简而言之，正是人工智能使我们享受到巨大的便利。然而，我认为我们不应过度依赖人工智能。我们应当把它视为协作伙伴，而非人类思维的替代品。",
+      "cues": [
+        "概述图表与四项用途",
+        "AI 功能、学习效率与个人例子",
+        "肯定便利并强调独立思考"
+      ],
+      "words": 209,
+      "sources": [],
+      "modelPages": [],
+      "sourceNote": "依据完整大册及识别结果整理；数字、范文和译文已对照原页。",
+      "cards": [
+        {
+          "en": "Given is a bar chart, clearly illustrating the remarkable contrasts in students' purposes of utilizing AI in their studies at a certain university.",
+          "zh": "这是一张条形图，清晰显示某高校学生使用 AI 学习目的的显著差异。"
+        },
+        {
+          "en": "To be specific, searching for and collecting materials ranks first, accounting for 75%.",
+          "zh": "具体而言，查询和收集资料位居第一，占 75%。"
+        },
+        {
+          "en": "Then, the next is organizing writing ideas, at 67%, followed by translating or revising language, at 60%.",
+          "zh": "其次是整理写作思路，占 67%；随后是翻译或修改语言，占 60%。"
+        },
+        {
+          "en": "Finally comes interpreting data or concepts, at 50%.",
+          "zh": "最后是解释数据或概念，占 50%。"
+        },
+        {
+          "en": "Such statistics, apparently, can be associated with the growing significance of AI in college students' academic pursuits in reality.",
+          "zh": "这些数据显然与现实中 AI 在大学生学习中的重要性日益增长有关。"
+        },
+        {
+          "en": "Then, what results in this phenomenon?",
+          "zh": "那么，是什么导致了这一现象？"
+        },
+        {
+          "en": "For one thing, in recent years, AI tools have been characterized by diverse and powerful functions which have encouraged an increasing number of youngsters to use AI in accomplishing various academic assignments.",
+          "zh": "一方面，近年来，AI 工具功能多样而强大，鼓励越来越多年轻人用 AI 完成各种学习任务。"
+        },
+        {
+          "en": "For another, compared with traditional tools, AI can undoubtedly enhance students' learning efficiency.",
+          "zh": "另一方面，与传统工具相比，AI 无疑能够提高学生的学习效率。"
+        },
+        {
+          "en": "I am a case in point.",
+          "zh": "我就是一个例子。"
+        },
+        {
+          "en": "As a youngster who is preparing for the national entrance exams for postgraduate studies, I prefer using AI to assist me in collecting materials and making plans.",
+          "zh": "作为一名正在准备全国研究生入学考试的年轻人，我喜欢用 AI 辅助收集资料和制订计划。"
+        },
+        {
+          "en": "In a nutshell, it is AI that enables us to enjoy tremendous convenience.",
+          "zh": "简而言之，正是 AI 使我们享受到巨大便利。"
+        },
+        {
+          "en": "However, I deem that it is not advisable for us to rely excessively on AI.",
+          "zh": "但是，我认为我们不应过度依赖 AI。"
+        },
+        {
+          "en": "We are supposed to view it as a collaborative partner rather than a replacement for human thinking.",
+          "zh": "我们应把它视为协作伙伴，而不是人类思维的替代品。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          4
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          10,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "l05",
+      "number": 5,
+      "kind": "long",
+      "title": "平均寿命与人口老龄化",
+      "type": "图表作文",
+      "available": true,
+      "paragraphs": [
+        "Given are two charts, clearly illustrating the striking changes in the average lifespan of Chinese people in 2004, 2014 and 2024, as well as the proportion of population aged 60 and above from 2004 to 2024. The left column chart shows that there was a remarkable increase in the average lifespan, from 72.54 to 79. Meanwhile, the right line chart displays that the percentage of those aged 60 and above ascended sharply, from 10.97% to 22%.",
+        "Such statistics, apparently, can be associated with the trend of population aging in China. Then, what resulted in the phenomenon above? For one thing, in recent years, China has been characterized by the economic boom and prosperity, which has enabled a growing number of people to possess additional incomes to enjoy a better quality of life and live longer. For another, compared to the past years, young people nowadays are more reluctant to marry or give birth owing to various reasons. Thus, the proportion of the elderly keeps increasing.",
+        "In a nutshell, I deem that it is advisable for the government to focus more on the challenges of population aging, such as the shortage of labor. In addition, they are supposed to work out comprehensive strategies to encourage more young people to give birth to kids."
+      ],
+      "prompt": "Directions: Write an essay based on the charts below. In your essay, you should (1) describe and interpret the charts, and (2) give your comments. Write your answer in about 150 words on the ANSWER SHEET. (15 points) 图表或图画见原题页。",
+      "translation": "所给的是两张图表，清晰呈现了2004、2014、2024年中国人均寿命以及2004年至2024年间60岁及以上人口占比的显著变化。左侧柱状图显示人均寿命从72.54岁显著增长至79岁。同时，右侧折线图表明60岁及以上人口比例从10.97%急剧上升至22%。\n\n显然，这样的数据能让人联想到中国人口的老龄化趋势。那出现上述现象的原因是什么？一方面，近年来，中国的典型特征在于经济的繁荣发展，这使得越来越多的人有了额外收入，来享受更高品质的生活，并且更加长寿。另一方面，与过去相比，如今的年轻人因为各种原因愈发不愿意结婚和生育，因此老年人口比例持续攀升。\n\n简而言之，我认为政府应该更加关注人口老龄化带来的挑战，如劳动力短缺问题。此外，他们应该制定综合策略来鼓励更多年轻人生育。",
+      "cues": [
+        "概述寿命与老龄化两组变化",
+        "经济条件与生育意愿",
+        "应对人口老龄化"
+      ],
+      "words": 212,
+      "sources": [],
+      "modelPages": [],
+      "sourceNote": "依据完整大册及识别结果整理；数字、范文和译文已对照原页。",
+      "cards": [
+        {
+          "en": "Given are two charts, clearly illustrating the striking changes in the average lifespan of Chinese people in 2004, 2014 and 2024, as well as the proportion of population aged 60 and above from 2004 to 2024.",
+          "zh": "这两张图清晰展示了 2004、2014 和 2024 年中国人均寿命，以及 2004 至 2024 年 60 岁及以上人口比例的显著变化。"
+        },
+        {
+          "en": "The left column chart shows that there was a remarkable increase in the average lifespan, from 72.54 to 79.",
+          "zh": "左边的柱状图显示，平均寿命显著增长，从 72.54 岁增至 79 岁。"
+        },
+        {
+          "en": "Meanwhile, the right line chart displays that the percentage of those aged 60 and above ascended sharply, from 10.97% to 22%.",
+          "zh": "同时，右边的折线图显示，60 岁及以上人口比例从 10.97% 急剧升至 22%。"
+        },
+        {
+          "en": "Such statistics, apparently, can be associated with the trend of population aging in China.",
+          "zh": "这些数据显然与中国人口老龄化趋势有关。"
+        },
+        {
+          "en": "Then, what resulted in the phenomenon above?",
+          "zh": "那么，是什么导致了上述现象？"
+        },
+        {
+          "en": "For one thing, in recent years, China has been characterized by the economic boom and prosperity, which has enabled a growing number of people to possess additional incomes to enjoy a better quality of life and live longer.",
+          "zh": "一方面，近年来中国经济繁荣，使越来越多的人拥有额外收入，享受更高质量的生活并更加长寿。"
+        },
+        {
+          "en": "For another, compared to the past years, young people nowadays are more reluctant to marry or give birth owing to various reasons.",
+          "zh": "另一方面，与过去相比，如今的年轻人由于各种原因更不愿意结婚或生育。"
+        },
+        {
+          "en": "Thus, the proportion of the elderly keeps increasing.",
+          "zh": "因此，老年人口比例持续增长。"
+        },
+        {
+          "en": "In a nutshell, I deem that it is advisable for the government to focus more on the challenges of population aging, such as the shortage of labor.",
+          "zh": "简而言之，我认为政府应更加关注人口老龄化带来的挑战，比如劳动力短缺。"
+        },
+        {
+          "en": "In addition, they are supposed to work out comprehensive strategies to encourage more young people to give birth to kids.",
+          "zh": "此外，他们应制定全面策略，鼓励更多年轻人生育。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          8,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "l06",
+      "number": 6,
+      "kind": "long",
+      "title": "大学生初次求职考虑因素",
+      "type": "图表作文",
+      "available": true,
+      "paragraphs": [
+        "Presented is a pie chart, clearly illustrating the striking contrasts in factors that college students at a university take into consideration during their first job hunting in 2025. To be specific, salaries ranked first, accounting for 28%. The next was the opportunity for improvement, at 25%, followed by job duties, at 23%. Finally came job stability and work locations, at 16% and 8% respectively.",
+        "Such statistics, apparently, can be associated with the significance young people attach to their first jobs in reality. Then, what resulted in this phenomenon? To begin with, college graduates are characterized by the fact that they have become adults and need to earn their own bread, which makes them consider the salary as the first factor. In addition, young people are also marked by their strong desire to improve themselves and put what they have learned into practice. Thus, opportunities and job duties are of great importance to them.",
+        "As a youngster, I deem that when we hunt for jobs, it is advisable for us to first consider those positions that can provide opportunities to acquire new skills, which definitely can inspire our passion for challenging ourselves, help us enhance our overall competence, and give us better prospects for promotion."
+      ],
+      "prompt": "Directions: Write an essay based on the chart below. In your essay, you should (1) describe and interpret the chart, and (2) give your comments. Write your answer in about 150 words on the ANSWER SHEET. (15 points) 图表或图画见原题页。",
+      "translation": "这是一幅饼状图，它清楚地展示了2025年某高校大学生在初次求职时所考虑因素之间的显著差异。具体而言，薪酬位居第一，占28%。其次是成长机会，占25%。随后是工作内容，占23%。最后是工作稳定性以及工作地点，分别占16%和8%。\n\n显然，这些数据可以让人联想到现实中年轻人对第一份工作的重视。那么，是什么导致了这一现象？首先，大学毕业生的特点是已经成年，需要自食其力，这使得他们把薪酬视为首要因素。此外，年轻人的特点还在于他们有强烈的自我提升愿望，并渴望把所学知识用于实践。因此，机会与工作内容对他们而言十分重要。\n\n作为一名年轻人，我认为我们求职时应首先考虑那些能够提供新技能学习机会的岗位，这些岗位无疑能够激发我们挑战自我的热情，帮助我们提高综合能力，并为我们带来良好的晋升前景。",
+      "cues": [
+        "概述求职因素及比例",
+        "收入、成长机会与工作内容",
+        "优先考虑能力成长"
+      ],
+      "words": 204,
+      "sources": [],
+      "modelPages": [],
+      "sourceNote": "依据完整大册及识别结果整理；数字、范文和译文已对照原页。",
+      "cards": [
+        {
+          "en": "Presented is a pie chart, clearly illustrating the striking contrasts in factors that college students at a university take into consideration during their first job hunting in 2025.",
+          "zh": "这是一张饼状图，清晰展示了某高校大学生在 2025 年初次求职时考虑的因素之间的显著差异。"
+        },
+        {
+          "en": "To be specific, salaries ranked first, accounting for 28%.",
+          "zh": "具体来说，薪酬位居第一，占 28%。"
+        },
+        {
+          "en": "The next was the opportunity for improvement, at 25%, followed by job duties, at 23%.",
+          "zh": "其次是成长机会，占 25%；随后是工作内容，占 23%。"
+        },
+        {
+          "en": "Finally came job stability and work locations, at 16% and 8% respectively.",
+          "zh": "最后是工作稳定性和工作地点，分别占 16% 和 8%。"
+        },
+        {
+          "en": "Such statistics, apparently, can be associated with the significance young people attach to their first jobs in reality.",
+          "zh": "这些数据显然与现实中年轻人对第一份工作的重视有关。"
+        },
+        {
+          "en": "Then, what resulted in this phenomenon?",
+          "zh": "那么，是什么导致了这一现象？"
+        },
+        {
+          "en": "To begin with, college graduates are characterized by the fact that they have become adults and need to earn their own bread, which makes them consider the salary as the first factor.",
+          "zh": "首先，大学毕业生已经成年，需要自食其力，这使他们把薪酬视为首要因素。"
+        },
+        {
+          "en": "In addition, young people are also marked by their strong desire to improve themselves and put what they have learned into practice.",
+          "zh": "此外，年轻人也有强烈的自我提升愿望，并渴望将所学付诸实践。"
+        },
+        {
+          "en": "Thus, opportunities and job duties are of great importance to them.",
+          "zh": "因此，成长机会和工作内容对他们非常重要。"
+        },
+        {
+          "en": "As a youngster, I deem that when we hunt for jobs, it is advisable for us to first consider those positions that can provide opportunities to acquire new skills, which definitely can inspire our passion for challenging ourselves, help us enhance our overall competence, and give us better prospects for promotion.",
+          "zh": "作为年轻人，我认为求职时应优先考虑提供学习新技能机会的岗位，这无疑能激发挑战自我的热情、提升综合能力，并带来更好的晋升前景。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          4
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          9,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "l07",
+      "number": 7,
+      "kind": "long",
+      "title": "公共场所无障碍通道",
+      "type": "图画＋图表",
+      "available": true,
+      "paragraphs": [
+        "The left drawing shows a simple but quite warm scene, in which there is a disabled person, using a wheelchair to move easily along an accessible pathway. Meanwhile, the right chart clearly illustrates that in a certain city, from 2021 to 2025, the proportion of public places equipped with accessible pathways increased remarkably, from 56% to 85%.",
+        "The scene and statistics above, apparently, can be associated with the special care for people with disabilities in real life. Then, what resulted in this phenomenon? In recent years, China has been characterized by its economic boom and prosperity, which has enabled the government to devote more financial budgets to public facilities, including accessible pathways. It is these facilities that ensure people with limited mobility to enjoy tremendous convenience and get around independently. To my mind, this special care can be likened to sunshine, which can bring warmth to those in need, inspire their passion for life, and help us build a civilized society.",
+        "In the final analysis, I deem that it is advisable for the government to build more accessible pathways in public places. Meanwhile, society as a whole is supposed to foster a positive atmosphere to care for, love, and protect those with disabilities and the like."
+      ],
+      "prompt": "Directions: Write an essay based on the picture and the chart below. In your essay, you should (1) describe the picture and the chart briefly, (2) interpret the implied meaning, and (3) give your comments. 图表或图画见原题页。",
+      "translation": "左图展示了一个简单却十分温暖的场景：一位残障人士正在无障碍通道上轻松地使用轮椅移动。与此同时，右图清楚地显示，在某市，从2021年到2025年，配备无障碍通道的公共场所的比例显著上升，从56%提高到了85%。\n\n显然，上述场景和数据能让人联想到现实生活中对残障人士的特殊关爱。那么，出现这种现象的原因是什么？近年来，中国的特点在于其经济繁荣昌盛，这使政府能够投入更多财政预算，用在包括无障碍通道在内的公共设施上。正是这些设施让行动不便的人获得巨大便利，得以独立出行。在我看来，这种特殊关爱可以比作阳光，它能给有需要的人带来温暖，激发他们对生活的热情，并帮助我们建设文明社会。\n\n总而言之，我认为政府应该在公共场所建设更多无障碍通道。同时，全社会都应营造积极氛围，关心、关爱并保护残障人士以及其他类似群体。",
+      "cues": [
+        "描写无障碍通道与图表变化",
+        "联系社会关爱及设施价值",
+        "建设设施并营造友善氛围"
+      ],
+      "words": 206,
+      "sources": [],
+      "modelPages": [],
+      "sourceNote": "依据完整大册及识别结果整理；数字、范文和译文已对照原页。",
+      "cards": [
+        {
+          "en": "The left drawing shows a simple but quite warm scene, in which there is a disabled person, using a wheelchair to move easily along an accessible pathway.",
+          "zh": "左图展示了一个简单却温暖的场景：一名残障人士正使用轮椅沿无障碍通道轻松移动。"
+        },
+        {
+          "en": "Meanwhile, the right chart clearly illustrates that in a certain city, from 2021 to 2025, the proportion of public places equipped with accessible pathways increased remarkably, from 56% to 85%.",
+          "zh": "同时，右图清楚表明，2021 至 2025 年，某市配备无障碍通道的公共场所比例从 56% 显著上升至 85%。"
+        },
+        {
+          "en": "The scene and statistics above, apparently, can be associated with the special care for people with disabilities in real life.",
+          "zh": "上述场景和数据显然与现实中对残障人士的特殊关爱有关。"
+        },
+        {
+          "en": "Then, what resulted in this phenomenon?",
+          "zh": "那么，是什么导致了这一现象？"
+        },
+        {
+          "en": "In recent years, China has been characterized by its economic boom and prosperity, which has enabled the government to devote more financial budgets to public facilities, including accessible pathways.",
+          "zh": "近年来，中国经济繁荣，使政府能够投入更多财政预算用于公共设施，包括无障碍通道。"
+        },
+        {
+          "en": "It is these facilities that ensure people with limited mobility to enjoy tremendous convenience and get around independently.",
+          "zh": "正是这些设施让行动不便的人享受巨大便利，并能够独立出行。"
+        },
+        {
+          "en": "To my mind, this special care can be likened to sunshine, which can bring warmth to those in need, inspire their passion for life, and help us build a civilized society.",
+          "zh": "在我看来，这种特殊关爱可以比作阳光，能给需要帮助的人带来温暖，激发他们对生活的热情，并帮助我们建设文明社会。"
+        },
+        {
+          "en": "In the final analysis, I deem that it is advisable for the government to build more accessible pathways in public places.",
+          "zh": "归根结底，我认为政府应在公共场所建设更多无障碍通道。"
+        },
+        {
+          "en": "Meanwhile, society as a whole is supposed to foster a positive atmosphere to care for, love, and protect those with disabilities and the like.",
+          "zh": "同时，全社会应营造积极氛围，关心、关爱并保护残障人士及其他类似群体。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          7,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "l08",
+      "number": 8,
+      "kind": "long",
+      "title": "急救知识的普及",
+      "type": "图画＋图表",
+      "available": true,
+      "paragraphs": [
+        "In the left drawing, there is a professional healthcare worker, imparting first aid knowledge to two youngsters. Meanwhile, the right chart clearly illustrates that from 2021 to 2025, in a certain city, the proportion of residents aged 18 to 60 who attended first aid courses ascended significantly, from 9% to 32%.",
+        "The scene and statistics above, definitely, can be associated with a positive shift in public awareness regarding safety and health. Undoubtedly, in recent decades, China has been characterized by its economic prosperity and technological advancement, which have enabled people to enjoy a higher quality of life and have more opportunities to acquire various kinds of knowledge, including first aid skills. It is mastering basic first aid skills that enables citizens to save their own or others’ lives in emergencies, such as cardiac arrests, accidents. I am a case in point. As a youngster, I prefer watching health education videos and TV programs, as well as attending medical lectures to acquire first aid knowledge. Thanks to such knowledge, I helped save an injured man after a car accident.",
+        "In a nutshell, I am convinced that it is advisable for hospitals to offer more free training courses to people from all walks of life. Meanwhile, society as a whole should foster a positive atmosphere to inspire the public to learn these vital skills."
+      ],
+      "prompt": "Write an essay based on the picture and the chart below. In your essay, you should (1) describe the picture and the chart briefly, (2) interpret the implied meaning, and (3) give your comments. Write about 150 words on the ANSWER SHEET. (15 points)",
+      "translation": "左图中，一名专业医护人员正在向两名年轻人传授急救知识。与此同时，右图清楚地显示，从2021年到2025年，某市18~60岁居民中参加过急救课程的比例显著上升，从9%提高到了32%。\n\n显然，上述场景和数据能让人联想到公众在安全与健康意识方面的积极转变。毫无疑问，近几十年来，中国的特点是经济繁荣和科技进步，这使人们能够享受更高质量的生活，并有更多机会获取包括急救技能在内的各种知识。正是掌握基础急救技能使居民能够在心脏骤停、意外事故等紧急情况下挽救自己或他人的生命。我就是一个典型的例子。作为年轻人，我喜欢观看健康教育视频和电视节目，也喜欢参加医学讲座，以学习急救知识。多亏了这些知识，我曾在一次车祸后救助了一名伤者。\n\n总而言之，我认为医院应该向各行各业的人提供更多免费培训课程。同时，整个社会也应营造积极的氛围，鼓励公众学习这些至关重要的技能。",
+      "cues": [
+        "描写传授急救与培训比例变化",
+        "社会背景、急救价值与个人事例",
+        "免费培训与社会氛围"
+      ],
+      "words": 222,
+      "sources": [],
+      "modelPages": [
+        63,
+        64
+      ],
+      "sourceNote": "扫描原文整理，正文已与范文原页逐段对照。"
+    },
+    {
+      "id": "l09",
+      "number": 9,
+      "kind": "long",
+      "title": "科技改变习惯",
+      "type": "图画作文",
+      "available": true,
+      "paragraphs": [
+        "These are two simple but satirical drawings. In the left picture, there is a girl, sitting in front of a computer and typing so many words with no difficulty. However, in the right cartoon, without the help of modern technology, the girl has great trouble in writing words on paper, with the thought in her mind: I need to look them up on my cell phone. Finally, several Chinese characters can be noticed below the pictures, which read that science and technology has changed people’s habits.",
+        "The fast development of science and technology, to my understanding, can be likened to a double-edged sword. On the one hand, numerous innovative technological products can bring us great convenience, inspire our passion for a promising life, and help us enhance work efficiency. On the other hand, it is modern technology that causes a number of youngsters to lose certain basic skills in life, work, and study. This phenomenon is particularly worth attention.",
+        "As a college student, I deem that it is advisable for us to utilize modern technological products, but it is of no necessity to be slaves to IT products."
+      ],
+      "prompt": "Write an essay based on the pictures below. In your essay, you should (1) describe the pictures briefly, (2) interpret the implied meaning, and (3) give your comments. Write about 150 words on the ANSWER SHEET. (15 points)",
+      "translation": "这是两幅简单但具有讽刺性的漫画。在左图中，有一个女孩坐在电脑前很轻松地打了很多字。然而，在右图中，没有了现代技术的帮助，这个女孩在纸上写字很困难，心里想着：我需要用手机查一下。最后，我们能注意到图画下方有几个汉字，写的是“科技改变习惯”。\n\n在我看来，科学技术的飞速发展可以比作一把双刃剑。一方面，众多的创新科技产品能给我们带来巨大的便利，激发我们对美好生活的热情，并帮助我们提高工作效率。另一方面，正是现代科技使一些年轻人丧失了生活、工作和学习中的某些基本技能。这一现象非常值得关注。\n\n作为一名大学生，我认为我们应该使用现代科技产品，但没必要完全依赖IT产品。",
+      "cues": [
+        "两幅画的对比与文字寓意",
+        "科技便利与基本能力退化",
+        "使用科技而不做其奴隶"
+      ],
+      "words": 188,
+      "sources": [],
+      "modelPages": [
+        69,
+        70
+      ],
+      "sourceNote": "扫描原文整理，正文已与范文原页逐段对照。"
+    },
+    {
+      "id": "l10",
+      "number": 10,
+      "kind": "long",
+      "title": "奖励式教育",
+      "type": "材料作文",
+      "available": true,
+      "paragraphs": [
+        "This is a simple but enlightening excerpt of an article, in which the author argues that incentive-based parenting can be effective at home for the short term, but will become a problem in the long run. Although I have no children, I couldn’t agree more with it.",
+        "To my understanding, one’s internal motivation can be likened to the key to success. A case in point is myself. As a senior who is preparing for the national entrance exams for postgraduate studies, I cling to the idea that it is inner motivation that enables me to work hard each day and accumulate adequate knowledge and competence to achieve my dream. However, in reality, a host of short-sighted parents may merely rely on the so-called reward system to encourage their children. This phenomenon is particularly worth attention for the reason that children often fail to maintain positive behaviors if the reward is unavailable. That is to say, in the long term, this sort of reward system may constitute an obstacle that hinders youngsters’ growth and progress.",
+        "Accordingly, all parents should bear in mind that internal motivation cultivates interest in learning itself. If parents intend to see children’s sustainable growth, it is advisable for them to inspire the young’s internal motivation."
+      ],
+      "prompt": "Read the following excerpt from an article and write an essay. In your essay, you should explain whether or to what extent you agree with the author. Support your argument with reasons and relevant examples. Write your answer in about 150 words on the ANSWER SHEET. (15 points) 材料全文见下方原题页。",
+      "translation": "这是一段简单但具有启发性的文章节选，作者在文中指出，短期来看，这种奖励式教育在家里是有效的，但从长远来看会引发问题。虽然我没有孩子，但我完全同意。\n\n在我看来，一个人的内在动力可以比作通往成功的钥匙。一个典型的例子就是我自己。作为一名正在准备全国研究生入学考试的大四学生，我坚信，正是内在动力让我可以每天刻苦学习，积累足够的知识和能力来实现梦想。然而，在现实生活中，许多目光短浅的父母可能只依靠所谓的奖励机制来鼓励孩子。这种现象特别值得关注，因为如果没有奖励，孩子们往往无法保持积极的行为。也就是说，从长远来看，这种奖励机制可能会构成一种障碍，阻碍年轻人的成长和进步。\n\n因此，所有家长都应牢记，内在动力培养的是对学习本身的兴趣。如果父母想看到孩子不断成长，就应该激发孩子的内在动力。",
+      "cues": [
+        "概述材料并明确赞同",
+        "内在动机、个人例子与奖励局限",
+        "家长重视兴趣和内在动机"
+      ],
+      "words": 208,
+      "sources": [],
+      "modelPages": [
+        76,
+        77
+      ],
+      "sourceNote": "扫描原文整理，正文已与范文原页逐段对照。"
+    },
+    {
+      "id": "a01",
+      "number": 1,
+      "kind": "long",
+      "optional": true,
+      "title": "附录样题：青少年社交与科技",
+      "type": "材料作文 · 大纲模拟样题",
+      "available": true,
+      "paragraphs": [
+        "Given is a simple but enlightening excerpt of an article, which clearly illustrates the result of studies in the U.S. and the U.K.: children have lost the right to wander and thus, they turn to technology to socialize, relax and learn. As a youngster, I agree with this argument.",
+        "Admittedly, compared to the past years, children enjoy less space and freedom to wander, especially in cities, where traffic is busy and skyscrapers are everywhere. Even in city parks, children are still followed and protected by parents. However, as the studies show, children are fond of interacting with their peers rather than their parents. A case in point is myself. As a senior who is preparing for the national entrance exams for postgraduate studies, I do not prefer discussing my problems in learning with my parents or siblings. Instead, I tend to release my stress by listening to music, chatting with friends or playing games on smartphones.",
+        "Accordingly, it is advisable for parents to give children the right to wander. Meanwhile, parents are supposed to guide their kids to use technology in a rational way because some of them may be addicted to video games."
+      ],
+      "prompt": "Read the following excerpt from an article and write an essay. In your essay, you should explain whether or to what extent you agree with the author. Support your argument with reasons and relevant examples.\nWrite your answer in about 150 words on the ANSWER SHEET. (15 points)\n\nStudies in the U.S. and the U.K. consistently show that children have lost the right to wander. This is why many of our youth turn to technology. They aren't addicted to the computer; they're addicted to interaction, and being around their friends. Children, and especially teenagers, don't want to only socialize with parents and siblings; they want to play with their peers. That's how they make sense of the world. And we've robbed them of that opportunity. We're raising our children in captivity and they turn to technology to socialize, learn and relax. Why are we blaming the screens?",
+      "translation": "所给是一篇文章的节选，简单却很有启发性。节选内容清楚地表明了美国和英国的研究结果：孩子们失去了闲逛的权利，因而开始使用科技产品进行社交、放松和学习。作为一个年轻人，我同意这一观点。\n\n确实，与过去相比，孩子们闲逛的空间和自由变得更少，尤其是在交通拥堵、高楼林立的城市中。即使在城市公园里，孩子们也仍旧有父母跟随保护。然而，研究表明，孩子喜欢跟同龄人交流，而非父母。一个典型的例子就是我自己。作为一名正在准备全国研究生入学考试的大四学生，我不喜欢与父母或兄弟姐妹聊学习问题。相反，我倾向于通过听音乐、与朋友聊天或者在手机上玩游戏来释放压力。\n\n因此，建议家长给孩子出去闲逛的权利。同时，家长也应该引导孩子理性地使用科技产品，因为有些孩子可能会沉迷于电子游戏。",
+      "cues": [
+        "概述材料并表明观点",
+        "城市空间、同伴交流与个人事例",
+        "给予自由并引导理性使用科技"
+      ],
+      "words": 194,
+      "sources": [],
+      "modelPages": [
+        97,
+        98
+      ],
+      "sourceNote": "大册附录模拟样题；英文与参考译文已对照 PDF 原页整理。"
+    },
+    {
+      "id": "f01",
+      "number": 1,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "自我介绍",
+      "type": "书信表达",
+      "paragraphs": [
+        "As ...（身份）who ...（进一步介绍）, I ...",
+        "I am ...（身份）who ...（进一步介绍）"
+      ],
+      "cards": [
+        {
+          "en": "As ...（身份）who ...（进一步介绍）, I ...",
+          "zh": "作为……，我……"
+        },
+        {
+          "en": "I am ...（身份）who ...（进一步介绍）",
+          "zh": "我是……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "As a senior at this university who is particularly fond of reading in the library, I ...",
+          "zh": "作为一名非常喜欢在图书馆看书的本校大四学生,我......"
+        },
+        {
+          "label": "示例2(应用文)",
+          "en": "I am Li Ming, an international student from China who will study in your country.",
+          "zh": "我是来自中国的留学生李明,将在贵国学习。"
+        }
+      ]
+    },
+    {
+      "id": "f02",
+      "number": 2,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "寒暄",
+      "type": "书信表达",
+      "paragraphs": [
+        "I am quite/very pleased to ...",
+        "It's so great to ... / So glad to ..."
+      ],
+      "cards": [
+        {
+          "en": "I am quite/very pleased to ...",
+          "zh": "我很高兴……"
+        },
+        {
+          "en": "It's so great to ... / So glad to ...",
+          "zh": "非常高兴……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "I am very pleased to recall the past two months when I worked as an editor for your magazine.",
+          "zh": "我很高兴回想起担任贵刊编辑的这两个月。"
+        },
+        {
+          "label": "示例2(应用文)",
+          "en": "It's so great to recall the first successful charity sale held by our class last year.",
+          "zh": "非常高兴回想起去年我们班成功举办的首次慈善义卖活动。"
+        }
+      ]
+    },
+    {
+      "id": "f03",
+      "number": 3,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "写信或通知的目的",
+      "type": "书信表达",
+      "paragraphs": [
+        "I am writing to ... / I am writing for the purpose of ...",
+        "sth. is/are for the purpose of ..."
+      ],
+      "cards": [
+        {
+          "en": "I am writing to ... / I am writing for the purpose of ...",
+          "zh": "我写信来是为了……"
+        },
+        {
+          "en": "sth. is/are for the purpose of ...",
+          "zh": "……旨在……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "I am writing for the purpose of making suggestions for improving the service here.",
+          "zh": "我写信来是想为改进这里(图书馆)的服务提一些建议。"
+        },
+        {
+          "label": "示例2(应用文)",
+          "en": "This notice is for the purpose of recruiting 25 volunteers.",
+          "zh": "本通知旨在招募25名志愿者。"
+        },
+        {
+          "label": "示例3(图表作文)",
+          "en": "People tend to purchase presents to visit relatives and friends for the purpose of expressing their wishes.",
+          "zh": "人们通常会购买礼物走亲访友,以表达祝福。"
+        }
+      ]
+    },
+    {
+      "id": "f04",
+      "number": 4,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "提出建议",
+      "type": "书信表达",
+      "paragraphs": [
+        "I suggest that ...",
+        "... is/are (not) supposed to ... / ... should (not) ...",
+        "It will be beneficial (for sb.) to do sth.",
+        "It is (not) advisable (for sb.) to do sth.",
+        "It is (not) necessary/appropriate (for sb.) to ...",
+        "(As a result,) it is essential/necessary (for sb.) to (focus attention on) ..., (due to ...)",
+        "(To my understanding,) ... is/are supposed to (pay more attention to) ...",
+        "Meanwhile, it is essential/advisable (for sb.) to work out comprehensive strategies to ..."
+      ],
+      "cards": [
+        {
+          "en": "I suggest that ...",
+          "zh": "我建议……"
+        },
+        {
+          "en": "... is/are (not) supposed to ... / ... should (not) ...",
+          "zh": "……（不）应该……"
+        },
+        {
+          "en": "It will be beneficial (for sb.) to do sth.",
+          "zh": "建议（某人）做某事"
+        },
+        {
+          "en": "It is (not) advisable (for sb.) to do sth.",
+          "zh": "（不）建议（某人）做某事"
+        },
+        {
+          "en": "It is (not) necessary/appropriate (for sb.) to ...",
+          "zh": "（某人）做某事（没）有必要／（不）合适"
+        },
+        {
+          "en": "(As a result,) it is essential/necessary (for sb.) to (focus attention on) ..., (due to ...)",
+          "zh": "（因此，）（某人）有必要（关注）……，（因为……）"
+        },
+        {
+          "en": "(To my understanding,) ... is/are supposed to (pay more attention to) ...",
+          "zh": "（在我看来，）……应该（更加关注）……"
+        },
+        {
+          "en": "Meanwhile, it is essential/advisable (for sb.) to work out comprehensive strategies to ...",
+          "zh": "同时，（某人）有必要／应当制定综合策略来……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          8
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "I suggest that you apply for an English teaching position in training organizations.",
+          "zh": "我建议你申请培训机构的英语教学岗位。"
+        },
+        {
+          "label": "示例2(应用文)",
+          "en": "It will be beneficial to extend the opening hours of the reading rooms where they study.",
+          "zh": "建议延长阅览室的开放时间,让他们(备考学生)在此学习。"
+        },
+        {
+          "label": "示例3(图画作文)",
+          "en": "Furthermore, it is advisable for parents to give their kids freedom and opportunities to grow independently.",
+          "zh": "而且,家长应该给孩子提供独立成长的自由和机会。"
+        },
+        {
+          "label": "示例4(图表作文)",
+          "en": "As a result, Chinese manufacturers are supposed to pay more attention to the domestic market due to its great potential.",
+          "zh": "因此,中国汽车制造商应该更关注国内市场,因为其潜力巨大。"
+        },
+        {
+          "label": "示例5(图表作文)",
+          "en": "Meanwhile, it is essential for them to work out comprehensive strategies to enhance the quality of cars and improve after-sales service.",
+          "zh": "同时,他们有必要制定综合策略来提升汽车的质量和售后服务。"
+        }
+      ]
+    },
+    {
+      "id": "f05",
+      "number": 5,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "展望未来",
+      "type": "书信表达",
+      "paragraphs": [
+        "If they do their utmost, the future of ... will be hopeful/promising."
+      ],
+      "cards": [
+        {
+          "en": "If they do their utmost, the future of ... will be hopeful/promising.",
+          "zh": "如果他们竭尽全力，……的明天将一片光明。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例(图表作文)",
+          "en": "If they do their utmost, the future of the mobile phone industry will be hopeful.",
+          "zh": "如果他们竭尽全力,手机产业的明天将一片光明。"
+        }
+      ]
+    },
+    {
+      "id": "f06",
+      "number": 6,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "表达感谢或不满",
+      "type": "书信表达",
+      "paragraphs": [
+        "I am quite/much grateful/indebted (to sb.) for ...",
+        "I am much/rather disappointed/angry with ..."
+      ],
+      "cards": [
+        {
+          "en": "I am quite/much grateful/indebted (to sb.) for ...",
+          "zh": "我非常感谢（某人）……"
+        },
+        {
+          "en": "I am much/rather disappointed/angry with ...",
+          "zh": "我对……感到非常失望／愤怒。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "表达感谢时，very grateful 通常比 much grateful 更自然。",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "I want to say I am much grateful for your hard work.",
+          "zh": "我想说,非常感谢你们的辛勤工作。"
+        },
+        {
+          "label": "示例2(应用文)",
+          "en": "I am rather disappointed with the quality of your products.",
+          "zh": "我对你们的产品质量感到非常失望。"
+        }
+      ]
+    },
+    {
+      "id": "f07",
+      "number": 7,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "表达期待",
+      "type": "书信表达",
+      "paragraphs": [
+        "I am looking forward to ...",
+        "I hope to/that ..."
+      ],
+      "cards": [
+        {
+          "en": "I am looking forward to ...",
+          "zh": "我期待……"
+        },
+        {
+          "en": "I hope to/that ...",
+          "zh": "我希望……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "I am looking forward to your favorable reply.",
+          "zh": "我期待您的肯定答复。"
+        },
+        {
+          "label": "示例2(应用文)",
+          "en": "I sincerely hope that you can participate in the contest.",
+          "zh": "我真诚地希望您能参加此次比赛。"
+        }
+      ]
+    },
+    {
+      "id": "f08",
+      "number": 8,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "值得去做或关注",
+      "type": "书信表达",
+      "paragraphs": [
+        "... is particularly worth doing",
+        "... is particularly worth attention (for the reason that/because ...)"
+      ],
+      "cards": [
+        {
+          "en": "... is particularly worth doing",
+          "zh": "……非常值得……"
+        },
+        {
+          "en": "... is particularly worth attention (for the reason that/because ...)",
+          "zh": "……非常值得关注（，因为……）。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "表达“值得关注”时，deserves attention 或 is worth paying attention to 更自然。",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "This movie is particularly worth watching for two reasons.",
+          "zh": "这部电影非常值得一看,有两个原因。"
+        },
+        {
+          "label": "示例2(图画作文)",
+          "en": "These two pictures are particularly worth attention for the reason that they reveal the role of parents in their children's education.",
+          "zh": "这两张图片尤其值得关注,因为它们揭示了父母在孩子的教育中所承担的角色。"
+        }
+      ]
+    },
+    {
+      "id": "f09",
+      "number": 9,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "引出原因",
+      "type": "原因与观点",
+      "paragraphs": [
+        "But what resulted in the differences above? To my understanding, at least two reasons can account for this phenomenon."
+      ],
+      "cards": [
+        {
+          "en": "But what resulted in the differences above? To my understanding, at least two reasons can account for this phenomenon.",
+          "zh": "但是什么导致了以上差异？在我看来，至少有两个原因可以解释这一现象。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": []
+    },
+    {
+      "id": "f10",
+      "number": 10,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "原因或重大意义：强调句",
+      "type": "原因与观点",
+      "paragraphs": [
+        "It is ... that makes/enables/allows/leads/causes sb. to ..."
+      ],
+      "cards": [
+        {
+          "en": "It is ... that makes/enables/allows/leads/causes sb. to ...",
+          "zh": "正是……使得／致使／导致某人……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "注意动词搭配：make sb. do；enable、allow、cause、lead sb. to do。原资料合并展示时不要把 make 写成 make sb. to do。",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "It is your devoted work that enables us to enjoy a positive learning atmosphere here.",
+          "zh": "正是你们尽心尽力的工作使得我们在这里享受到了良好的学习氛围。"
+        },
+        {
+          "label": "示例2(图画作文)",
+          "en": "It is their pessimistic attitude that causes them to see no hope, no chance, or no possibility of change.",
+          "zh": "正是他们的悲观心态导致他们看不到希望,看不到机会,也看不到改变的可能。"
+        }
+      ]
+    },
+    {
+      "id": "f11",
+      "number": 11,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "只关注某事却忽视其他",
+      "type": "原因与观点",
+      "paragraphs": [
+        "... focus only on ..., ignoring ..."
+      ],
+      "cards": [
+        {
+          "en": "... focus only on ..., ignoring ...",
+          "zh": "只关心……，却忽视了……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例(图画作文)",
+          "en": "This trend is particularly worth attention for the reason that they focus only on the virtual world,ignoring the real life.",
+          "zh": "这种趋势很值得关注,因为这些人只关心虚拟世界,却忽视了现实生活。"
+        }
+      ]
+    },
+    {
+      "id": "f12",
+      "number": 12,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "典型特征及结果",
+      "type": "原因与观点",
+      "paragraphs": [
+        "... be marked/characterized by ...",
+        "For one thing, ... be characterized by ..., which makes/enables ... to ..."
+      ],
+      "cards": [
+        {
+          "en": "... be marked/characterized by ...",
+          "zh": "……的典型／突出特征在于……"
+        },
+        {
+          "en": "For one thing, ... be characterized by ..., which makes/enables ... to ...",
+          "zh": "一方面，……的典型特征在于……，这使得……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "College life is characterized by a rich variety of activities.",
+          "zh": "大学生活的典型特征在于丰富多样的活动。"
+        },
+        {
+          "label": "示例2(图画作文)",
+          "en": "Successful individuals are marked by their various excellent qualities, including diligence, optimism, confidence, perseverance, and a strong will.",
+          "zh": "成功人士的典型特征在于他们身上的各种优秀品质,包括勤奋、乐观、自信、持之以恒以及意志坚强。"
+        },
+        {
+          "label": "示例3(图表作文)",
+          "en": "For one thing, in recent years, developing countries have been characterized by their economic boom, which has enabled residents there to possess additional money to purchase mobile phones.",
+          "zh": "一方面,近年来,发展中国家的典型特征在于其经济的蓬勃发展,这使得当地居民有额外的钱来购买手机。"
+        }
+      ]
+    },
+    {
+      "id": "f13",
+      "number": 13,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "对比及结果",
+      "type": "原因与观点",
+      "paragraphs": [
+        "Compared with/to ..., ... 比较级（或含比较意义的表达）...",
+        "For another, compared with/to ..., ... 比较级（或含比较意义的表达）..., so ..."
+      ],
+      "cards": [
+        {
+          "en": "Compared with/to ..., ... 比较级（或含比较意义的表达）...",
+          "zh": "与……相比，……更／则……"
+        },
+        {
+          "en": "For another, compared with/to ..., ... 比较级（或含比较意义的表达）..., so ...",
+          "zh": "另一方面，与……相比，……更……，因此……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "Compared with students' study demands, the number and variety of books are not adequate.",
+          "zh": "与学生们的学习需求相比,书的数量和种类则不足。"
+        },
+        {
+          "label": "示例2(图表作文)",
+          "en": "For another, compared to the past years, the Sino-Japanese relations have got worse, so a larger proportion of residents in China do not purchase Japanese products, including cars.",
+          "zh": "另一方面,与过去相比,中日关系变得更糟糕,因此更多中国居民不再购买包括汽车在内的日本产品。"
+        }
+      ]
+    },
+    {
+      "id": "f14",
+      "number": 14,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "积极意义：排比",
+      "type": "原因与观点",
+      "paragraphs": [
+        "... will bring sb. ..., arouse sb.'s enthusiasm/passion for ..., and help sb. ..."
+      ],
+      "cards": [
+        {
+          "en": "... will bring sb. ..., arouse sb.'s enthusiasm/passion for ..., and help sb. ...",
+          "zh": "……将带给某人……，唤起某人对……的热情，并帮助某人……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "Practice and diligence will bring you experience and inspiration, arouse your enthusiasm for study, and help you to make progress every day.",
+          "zh": "实践和勤奋将带给你经验和灵感,唤起你对学习的热情,并帮助你每天进步。"
+        },
+        {
+          "label": "示例2(图画作文)",
+          "en": "I am firmly convinced that perseverance will always bring me power, arouse my enthusiasm for the future, and help me to conquer many hardships.",
+          "zh": "我坚信持之以恒的精神总会带给我力量,唤起我对未来的热情,并帮助我克服许多困难。"
+        },
+        {
+          "label": "示例3(图表作文)",
+          "en": "Studying abroad brings young people more opportunities, arouses their enthusiasm for foreign cultures, and helps them broaden their horizons.",
+          "zh": "出国留学带给年轻人更多机会,唤起他们对外国文化的热情,并帮助他们开阔眼界。"
+        }
+      ]
+    },
+    {
+      "id": "f15",
+      "number": 15,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "说明事件背景",
+      "type": "原因与观点",
+      "paragraphs": [
+        "... is scheduled to begin/start ...（时间）...（地点）, which will last (for) ...（时间段）",
+        "... is scheduled to be held ...（地点）"
+      ],
+      "cards": [
+        {
+          "en": "... is scheduled to begin/start ...（时间）...（地点）, which will last (for) ...（时间段）",
+          "zh": "……定于……时间在……地点开始，将持续……"
+        },
+        {
+          "en": "... is scheduled to be held ...（地点）",
+          "zh": "……将在……地点举办。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(应用文)",
+          "en": "This ceremony is scheduled to begin at 9:00 am on June 26th at the Center for Student Activities, which will last for approximately two hours.",
+          "zh": "典礼定于6月26日上午9:00在学生活动中心开始,将持续约2小时。"
+        },
+        {
+          "label": "示例2(应用文)",
+          "en": "The international conference on globalization is scheduled to be held at our university.",
+          "zh": "有关全球化的国际会议将在我校举办。"
+        }
+      ]
+    },
+    {
+      "id": "f16",
+      "number": 16,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "说明自己忙碌",
+      "type": "原因与观点",
+      "paragraphs": [
+        "... I was extremely/exceedingly busy during ...（时间段）, because/since I focused all my attention on ..."
+      ],
+      "cards": [
+        {
+          "en": "... I was extremely/exceedingly busy during ...（时间段）, because/since I focused all my attention on ...",
+          "zh": "在……时间，我非常忙碌，因为我把所有注意力都放在了……上。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例(应用文)",
+          "en": "As you know, during the past six months, I was exceedingly busy because I focused all my attention on the preparation for the national entrance exams for postgraduate studies.",
+          "zh": "您是知道的,在过去的这半年中,我非常忙碌,因为我把所有注意力都放在了准备研究生入学考试上。"
+        }
+      ]
+    },
+    {
+      "id": "f17",
+      "number": 17,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "表达个人观点",
+      "type": "原因与观点",
+      "paragraphs": [
+        "As a ..., I believe/deem/am convinced/cling to the idea that ...",
+        "As a ..., I prefer doing/to do ..."
+      ],
+      "cards": [
+        {
+          "en": "As a ..., I believe/deem/am convinced/cling to the idea that ...",
+          "zh": "作为……，我相信／认为／坚信……"
+        },
+        {
+          "en": "As a ..., I prefer doing/to do ...",
+          "zh": "作为……，我喜欢……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(图画作文)",
+          "en": "As a senior who is preparing for the national entrance exams for postgraduate studies, I am firmly convinced that perseverance will always bring me power ...",
+          "zh": "作为一名正在准备研究生入学考试的大四学生,我坚信持之以恒的精神总会带给我力量......"
+        },
+        {
+          "label": "示例2(图表作文)",
+          "en": "As a youngster, I prefer to work in the city and live in the countryside, for ...",
+          "zh": "作为年轻人,我喜欢在城市工作、在乡村生活,因为......"
+        }
+      ]
+    },
+    {
+      "id": "f18",
+      "number": 18,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "概述图画或材料",
+      "type": "图画图表",
+      "paragraphs": [
+        "This is a simple but enlightening picture (which vividly illustrates a common phenomenon among ...)",
+        "This is a simple but enlightening excerpt of an article, in which the author argues that ..."
+      ],
+      "cards": [
+        {
+          "en": "This is a simple but enlightening picture (which vividly illustrates a common phenomenon among ...)",
+          "zh": "这是一张简单但有启发性的图画，生动展示了……中的普遍现象。"
+        },
+        {
+          "en": "This is a simple but enlightening excerpt of an article, in which the author argues that ...",
+          "zh": "这是一篇简单但有启发性的文章节选，作者在文中指出……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": []
+    },
+    {
+      "id": "f19",
+      "number": 19,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "描述图画细节",
+      "type": "图画图表",
+      "paragraphs": [
+        "...（时间/地点）, there be ...（人/物/事）, v-ing ...（行为）, with ...（伴随特征）",
+        "...（地点）verb（动作，如 sit）...（人/物）, v-ing ...（行为）, with ...（伴随特征）"
+      ],
+      "cards": [
+        {
+          "en": "...（时间/地点）, there be ...（人/物/事）, v-ing ...（行为）, with ...（伴随特征）",
+          "zh": "在……时间／地点，有……，正在……，与此同时……"
+        },
+        {
+          "en": "...（地点）verb（动作，如 sit）...（人/物）, v-ing ...（行为）, with ...（伴随特征）",
+          "zh": "在……地点（动作）……，正在……，与此同时……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "第二个结构涉及倒装，需根据具体动词和主谓关系调整，不能机械套用。",
+      "referenceExamples": [
+        {
+          "label": "示例1(图画作文)",
+          "en": "On the path to the top of a high mountain, there is a youngster sitting for rest and sighing, “I am too tired to climb.”",
+          "zh": "在通往高山顶的路上,有一个年轻人正坐着休息,并叹气道:“累了!我不爬了。”"
+        },
+        {
+          "label": "示例2(图画作文)",
+          "en": "Beside a table sit four youngsters, staring at their smartphones, with tasty food uneaten.",
+          "zh": "四个年轻人坐在一张餐桌旁,正盯着自己的智能手机,同时桌子上的美食却丝毫未动。"
+        }
+      ]
+    },
+    {
+      "id": "f20",
+      "number": 20,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "对比反差与引出观点",
+      "type": "图画图表",
+      "paragraphs": [
+        "Although ...（寻常情况）, ...（反常之处）"
+      ],
+      "cards": [
+        {
+          "en": "Although ...（寻常情况）, ...（反常之处）",
+          "zh": "尽管／虽然……，但是……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(图画作文)",
+          "en": "Although they gather to enhance their friendship, these guys scarcely chat with each other.",
+          "zh": "尽管他们是为了增进友谊而聚餐,但是这些人彼此间几乎没有交流。"
+        },
+        {
+          "label": "示例2(材料作文)",
+          "en": "Although I have no children, I cannot agree more with it.",
+          "zh": "虽然我没有孩子,但我完全同意(作者观点)。"
+        }
+      ]
+    },
+    {
+      "id": "f21",
+      "number": 21,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "说明图画中的文字",
+      "type": "图画图表",
+      "paragraphs": [
+        "Several（或具体字数）Chinese characters can be noticed below the picture, which say (that) ..."
+      ],
+      "cards": [
+        {
+          "en": "Several（或具体字数）Chinese characters can be noticed below the picture, which say (that) ...",
+          "zh": "我们能注意到图画下面有几个汉字，写的是……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例(图画作文)",
+          "en": "Two Chinese characters can also be noticed below the picture, which say“on the journey.”",
+          "zh": "我们还能注意到图画下面有两个汉字,写的是“途中”。"
+        }
+      ]
+    },
+    {
+      "id": "f22",
+      "number": 22,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "概述图表",
+      "type": "图画图表",
+      "paragraphs": [
+        "This is a column chart that clearly illustrates the dramatic changes in ...（图表主题）, from ...（时间）to ...（时间）."
+      ],
+      "cards": [
+        {
+          "en": "This is a column chart that clearly illustrates the dramatic changes in ...（图表主题）, from ...（时间）to ...（时间）.",
+          "zh": "这是一个柱状图，清晰展示了……从……到……的显著变化。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例(图表作文)",
+          "en": "This is a column chart that clearly illustrates the dramatic changes in the market shares of domestic, American, and Japanese car brands in China from 2008 to 2009.",
+          "zh": "这是一个柱状图,清晰展示了2008年到2009年中、美、日系汽车品牌在中国汽车市场份额的明显变化。"
+        }
+      ]
+    },
+    {
+      "id": "f23",
+      "number": 23,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "数据上升、下降与稳定",
+      "type": "图画图表",
+      "paragraphs": [
+        "...（时间段）, the share of ... ascended/descended remarkably, reaching approximately ...（数据）/from its peak at ...（数据）to ...（数据）.",
+        "... showed a sharp increase/decline, from ...（数据）to ...（数据）.",
+        "The number/percentage of ... maintained/remained stable at ...（数据）."
+      ],
+      "cards": [
+        {
+          "en": "...（时间段）, the share of ... ascended/descended remarkably, reaching approximately ...（数据）/from its peak at ...（数据）to ...（数据）.",
+          "zh": "在……期间，……的份额明显上升／下降，达到约……／从最高值……降到……。"
+        },
+        {
+          "en": "... showed a sharp increase/decline, from ...（数据）to ...（数据）.",
+          "zh": "……表现出明显的上升／下降，从……到……。"
+        },
+        {
+          "en": "The number/percentage of ... maintained/remained stable at ...（数据）.",
+          "zh": "……的数量／比例稳定在……。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          3
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "描述稳定更常用 remained stable at；上升与下降的表达要与图表数据一致。",
+      "referenceExamples": [
+        {
+          "label": "示例(图表作文)",
+          "en": "During the period, the share of domestic brands ascended remarkably, reaching approximately 33%. By contrast, sales of Japanese brands showed a sharp decline, from 35% to 26%. Meanwhile, the percentage of American brands remained stable at 12%.",
+          "zh": "在此期间,中国品牌的份额明显上升,达到约33%。相比之下,日系品牌的销量呈急剧下降趋势,从35%降到26%。同时,美系品牌的占比稳定在12%。"
+        }
+      ]
+    },
+    {
+      "id": "f24",
+      "number": 24,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "图表比例排序",
+      "type": "图画图表",
+      "paragraphs": [
+        "Overall, ...（某群体/组别）has the largest proportion of ...（某方面）, at ...（百分比）.",
+        "Overall, ... is the largest proportion, accounting for ...（百分比）.",
+        "The next are ... and ..., at ...（百分比）and ...（百分比）respectively.",
+        "Finally come(s) ..., at ...（百分比）."
+      ],
+      "cards": [
+        {
+          "en": "Overall, ...（某群体/组别）has the largest proportion of ...（某方面）, at ...（百分比）.",
+          "zh": "总的来说，……群体中……的比例最大，为……。"
+        },
+        {
+          "en": "Overall, ... is the largest proportion, accounting for ...（百分比）.",
+          "zh": "总的来说，……占最大比例，为……。"
+        },
+        {
+          "en": "The next are ... and ..., at ...（百分比）and ...（百分比）respectively.",
+          "zh": "接下来是……和……，比例分别是……和……。"
+        },
+        {
+          "en": "Finally come(s) ..., at ...（百分比）.",
+          "zh": "排在最后的是……，为……。"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          4
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "表达“占比最大”可使用 accounts for the largest proportion；Finally comes 后接单数，come 后接复数。",
+      "referenceExamples": [
+        {
+          "label": "示例1(图表作文)",
+          "en": "Overall, seniors have the largest proportion of part-time workers, at 88.24%.The next are juniors and sophomores, at 71.93% and 71.13% respectively.Finally come freshmen, at 67.77%.",
+          "zh": "总体上,大四学生兼职比例最高,达到了88.24%;紧随其后的是大三和大二学生,分别是71.93%和71.13%;排在最后的是大一学生,为67.77%。说明:这里比较的是大四、大三、大二和大一四个组别中兼职人数的比例,属于不同组别针对某一方面进行外部比较,因此“比例最大”功能句选第一种。"
+        },
+        {
+          "label": "示例2(图表作文)",
+          "en": "Overall, the expense on New Year gifts is the largest proportion, accounting for 40%. The next is the expenditure on transportation and dining, both accounting for 20%. Finally comes the total spending on others, at 20%.",
+          "zh": "总体上,新年礼物的花销占最大比重,达到40%。其次是交通和聚餐费用,均占20%。最后是其他花销的总和,为20%。说明:这里比较的是春节假期花销中不同项目所占的比例,属于内部比较,因此“比例最大”功能句选第二种。"
+        }
+      ]
+    },
+    {
+      "id": "f25",
+      "number": 25,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "联系图画或图表主旨",
+      "type": "图画图表",
+      "paragraphs": [
+        "The picture/drawing/cartoon, apparently, can be associated with ...",
+        "Such statistics can be naturally associated with ..."
+      ],
+      "cards": [
+        {
+          "en": "The picture/drawing/cartoon, apparently, can be associated with ...",
+          "zh": "显然，这幅图画／漫画能让人联想到……"
+        },
+        {
+          "en": "Such statistics can be naturally associated with ...",
+          "zh": "这样的数据自然让人联想到……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(图画作文)",
+          "en": "This drawing, apparently, can be associated with two distinct attitudes in face of adversities.",
+          "zh": "显然,这幅图画能让人联想到面对逆境时两种截然不同的态度。"
+        },
+        {
+          "label": "示例2(图表作文)",
+          "en": "Such statistics can be associated with the fierce competition in China's car market.",
+          "zh": "这样的数据能让人联想到中国汽车市场的激烈竞争。"
+        }
+      ]
+    },
+    {
+      "id": "f26",
+      "number": 26,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "描述普遍现象",
+      "type": "论证与表达",
+      "paragraphs": [
+        "Similarly/However, in reality, a host of people ..."
+      ],
+      "cards": [
+        {
+          "en": "Similarly/However, in reality, a host of people ...",
+          "zh": "同样／然而，在现实生活中，很多人……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "a host of 意为“许多”，不等于“大多数”。",
+      "referenceExamples": [
+        {
+          "label": "示例(图画作文)",
+          "en": "However, in reality, a host of young people tend to give up when encountering challenges during their pursuit of success.",
+          "zh": "然而,在现实生活里,很多年轻人在追求成功的过程中,往往一遇到挑战便会放弃。"
+        }
+      ]
+    },
+    {
+      "id": "f27",
+      "number": 27,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "说明危害",
+      "type": "论证与表达",
+      "paragraphs": [
+        "... may constitute an obstacle that hinders ...（成长、进步、发展等）"
+      ],
+      "cards": [
+        {
+          "en": "... may constitute an obstacle that hinders ...（成长、进步、发展等）",
+          "zh": "……可能构成一种障碍，阻碍……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例(图画作文)",
+          "en": "As a matter of fact, the thought of “giving up” may constitute an obstacle that hinders many people's growth and progress in work, life, and study.",
+          "zh": "事实上,“放弃”这种想法可能会构成一种障碍,阻碍很多人在工作、生活和学习中取得成长和进步。"
+        }
+      ]
+    },
+    {
+      "id": "f28",
+      "number": 28,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "观点与比喻",
+      "type": "论证与表达",
+      "paragraphs": [
+        "To my understanding, ... can be likened to/seen as ..."
+      ],
+      "cards": [
+        {
+          "en": "To my understanding, ... can be likened to/seen as ...",
+          "zh": "在我看来，……可以比作／看作……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(图画作文)",
+          "en": "To my understanding, persistence can be likened to a road leading to success.",
+          "zh": "在我看来,坚持可以比作一条通往成功的道路。"
+        },
+        {
+          "label": "示例2(图画作文)",
+          "en": "To my understanding, confidence can be seen as a key which unlocks the gate to a promising future.",
+          "zh": "在我看来,自信可以看作一把钥匙,打开通往光明未来的大门。"
+        }
+      ]
+    },
+    {
+      "id": "f29",
+      "number": 29,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "发出号召",
+      "type": "论证与表达",
+      "paragraphs": [
+        "Everyone should bear in mind that ...",
+        "Society as a whole should foster a positive atmosphere to ..."
+      ],
+      "cards": [
+        {
+          "en": "Everyone should bear in mind that ...",
+          "zh": "每个人都应牢记……"
+        },
+        {
+          "en": "Society as a whole should foster a positive atmosphere to ...",
+          "zh": "整个社会应营造一种积极氛围，以……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(图画作文)",
+          "en": "Thus, everyone should bear in mind that “Never give up. You will eventually achieve your dreams.”",
+          "zh": "因此,每个人都应牢记“永不放弃,你的梦想终会实现”。"
+        },
+        {
+          "label": "示例2(图画作文)",
+          "en": "Society as a whole should foster a positive atmosphere to promote public virtues.",
+          "zh": "整个社会应营造一种积极的氛围,以倡导公共美德。"
+        }
+      ]
+    },
+    {
+      "id": "f30",
+      "number": 30,
+      "kind": "phrase",
+      "optional": true,
+      "available": true,
+      "title": "举例与列举",
+      "type": "论证与表达",
+      "paragraphs": [
+        "A case in point/A typical example is ...",
+        "..., including/such as ..."
+      ],
+      "cards": [
+        {
+          "en": "A case in point/A typical example is ...",
+          "zh": "一个典型的例子就是……"
+        },
+        {
+          "en": "..., including/such as ...",
+          "zh": "……，包括／比如……"
+        }
+      ],
+      "studyRanges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "prompt": "理解这个功能句的用途，结合具体题目替换内容。下面保留原资料句型；例句和原页可供对照。",
+      "translation": "中文提示展示在各句卡片中；例句译文可在下方展开查看。",
+      "cues": [],
+      "words": 0,
+      "sources": [],
+      "sourceNote": "根据你提供的《30个功能句总结》整理，例句由识别结果整理，请以原页核对。",
+      "studyNote": "",
+      "referenceExamples": [
+        {
+          "label": "示例1(图画作文)",
+          "en": "A case in point is myself.",
+          "zh": "一个典型的例子就是我自己。"
+        },
+        {
+          "label": "示例2(图画作文)",
+          "en": "We should utilize modern technological products rationally, including the Internet, cell phones, TV, and computers.",
+          "zh": "我们应理性使用现代科技产品,包括网络、手机、电视以及电脑。"
+        }
+      ]
+    }
+  ],
+  "supplement": [],
+  "sourceSummary": "本公开静态版收录 20 篇结构化作文范文、分段提示、参考译文与 30 个功能句训练卡；教材扫描原页图片已省略，所有学习进度保存在当前浏览器并支持 JSON 备份导入导出。"
+}
