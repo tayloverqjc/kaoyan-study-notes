@@ -7,7 +7,32 @@
   const PREFS_KEY = 'personal-notes-reader-prefs';
   const STORAGE_KEY = cfg.storageKey || `notes-network-ch${cfg.chapter}-mindmap-v1`;
   const RETURN_KEY = `mm-return-state:${cfg.pageFile}`;
+  const ALL_THEMES = ['paper', 'focus', 'mono', 'glass', 'momo', 'light', 'dark'];
   const DAY_THEMES = ['paper', 'focus', 'mono', 'glass', 'momo', 'light'];
+  const WALLPAPERS = ['lake', 'coast', 'forest'];
+  const THEME_LABELS = {
+    paper: '暖纸',
+    focus: '专注',
+    mono: '黑白',
+    glass: '暮光',
+    momo: '墨墨',
+    light: '纯白',
+    dark: '夜读'
+  };
+  const THEMES = [
+    { id: 'paper', label: '暖纸书' },
+    { id: 'focus', label: '专注精读' },
+    { id: 'mono', label: '极简黑白' },
+    { id: 'glass', label: '暮光玻璃' },
+    { id: 'momo', label: '墨墨护眼' },
+    { id: 'light', label: '纯白' },
+    { id: 'dark', label: '夜读' }
+  ];
+  const WP_OPTIONS = [
+    { id: 'lake', label: '雪山暮色' },
+    { id: 'coast', label: '橘海落日' },
+    { id: 'forest', label: '松林晨雾' }
+  ];
   const THEME_COLORS = {
     paper: '#f5f3ed',
     focus: '#f4f1ea',
@@ -81,7 +106,20 @@
       <button type="button" class="hud-btn" id="btn-zin" title="放大">＋</button>
       <button type="button" class="hud-btn" id="btn-fit" title="整章全览">全览</button>
       <button type="button" class="hud-btn" id="btn-print" title="打印或另存为 PDF">导出PDF</button>
-      <button type="button" class="hud-btn" id="btn-theme">夜读</button>
+      <button type="button" class="hud-btn" id="btn-theme" aria-expanded="false" aria-controls="theme-pop" title="切换配色与暮光壁纸（跨全站同步）">主题</button>
+    </div>
+
+    <div class="theme-pop" id="theme-pop" role="dialog" aria-label="切换配色与壁纸" hidden>
+      <div class="tp-head">全站同步配色</div>
+      <div class="tp-grid">
+        ${THEMES.map(t => `<button type="button" class="tp-opt" data-tp="${t.id}" aria-pressed="false"><i></i><span>${t.label}</span></button>`).join('')}
+      </div>
+      <div class="tp-wp-wrap">
+        <div class="tp-head">暮光玻璃壁纸</div>
+        <div class="tp-wp-grid">
+          ${WP_OPTIONS.map(w => `<button type="button" class="tp-wp" data-wp="${w.id}" aria-pressed="false"><span>${w.label}</span></button>`).join('')}
+        </div>
+      </div>
     </div>
 
     <div class="mm-toast" id="mm-toast" role="status" aria-live="polite" hidden></div>
@@ -137,22 +175,90 @@
     } catch { return {}; }
   }
 
+  const themePop = document.getElementById('theme-pop');
+  const btnTheme = document.getElementById('btn-theme');
+
   function syncTheme() {
-    const t = document.documentElement.dataset.theme || 'paper';
-    document.getElementById('btn-theme').textContent = t === 'dark' ? '日间' : '夜读';
+    const t = ALL_THEMES.includes(document.documentElement.dataset.theme)
+      ? document.documentElement.dataset.theme
+      : 'paper';
+    const w = WALLPAPERS.includes(document.documentElement.dataset.wallpaper)
+      ? document.documentElement.dataset.wallpaper
+      : 'lake';
+    btnTheme.textContent = THEME_LABELS[t] || '主题';
     const mc = document.querySelector('meta[name="theme-color"]');
     if (mc) mc.content = THEME_COLORS[t] || '#f5f3ed';
+    themePop.querySelectorAll('[data-tp]').forEach(b => {
+      b.setAttribute('aria-pressed', String(b.dataset.tp === t));
+    });
+    themePop.querySelectorAll('[data-wp]').forEach(b => {
+      b.setAttribute('aria-pressed', String(b.dataset.wp === w));
+    });
   }
 
-  document.getElementById('btn-theme').addEventListener('click', () => {
-    const prefs = readPrefs();
+  function applyStoredPrefs() {
+    const p = readPrefs();
     const cur = document.documentElement.dataset.theme || 'paper';
-    const next = cur === 'dark' ? (DAY_THEMES.includes(prefs.dayTheme) ? prefs.dayTheme : 'paper') : 'dark';
-    if (cur !== 'dark' && DAY_THEMES.includes(cur)) prefs.dayTheme = cur;
-    prefs.theme = next;
-    try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch {}
-    document.documentElement.dataset.theme = next;
+    const t = ALL_THEMES.includes(p.theme) ? p.theme : cur;
+    const w = WALLPAPERS.includes(p.wallpaper) ? p.wallpaper : (document.documentElement.dataset.wallpaper || 'lake');
+    document.documentElement.dataset.theme = t;
+    document.documentElement.dataset.wallpaper = w;
     syncTheme();
+  }
+
+  function setTheme(theme) {
+    if (!ALL_THEMES.includes(theme)) theme = 'paper';
+    const prefs = readPrefs();
+    prefs.theme = theme;
+    if (DAY_THEMES.includes(theme)) prefs.dayTheme = theme;
+    if (!WALLPAPERS.includes(prefs.wallpaper)) {
+      prefs.wallpaper = document.documentElement.dataset.wallpaper || 'lake';
+    }
+    try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch {}
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.dataset.wallpaper = WALLPAPERS.includes(prefs.wallpaper) ? prefs.wallpaper : 'lake';
+    syncTheme();
+  }
+
+  function setWallpaper(wp) {
+    if (!WALLPAPERS.includes(wp)) wp = 'lake';
+    const prefs = readPrefs();
+    prefs.wallpaper = wp;
+    if (!ALL_THEMES.includes(prefs.theme)) prefs.theme = 'glass';
+    try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch {}
+    document.documentElement.dataset.wallpaper = wp;
+    syncTheme();
+  }
+
+  function toggleThemePop(forceOpen) {
+    const open = forceOpen !== undefined ? forceOpen : themePop.hidden;
+    themePop.hidden = !open;
+    btnTheme.setAttribute('aria-expanded', String(open));
+  }
+
+  btnTheme.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleThemePop();
+  });
+
+  themePop.addEventListener('click', e => {
+    e.stopPropagation();
+    const tpBtn = e.target.closest('[data-tp]');
+    if (tpBtn) {
+      setTheme(tpBtn.dataset.tp);
+      return;
+    }
+    const wpBtn = e.target.closest('[data-wp]');
+    if (wpBtn) {
+      setWallpaper(wpBtn.dataset.wp);
+      showToast('已切换壁纸：' + wpBtn.textContent.trim());
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!themePop.hidden && !e.target.closest('#theme-pop, #btn-theme')) {
+      toggleThemePop(false);
+    }
   });
 
   function countLeaves(node) {
@@ -634,7 +740,10 @@
   });
 
   window.addEventListener('keydown', e => {
-    if (e.key === 'Escape') clearReturnedHighlight();
+    if (e.key === 'Escape') {
+      toggleThemePop(false);
+      clearReturnedHighlight();
+    }
   });
 
   document.getElementById('btn-layout').addEventListener('click', () => {
@@ -680,10 +789,14 @@
   });
 
   window.addEventListener('resize', () => fitToViewport(false));
+  window.addEventListener('storage', e => {
+    if (e.key === PREFS_KEY) applyStoredPrefs();
+  });
   window.addEventListener('pageshow', e => {
+    applyStoredPrefs();
     if (e.persisted) initOrRestore(true);
   });
 
-  syncTheme();
+  applyStoredPrefs();
   initOrRestore(false);
 })();
