@@ -172,14 +172,125 @@
   window.addEventListener('pagehide', () => {
     if (currentHeading && window.scrollY > 250) { state.position = readingPosition(window.scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)); persist(); }
   });
+  const mmParams = new URLSearchParams(location.search);
+  const mmFromRaw = (mmParams.get('from') || '').trim();
+  const mmNodeRaw = (mmParams.get('node') || '').trim();
+  const mmFrom = /^[a-z0-9_-]+\.html$/i.test(mmFromRaw) ? mmFromRaw : '';
+  const mmNode = /^[a-z0-9_-]+$/i.test(mmNodeRaw) ? mmNodeRaw : '';
+  const mmLabel = (mmParams.get('label') || '').trim().slice(0, 22);
+  if (mmFrom) document.documentElement.dataset.mmReturn = '1';
+
+  let hashTarget = null;
   if (location.hash.length > 1) {
-    const hashTarget = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    hashTarget = document.getElementById(decodeURIComponent(location.hash.slice(1)));
     if (hashTarget) {
       reveal(hashTarget);
       requestAnimationFrame(() => { hashTarget.scrollIntoView({ behavior: 'instant', block: 'start' }); updateProgress(); });
     }
   }
   updateProgress();
+
+  if (mmFrom) {
+    const resumeBtn = $('#resume');
+    if (resumeBtn) resumeBtn.hidden = true;
+    if (hashTarget) {
+      hashTarget.classList.add('mindmap-arrival');
+      setTimeout(() => hashTarget.classList.remove('mindmap-arrival'), 3800);
+    }
+
+    const mmKeyMatch = mmFrom.match(/^([a-z]+)-ch(\d+)-mindmap\.html$/i);
+    const mmStorageKey = mmKeyMatch ? `notes-${mmKeyMatch[1].toLowerCase()}-ch${mmKeyMatch[2]}-mindmap-v1` : '';
+    const readMmState = () => {
+      if (!mmStorageKey) return { mastered: new Set(), stuck: new Set() };
+      try {
+        const raw = JSON.parse(localStorage.getItem(mmStorageKey) || 'null');
+        return {
+          mastered: new Set(Array.isArray(raw?.mastered) ? raw.mastered : []),
+          stuck: new Set(Array.isArray(raw?.stuck) ? raw.stuck : [])
+        };
+      } catch {
+        return { mastered: new Set(), stuck: new Set() };
+      }
+    };
+    const writeMmState = mm => {
+      if (!mmStorageKey) return;
+      try {
+        localStorage.setItem(mmStorageKey, JSON.stringify({
+          mastered: [...mm.mastered],
+          stuck: [...mm.stuck]
+        }));
+      } catch {}
+    };
+
+    const bar = document.createElement('nav');
+    bar.className = 'mindmap-return-bar';
+    bar.setAttribute('aria-label', '返回思维导图');
+
+    const backLink = document.createElement('a');
+    backLink.className = 'mm-back';
+    backLink.href = mmNode ? `${mmFrom}?focus=${encodeURIComponent(mmNode)}` : mmFrom;
+    backLink.textContent = mmLabel ? `← 返回导图 · ${mmLabel}` : '← 返回思维导图';
+    bar.append(backLink);
+
+    if (mmNode && mmStorageKey) {
+      const btnM = document.createElement('button');
+      btnM.type = 'button';
+      btnM.className = 'mm-mark is-mastered';
+      btnM.textContent = '✓ 已懂';
+
+      const btnS = document.createElement('button');
+      btnS.type = 'button';
+      btnS.className = 'mm-mark is-stuck';
+      btnS.textContent = '⚑ 卡壳';
+
+      const syncMarks = () => {
+        const mm = readMmState();
+        btnM.setAttribute('aria-pressed', String(mm.mastered.has(mmNode)));
+        btnS.setAttribute('aria-pressed', String(mm.stuck.has(mmNode)));
+      };
+      syncMarks();
+
+      btnM.addEventListener('click', () => {
+        const mm = readMmState();
+        if (mm.mastered.has(mmNode)) {
+          mm.mastered.delete(mmNode);
+          toast('已取消「已懂」标记');
+        } else {
+          mm.mastered.add(mmNode);
+          mm.stuck.delete(mmNode);
+          toast('已标记为「已懂」，返回导图自动同步');
+        }
+        writeMmState(mm);
+        syncMarks();
+      });
+
+      btnS.addEventListener('click', () => {
+        const mm = readMmState();
+        if (mm.stuck.has(mmNode)) {
+          mm.stuck.delete(mmNode);
+          toast('已取消「卡壳」标记');
+        } else {
+          mm.stuck.add(mmNode);
+          mm.mastered.delete(mmNode);
+          toast('已标为「仍卡壳」，返回导图优先复看');
+        }
+        writeMmState(mm);
+        syncMarks();
+      });
+
+      bar.append(btnM, btnS);
+    }
+
+    const dismissBtn = document.createElement('button');
+    dismissBtn.type = 'button';
+    dismissBtn.className = 'mm-dismiss';
+    dismissBtn.setAttribute('aria-label', '收起返回导图栏');
+    dismissBtn.textContent = '×';
+    dismissBtn.addEventListener('click', () => bar.remove());
+    bar.append(dismissBtn);
+
+    document.body.append(bar);
+  }
 
   const checks = state.checks && typeof state.checks === 'object' ? state.checks : {};
   $$('[data-check]').forEach(input => {

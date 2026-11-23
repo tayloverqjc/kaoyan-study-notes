@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="408计算机网络第4章网络层全屏思维导图，覆盖考纲重点与2009–2026真题。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>4</text></svg>">
+  <title>第4章 网络层 · 考纲与真题思维导图</title>
+  <script src="study/theme-boot.js?v=1"></script>
+  <link rel="stylesheet" href="study/mindmap.css?v=1">
+</head>
+<body>
+  <script>
+  window.MINDMAP_CONFIG = {
+    chapter: 4,
+    pageFile: 'network-ch4-mindmap.html',
+    title: '第4章 网络层',
+    noteHref: 'network-4.html',
+    hubHref: 'network-0.html',
+    storageKey: 'notes-network-ch4-mindmap-v1',
+    chapters: [
+      { num: 1, label: '1', title: '第1章 体系结构', href: 'network-ch1-mindmap.html' },
+      { num: 2, label: '2', title: '第2章 物理层', href: 'network-ch2-mindmap.html' },
+      { num: 3, label: '3', title: '第3章 数据链路层', href: 'network-ch3-mindmap.html' },
+      { num: 4, label: '4', title: '第4章 网络层', href: 'network-ch4-mindmap.html' },
+      { num: 5, label: '5', title: '第5章 传输层', href: 'network-ch5-mindmap.html' },
+      { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
+    ],
+    tree: [
+      {
+        id: '4.1',
+        title: '4.1 网络层功能',
+        col: 'left',
+        children: [
+          {
+            id: '4.1-core',
+            title: '互连、两平面与 SDN',
+            children: [
+              { id: 'c4-01', bold: '异构互连', text: '物理或链路层不同即异构，靠路由器统一 IP 互连', tag: '大纲', kw: '虚拟互连网络 L1 L2', href: 'network-4.html#section-4' },
+              { id: 'c4-02', bold: '路由与转发', text: '路由属控制平面协同建表；转发属数据平面查表输出', tag: '2012', red: true, kw: '2012-T37 路由表 转发表', href: 'network-4.html#section-6' },
+              { id: 'c4-03', bold: 'SDN 三接口', text: '控数解耦集中控制；南向 OpenFlow 下发流表', tag: '2022', red: true, kw: '2022-T37 北向 东西向', href: 'network-4.html#section-10' }
+            ]
+          },
+          {
+            id: '4.1-svc',
+            title: '两种服务与拥塞',
+            children: [
+              { id: 'c4-04', bold: '虚电路服务', text: '逻辑连接沿定路传短 VCID，按序但不必独占带宽', tag: '2020', red: true, kw: '2020-T34 SVC PVC', href: 'network-4.html#section-8' },
+              { id: 'c4-05', bold: '数据报服务', text: '无连接带全 IP 独立选路，尽最大努力不可靠可绕障', tag: '大纲', kw: '失序 尽力而为', href: 'network-4.html#section-9' },
+              { id: 'c4-06', bold: '拥塞与流控', text: '拥塞管全网过载，流控管点到点；分开环静态闭环反馈', tag: '边界', kw: '开环 闭环', href: 'network-4.html#section-11' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '4.2a',
+        title: '4.2A IPv4 分组、编址与 NAT',
+        col: 'left',
+        children: [
+          {
+            id: '4.2-pkt',
+            title: '分组首部与分片',
+            children: [
+              { id: 'c4-07', bold: '首部三单位', text: '固首20B(0x45)；IHL×4、总长×1、偏移×8B', tag: '必背', red: true, kw: 'ICMP 1 TCP 6 UDP 17 OSPF 89', href: 'network-4.html#section-14' },
+              { id: 'c4-08', bold: 'TTL 与校验', text: '每跳TTL减1归零超时；首部错静默丢不发ICMP', tag: '2012/2014', red: true, kw: '2012-T37 2012-T47 检验和', href: 'network-4.html#section-14' },
+              { id: 'c4-09', bold: '分片8B对齐', text: '非末片载荷8⌊(MTU-H)/8⌋，可再分片仅目的重组', tag: '2018/2021', red: true, kw: '2021-T36 MTU 800 796 776', href: 'network-4.html#section-15' },
+              { id: 'c4-10', bold: '标志与偏移', text: 'DF=1禁分、MF=1非末；偏移=起点÷8首片必0', tag: '2018大题·错', red: true, kw: '2018-T47 片偏移 97', href: 'network-4.html#section-15' }
+            ]
+          },
+          {
+            id: '4.2-addr',
+            title: 'IPv4 地址与 CIDR',
+            children: [
+              {
+                id: '4.2-spec',
+                title: '特殊与私有地址',
+                children: [
+                  { id: 'c4-11', bold: '特殊地址边界', text: '0.0.0.0仅作源；全255禁转发；127不上线', tag: '2017', red: true, kw: '2017-T36 环回 受限广播 254', href: 'network-4.html#section-17' },
+                  { id: 'c4-12', bold: '私网与/n', text: '10/172.16/192.168私网；主机/n划围墙', tag: '2019大题·错', red: true, kw: '2019-T47 子网掩码', href: 'network-4.html#section-17' }
+                ]
+              },
+              {
+                id: '4.2-vlsm',
+                title: 'VLSM 切蛋糕',
+                children: [
+                  { id: 'c4-13', bold: '可用数与余量', text: '可用 2^(32-n)-2；算余量别漏扣路由器接口', tag: '2018大题·错', red: true, kw: '2018-T47 .127 .254', href: 'network-4.html#section-16' },
+                  { id: 'c4-14', bold: '偏心切5块', text: '求最小子网别均分，沿右半偏心连切 4 刀前缀 +4', tag: '2019·错', red: true, kw: '2019-T37 254', href: 'network-4.html#section-16' },
+                  { id: 'c4-15', bold: '恰划3子网', text: '仅有 1/2+1/4+1/4，绝不跨 128 中线凑兄弟', tag: '2021·错', red: true, kw: '2021-T35 2025-T47', href: 'network-4.html#section-16' },
+                  { id: 'c4-16', bold: '/30与均分', text: '/30块长4剩2IP知一推一；均分按步长定位主机', tag: '2016/2023·错', red: true, kw: '2016-T38 2023-T38 2026-T39', href: 'network-4.html#section-16' }
+                ]
+              },
+              {
+                id: '4.2-cidr',
+                title: 'CIDR 聚合与匹配',
+                children: [
+                  { id: 'c4-17', bold: '路由聚合规则', text: '同下一跳连续对齐合并，合 2^k 块前缀减 k', tag: '2011·错', red: true, kw: '2011-T37 2018-T38 2022-T35', href: 'network-4.html#section-16' },
+                  { id: 'c4-18', bold: '最长前缀匹配', text: '先按位与验命中再比掩码长；/32最优 0/0兜底', tag: '2013/2015·错', red: true, kw: '2013-T47 2015-T38', href: 'network-4.html#section-16' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '4.2-nat',
+            title: '地址转换 NAT / NAPT',
+            children: [
+              { id: 'c4-19', bold: '出改源入改目', text: '出改外网口IP、入还私网；双NAT配静态端口映射', tag: '2020/2023·错', red: true, kw: '2020-T47 2023-T38', href: 'network-4.html#section-18' },
+              { id: 'c4-20', bold: 'NAPT校验和', text: '同改IP与传输层端口；改UDP端口须重算校验和', tag: '2025', red: true, kw: '2025-T37', href: 'network-4.html#section-18' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '4.2b',
+        title: '4.2B 转发与 ARP / DHCP / ICMP',
+        col: 'left',
+        children: [
+          {
+            id: '4.2-hop',
+            title: '逐跳转发与 ARP',
+            children: [
+              { id: 'c4-21', bold: '直交与间交', text: '目IP与本机掩码相与判同网；同网不走网关错配仍通', tag: '2016·错', red: true, kw: '2016-T39 2015-T47 默认网关', href: 'network-4.html#section-19' },
+              { id: 'c4-22', bold: '跨路由换MAC', text: '普通路由源目IP全程锁死，源目MAC每跳成对重写', tag: '2018·错', red: true, kw: '2018-T37', href: 'network-4.html#section-20' },
+              { id: 'c4-23', bold: 'ARP解析', text: '广播问单播答；跨网查网关MAC；VLAN隔ARP广播', tag: '2015/2024', red: true, kw: '2012-T38 2015-T47 2024-T35', href: 'network-4.html#section-21' }
+            ]
+          },
+          {
+            id: '4.2-dhcp',
+            title: 'DHCP 动态配置',
+            children: [
+              { id: 'c4-24', bold: 'DORA四报文', text: 'UDP 67/68；D与R源0.0.0.0→全255', tag: '2015/2025', red: true, kw: '2025-T36 Discover Offer Request ACK', href: 'network-4.html#section-22' },
+              { id: 'c4-25', bold: '租约与范围', text: '50%单播续、87.5%广播续；分池范围写起止IP', tag: '2015大题·错', red: true, kw: '2015-T47', href: 'network-4.html#section-22' }
+            ]
+          },
+          {
+            id: '4.2-icmp',
+            title: 'ICMP 控制报文',
+            children: [
+              { id: 'c4-26', bold: '封装与定位', text: '网络层直装IP数据区(协议1)，非PPP亦非应用层', tag: '2012·错', red: true, kw: '2012-T33', href: 'network-4.html#section-23' },
+              { id: 'c4-27', bold: '报错与工具', text: '拥塞源抑制、TTL=0超时；ping用回送询问', tag: '2010·错', red: true, kw: '2010-T36 traceroute 重定向', href: 'network-4.html#section-23' },
+              { id: 'c4-28', bold: '差错五不发', text: '不对差错、非首片、广多播、特殊址及首部错发ICMP', tag: '2012', red: true, kw: '2012-T37 禁发', href: 'network-4.html#section-23' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '4.3',
+        title: '4.3 IPv6 演进',
+        col: 'right',
+        children: [
+          {
+            id: '4.3-feat',
+            title: '特点与基本首部',
+            children: [
+              { id: 'c4-29', bold: '空间与定首部', text: '128位为v4的2^96倍；基本首部40B总长仍可变', tag: '2023', red: true, kw: '2023-T40 扩展首部', href: 'network-4.html#section-26' },
+              { id: 'c4-30', bold: '简化与无广播', text: '去首部校验、仅源端分片、去广播改单/多/任播', tag: '大纲', kw: '分组太大 流标号 无状态自动配置', href: 'network-4.html#section-26' },
+              { id: 'c4-31', bold: '基本首部字段', text: '有效载荷含扩展头；下一首部链；Hop Limit≈TTL', tag: '2023', red: true, kw: '2023-T40 跳数限制', href: 'network-4.html#section-27' }
+            ]
+          },
+          {
+            id: '4.3-addr',
+            title: '地址压缩与过渡',
+            children: [
+              { id: 'c4-32', bold: '零压缩规则', text: '8组4位十六进制；省前导0不省尾0；::限1次', tag: '大纲', kw: 'FF00 FE80 ::1', href: 'network-4.html#section-28' },
+              { id: 'c4-33', bold: '双栈与隧道', text: 'v4/v6不直兼容，靠双协议栈择栈或隧道整装过v4', tag: '2023', red: true, kw: '2023-T40 过渡', href: 'network-4.html#section-29' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '4.4',
+        title: '4.4 路由算法与协议',
+        col: 'right',
+        children: [
+          {
+            id: '4.4-alg',
+            title: '路由算法原理',
+            children: [
+              { id: 'c4-34', bold: '静态与动态', text: '静态手工可改开销低；动态自适应开销大，收敛即稳定', tag: '大纲', kw: '收敛', href: 'network-4.html#section-33' },
+              { id: 'c4-35', bold: '距离向量DV', text: '仅向邻居发全表，逐目的算 c(x,v)+d 取最小', tag: '2021', red: true, kw: '2021-T37 Bellman-Ford', href: 'network-4.html#section-34' },
+              { id: 'c4-36', bold: '链路状态LS', text: '洪泛局部LSA建一致LSDB，各节点独立跑Dijkstra', tag: '2026', red: true, kw: '2026-T37 最短路径树', href: 'network-4.html#section-35' }
+            ]
+          },
+          {
+            id: '4.4-hier',
+            title: '分层与协议承载',
+            children: [
+              { id: 'c4-37', bold: 'AS与分层', text: 'AS内用IGP，跨AS必用BGP；分区减洪泛增复杂', tag: '2013大题·错', red: true, kw: '2013-T47 自治系统 EGP', href: 'network-4.html#section-36' },
+              { id: 'c4-38', bold: '三协议承载', text: 'RIP→UDP520、OSPF→IP89、BGP→TCP', tag: '2017', red: true, kw: '2017-T37 179', href: 'network-4.html#section-41' }
+            ]
+          },
+          {
+            id: '4.4-rip',
+            title: 'RIP 距离向量协议',
+            children: [
+              { id: 'c4-39', bold: '15跳与扩散', text: '15跳上限16不可达；30s水波纹扩散，180s失效', tag: '2010·错', red: true, kw: '2010-T35 2024-T47', href: 'network-4.html#section-37' },
+              { id: 'c4-40', bold: '更新三规则', text: '收到先全+1改下一跳：无则添、同跳必改、异跳更小换', tag: '必背', kw: '路由更新', href: 'network-4.html#section-38' },
+              { id: 'c4-41', bold: '坏消息慢收敛', text: '断链易被旁邻旧路由拉回假距；靠水平分割与毒性逆转', tag: '2016·错', red: true, kw: '2016-T37 无穷计数', href: 'network-4.html#section-37' }
+            ]
+          },
+          {
+            id: '4.4-ospf',
+            title: 'OSPF 链路状态协议',
+            children: [
+              { id: 'c4-42', bold: '代价与多区域', text: '按链路代价选路支持ECMP；非主干区必连Area 0', tag: '2014/2026', red: true, kw: '2014-T43 2026-T38 2024-T47', href: 'network-4.html#section-39' },
+              { id: 'c4-43', bold: '五分组与角色', text: 'Hello等五分组保可靠洪泛；ABR连主干必兼BR', tag: '大纲', kw: 'DD LSR LSU LSAck ASBR', href: 'network-4.html#section-39' },
+              { id: 'c4-44', bold: '断链与流水延', text: '断链重跑树再聚合；等速流水总延 (L+N-1)T', tag: '2026', red: true, kw: '2026-T37', href: 'network-4.html#section-39' }
+            ]
+          },
+          {
+            id: '4.4-bgp',
+            title: 'BGP 边界网关协议',
+            children: [
+              { id: 'c4-45', bold: '路径向量防环', text: 'TCP 179传前缀与AS-PATH，策略优先含本AS丢弃', tag: '2013大题·错', red: true, kw: '2013-T47 NEXT-HOP', href: 'network-4.html#section-40' },
+              { id: 'c4-46', bold: '会话与四报文', text: '跨AS用eBGP、内用iBGP；核心通告靠Update', tag: '2024大题', red: true, kw: '2024-T47 Open Keepalive Notification', href: 'network-4.html#section-40' },
+              { id: 'c4-47', bold: '热土豆选路', text: '先比本地偏好与AS-PATH，平局选本AS内部最近口', tag: '2024大题', red: true, kw: '2024-T47', href: 'network-4.html#section-40' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '4.5-4.6',
+        title: '4.5 多播与 4.6 移动 IP',
+        col: 'right',
+        children: [
+          {
+            id: '4.5-mcast',
+            title: '4.5 IP 多播与 IGMP',
+            children: [
+              { id: 'c4-48', bold: 'D类多播特性', text: '分叉点复制省带宽；224~239仅作目IP，无ICMP', tag: '大纲', kw: 'UDP 尽最大努力', href: 'network-4.html#section-44' },
+              { id: 'c4-49', bold: '多播MAC映射', text: '01-00-5E加0加低23位；32个IP映1MAC需二滤', tag: '大纲', kw: '0x7F 二次过滤', href: 'network-4.html#section-45' },
+              { id: 'c4-50', bold: 'IGMP与组树', text: 'IGMP属网络层仅管本地成员；路由协议建无环多播树', tag: '大纲', kw: '转发树', href: 'network-4.html#section-45' }
+            ]
+          },
+          {
+            id: '4.6-mip',
+            title: '4.6 移动 IP 漫游',
+            children: [
+              { id: 'c4-51', bold: '三实体双地址', text: 'MN/HA/FA；永久归属址保TCP，动态转交址标位置', tag: '大纲', kw: 'CoA 归属地址', href: 'network-4.html#section-48' },
+              { id: 'c4-52', bold: '非对称收发', text: '发现→向HA注册→入站隧道转交、出站直发→注销', tag: '大纲', kw: '三角路由', href: 'network-4.html#section-49' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '4.7',
+        title: '4.7 网络层设备与路由表',
+        col: 'right',
+        children: [
+          {
+            id: '4.7-dev',
+            title: '设备进化与域隔离',
+            children: [
+              { id: 'c4-53', bold: '设备进化链', text: 'Hub=多口中继、SW=多口网桥；时延Hub＜SW＜路由', tag: '2019大题·错', red: true, kw: '2019-T47', href: 'network-4.html#section-51' },
+              { id: 'c4-54', bold: '冲突域广播域', text: '网桥/SW仅隔冲突域不防风暴；仅路由/VLAN隔广播域', tag: '2010·错', red: true, kw: '2010-T38 广播风暴', href: 'network-4.html#section-51' },
+              { id: 'c4-55', bold: '路由器组成', text: '选路处理机算表；入/交换结构/出转发，三情形合法丢包', tag: '2012', red: true, kw: '2012-T37 交换结构', href: 'network-4.html#section-52' }
+            ]
+          },
+          {
+            id: '4.7-tab',
+            title: '手写路由表与跨层',
+            children: [
+              { id: 'c4-56', bold: '手写三模板', text: '直连写-；主机路由/32；互联网默认0.0.0.0/0', tag: '2009大题·错', red: true, kw: '2009-T47 2014-T43', href: 'network-4.html#section-53' },
+              { id: 'c4-57', bold: '下一跳与接口', text: '下一跳写相邻路由口IP不回写首部；接口分物理/逻辑', tag: '边界', kw: '四要素', href: 'network-4.html#section-53' },
+              { id: 'c4-58', bold: '全链路与TTL', text: '查掩码→ARP网关→逐跳换MAC；过k跳TTL≥k+1', tag: '2014/2024大题', red: true, kw: '2014-T43 2024-T47 16 61', href: 'network-4.html#section-56' }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  </script>
+  <script src="study/mindmap.js?v=1"></script>
+</body>
+</html>

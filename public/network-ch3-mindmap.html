@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="408计算机网络第3章数据链路层全屏思维导图，覆盖考纲重点与2009–2026真题。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>3</text></svg>">
+  <title>第3章 数据链路层 · 考纲与真题思维导图</title>
+  <script src="study/theme-boot.js?v=1"></script>
+  <link rel="stylesheet" href="study/mindmap.css?v=1">
+</head>
+<body>
+  <script>
+  window.MINDMAP_CONFIG = {
+    chapter: 3,
+    pageFile: 'network-ch3-mindmap.html',
+    title: '第3章 数据链路层',
+    noteHref: 'network-3.html',
+    hubHref: 'network-0.html',
+    storageKey: 'notes-network-ch3-mindmap-v1',
+    chapters: [
+      { num: 1, label: '1', title: '第1章 体系结构', href: 'network-ch1-mindmap.html' },
+      { num: 2, label: '2', title: '第2章 物理层', href: 'network-ch2-mindmap.html' },
+      { num: 3, label: '3', title: '第3章 数据链路层', href: 'network-ch3-mindmap.html' },
+      { num: 4, label: '4', title: '第4章 网络层', href: 'network-ch4-mindmap.html' },
+      { num: 5, label: '5', title: '第5章 传输层', href: 'network-ch5-mindmap.html' },
+      { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
+    ],
+    tree: [
+      {
+        id: '3.1',
+        title: '3.1 链路层功能',
+        col: 'left',
+        children: [
+          {
+            id: '3.1-pos',
+            title: '地位与分层边界',
+            children: [
+              { id: 'c3-01', bold: '链路与数据链路', text: '链路是物理线路，加协议网卡成数据链路；逐跳换MAC', tag: '大纲', kw: 'MAC子层 帧', href: 'network-3.html#section-4' },
+              { id: 'c3-02', bold: '层次功能边界', text: '电路管理与隐蔽细节属物理层；拥塞控制属网络/传输层', tag: '边界', kw: '链路管理', href: 'network-3.html#section-12' },
+              { id: 'c3-03', bold: '成帧与MTU', text: 'MTU是载荷上限非整帧长；透明传输防数据误作定界符', tag: '大纲', kw: '1500B 帧定界', href: 'network-3.html#section-8' }
+            ]
+          },
+          {
+            id: '3.1-svc',
+            title: '流控与三类服务',
+            children: [
+              { id: 'c3-04', bold: '流控vs拥塞', text: '链路流控限邻跳发速防溢出；端到端流控在传输层', tag: '边界', kw: '滑动窗口', href: 'network-3.html#section-9' },
+              { id: 'c3-05', bold: '三类服务模型', text: '可靠或重实时选无确认无连接；编号防重、超时防丢', tag: '大纲', kw: '以帧编号 802.11 以太网', href: 'network-3.html#section-10' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '3.2',
+        title: '3.2 组帧与透明传输',
+        col: 'left',
+        children: [
+          {
+            id: '3.2-byte',
+            title: '字符与字节法',
+            children: [
+              { id: 'c3-06', bold: '字符计数法', text: '首部计总字节含自身；计数字段出错致后续多帧失步', tag: '大纲', kw: '失步', href: 'network-3.html#section-16' },
+              { id: 'c3-07', bold: '字节填充法', text: '载荷遇定界符或ESC前均插ESC；收端见ESC即删', tag: '大纲', kw: 'SOH EOT FLAG', href: 'network-3.html#section-17' }
+            ]
+          },
+          {
+            id: '3.2-bit',
+            title: '比特与违规法',
+            children: [
+              { id: 'c3-08', bold: '零比特填充', text: '仅扫载荷，见连续5个1立刻填0；不对首尾标志填充', tag: '2013', red: true, kw: '2013-T37 01111110 HDLC', href: 'network-3.html#section-18' },
+              { id: 'c3-09', bold: '违规编码法', text: '用曼彻斯特无跳变非法电平定界；零开销但依编码冗余', tag: '大纲', kw: '高高 低低', href: 'network-3.html#section-19' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '3.3',
+        title: '3.3 差错控制编码',
+        col: 'left',
+        children: [
+          {
+            id: '3.3-dist',
+            title: '码距与能力定理',
+            children: [
+              { id: 'c3-10', bold: '码距检纠上限', text: '码字两两异或取最小d；纯检d-1、纯纠⌊(d-1)/2⌋', tag: '2025', red: true, kw: '2025-T34 海明距离 d=4', href: 'network-3.html#section-26' },
+              { id: 'c3-11', bold: '边纠边检模式', text: '须满足d≥e+c+1(e>c)；扩展海明d=4可纠1检2', tag: '边界', kw: 'SEC-DED', href: 'network-3.html#section-26' }
+            ]
+          },
+          {
+            id: '3.3-det',
+            title: '检错：奇偶与 CRC',
+            children: [
+              { id: 'c3-12', bold: '奇偶校验码', text: '码距恒为2；只能检奇数位错，漏检双位错且无法纠错', tag: '大纲', kw: '1的个数', href: 'network-3.html#section-28' },
+              { id: 'c3-13', bold: 'CRC发送特性', text: '数据补r个0模2除G得r位FCS；检全单位及≤r突发错', tag: '大纲', kw: '生成多项式 移位寄存器', href: 'network-3.html#section-30' },
+              { id: 'c3-14', bold: 'CRC接收校验', text: '接收端直接除完整码字勿再补0；余0仅表未检出差错', tag: '2023', red: true, kw: '2023-T37 模2除', href: 'network-3.html#section-31' }
+            ]
+          },
+          {
+            id: '3.3-cor',
+            title: '纠错：海明码',
+            children: [
+              { id: 'c3-15', bold: '海明不等式', text: '求最少校验位k用2^k≥n+k+1；绝勿用码距公式反推', tag: '2013·错', red: true, kw: '2013 校验位', href: 'network-3.html#section-32' },
+              { id: 'c3-16', bold: '海明构造纠错', text: '校验位放2^(i-1)处，按位号二进制分组；校验子指错位', tag: '大纲', kw: '纠1位 校验子', href: 'network-3.html#section-33' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '3.4',
+        title: '3.4 流控与可靠传输',
+        col: 'left',
+        children: [
+          {
+            id: '3.4-win',
+            title: '滑动窗口与序号',
+            children: [
+              { id: 'c3-17', bold: '滑动窗口属性', text: '链路层窗口大小通常固定；最多有WT帧已发未确认', tag: '大纲', kw: '在途帧', href: 'network-3.html#section-40' },
+              { id: 'c3-18', bold: '序号位数铁律', text: '总约束WT+WR≤2^m；算出WT=8时3位不够至少4位', tag: '2015·错', red: true, kw: '2015-T35', href: 'network-3.html#section-41' },
+              { id: 'c3-19', bold: '窗上限防重叠', text: 'GBN留1空号WT≤2^m-1；SR等窗≤2^(m-1)', tag: '2019', red: true, kw: '2019-T35 8-5=3', href: 'network-3.html#section-41' }
+            ]
+          },
+          {
+            id: '3.4-arq',
+            title: '三种 ARQ 协议',
+            children: [
+              {
+                id: '3.4-sw',
+                title: '停止-等待 S-W',
+                children: [
+                  { id: 'c3-20', bold: '停止-等待SW', text: 'WT=WR=1、1位序号防重；大RTT卫星利用率极低恒<1', tag: '2018', red: true, kw: '2018-T36 2020-T36', href: 'network-3.html#section-43' }
+                ]
+              },
+              {
+                id: '3.4-gbn',
+                title: '后退 N 帧 GBN',
+                children: [
+                  { id: 'c3-21', bold: 'GBN累计确认', text: 'WR=1丢失序帧；收ACK k划掉0~k，超时全退重传', tag: '2009·错', red: true, kw: '2009-T35', href: 'network-3.html#section-44' },
+                  { id: 'c3-22', bold: '双向捎带帧', text: 'x看窗余量，y随按序收帧推进；超时重传必须刷新y', tag: '2017大题·错', red: true, kw: '2017-T47 S_2,3', href: 'network-3.html#section-52' }
+                ]
+              },
+              {
+                id: '3.4-sr',
+                title: '选择重传 SR',
+                children: [
+                  { id: 'c3-23', bold: 'SR缓存独确', text: 'WR>1缓存失序帧、独立确认与计时；错谁只重传谁', tag: '2011', red: true, kw: '2011-T35 非累积', href: 'network-3.html#section-45' },
+                  { id: 'c3-24', bold: 'SR左边界停滞', text: '先收后续ACK左边界不动，可发空余号，超时只重左帧', tag: '2024', red: true, kw: '2024-T37 失序ACK', href: 'network-3.html#section-45' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '3.4-util',
+            title: '信道利用率与速率',
+            children: [
+              { id: 'c3-25', bold: '流水线周期母', text: '分母是TD+RTT+TA，发传重叠；绝勿加WT·TD', tag: '2014·错', red: true, kw: '2014-T36', href: 'network-3.html#section-49' },
+              { id: 'c3-26', bold: '捎带与满载窗', text: '等长捎带分母2TD+RTT；满载先上取整WT再定序号位', tag: '2017/25', red: true, kw: '2012-T36 2017-T47 2025-T47', href: 'network-3.html#section-49' },
+              { id: 'c3-27', bold: '同位宽利用率', text: '3位序号WT为1/4/7；利用率SW≤SR≤GBN', tag: '2023', red: true, kw: '2023-T35', href: 'network-3.html#section-49' },
+              { id: 'c3-28', bold: '极值与净速率', text: '变长帧取L_min算满载窗；有效速率分子仅计净载荷', tag: '2010大题', red: true, kw: '2010-T47 1518B 1500B', href: 'network-3.html#section-50' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '3.5',
+        title: '3.5 介质访问控制',
+        col: 'right',
+        children: [
+          {
+            id: '3.5-static',
+            title: '静态信道划分',
+            children: [
+              { id: 'c3-29', bold: '静态信道划分', text: '无冲突；FDM模拟、TDM数字、STDM带址、WDM光', tag: '2013', red: true, kw: '2013-T36 CDMA', href: 'network-3.html#section-57' },
+              { id: 'c3-30', bold: 'TDM介质条件', text: '介质位速率>单路、频宽>复合信号；切勿跨量纲比大小', tag: '边界', kw: 'Hz b/s 量纲', href: 'network-3.html#section-57' },
+              { id: 'c3-31', bold: 'CDMA解码', text: '码片正交(内积0)；0→-1、1→+1，内积判±1或0', tag: '2014', red: true, kw: '2014-T37 规格化内积', href: 'network-3.html#section-58' }
+            ]
+          },
+          {
+            id: '3.5-dyn',
+            title: '随机与轮询访问',
+            children: [
+              { id: 'c3-32', bold: '随机访问冲突', text: '时隙ALOHA危险期减半；CSMA因传播时延仍会冲突', tag: '2013', red: true, kw: '2013-T36', href: 'network-3.html#section-60' },
+              { id: 'c3-33', bold: '三种坚持策略', text: '1-坚持忙时持续听易撞；非坚持随机等；p-坚持用时隙', tag: '大纲', kw: '时隙信道', href: 'network-3.html#section-61' },
+              { id: 'c3-34', bold: '令牌传递协议', text: '逻辑环物理星，重负载无冲突；半双工由源站回收帧', tag: '大纲', kw: '802.5 FDDI MAU', href: 'network-3.html#section-62' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '3.6',
+        title: '3.6 局域网技术',
+        col: 'right',
+        children: [
+          {
+            id: '3.6-eth',
+            title: '以太网与 CSMA/CD',
+            children: [
+              {
+                id: '3.6-ethfmt',
+                title: '架构、服务与 V2 帧',
+                children: [
+                  { id: 'c3-35', bold: 'LAN与MAC', text: '802分MAC/LLC；48位MAC固化网卡，错单播静弃', tag: '大纲', kw: 'IEEE 802 三要素 全F', href: 'network-3.html#section-67' },
+                  { id: 'c3-36', bold: '以太网服务', text: '无连接不可靠，FCS检错即弃无ACK；10G仅全双工', tag: '2012', red: true, kw: '2012-T35 10Base-5', href: 'network-3.html#section-69' },
+                  { id: 'c3-37', bold: '以太网V2帧', text: '6目6源2类+46~1500+4FCS=64~1518B', tag: '2012大题', red: true, kw: '2012-T47 8B前导码 0800', href: 'network-3.html#section-74' }
+                ]
+              },
+              {
+                id: '3.6-cd',
+                title: 'CSMA/CD 核心计算',
+                children: [
+                  { id: 'c3-38', bold: '争用期与帧长', text: '仅半双工用；L_min=2τR，题给128B勿硬代64B', tag: '2009/15/19', red: true, kw: '2009-T37 2015-T36 2019-T36 51.2us', href: 'network-3.html#section-72' },
+                  { id: 'c3-39', bold: '碰撞与Hub距', text: '相遇τ/2、均检[τ,2τ)；Hub距v(L/2R-TH)', tag: '2016/22·错', red: true, kw: '2010-T47 2016-T36 2022-T47', href: 'network-3.html#section-72' },
+                  { id: 'c3-40', bold: '二进制退避', text: 'k=min(i,10)取0~2^k-1乘2τ；16次弃', tag: '2023/2025', red: true, kw: '2023-T36 2025-T35 1023', href: 'network-3.html#section-73' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '3.6-wifi',
+            title: 'IEEE 802.11 Wi-Fi',
+            children: [
+              {
+                id: '3.6-wifibase',
+                title: '组成与 CSMA/CA',
+                children: [
+                  { id: 'c3-41', bold: '无线网组成', text: 'BSS含AP与站，DS联ESS，SSID≤32B；自组无AP', tag: '大纲', kw: 'ad hoc', href: 'network-3.html#section-76' },
+                  { id: 'c3-42', bold: '无线防冲突', text: '难边发边听且有隐蔽/暴露站，用CSMA/CA逐帧ACK', tag: '2011/2015', red: true, kw: '2011-T36 2015-T36', href: 'network-3.html#section-77' },
+                  { id: 'c3-43', bold: 'IFS与冻结', text: 'SIFS<PIFS<DIFS；发帧等DIFS，忙时退避冻结', tag: '2018/2020', red: true, kw: '2018-T35 2020-T37', href: 'network-3.html#section-78' }
+                ]
+              },
+              {
+                id: '3.6-wifimodel',
+                title: 'NAV 与四地址模型',
+                children: [
+                  { id: 'c3-44', bold: '预约与NAV', text: '收CTS切算2SIFS+DATA+ACK；起发不含DIFS', tag: '2024·错/26', red: true, kw: '2024-T36 2026-T35 RTS CTS', href: 'network-3.html#section-78' },
+                  { id: 'c3-45', bold: '无线四地址', text: '1收2发3补端：上行AP/SA/DA，下行DA/AP/SA', tag: '2022大题·错', red: true, kw: '2017-T35 2022-T47 ToDS FromDS', href: 'network-3.html#section-79' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '3.6-vlan',
+            title: 'VLAN 与 802.1Q',
+            children: [
+              { id: 'c3-46', bold: 'VLAN隔离', text: '二层逻辑广播域，按口/MAC/IP划；跨VLAN须路由', tag: '2024/2026', red: true, kw: '2024-T35 2026-T36 ARP', href: 'network-3.html#section-80' },
+              { id: 'c3-47', bold: '802.1Q帧', text: '插4B标签(12位VID)；最大1522B、载荷下限42B', tag: '必背', kw: '0x8100 Access Trunk', href: 'network-3.html#section-81' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '3.7',
+        title: '3.7 广域网与 PPP',
+        col: 'right',
+        children: [
+          {
+            id: '3.7-wan',
+            title: 'WAN 与协议归属',
+            children: [
+              { id: 'c3-48', bold: 'WAN归属', text: 'WAN涉下三层用节点交换机；HDLC属ISO非TCP/IP', tag: '边界', kw: '面向比特', href: 'network-3.html#section-85' }
+            ]
+          },
+          {
+            id: '3.7-ppp',
+            title: '点对点协议 PPP',
+            children: [
+              { id: 'c3-49', bold: 'PPP组成与帧', text: '成帧+LCP+NCP；0x7E定界，载荷0~1500B', tag: '大纲', kw: '0xFF 0x03', href: 'network-3.html#section-86' },
+              { id: 'c3-50', bold: 'PPP透明传输', text: '异步用0x7D字节填充，同步用零比特填充(五1插0)', tag: '必背', kw: '字节填充 零比特', href: 'network-3.html#section-89' },
+              { id: 'c3-51', bold: 'PPP服务性质', text: '仅全双工点对点；LCP/NCP建链，数据段仅CRC不可靠', tag: '边界', kw: '不可靠服务', href: 'network-3.html#section-105' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '3.8',
+        title: '3.8 链路层设备与域',
+        col: 'right',
+        children: [
+          {
+            id: '3.8-sw',
+            title: '网桥与交换机原理',
+            children: [
+              { id: 'c3-52', bold: '交换机与吞吐', text: '即多端口网桥，每口独占带宽可并行；全换Hub退化1R', tag: '2015', red: true, kw: '2015-T37 总吞吐', href: 'network-3.html#section-96' },
+              { id: 'c3-53', bold: '直通vs存转', text: '直通读6B目的MAC即转(0.48μs)不检错；存转整帧检错', tag: '2013', red: true, kw: '2013-T38 Cut-through', href: 'network-3.html#section-97' },
+              { id: 'c3-54', bold: '自学习转滤洪', text: '学源MAC查目的MAC；同口滤、未知/广播洪泛；旁观不入表', tag: '2009/14/21', red: true, kw: '2009-T36 2014-T34 2021-T47', href: 'network-3.html#section-98' }
+            ]
+          },
+          {
+            id: '3.8-dom',
+            title: '域隔离与拓扑实战',
+            children: [
+              { id: 'c3-55', bold: '冲突与广播域', text: 'Hub无隔离；交换机隔冲突域；路由/VLAN隔两域', tag: '2010/2020', red: true, kw: '2010-T38 2020-T35 2022-T47', href: 'network-3.html#section-100' },
+              { id: 'c3-56', bold: '物理层接收判', text: '同Hub主机物理层全收信号；Switch建表后单播仅发目口', tag: '2016', red: true, kw: '2016-T35', href: 'network-3.html#section-101' },
+              { id: 'c3-57', bold: 'DHCP广播', text: '发现帧目MAC全F；路由E0能收不跨转，S不改MAC', tag: '2022大题·错', red: true, kw: '2022-T47 DHCPDISCOVER 0.0.0.0', href: 'network-3.html#section-99' }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  </script>
+  <script src="study/mindmap.js?v=1"></script>
+</body>
+</html>

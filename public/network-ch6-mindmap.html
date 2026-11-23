@@ -4,1800 +4,256 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f5f3ed">
-  <meta name="description" content="408计算机网络第6章应用层考纲与真题交互思维导图，支持遮罩自测与原笔记锚点跳转。">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%23315f4d'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23f5f3ed' font-family='sans-serif'>6</text></svg>">
-  <title>第6章 应用层 · 考纲与真题交互导图</title>
+  <meta name="description" content="408计算机网络第6章应用层全屏思维导图，覆盖考纲重点与2009–2026真题。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>6</text></svg>">
+  <title>第6章 应用层 · 考纲与真题思维导图</title>
   <script src="study/theme-boot.js?v=1"></script>
-  <link rel="stylesheet" href="study/app.css?v=1">
-  <style>
-    :root {
-      --mm-red: #b5412b;
-      --mm-red-bg: rgba(181, 65, 43, 0.11);
-      --mm-red-bd: rgba(181, 65, 43, 0.34);
-      --mm-amber: #9b6016;
-      --mm-amber-bg: rgba(155, 96, 22, 0.11);
-      --mm-amber-bd: rgba(155, 96, 22, 0.34);
-      --mm-blue: #165a78;
-      --mm-blue-bg: rgba(22, 90, 120, 0.11);
-      --mm-blue-bd: rgba(22, 90, 120, 0.34);
-      --mm-line: rgba(102, 118, 109, 0.38);
-      --mm-shadow: 0 8px 24px rgba(24, 38, 30, 0.06);
-    }
-    html[data-theme="dark"] {
-      --mm-red: #f29b82;
-      --mm-red-bg: rgba(242, 155, 130, 0.14);
-      --mm-red-bd: rgba(242, 155, 130, 0.38);
-      --mm-amber: #ecc27d;
-      --mm-amber-bg: rgba(236, 194, 125, 0.14);
-      --mm-amber-bd: rgba(236, 194, 125, 0.36);
-      --mm-blue: #91d4e9;
-      --mm-blue-bg: rgba(145, 212, 233, 0.14);
-      --mm-blue-bd: rgba(145, 212, 233, 0.36);
-      --mm-line: rgba(167, 183, 168, 0.34);
-      --mm-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-    }
-    html[data-theme="glass"] {
-      --mm-red: #ff9c94;
-      --mm-red-bg: rgba(255, 156, 148, 0.16);
-      --mm-red-bd: rgba(255, 156, 148, 0.42);
-      --mm-amber: #f7ce7e;
-      --mm-amber-bg: rgba(247, 206, 126, 0.16);
-      --mm-amber-bd: rgba(247, 206, 126, 0.4);
-      --mm-blue: #6be0ff;
-      --mm-blue-bg: rgba(107, 224, 255, 0.15);
-      --mm-blue-bd: rgba(107, 224, 255, 0.38);
-      --mm-line: rgba(226, 236, 244, 0.34);
-      --mm-shadow: 0 16px 36px rgba(3, 8, 15, 0.38);
-    }
-    html[data-theme="mono"] {
-      --mm-red: #111;
-      --mm-red-bg: #efefef;
-      --mm-red-bd: #222;
-      --mm-amber: #333;
-      --mm-amber-bg: #f5f5f5;
-      --mm-amber-bd: #888;
-      --mm-blue: #444;
-      --mm-blue-bg: #fafafa;
-      --mm-blue-bd: #aaa;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .mm-shell {
-      max-width: 1560px;
-      margin: 0 auto;
-      padding: 16px 24px 48px;
-    }
-    .mm-topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 16px;
-    }
-    .mm-nav-links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .mm-nav-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 36px;
-      padding: 6px 12px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: var(--surface);
-      font-size: 12px;
-      color: var(--ink);
-      transition: background 0.15s ease, border-color 0.15s ease;
-    }
-    .mm-nav-btn:hover {
-      background: var(--soft);
-      border-color: var(--green);
-      color: var(--green);
-    }
-    .mm-nav-btn .icon {
-      width: 15px;
-      height: 15px;
-    }
-    .mm-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-    .mm-title-wrap h1 {
-      font-size: 28px;
-      margin: 4px 0 6px;
-      letter-spacing: 0.5px;
-    }
-    .mm-subtitle {
-      margin: 0;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .mm-progress-box {
-      min-width: 260px;
-      flex: 0 1 340px;
-      padding: 12px 15px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
-      box-shadow: var(--mm-shadow);
-    }
-    .mm-progress-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-    .mm-progress-row strong {
-      color: var(--green);
-      font-size: 14px;
-    }
-    .mm-progress-stuck {
-      color: var(--mm-red);
-      font-weight: 600;
-    }
-    .mm-meter {
-      height: 6px;
-      border-radius: 999px;
-      background: var(--line);
-      overflow: hidden;
-      display: flex;
-    }
-    .mm-meter-mastered {
-      background: var(--green);
-      height: 100%;
-      transition: width 0.25s ease;
-    }
-    .mm-meter-stuck {
-      background: var(--mm-red);
-      height: 100%;
-      transition: width 0.25s ease;
-    }
-
-    .mm-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
-      margin-bottom: 14px;
-    }
-    .mm-tool-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .mm-seg {
-      display: inline-flex;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--bg);
-    }
-    .mm-seg button {
-      min-height: 36px;
-      padding: 6px 12px;
-      font-size: 12px;
-      color: var(--muted);
-      border-right: 1px solid var(--line);
-    }
-    .mm-seg button:last-child {
-      border-right: 0;
-    }
-    .mm-seg button[aria-pressed="true"] {
-      background: var(--green);
-      color: var(--bg);
-      font-weight: 600;
-    }
-    .mm-pill {
-      min-height: 34px;
-      padding: 5px 11px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      font-size: 12px;
-      color: var(--muted);
-      background: var(--bg);
-      transition: all 0.15s ease;
-    }
-    .mm-pill:hover {
-      border-color: var(--green);
-      color: var(--ink);
-    }
-    .mm-pill[aria-pressed="true"] {
-      background: var(--soft);
-      border-color: var(--green);
-      color: var(--green);
-      font-weight: 600;
-    }
-    .mm-pill[data-filter="red"][aria-pressed="true"] {
-      background: var(--mm-red-bg);
-      border-color: var(--mm-red-bd);
-      color: var(--mm-red);
-    }
-    .mm-pill[data-filter="amber"][aria-pressed="true"] {
-      background: var(--mm-amber-bg);
-      border-color: var(--mm-amber-bd);
-      color: var(--mm-amber);
-    }
-    .mm-pill[data-filter="blue"][aria-pressed="true"] {
-      background: var(--mm-blue-bg);
-      border-color: var(--mm-blue-bd);
-      color: var(--mm-blue);
-    }
-    .mm-pill[data-filter="stuck"][aria-pressed="true"] {
-      background: var(--mm-red-bg);
-      border-color: var(--mm-red-bd);
-      color: var(--mm-red);
-    }
-    .mm-search {
-      min-height: 36px;
-      padding: 6px 12px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--bg);
-      font-size: 12.5px;
-      width: 210px;
-    }
-    .mm-act-btn {
-      min-height: 34px;
-      padding: 5px 11px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      font-size: 12px;
-      color: var(--muted);
-      background: var(--bg);
-    }
-    .mm-act-btn:hover {
-      background: var(--soft);
-      color: var(--green);
-      border-color: var(--green);
-    }
-
-    .mm-legend {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 10px;
-      padding: 0 2px;
-    }
-    .mm-legend-items {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .mm-dot {
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      margin-right: 5px;
-      vertical-align: middle;
-    }
-    .mm-dot.red { background: var(--mm-red); }
-    .mm-dot.amber { background: var(--mm-amber); }
-    .mm-dot.blue { background: var(--mm-blue); }
-
-    /* Mindmap Canvas */
-    .mm-canvas-wrap {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--surface);
-      box-shadow: var(--mm-shadow);
-      overflow: hidden;
-    }
-    .mm-zoom-bar {
-      position: absolute;
-      right: 14px;
-      top: 14px;
-      z-index: 15;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      background: var(--surface);
-      box-shadow: var(--mm-shadow);
-    }
-    .mm-zoom-bar button {
-      min-height: 30px;
-      min-width: 30px;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      color: var(--ink);
-    }
-    .mm-zoom-bar button:hover {
-      background: var(--soft);
-      color: var(--green);
-    }
-    .mm-zoom-val {
-      font-size: 11.5px;
-      color: var(--muted);
-      min-width: 42px;
-      text-align: center;
-      font-variant-numeric: tabular-nums;
-    }
-    .mm-viewport {
-      width: 100%;
-      height: clamp(540px, 73vh, 880px);
-      overflow: auto;
-      cursor: grab;
-      background-image: radial-gradient(var(--line) 1px, transparent 1px);
-      background-size: 22px 22px;
-    }
-    .mm-viewport.grabbing {
-      cursor: grabbing;
-      user-select: none;
-    }
-    .mm-scaler {
-      position: relative;
-      transform-origin: 0 0;
-      margin: 0 auto;
-    }
-    .mm-stage {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 44px;
-      padding: 58px 40px 40px;
-      min-width: 100%;
-      transform-origin: 0 0;
-    }
-    .mm-lines {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: visible;
-      z-index: 1;
-    }
-    .mm-lines path {
-      fill: none;
-      stroke: var(--mm-line);
-      stroke-width: 2;
-      stroke-linecap: round;
-    }
-    .mm-lines path.is-root {
-      stroke-width: 2.5;
-      stroke: var(--green);
-      opacity: 0.58;
-    }
-    .mm-lines path.is-red {
-      stroke: var(--mm-red);
-      opacity: 0.45;
-    }
-
-    .mm-root {
-      position: relative;
-      z-index: 2;
-      width: 190px;
-      flex: none;
-      padding: 18px 18px;
-      border-radius: 14px;
-      background: var(--green);
-      color: var(--bg);
-      text-align: center;
-      box-shadow: var(--mm-shadow);
-    }
-    .mm-root small {
-      display: block;
-      font-size: 10.5px;
-      letter-spacing: 1.5px;
-      opacity: 0.85;
-      margin-bottom: 5px;
-    }
-    .mm-root h2 {
-      margin: 0 0 6px;
-      font-size: 20px;
-      color: inherit;
-    }
-    .mm-root p {
-      margin: 0;
-      font-size: 12px;
-      opacity: 0.9;
-      line-height: 1.6;
-    }
-
-    .mm-branches {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
-    .mm-branch-row {
-      display: flex;
-      align-items: center;
-      gap: 44px;
-    }
-    .mm-wing-left .mm-branch-row {
-      flex-direction: row-reverse;
-    }
-    .mm-module {
-      width: 196px;
-      flex: none;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1.5px solid var(--line);
-      background: var(--surface);
-      box-shadow: var(--mm-shadow);
-      text-align: left;
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
-    .mm-module:hover {
-      border-color: var(--green);
-      background: var(--soft);
-    }
-    .mm-module-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 5px;
-    }
-    .mm-module-code {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--green);
-      letter-spacing: 0.5px;
-    }
-    .mm-module-count {
-      font-size: 11px;
-      color: var(--muted);
-      padding: 1px 7px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--bg);
-    }
-    .mm-module h3 {
-      margin: 0 0 4px;
-      font-size: 15px;
-      font-family: var(--serif);
-      color: var(--ink);
-    }
-    .mm-module-sub {
-      font-size: 11.5px;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .mm-leaves {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-      width: 376px;
-    }
-
-    /* Leaf Card (shared between Mindmap & List views) */
-    .leaf-card {
-      position: relative;
-      z-index: 2;
-      border: 1px solid var(--line);
-      border-left: 4px solid var(--line);
-      border-radius: 11px;
-      background: var(--bg);
-      padding: 13px 15px;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-    }
-    .leaf-card[data-tier="red"] { border-left-color: var(--mm-red); }
-    .leaf-card[data-tier="amber"] { border-left-color: var(--mm-amber); }
-    .leaf-card[data-tier="blue"] { border-left-color: var(--mm-blue); }
-    .leaf-card.is-mastered {
-      opacity: 0.86;
-      background: var(--soft);
-      border-color: var(--green);
-    }
-    .leaf-card.is-stuck {
-      border-color: var(--mm-red-bd);
-      box-shadow: 0 0 0 1px var(--mm-red-bd);
-    }
-    .leaf-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 7px;
-    }
-    .leaf-badges {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .tier-badge {
-      font-size: 10.5px;
-      font-weight: 600;
-      padding: 2px 7px;
-      border-radius: 5px;
-      border: 1px solid transparent;
-    }
-    .tier-badge.red {
-      background: var(--mm-red-bg);
-      border-color: var(--mm-red-bd);
-      color: var(--mm-red);
-    }
-    .tier-badge.amber {
-      background: var(--mm-amber-bg);
-      border-color: var(--mm-amber-bd);
-      color: var(--mm-amber);
-    }
-    .tier-badge.blue {
-      background: var(--mm-blue-bg);
-      border-color: var(--mm-blue-bd);
-      color: var(--mm-blue);
-    }
-    .year-badge {
-      font-size: 10.5px;
-      padding: 2px 7px;
-      border-radius: 5px;
-      border: 1px solid var(--line);
-      color: var(--muted);
-      background: var(--surface);
-    }
-    .leaf-state-tag {
-      font-size: 10.5px;
-      font-weight: 600;
-      color: var(--green);
-    }
-    .leaf-card.is-stuck .leaf-state-tag {
-      color: var(--mm-red);
-    }
-    .leaf-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-      margin: 0 0 5px;
-      line-height: 1.45;
-    }
-    .leaf-prompt {
-      font-size: 12.5px;
-      color: var(--muted);
-      margin: 0 0 9px;
-      line-height: 1.6;
-    }
-    .leaf-prompt strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .leaf-veil {
-      width: 100%;
-      min-height: 40px;
-      padding: 9px 12px;
-      border: 1px dashed var(--green);
-      border-radius: 8px;
-      background: var(--surface);
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 500;
-      text-align: center;
-      margin-bottom: 8px;
-      transition: background 0.15s ease;
-    }
-    .leaf-veil:hover {
-      background: var(--soft);
-    }
-    .leaf-answer {
-      padding: 10px 12px;
-      border-radius: 8px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      margin-bottom: 9px;
-      font-size: 12.5px;
-      line-height: 1.65;
-    }
-    .leaf-answer-main {
-      color: var(--ink);
-      margin-bottom: 6px;
-    }
-    .leaf-answer-main code {
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      font-size: 11.5px;
-      padding: 1px 5px;
-      border-radius: 4px;
-      background: var(--soft);
-      color: var(--green);
-    }
-    .leaf-pitfall {
-      padding: 6px 9px;
-      border-left: 3px solid var(--mm-red);
-      background: var(--mm-red-bg);
-      border-radius: 4px;
-      font-size: 12px;
-      color: var(--ink);
-      line-height: 1.55;
-    }
-    .leaf-pitfall strong {
-      color: var(--mm-red);
-    }
-
-    .leaf-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .leaf-status-btns {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .leaf-btn {
-      min-height: 30px;
-      padding: 4px 10px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      font-size: 11.5px;
-      color: var(--muted);
-      background: var(--surface);
-    }
-    .leaf-btn:hover {
-      border-color: var(--green);
-      color: var(--green);
-    }
-    .leaf-btn.mastered-btn[aria-pressed="true"] {
-      background: var(--green);
-      border-color: var(--green);
-      color: var(--bg);
-      font-weight: 600;
-    }
-    .leaf-btn.stuck-btn[aria-pressed="true"] {
-      background: var(--mm-red);
-      border-color: var(--mm-red);
-      color: #fff;
-      font-weight: 600;
-    }
-    .leaf-link {
-      min-height: 30px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 9px;
-      border-radius: 6px;
-      font-size: 11.5px;
-      color: var(--green);
-    }
-    .leaf-link:hover {
-      background: var(--soft);
-      text-decoration: underline;
-    }
-
-    /* List View */
-    .mm-list-view {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .list-module {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
-      box-shadow: var(--mm-shadow);
-      overflow: hidden;
-    }
-    .list-module-head {
-      width: 100%;
-      min-height: 50px;
-      padding: 13px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      text-align: left;
-      border-bottom: 1px solid var(--line);
-      background: var(--surface);
-    }
-    .list-module-head[aria-expanded="false"] {
-      border-bottom: 0;
-    }
-    .list-module-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .list-module-title h3 {
-      margin: 0;
-      font-size: 17px;
-      font-family: var(--serif);
-    }
-    .list-module-body {
-      padding: 14px 16px 16px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .mm-empty {
-      padding: 40px 20px;
-      text-align: center;
-      border: 1px dashed var(--line);
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 13.5px;
-      background: var(--surface);
-    }
-
-    html[data-theme="glass"] .mm-progress-box,
-    html[data-theme="glass"] .mm-toolbar,
-    html[data-theme="glass"] .mm-canvas-wrap,
-    html[data-theme="glass"] .mm-module,
-    html[data-theme="glass"] .list-module,
-    html[data-theme="glass"] .mm-zoom-bar {
-      background: rgba(14, 21, 31, 0.7);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-color: rgba(255, 255, 255, 0.14);
-    }
-    html[data-theme="glass"] .leaf-card {
-      background: rgba(10, 16, 25, 0.65);
-    }
-    html[data-theme="glass"] .leaf-answer,
-    html[data-theme="glass"] .leaf-veil {
-      background: rgba(17, 26, 38, 0.78);
-    }
-
-    @media (max-width: 960px) {
-      .list-module-body {
-        grid-template-columns: 1fr;
-      }
-    }
-    @media (max-width: 760px) {
-      .mm-shell {
-        padding: 12px 14px 40px;
-      }
-      .mm-title-wrap h1 {
-        font-size: 22px;
-      }
-      .mm-progress-box {
-        width: 100%;
-        flex: 1 1 100%;
-      }
-      .mm-search {
-        width: 100%;
-      }
-      .mm-viewport {
-        height: 62vh;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="study/mindmap.css?v=1">
 </head>
 <body>
-  <div class="mm-shell">
-    <header class="mm-topbar">
-      <nav class="mm-nav-links" aria-label="页面导航">
-        <a class="mm-nav-btn" href="notes.html">← 笔记书架</a>
-        <a class="mm-nav-btn" href="network-6.html">第6章原笔记 ↗</a>
-        <a class="mm-nav-btn" href="network-0.html">计网总控 ↗</a>
-      </nav>
-      <div class="mm-nav-links">
-        <button type="button" class="mm-nav-btn" id="mm-theme-toggle" aria-label="切换日夜主题">切换夜读</button>
-      </div>
-    </header>
-
-    <section class="mm-head">
-      <div class="mm-title-wrap">
-        <div class="kicker">408 COMPUTER NETWORK · CH06 MINDMAP</div>
-        <h1>第6章 应用层 · 考纲与真题交互导图</h1>
-        <p class="mm-subtitle">覆盖考纲全貌与 2009–2026 真题红线：先看设问在脑中作答，再点击翻牌核对，卡壳节点直跳原笔记。</p>
-      </div>
-      <div class="mm-progress-box" aria-label="掌握进度">
-        <div class="mm-progress-row">
-          <span>已掌握 <strong id="stat-mastered">0</strong> / <span id="stat-total">34</span></span>
-          <span class="mm-progress-stuck">仍卡壳 <span id="stat-stuck">0</span></span>
-        </div>
-        <div class="mm-meter" aria-hidden="true">
-          <div class="mm-meter-mastered" id="meter-mastered" style="width:0%"></div>
-          <div class="mm-meter-stuck" id="meter-stuck" style="width:0%"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="mm-toolbar" aria-label="导图控制栏">
-      <div class="mm-tool-group">
-        <div class="mm-seg" role="group" aria-label="背诵模式">
-          <button type="button" id="mode-recall" aria-pressed="true">🔒 遮罩自测</button>
-          <button type="button" id="mode-open" aria-pressed="false">👁️ 全部展开</button>
-        </div>
-        <div class="mm-seg" role="group" aria-label="视图切换">
-          <button type="button" id="view-map" aria-pressed="true">🗺️ 思维导图</button>
-          <button type="button" id="view-list" aria-pressed="false">📋 列表速刷</button>
-        </div>
-      </div>
-
-      <div class="mm-tool-group" role="group" aria-label="考点分层筛选">
-        <button type="button" class="mm-pill" data-filter="all" aria-pressed="true">全部 <span id="cnt-all">34</span></button>
-        <button type="button" class="mm-pill" data-filter="red" aria-pressed="false">🔴 真题红线 <span id="cnt-red">0</span></button>
-        <button type="button" class="mm-pill" data-filter="amber" aria-pressed="false">🟠 大纲核心 <span id="cnt-amber">0</span></button>
-        <button type="button" class="mm-pill" data-filter="blue" aria-pressed="false">🔵 易错辨析 <span id="cnt-blue">0</span></button>
-        <button type="button" class="mm-pill" data-filter="stuck" aria-pressed="false">⚑ 仍卡壳 <span id="cnt-stuck">0</span></button>
-      </div>
-
-      <div class="mm-tool-group">
-        <input type="search" class="mm-search" id="mm-search" placeholder="搜协议、端口、年份、关键字…" aria-label="搜索考点">
-        <button type="button" class="mm-act-btn" id="btn-toggle-all">全部折叠</button>
-        <button type="button" class="mm-act-btn" id="btn-reset">重置进度</button>
-      </div>
-    </section>
-
-    <div class="mm-legend">
-      <div class="mm-legend-items">
-        <span><i class="mm-dot red"></i>真题红线（历年真题高频 / 个人错题）</span>
-        <span><i class="mm-dot amber"></i>大纲核心（未考或低频但大纲必会）</span>
-        <span><i class="mm-dot blue"></i>易错辨析（概念边界 / 防反转陷阱）</span>
-      </div>
-      <span id="mm-hint-text">提示：点击模块节点可折叠分支，空白处可拖拽画布</span>
-    </div>
-
-    <main id="mm-main"></main>
-  </div>
-
-  <div id="toast" class="toast" role="status" hidden></div>
-
   <script>
-  (() => {
-    'use strict';
-
-    const PREFS_KEY = 'personal-notes-reader-prefs';
-    const STORAGE_KEY = 'notes-network-ch6-mindmap-v1';
-    const DAY_THEMES = ['paper', 'focus', 'mono', 'glass', 'momo', 'light'];
-    const THEME_COLORS = {
-      paper: '#f5f3ed',
-      focus: '#f4f1ea',
-      mono: '#ffffff',
-      glass: '#0d141e',
-      momo: '#f1f6f5',
-      light: '#ffffff',
-      dark: '#17211b'
-    };
-
-    const MODULES = [
+  window.MINDMAP_CONFIG = {
+    chapter: 6,
+    pageFile: 'network-ch6-mindmap.html',
+    title: '第6章 应用层',
+    noteHref: 'network-6.html',
+    hubHref: 'network-0.html',
+    storageKey: 'notes-network-ch6-mindmap-v1',
+    chapters: [
+      { num: 1, label: '1', title: '第1章 体系结构', href: 'network-ch1-mindmap.html' },
+      { num: 2, label: '2', title: '第2章 物理层', href: 'network-ch2-mindmap.html' },
+      { num: 3, label: '3', title: '第3章 数据链路层', href: 'network-ch3-mindmap.html' },
+      { num: 4, label: '4', title: '第4章 网络层', href: 'network-ch4-mindmap.html' },
+      { num: 5, label: '5', title: '第5章 传输层', href: 'network-ch5-mindmap.html' },
+      { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
+    ],
+    tree: [
       {
-        id: 'm61',
-        code: '6.1',
-        title: '网络应用模型',
-        noteHref: 'network-6.html#section-3',
-        items: [
+        id: '6.1',
+        title: '6.1 应用模型',
+        col: 'left',
+        children: [
           {
-            id: 'c6-01',
-            tier: 'red',
-            tag: '2019-T40',
-            title: 'C/S 模型核心特征与单点瓶颈',
-            prompt: '<strong>自测：</strong>C/S 模型中客户之间能否直接通信？客户端和服务器谁必须持续运行、谁必须事先知道谁的地址？',
-            answer: '<strong>核心结论：</strong>客户与客户之间<strong>通常不直接通信</strong>（须经服务器中转）；服务器<strong>持续运行</strong>并等待请求，客户<strong>主动发起请求</strong>。客户必须事先知道服务器地址，服务器可从收到的请求报文中获知客户地址。',
-            pitfall: '<strong>避坑红线：</strong>所有服务集中于中心服务器，并发量大时 CPU、存储与出口带宽易成为单点瓶颈（2019-T40 错项即“客户与客户可以直接通信”）。',
-            href: 'network-6.html#section-4'
+            id: '6.1-cs',
+            title: 'C/S 模型',
+            children: [
+              { id: 'c6-01', bold: '角色分工', text: '客户主动发请求，服务器持续等请求', tag: '大纲', kw: 'IP 端口 进程角色', href: 'network-6.html#section-6' },
+              { id: 'c6-02', bold: '客户间通信', text: '服务集中中心，客户间通常不直接通信', tag: '2019', red: true, kw: '2019-T40 瓶颈 单点', href: 'network-6.html#section-6' },
+              { id: 'c6-03', bold: '两大边界', text: '同机可兼任两角；建连后服务器仍可推数据', tag: '边界', kw: '进程 非硬件', href: 'network-6.html#section-7' }
+            ]
           },
           {
-            id: 'c6-02',
-            tier: 'blue',
-            tag: '大纲边界',
-            title: 'C/S 两大隐藏边界：角色非硬件 & 发起不限续发',
-            prompt: '<strong>自测：</strong>高配电脑一定作服务器吗？客户主动发起连接后，服务器还能持续主动发数据吗？',
-            answer: '<strong>核心结论：</strong>① 客户/服务器是<strong>应用进程通信角色</strong>，不是硬件规格分类（同一台主机可同时跑浏览器客户端与 Web 服务端）。② “客户主动发起”仅指建连起点，连接建立后<strong>服务器可根据协议持续推送消息</strong>。',
-            pitfall: '<strong>避坑红线：</strong>“谁发起服务请求”与“连接建立后谁能发送数据”是两个独立问题，不能混为一谈。',
-            href: 'network-6.html#section-4'
-          },
-          {
-            id: 'c6-03',
-            tier: 'amber',
-            tag: '大纲必会',
-            title: 'P2P 模型、BitTorrent 分块与 IP 覆盖网络',
-            prompt: '<strong>自测：</strong>为什么 P2P 下载越多人越快？“对等”要求硬件性能相等吗？P2P 位于哪一层的逻辑网络？',
-            answer: '<strong>核心结论：</strong>每个节点既作客户下载、又作服务器向其他节点上传已得数据块（BitTorrent 把文件切成固定大小 <code>chunk</code>），新节点同时带来<strong>下载需求与上传能力</strong>。P2P 是<strong>覆盖在现有 IP 网络上的应用层逻辑网络</strong>。',
-            pitfall: '<strong>避坑红线：</strong>“对等”强调<strong>服务角色可动态互换</strong>，<strong>不要求各节点硬件性能相等</strong>；节点分散导致权限、资源发现与安全管理更复杂。',
-            href: 'network-6.html#section-10'
-          },
-          {
-            id: 'c6-04',
-            tier: 'amber',
-            tag: '大纲必会',
-            title: 'C/S vs P2P 五维对比与 Tracker 中心判定法',
-            prompt: '<strong>自测：</strong>如果一个文件下载系统里存在中心 Tracker 服务器，它还能算 P2P 吗？怎么判断 C/S 与 P2P？',
-            answer: '<strong>核心结论：</strong>P2P 系统中<strong>仍可存在中心服务器</strong>（如 BitTorrent 的 <code>Tracker</code> 用于索引与节点发现）。判断应用模型看<strong>核心业务数据主要由谁提供、节点间的主要通信方式</strong>。',
-            pitfall: '<strong>避坑红线：</strong>不能见“有中心服务器”就武断选 C/S；P2P 的核心特征是节点直接共享文件块、分担带宽与存储压力。',
-            href: 'network-6.html#section-10'
+            id: '6.1-p2p',
+            title: 'P2P 模型',
+            children: [
+              { id: 'c6-04', bold: '动态对等', text: '节点既下又传，不要求硬件性能相等', tag: '大纲', kw: 'BitTorrent chunk', href: 'network-6.html#section-11' },
+              { id: 'c6-05', bold: '扩展健壮', text: '新节点既增需求又增上传，单点退出不失效', tag: '大纲', kw: '分发大文件', href: 'network-6.html#section-12' },
+              { id: 'c6-06', bold: '覆盖与判型', text: '覆盖在 IP 上的逻辑网；含 Tracker 仍算 P2P', tag: '大纲', kw: '覆盖网络 索引', href: 'network-6.html#section-12' }
+            ]
           }
         ]
       },
       {
-        id: 'm62',
-        code: '6.2',
-        title: '域名系统 DNS',
-        noteHref: 'network-6.html#section-14',
-        items: [
+        id: '6.2',
+        title: '6.2 域名系统 DNS',
+        col: 'left',
+        children: [
           {
-            id: 'c6-05',
-            tier: 'red',
-            tag: '2018-T33',
-            title: 'DNS 基本盘：C/S + 分布式 + UDP 53（含 TCP 特例）',
-            prompt: '<strong>自测：</strong>DNS 采用什么应用模型与传输层协议？端口号是多少？使用 UDP 丢包了怎么办？',
-            answer: '<strong>核心结论：</strong>采用 <strong>C/S 模型 + 分布式数据库 + 层次命名空间</strong>；常规查询用 <strong><code>UDP 53</code></strong>（报文短、省去三次握手更高效）；查询超时由<strong>DNS 应用层重传</strong>。',
-            pitfall: '<strong>避坑红线：</strong>不能认为 UDP 不可靠就等于 DNS 不可靠；另外主从服务器区域传送或报文超 <code>512 B</code> 时也可用 TCP（无特殊条件默认选 UDP 53）。',
-            href: 'network-6.html#section-15'
+            id: '6.2-base',
+            title: '基础与空间',
+            children: [
+              { id: 'c6-07', bold: '架构与端口', text: 'C/S＋分布式；常规查 UDP 53（区传用 TCP）', tag: '2018', red: true, kw: '2018-T33 超时重传', href: 'network-6.html#section-15' },
+              { id: 'c6-08', bold: '书写与分类', text: '从右往左(末含.)；标号≤63总≤255不分大小写', tag: '大纲', kw: '.cn .com .arpa 顶级域', href: 'network-6.html#section-17' },
+              { id: 'c6-09', bold: '映射关系', text: '域名与 IP 不一一对应（均衡 / 虚拟主机）', tag: '大纲', kw: '一对多 多对一', href: 'network-6.html#section-17' }
+            ]
           },
           {
-            id: 'c6-06',
-            tier: 'amber',
-            tag: '大纲必会',
-            title: '层次域名空间：从右往左、长度上限与映射关系',
-            prompt: '<strong>自测：</strong><code>www.cskaoyan.com</code> 各级名称是什么？标号和总长上限是多少字符？域名和 IP 一定一一对应吗？',
-            answer: '<strong>核心结论：</strong>末尾隐含根点 <code>.</code>，从右往左级别递减（根 → 顶级 <code>com</code> → 二级 <code>cskaoyan</code> → 三级 <code>www</code>）。单标号最长 <strong><code>63</code> 字符</strong>，完整域名上限 <strong><code>255</code> 字符</strong>，英文不区分大小写。',
-            pitfall: '<strong>避坑红线：</strong>域名与 IP <strong>不是一一对应</strong>！支持一对多（负载均衡）和多对一（虚拟主机），且直接用 IP 即可通信，无需每台主机都有域名。',
-            href: 'network-6.html#section-15'
+            id: '6.2-srv',
+            title: '服务器与域区',
+            children: [
+              { id: 'c6-10', bold: '四类服务器', text: '主机先找本地 DNS；权威记录在权限 DNS', tag: '大纲', kw: '根 顶级 权限 本地', href: 'network-6.html#section-21' },
+              { id: 'c6-55', bold: '只需知本地IP', text: '主机不需预知根/顶级/权限IP；8报文非通用上限', tag: '边界', kw: '2×(1+4)=10 报文数', href: 'network-6.html#section-21' },
+              { id: 'c6-11', bold: '域与区区别', text: 'Zone ⊆ Domain，层数≠权限服务器数', tag: '边界', kw: '管理权限', href: 'network-6.html#section-20' }
+            ]
           },
           {
-            id: 'c6-07',
-            tier: 'amber',
-            tag: '大纲必会',
-            title: '四类服务器分工 & 本地 vs 权限 & 域 vs 区',
-            prompt: '<strong>自测：</strong>主机第一封 DNS 请求发给谁？谁存权威记录？“域（Domain）”和“区（Zone）”谁包含谁？',
-            answer: '<strong>核心结论：</strong>主机日常查询唯一入口是<strong>本地域名服务器</strong>（代办并缓存，无修改权）；原始权威记录保存在<strong>权限域名服务器</strong>。管理范围关系：<strong><code>Zone ⊆ Domain</code></strong>（一个区可管整个域，也可将子域单独委派成新区）。',
-            pitfall: '<strong>避坑红线：</strong>域名有多少层，<strong>不会</strong>自动决定有多少台权限服务器！本地 DNS 缓存了答案也不等于拥有管理权。',
-            href: 'network-6.html#section-19'
-          },
-          {
-            id: 'c6-08',
-            tier: 'red',
-            tag: '2010-T40 · 错题',
-            title: '递归 vs 迭代判定铁律与纯递归请求次数',
-            prompt: '<strong>自测：</strong>怎么区分递归和迭代？如果题干说“采用递归方法解析另一网络域名”，主机和本地 DNS 各发几条请求？',
-            answer: '<strong>核心结论：</strong>判定铁律——收到线索后<strong>谁继续往下一站查</strong>（别人替你查到底 = <strong>递归</strong>；给你指路你自己跑 = <strong>迭代</strong>）。全递归下：用户主机发 <strong><code>1</code> 条</strong>、本地 DNS 向根发 <strong><code>1</code> 条</strong>。',
-            pitfall: '<strong>避坑红线（2010-T40 失分）：</strong>平时默认是“主机递归 + 本地迭代”，但题干若明确写“采用递归方法解析”，本地 DNS 对根只发 1 条，千万别惯性选“多条”！',
-            href: 'network-6.html#section-22'
-          },
-          {
-            id: 'c6-09',
-            tier: 'red',
-            tag: '2016-T40',
-            title: 'DNS 两级缓存、TTL 权衡与多级委派次数（0～4）',
-            prompt: '<strong>自测：</strong>本地迭代查询 <code>www.abc.xyz.com</code> 时，本地 DNS 最少和最多发几次查询？TTL 带来哪两个问题？',
-            answer: '<strong>核心结论：</strong>① 本机缓存或本地 DNS 缓存命中 → 最少 <strong><code>0</code> 次</strong>；② 缓存全空且各级均单独委派时，依次问根、<code>.com</code>、<code>xyz.com</code>、<code>abc.xyz.com</code> → 最多 <strong><code>4</code> 次</strong>。<code>TTL</code> 决定缓存有效期。',
-            pitfall: '<strong>避坑红线：</strong>不存在“域名有几个点就一定查几次”的规律；TTL 未到期前若服务器换 IP 会短暂不一致，不同时间解析也可能拿到不同 IP。',
-            href: 'network-6.html#section-22'
-          },
-          {
-            id: 'c6-10',
-            tier: 'red',
-            tag: '2020-T40 · 错题',
-            title: 'DNS + TCP + HTTP 串联 RTT 与局域网忽略边界',
-            prompt: '<strong>自测：</strong>已知本地域名在局域网内、访问 Internet 上各服务器 RTT=10ms（忽略其他时延），访问纯文本网页最短和最长耗时？',
-            answer: '<strong>核心结论：</strong>① 最短（本机 DNS 缓存命中）：DNS <code>0ms</code> + TCP 三次握手 <code>10ms</code> + HTTP <code>10ms</code> = <strong><code>20ms</code>（2 RTT）</strong>。② 最长：本地 DNS 在局域网记 <code>0ms</code> + 外网 3 次迭代 <code>30ms</code> + TCP <code>10ms</code> + HTTP <code>10ms</code> = <strong><code>50ms</code>（5 RTT）</strong>。',
-            pitfall: '<strong>避坑红线（2020-T40 失分）：</strong>① DNS 命中后<strong>不能省掉 TCP 握手 `1 RTT`</strong>（别选 `10ms`）；② 看清拓扑里本地 DNS 在局域网还是外网，局域网时延被忽略时别多加成 `60ms`！',
-            href: 'network-6.html#section-22'
+            id: '6.2-proc',
+            title: '解析与 RTT',
+            children: [
+              { id: 'c6-12', bold: '递归 vs 迭代', text: '看谁查下一站：人查到底=递归，自己跑=迭代', tag: '大纲', kw: '王道默认', href: 'network-6.html#section-23' },
+              { id: 'c6-13', bold: '全递归条数', text: '指定“递归方法”时主机和本地各只发 1 条', tag: '2010·错', red: true, kw: '2010-T40 一条', href: 'network-6.html#section-26' },
+              { id: 'c6-14', bold: '缓存与 TTL', text: '两级缓存；未命中发 1+k 请求、2(1+k) 报文', tag: '大纲', kw: 'TTL 生存时间', href: 'network-6.html#section-24' },
+              { id: 'c6-15', bold: '多级委派', text: '不按点数死算：www.abc.xyz.com 最少 0 最多 4 次', tag: '2016', red: true, kw: '2016-T40 第12题', href: 'network-6.html#section-26' },
+              {
+                id: '6.2-2020',
+                title: '2020 RTT 边界',
+                children: [
+                  { id: 'c6-16', bold: '最短 20ms', text: 'DNS 命中仍需 TCP 1RTT ＋ HTTP 1RTT', tag: '2020·错', red: true, kw: '2020-T40 2RTT', href: 'network-6.html#section-27' },
+                  { id: 'c6-46', bold: '最长 50ms', text: '本地 DNS 在局域网忽略时延（非 60ms）', tag: '2020·错', red: true, kw: '2020-T40 5RTT', href: 'network-6.html#section-27' }
+                ]
+              }
+            ]
           }
         ]
       },
       {
-        id: 'm63',
-        code: '6.3',
-        title: '文件传输协议 FTP',
-        noteHref: 'network-6.html#section-31',
-        items: [
+        id: '6.3',
+        title: '6.3 文件传输 FTP',
+        col: 'left',
+        children: [
           {
-            id: 'c6-11',
-            tier: 'red',
-            tag: '2009-T40',
-            title: 'FTP 基本属性：TCP、有状态协议与带外传送',
-            prompt: '<strong>自测：</strong>FTP 传输层用什么协议？为什么说它是有状态协议？什么是“带外传送”？',
-            answer: '<strong>核心结论：</strong>FTP 基于 C/S 模型，控制与数据连接<strong>均使用 TCP</strong>；是<strong>有状态协议</strong>（服务器需记忆当前登录用户、目录、权限）；控制命令与文件数据分走两条独立 TCP 连接，称为<strong>带外传送（Out-of-band）</strong>。',
-            pitfall: '<strong>避坑红线：</strong>HTTP/1.x 把请求与响应放在同一条 TCP 连接内，属于带内传送；FTP 命令必须走建立在 TCP 21 上的控制连接。',
-            href: 'network-6.html#section-32'
+            id: '6.3-conn',
+            title: '双连接与状态',
+            children: [
+              { id: 'c6-17', bold: '基本属性', text: 'TCP＋有状态、带外传送；主进程派从属进程并发', tag: '2009', red: true, kw: '2009-T40 匿名FTP', href: 'network-6.html#section-33' },
+              { id: 'c6-18', bold: '生命周期', text: '控制(21)贯穿全程；数据传完即关(含 LIST)', tag: '2017', red: true, kw: '2017-T40', href: 'network-6.html#section-34' }
+            ]
           },
           {
-            id: 'c6-12',
-            tier: 'red',
-            tag: '2017-T40 · 错题',
-            title: '双连接生命周期：控制贯穿、数据按次关闭',
-            prompt: '<strong>自测：</strong>两条连接谁先建谁后关？传完一个文件后数据连接怎么办？<code>LIST</code> 目录列表走哪条连接？',
-            answer: '<strong>核心结论：</strong><strong>控制连接先建立、后释放</strong>（贯穿整个会话）；<strong>数据连接后建立、先释放</strong>（按次建立，每次传完文件或目录就关闭）。<code>LIST</code> 命令走控制连接，但返回的<strong>目录列表数据走数据连接</strong>！',
-            pitfall: '<strong>避坑红线（2017-T40 易混）：</strong>“数据连接在每次数据传输完毕后就关闭”是<strong>正确</strong>叙述，别记成持久复用！',
-            href: 'network-6.html#section-34'
+            id: '6.3-mode',
+            title: 'PORT 与 PASV',
+            children: [
+              { id: 'c6-19', bold: '主/被动含义', text: 'PORT 服 20 连客；PASV 客连服（易穿 NAT）', tag: '大纲', kw: '上传 下载', href: 'network-6.html#section-35' },
+              { id: 'c6-20', bold: '端口归属陷阱', text: '20 和 21 属服务器，客户端全用随机临时口', tag: '2017·错', red: true, kw: '2017-T40 临时端口', href: 'network-6.html#section-35' }
+            ]
           },
           {
-            id: 'c6-13',
-            tier: 'red',
-            tag: '2017-T40 · 错题',
-            title: 'PORT 主动（20）vs PASV 被动（临时口）与端口归属',
-            prompt: '<strong>自测：</strong>“主动/被动”针对的是哪条连接、谁主动？为什么有 NAT/防火墙时常用 PASV？<code>20/21</code> 归谁？',
-            answer: '<strong>核心结论：</strong>两种模式控制连接均由客户连服务器 <strong><code>TCP 21</code></strong>；“主/被动”指<strong>服务器是否主动建数据连接</strong>：<strong>PORT</strong> 为服务器用 <strong><code>TCP 20</code></strong> 主动连客户临时口；<strong>PASV</strong> 为客户主动连服务器协商临时口（可穿透客户侧 NAT/防火墙）。',
-            pitfall: '<strong>避坑红线（2017-T40 失分）：</strong><code>20</code> 和 <code>21</code> 永远是<strong>服务器</strong>端口！选项出现“服务器与<strong>客户端的 TCP 20 端口</strong>建立连接”必错；且连接方向与文件上传/下载流向无关。',
-            href: 'network-6.html#section-34'
-          },
-          {
-            id: 'c6-14',
-            tier: 'red',
-            tag: '2023-T47',
-            title: 'FTP 跨章计算①：SYN 与 FIN 各占 1 个序号',
-            prompt: '<strong>自测：</strong>数据连接初始序号为 <code>ISN</code>，发送 <code>L</code> 字节文件后发独立 <code>FIN</code>，首字节序号、FIN 序号与对端确认号各是多少？',
-            answer: '<strong>核心结论：</strong><code>SYN</code> 占 <code>ISN</code> → 首字节 <code>seq<sub>data</sub> = ISN + 1</code>；<code>L</code> 字节占 <code>ISN+1 ~ ISN+L</code> → <code>seq<sub>FIN</sub> = ISN + 1 + L</code>；<code>FIN</code> 再占 1 号 → 对端回复 <strong><code>ack<sub>FIN</sub> = ISN + 2 + L</code></strong>。',
-            pitfall: '<strong>避坑红线：</strong>只算单方向己方发送轴（绝不扣对端的 <code>SYN</code>）；纯 ACK 不消耗序号。',
-            href: 'network-6.html#section-34'
-          },
-          {
-            id: 'c6-15',
-            tier: 'red',
-            tag: '2023-T47',
-            title: 'FTP 跨章计算②：慢开始逐 ACK 增长 vs 整轮增长与速率',
-            prompt: '<strong>自测：</strong>收到第 1 个轮中半路回来的 ACK 时 <code>cwnd</code> 怎么变？到达 <code>ssthresh</code> 后呢？平均比特速率怎么换算？',
-            answer: '<strong>核心结论：</strong>慢开始（<code>cwnd &lt; ssthresh</code>）<strong>每收到 1 个新 ACK，<code>cwnd + 1 MSS</code></strong>（凑齐一整轮才翻倍）；进入拥塞避免后，<strong>完整经过 1 轮才加 <code>1 MSS</code></strong>。应用层比特速率：<strong><code>v = 8L / T</code></strong>（<code>L</code> 为字节，<code>T</code> 为秒）。',
-            pitfall: '<strong>避坑红线：</strong>切勿中途收到 1 个 ACK 就直接把 <code>cwnd</code> 翻倍；算速率前先盯死时间 <code>T</code> 的起止点（建连前/后、含不含挥手）。',
-            href: 'network-6.html#section-34'
+            id: '6.3-calc',
+            title: '跨章综合计算',
+            children: [
+              { id: 'c6-21', bold: '序号计算', text: 'SYN 与 FIN 各占 1 号，确认 FIN 为 ISN+2+L', tag: '2023大题', red: true, kw: '2023-T47 101 18102', href: 'network-6.html#section-38' },
+              { id: 'c6-22', bold: '慢开始尺度', text: '达门限前每收 1 新 ACK +1MSS；后整轮 +1', tag: '2023大题', red: true, kw: '2023-T47 2101 7101', href: 'network-6.html#section-38' },
+              { id: 'c6-47', bold: '平均比特率', text: 'v = 8L / T，做题先盯死 T 的起止点', tag: '2023大题', red: true, kw: '2023-T47 2.4Mbps', href: 'network-6.html#section-38' }
+            ]
           }
         ]
       },
       {
-        id: 'm64',
-        code: '6.4',
-        title: '电子邮件',
-        noteHref: 'network-6.html#section-41',
-        items: [
+        id: '6.4',
+        title: '6.4 电子邮件',
+        col: 'right',
+        children: [
           {
-            id: 'c6-16',
-            tier: 'red',
-            tag: '2012-T40',
-            title: '邮件系统三组件与五步 Push / Pull 全链路',
-            prompt: '<strong>自测：</strong>为什么收件人关机也能收到信？从写信到收信三段路各用什么协议，谁是 Push 谁是 Pull？',
-            answer: '<strong>核心结论：</strong>异步通信，邮件服务器充当中转仓库。三段协议：<strong><code>发送方 UA →(SMTP, Push)→ 发送服务器 →(SMTP, Push)→ 接收服务器 ←(POP3/IMAP, Pull)← 接收方 UA</code></strong>。发件服务器转交信件时，角色从 SMTP 服务器切为 SMTP 客户。',
-            pitfall: '<strong>避坑红线：</strong>POP3 中是<strong>用户代理（客户）主动建 TCP 去拉信</strong>，邮件服务器始终是 POP3 服务器；SMTP <strong>不支持</strong>从服务器向用户代理推信。',
-            href: 'network-6.html#section-42'
+            id: '6.4-flow',
+            title: '组成与 Push/Pull',
+            children: [
+              { id: 'c6-23', bold: '发信与转交', text: '发UA → 发服务器 → 收服务器均用 SMTP 推', tag: '2012', red: true, kw: '2012-T40 2013-T40 兼任', href: 'network-6.html#section-43' },
+              { id: 'c6-48', bold: '收信拉取', text: '收UA ← 收服务器用 POP3/IMAP 拉，无服→UA 推', tag: '2012/2013', red: true, kw: 'Push Pull', href: 'network-6.html#section-44' }
+            ]
           },
           {
-            id: 'c6-17',
-            tier: 'blue',
-            tag: '大纲边界',
-            title: '邮件格式：SMTP 信封 vs 首部 + 必有空行',
-            prompt: '<strong>自测：</strong>邮件首部和主体靠什么分隔？SMTP 信封收件人和内容首部 <code>To:</code> 字段一定完全一致吗？',
-            answer: '<strong>核心结论：</strong>邮件内容 = <strong>首部 + 一个空行（CRLF）+ 主体</strong>；邮箱地址格式为 <code>用户名@邮箱域名</code>（故发信需用 DNS 查 MX）。实际投递看 <strong>SMTP 信封（<code>RCPT TO</code>）</strong>，与显示的 <code>To:</code> 不必完全一致（如 <strong>Bcc 密送</strong>）。',
-            pitfall: '<strong>避坑红线：</strong>RFC 5322 规定必需首部主要是 <code>Date</code> 和 <code>From</code>，语法上 <code>To</code> 和 <code>Subject</code> 甚至可省，不能认为首部全靠用户手填或信封必等于 <code>To:</code>。',
-            href: 'network-6.html#section-45'
+            id: '6.4-fmt',
+            title: '格式与 MIME',
+            children: [
+              { id: 'c6-24', bold: '首部与空行', text: '内容 = 首部 ＋ 1 个空行 ＋ 主体；用户@域名', tag: '大纲', kw: 'From To Subject MX Bcc RFC5322', href: 'network-6.html#section-46' },
+              { id: 'c6-25', bold: 'MIME 编码', text: 'SMTP 原生只传 7 位 ASCII；非 ASCII 须 MIME 转换', tag: '2013/2018', red: true, kw: '2013-T40 2018-T40 Base64', href: 'network-6.html#section-47' }
+            ]
           },
           {
-            id: 'c6-18',
-            tier: 'red',
-            tag: '2013/2018-T40',
-            title: 'MIME 编码转换与 7 位 ASCII 边界',
-            prompt: '<strong>自测：</strong>SMTP 原生只能传什么？发送图片、音频、中文或 EXE 可执行文件要靠谁？哪类内容无需转换？',
-            answer: '<strong>核心结论：</strong>传统 SMTP 仅直接支持 <strong>7 位 ASCII 文本</strong>；传输中文/图片/音视频/二进制文件须经 <strong>MIME</strong>（如 <code>Base64</code>）编码为 ASCII 文本，新增 5 类首部（<code>MIME-Version</code>、<code>Content-Type</code>、<code>Content-Transfer-Encoding</code> 等）供接收方解码还原。',
-            pitfall: '<strong>避坑红线：</strong>题干问“无需转换即可由 SMTP 直接传输的内容”，直接锁定 <strong>ASCII 文本</strong>。',
-            href: 'network-6.html#section-45'
-          },
-          {
-            id: 'c6-19',
-            tier: 'amber',
-            tag: '大纲必会',
-            title: 'SMTP（TCP 25）三阶段会话与 4 个常见响应码',
-            prompt: '<strong>自测：</strong>SMTP 端口是多少？<code>MAIL FROM</code>、<code>RCPT TO</code>、<code>DATA</code> 顺序能否颠倒？正文以什么结尾？响应码 220/250/354/221 含义？',
-            answer: '<strong>核心结论：</strong>基于 <strong><code>TCP 25</code></strong>，分建连 → 传信 → 释放三阶段。命令顺序 <code>HELO</code> → <code>MAIL FROM</code> → <code>RCPT TO</code>（可在 <code>DATA</code> 前先验明收件人是否存在）→ <code>DATA</code> → 正文以单行句点 <strong><code>&lt;CRLF&gt;.&lt;CRLF&gt;</code></strong> 结束 → <code>QUIT</code>。响应码：<code>220</code> 就绪、<code>250</code> 成功、<code>354</code> 开始输正文、<code>221</code> 关连接。',
-            pitfall: '<strong>避坑红线：</strong>一封邮件有多个收件人时，可在同一会话发多条 <code>RCPT TO</code>。',
-            href: 'network-6.html#section-48'
-          },
-          {
-            id: 'c6-20',
-            tier: 'red',
-            tag: '2015-T33 / 2025-T40',
-            title: 'POP3（110）单连接多封 vs IMAP（143）vs Web 邮箱',
-            prompt: '<strong>自测：</strong>邮箱有 10 封未读邮件时 POP3 要建几条 TCP 连接？POP3 和 IMAP 核心差异？浏览器打开网页邮箱用什么协议？',
-            answer: '<strong>核心结论：</strong>① <strong>POP3（TCP 110）</strong>提供有连接可靠服务，支持<strong>在 1 条 TCP 连接中连续读取多封邮件</strong>（含“下载并删除/保留”模式）；② <strong>IMAP（TCP 143）</strong>支持服务器端文件夹与已读状态同步、按需只下首部；③ <strong>Web 邮箱</strong>：浏览器↔Web 服务器走 <strong>HTTP/HTTPS</strong>，服务器间转信仍走 SMTP。',
-            pitfall: '<strong>避坑红线：</strong>别把“10 封邮件”算成建 10 条 POP3 TCP 连接（2025-T40 考点）；也别以为 Web 邮箱端到端全用 POP3/SMTP。',
-            href: 'network-6.html#section-48'
+            id: '6.4-proto',
+            title: 'SMTP / POP3 / IMAP',
+            children: [
+              { id: 'c6-26', bold: 'SMTP(TCP 25)', text: 'HELO/MAIL/RCPT/DATA/./QUIT；220/250/354/221', tag: '大纲', kw: '三阶段 响应码', href: 'network-6.html#section-49' },
+              { id: 'c6-27', bold: 'POP3(TCP 110)', text: '有连接可靠；1 条 TCP 可连续读多封邮件', tag: '2015/2025', red: true, kw: '2015-T33 2025-T40 删除 保留', href: 'network-6.html#section-50' },
+              { id: 'c6-28', bold: 'IMAP 与 Web 邮箱', text: 'IMAP(143) 同步管理；Web 邮箱用 HTTP/HTTPS', tag: '大纲', kw: '文件夹 部分下载', href: 'network-6.html#section-50' }
+            ]
           }
         ]
       },
       {
-        id: 'm65',
-        code: '6.5',
-        title: '万维网 WWW 与 HTTP',
-        noteHref: 'network-6.html#section-55',
-        items: [
+        id: '6.5',
+        title: '6.5 WWW 与 HTTP',
+        col: 'right',
+        children: [
           {
-            id: 'c6-21',
-            tier: 'blue',
-            tag: '显式端口错题',
-            title: 'WWW 三要素与显式指定端口（:8088 覆盖 80）',
-            prompt: '<strong>自测：</strong>URL、HTTP、HTML 各管什么？访问 <code>http://www.example.com:8088/a.html</code> 时目标 TCP 端口是多少？',
-            answer: '<strong>核心结论：</strong><strong>URL</strong> 定位资源（去哪里）、<strong>HTTP</strong> 规定交互报文（怎么传）、<strong>HTML</strong> 描述页面结构（长什么样）。URL 格式 <code>协议://主机[:端口]/路径</code>，未写端口时 HTTP 默认 <code>TCP 80</code>；一旦显式写出 <code>:8088</code>，目标端口就是 <strong><code>8088</code></strong>。',
-            pitfall: '<strong>避坑红线（个人错题复盘）：</strong>见到普通 HTTP 先扫主机名后有没有冒号 <code>:</code>！显式端口优先级高于默认 <code>80</code>，别条件反射直接选 80。',
-            href: 'network-6.html#section-56'
+            id: '6.5-base',
+            title: 'URL、特性与 Cookie',
+            children: [
+              { id: 'c6-29', bold: 'URL 与端口', text: '缺省默认 TCP 80；若写 :8088 则连 8088', tag: '错题', red: true, kw: 'WWW HTML 显式端口', href: 'network-6.html#section-57' },
+              { id: 'c6-30', bold: '无连接 & 无状态', text: '应用层无连接但底层用 TCP（非 UDP）；不记历史', tag: '边界', kw: '1.0 1.1 套接字 互联网', href: 'network-6.html#section-60' },
+              { id: 'c6-31', bold: 'Cookie 机制', text: 'Set-Cookie 发标识、复访带 Cookie；绝不减 RTT', tag: '2015/2026', red: true, kw: '2015-T40 2026-T40', href: 'network-6.html#section-61' }
+            ]
           },
           {
-            id: 'c6-22',
-            tier: 'blue',
-            tag: '高频陷阱',
-            title: 'HTTP 的“无连接”与“无状态”严格区分',
-            prompt: '<strong>自测：</strong>教材说“HTTP 本身无连接”，是不是意味着 HTTP/1.x 底层使用无连接的 UDP？“无状态”指什么？',
-            answer: '<strong>核心结论：</strong>① <strong>无连接（应用层视角）</strong>：HTTP 协议自身不维护连接状态，但 HTTP/1.0 与 HTTP/1.1 <strong>底层均使用面向连接的 TCP</strong>（绝对不是 UDP！）。② <strong>无状态</strong>：服务器不记忆客户端的历史请求，每次请求彼此独立。',
-            pitfall: '<strong>避坑红线：</strong>千万别把“HTTP 无连接”推理成“HTTP 用 UDP”。',
-            href: 'network-6.html#section-59'
+            id: '6.5-rtt',
+            title: '连接模式与慢开始',
+            children: [
+              {
+                id: '6.5-modes',
+                title: '1 HTML + n 小图',
+                children: [
+                  { id: 'c6-32', bold: 'HTTP/1.0 非持久', text: '串行 2(n+1) RTT；全并行 4 RTT', tag: '2024', red: true, kw: '2024-T40 16RTT', href: 'network-6.html#section-62' },
+                  { id: 'c6-49', bold: 'HTTP/1.1 持久', text: '非流水线 (n+2) RTT；流水线 3 RTT', tag: '大纲', kw: '2011-T47', href: 'network-6.html#section-62' }
+                ]
+              },
+              { id: 'c6-33', bold: '握手捎带玄机', text: '第 3 次 ACK 捎带请求共 2RTT（服务端收为 1.5RTT）', tag: '大纲', kw: '1.5RTT 2RTT', href: 'network-6.html#section-62' },
+              {
+                id: '6.5-ss',
+                title: '叠加 TCP 慢开始',
+                children: [
+                  { id: 'c6-34', bold: '2022 慢开始', text: '1+3 MSS 共需 4 RTT = 40ms', tag: '2022', red: true, kw: '2022-T40 流水线', href: 'network-6.html#section-62' },
+                  { id: 'c6-50', bold: '7 MSS 终点', text: '客户收齐 4.0 RTT，服务器收末 ACK 4.5 RTT', tag: '4.5RTT 追问', red: true, kw: '4.5RTT', href: 'network-6.html#section-62' }
+                ]
+              }
+            ]
           },
           {
-            id: 'c6-23',
-            tier: 'red',
-            tag: '2015/2026-T40',
-            title: 'Cookie 机制：保存会话标识、绝不缩短 RTT',
-            prompt: '<strong>自测：</strong>Cookie 如何帮无状态的 HTTP 记住登录/购物车？标识与状态分别存哪儿？Cookie 能减少 Web 响应的 RTT 吗？',
-            answer: '<strong>核心结论：</strong>首次访问时服务器在响应头返回 <strong><code>Set-Cookie</code></strong>，浏览器保存该标识；后续请求自动携带 <strong><code>Cookie</code></strong> 首部，服务器据此检索后台会话数据。Cookie <strong>只做会话状态管理</strong>。',
-            pitfall: '<strong>避坑红线（2026-T40）：</strong>Cookie <strong>不能减少 TCP 握手，也不能缩短 HTTP 对象响应时间（RTT）</strong>！能省 RTT 的是 DNS 缓存、Web 代理缓存、持久流水线，不是 Cookie。',
-            href: 'network-6.html#section-59'
-          },
-          {
-            id: 'c6-24',
-            tier: 'red',
-            tag: '2024-T40',
-            title: 'HTTP 四种连接模式 RTT 对比（1 HTML + n 小对象）',
-            prompt: '<strong>自测：</strong>忽略传输时延与 DNS，1 个 HTML + <code>n</code> 个同服务器小对象在非持久串/并行、持久非流水/流水线下的 RTT 数各是多少？',
-            answer: '<strong>核心结论：</strong>① HTTP/1.0 非持久<strong>串行</strong>：<strong><code>2(n+1) RTT</code></strong>（2024 题 1+7 → <code>16 RTT</code>）；② 非持久<strong>全并行</strong>：<strong><code>4 RTT</code></strong>；③ HTTP/1.1 持久<strong>非流水线</strong>：<strong><code>(n+2) RTT</code></strong>；④ 持久<strong>流水线</strong>（窗口够大）：<strong><code>3 RTT</code></strong>。',
-            pitfall: '<strong>避坑红线：</strong>算前先看清 4 个开关：① 是否已建连（如 `2011·47` 从 `GET` 开始）；② 支持并行吗；③ 持久 vs 非持久；④ 流水线 vs 非流水线。',
-            href: 'network-6.html#section-59'
-          },
-          {
-            id: 'c6-25',
-            tier: 'amber',
-            tag: '大纲必会',
-            title: '三次握手为何常算 1 RTT？第 3 次 ACK 捎带与 1.5 RTT',
-            prompt: '<strong>自测：</strong>为什么三次握手加小对象请求总共只算 <code>2 RTT</code>？如果问“服务器何时完成三次握手”又是多少？',
-            answer: '<strong>核心结论：</strong><code>0</code> 发 <code>SYN</code> → <code>0.5 RTT</code> 服务端回 <code>SYN+ACK</code> → <code>1 RTT</code> 客户端发第 3 次 <code>ACK</code> <strong>同时捎带第 1 个 HTTP 请求</strong> → <code>1.5 RTT</code> 服务端收到第 3 次 ACK 与请求 → <code>2 RTT</code> 客户端收到小对象响应。',
-            pitfall: '<strong>避坑红线：</strong>① 若第 3 次 ACK 已捎带 HTTP 请求，<strong>绝不可再把半个 RTT 重复加进请求时延</strong>；② 问“客户端收到响应”= <code>2 RTT</code>，问“服务端完成三次握手”= <code>1.5 RTT</code>。',
-            href: 'network-6.html#section-59'
-          },
-          {
-            id: 'c6-26',
-            tier: 'red',
-            tag: '2022-T40 · 4.5RTT 追问',
-            title: 'HTTP + TCP 慢开始时间轴：2022（40ms）与 7 MSS 推演',
-            prompt: '<strong>自测：</strong>为什么开了持久流水线仍可能慢？<code>1 MSS HTML + 3 MSS 图像</code> 要几个 RTT？传 <code>7 MSS</code> 大对象到“客户收齐”与“服务器收到最终 ACK”各几 RTT？',
-            answer: '<strong>核心结论：</strong>受限于慢开始窗口（<code>1→2→4</code>）：① 2022 真题：<code>1 RTT</code>(前2握手) + <code>2 RTT</code>(捎带请求收 1 MSS HTML) + <code>3 RTT</code>(请求图像收 2 MSS) + <code>4 RTT</code>(收剩余 1 MSS) = <strong><code>4 RTT = 40ms</code></strong>；② 传 <code>7 MSS</code> 大对象（<code>1+2+4</code>）：客户端在 <strong><code>4.0 RTT</code></strong> 收齐，发回最终确认到达服务器为 <strong><code>4.5 RTT</code></strong>。',
-            pitfall: '<strong>避坑红线：</strong>看到 <code>MSS</code>、<code>cwnd</code>、<code>ssthresh</code> 立刻画半 RTT 时间轴，注意终点问的是“客户收齐”还是“服务器收到最终确认”。',
-            href: 'network-6.html#section-59'
-          },
-          {
-            id: 'c6-27',
-            tier: 'red',
-            tag: '2015-T40',
-            title: 'HTTP 原始报文、状态码、HEAD 方法与 Connection',
-            prompt: '<strong>自测：</strong>HTTP 报文四部分是什么？<code>1xx~5xx</code> 状态码含义？<code>HEAD</code> 与 <code>GET</code> 区别？<code>Connection: close / keep-alive</code> 作用？',
-            answer: '<strong>核心结论：</strong>结构 = <strong>开始行 + 首部字段 + 空行(CRLF) + 实体主体</strong>；状态码：<code>1xx</code> 通知、<code>2xx</code> 成功(<code>200</code>)、<code>3xx</code> 重定向、<code>4xx</code> 客户端错(<code>404</code>)、<code>5xx</code> 服务端错(<code>500</code>)。<strong><code>HEAD</code> 响应按规定绝不带实体主体</strong>（仅返回首部供探查）。<code>Connection: close</code> 请求非持续连接；HTTP/1.1 默认持久（<code>keep-alive</code>）。',
-            pitfall: '<strong>避坑红线：</strong>不要被反问套路骗了——<code>HEAD</code> 请求通常无主体，<code>HEAD</code> 响应也绝无实体主体；HTTP/1.1 看到 <code>Connection: close</code> 必须按非持续算。',
-            href: 'network-6.html#section-59'
-          },
-          {
-            id: 'c6-28',
-            tier: 'amber',
-            tag: '大纲必会',
-            title: 'Web 代理缓存 & TCP 半关闭 / FIN 搭车 / TIME_WAIT',
-            prompt: '<strong>自测：</strong>客户端发 <code>FIN</code> 后还能收服务器数据吗？<code>1800 B</code> 数据（<code>MSS=1000 B</code>）加上 <code>FIN</code> 需拆几个段？何时才加 <code>2MSL</code>？',
-            answer: '<strong>核心结论：</strong>① <strong>代理缓存</strong>存静态副本，命中可省外网 RTT；② TCP 全双工，客户端发 <code>FIN</code> 后处于<strong>半关闭</strong>，仍可接收服务器剩余数据并回 <code>ACK</code>；③ <code>FIN</code> 是控制位不占载荷字节，<code>1800 B</code> 只拆 2 段（<code>1000+800</code>），<code>FIN</code> 搭末段顺风车；④ 仅问“主动关闭方彻底进入 <code>CLOSED</code>”才在最后 ACK 后加 <strong><code>2MSL</code></strong>。',
-            pitfall: '<strong>避坑红线：</strong>不要把只算“收到全部文件数据”的题目误加上 <code>2MSL</code>。',
-            href: 'network-6.html#section-59'
+            id: '6.5-msg',
+            title: '报文、缓存与挥手',
+            children: [
+              { id: 'c6-35', bold: '报文与状态码', text: '开始行+首部+空行+主体；2xx成功/4xx客错/5xx服错', tag: '大纲', kw: 'Host 200 404 500', href: 'network-6.html#section-63' },
+              { id: 'c6-54', bold: '常用请求方法', text: 'GET/HEAD常无主体；POST提交/PUT存储可有主体', tag: '大纲', kw: 'DELETE CONNECT', href: 'network-6.html#section-63' },
+              { id: 'c6-36', bold: 'HEAD 与连接头', text: 'HEAD 响应绝无主体；Connection: close 表非持久', tag: '2015', red: true, kw: '2015-T40 keep-alive', href: 'network-6.html#section-63' },
+              {
+                id: '6.5-close',
+                title: '缓存与挥手',
+                children: [
+                  { id: 'c6-37', bold: '代理与半关闭', text: '代理缓存省外网 RTT；发 FIN 后仍可收剩余数据', tag: '大纲', kw: 'Web cache 高速缓存', href: 'network-6.html#section-64' },
+                  { id: 'c6-51', bold: 'FIN 与 2MSL', text: 'FIN 可搭末段不占载荷；彻底 CLOSED 才加 2MSL', tag: '大纲', kw: '第14题 TIME_WAIT 1800ms', href: 'network-6.html#section-69' }
+                ]
+              }
+            ]
           }
         ]
       },
       {
-        id: 'm66',
-        code: '6.6',
-        title: '跨层综合、抓包与端口',
-        noteHref: 'network-6.html#section-72',
-        items: [
+        id: '6.6',
+        title: '6.6 跨层综合与端口',
+        col: 'right',
+        children: [
           {
-            id: 'c6-29',
-            tier: 'red',
-            tag: '2014-T40 / 2021-T47',
-            title: '新主机开机访网页 6 步全景串联',
-            prompt: '<strong>自测：</strong>一台刚开机没有 IP 的电脑要打开远方网页，从底到顶依次经历哪 6 个协议步骤？',
-            answer: '<strong>核心结论：</strong>① <strong>DHCP</strong>（拿本机 IP、子网掩码、默认网关、DNS IP）→ ② <strong>ARP</strong>（查本地 DNS 或默认网关 MAC）→ ③ <strong>DNS</strong>（域名→Web 服务器 IP）→ ④ <strong>TCP</strong>（向 80 端口三次握手）→ ⑤ <strong>HTTP</strong>（发 <code>GET</code> 收 HTML）→ ⑥ <strong>浏览器解析 HTML</strong> 并继续请求图片/CSS。',
-            pitfall: '<strong>避坑红线：</strong>审题先看“是否已配置 IP / 是否已缓存 DNS / 是否已建 TCP”，别把题目跳过的步骤硬加进来。',
-            href: 'network-6.html#section-76'
+            id: '6.6-boot',
+            title: '开机全链路与 DHCP',
+            children: [
+              { id: 'c6-38', bold: '开机访网 6 步', text: 'DHCP → ARP → DNS(UDP) → TCP → HTTP → 渲染', tag: '2014', red: true, kw: '2014-T40 不用SMTP PPP', href: 'network-6.html#section-76' },
+              { id: 'c6-39', bold: 'DHCP(UDP 67/68)', text: 'D→O→R→A；未获 IP 前广播源 0.0.0.0 → 255.255.255.255', tag: '2025', red: true, kw: '2025-T36 Discover Request', href: 'network-6.html#section-76' },
+              { id: 'c6-40', bold: 'ARP 与交换表', text: 'DNS(名→IP)/ARP(IP→MAC)；H2不入表收2ARP', tag: '2021大题', red: true, kw: '2021-T47 默认网关 交换表', href: 'network-6.html#section-76' }
+            ]
           },
           {
-            id: 'c6-30',
-            tier: 'red',
-            tag: '2025-T36',
-            title: 'DHCP 四步报文与首部广播地址边界',
-            prompt: '<strong>自测：</strong>DHCP 走什么传输层协议和端口？四步报文顺序是什么？客户端初次广播时源/目的 IP 各填多少？',
-            answer: '<strong>核心结论：</strong>DHCP 基于 <strong><code>UDP</code></strong>（服务器 <strong><code>67</code></strong>、客户端 <strong><code>68</code></strong>）；四步报文：<strong><code>Discover → Offer → Request → ACK</code></strong>。客户机未拿 IP 前发送广播：源 IP <strong><code>0.0.0.0</code></strong>、目的 IP <strong><code>255.255.255.255</code></strong>、源端口 <code>68</code>、目的端口 <code>67</code>。',
-            pitfall: '<strong>避坑红线：</strong>2025 真题考过 <code>DHCPREQUEST</code> 阶段客户端仍未正式启用租约，源 IP 依然填 <code>0.0.0.0</code>；且该广播仅限于本局域网，路由器不跨网段转发。',
-            href: 'network-6.html#section-76'
+            id: '6.6-pcap',
+            title: '抓包、NAT 与 PPP',
+            children: [
+              { id: 'c6-41', bold: '抓包帧偏移', text: '以太网 14B(0800) ＋ IP 20B ＋ TCP 20B(0050=80)', tag: '2011大题', red: true, kw: '2011-T47 目的MAC', href: 'network-6.html#section-65' },
+              { id: 'c6-52', bold: 'IP 关键字节', text: '16~17 总长、22 TTL、23 协议(06=TCP)、26~33 源目 IP', tag: '2011大题', red: true, kw: '2011-T47 MTU 01ef', href: 'network-6.html#section-65' },
+              { id: 'c6-42', bold: 'NAT 必改字段', text: '私有地址过 NAT 路由器必改：TTL、校验和、源 IP', tag: '2011大题', red: true, kw: '2011-T47 10 172.16 192.168', href: 'network-6.html#section-76' },
+              { id: 'c6-43', bold: '封装铁律 & PPP', text: '发送下封/接收上解(DNS→UDP)；PPP 0x7D与五1插0', tag: '2014·卡点', kw: 'LCP NCP 0xFF', href: 'network-6.html#section-39' }
+            ]
           },
           {
-            id: 'c6-31',
-            tier: 'red',
-            tag: '2021-T47 大题',
-            title: 'ARP 找网关 MAC & 交换机只学源 MAC 不记旁听主机',
-            prompt: '<strong>自测：</strong>空白主机与空白交换机场景下，访问外网前发几次 ARP 广播？交换机自学习表会记录全程未发声的主机 H2 吗？',
-            answer: '<strong>核心结论：</strong>① 先广播 ARP 问本地 DNS MAC，拿到 Web IP 后发现不在本网段，再广播 ARP 问<strong>默认网关（路由器）MAC</strong>（至少 2 个目的 MAC 为 <strong><code>FF-FF-FF-FF-FF-FF</code></strong> 的 ARP 广播帧）。② 交换机<strong>只记录收到帧的源 MAC 与入端口</strong>。',
-            pitfall: '<strong>避坑红线（2021-T47）：</strong>旁听主机 <code>H2</code> 全程只收不发，<strong>绝对不在交换机转发表中</strong>！',
-            href: 'network-6.html#section-76'
-          },
-          {
-            id: 'c6-32',
-            tier: 'red',
-            tag: '2011-T47 大题',
-            title: '十六进制抓包“剥洋葱” & NAT 路由器必改字段',
-            prompt: '<strong>自测：</strong>以太网 14B 后 IPv4 首部里总长、TTL、协议、源/目的 IP 各在哪？私有 IP 分组过 NAT 路由器 R 时改哪几个字段？',
-            answer: '<strong>核心结论：</strong>① <code>0~5</code> 目的 MAC、<code>6~11</code> 源 MAC、<code>12~13</code> 类型(<code>0800</code>=IPv4)；IP(<code>14~33</code>)：<code>16~17</code> 总长、<code>22</code> TTL、<code>23</code> 协议(<code>06</code>=TCP)、<code>26~29</code> 源 IP、<code>30~33</code> 目的 IP；<code>34~53</code> TCP；<code>54+</code> HTTP。② 过 NAT 路由器修改：<strong><code>TTL</code>、<code>首部校验和</code>、<code>源 IP 地址</code></strong>。',
-            pitfall: '<strong>避坑红线（2011-T47）：</strong>① 见到 <code>10.x.x.x</code>/<code>192.168.x.x</code> 私有地址出外网，千万别漏写<strong>源 IP 地址（NAT）</strong>；② 务必顺手把十六进制总长（如 <code>01 ef = 495B</code>）和 <code>MTU 1500B</code> 比一下，未超则<strong>不分片</strong>！',
-            href: 'network-6.html#section-59'
-          },
-          {
-            id: 'c6-33',
-            tier: 'blue',
-            tag: '2014-T40 · 卡点唤醒',
-            title: '逐层“直接封装”铁律 & PPP 协议关键点',
-            prompt: '<strong>自测：</strong>DNS / HTTP / FTP 能不能跳过传输层直接装进 IP？为什么访问网页可能用到 PPP，PPP 的三部件与透明传输规则是？',
-            answer: '<strong>核心结论：</strong>① 严禁跳过传输层（<code>DNS→UDP→IP</code>、<code>HTTP/FTP→TCP→IP</code>）。② 家庭拨号 PPPoE 或路由器广域网专线在链路层用 <strong>PPP</strong>：三部件为<strong>成帧 + LCP + NCP</strong>；只支持全双工点对点、无确认不可靠；透明传输：异步<strong>字节填充</strong>（<code>0x7D</code> 转义 <code>0x7E→7D 5E</code>），同步<strong>零比特填充</strong>（<strong>五 1 插 0</strong>）。',
-            pitfall: '<strong>避坑红线：</strong>问“直接封装 DNS 的下层”答 <strong>UDP</strong>（不是 IP）；PPP 帧地址固定 <code>0xFF</code>，无 MAC 寻址。',
-            href: 'network-6.html#section-34'
-          },
-          {
-            id: 'c6-34',
-            tier: 'amber',
-            tag: '全章必背',
-            title: '应用层 12 个高频熟知端口速背总表',
-            prompt: '<strong>自测：</strong>闭眼报出 FTP(数据/控制)、TELNET、SMTP、DNS、DHCP(服/客)、TFTP、HTTP、POP3、IMAP、SNMP、HTTPS 各自的传输层协议与端口！',
-            answer: '<strong>核心结论：</strong><strong>TCP 族：</strong>FTP 数据 <code>20</code> / 控制 <code>21</code>、TELNET <code>23</code>、SMTP <code>25</code>、HTTP <code>80</code>、POP3 <code>110</code>、IMAP <code>143</code>、HTTPS <code>443</code>。<br><strong>UDP 族：</strong>DNS <code>53</code>（常规）、DHCP <code>67</code>(服)/<code>68</code>(客)、TFTP <code>69</code>、SNMP <code>161</code>。',
-            pitfall: '<strong>避坑红线：</strong>记牢“<strong>TFTP 69 / DHCP 67·68 / DNS 53 / SNMP 161 走 UDP</strong>”，尤其别把 HTTP(80) 与 FTP(20/21)、SMTP(25) 与 POP3(110) 搞混。',
-            href: 'network-6.html#section-59'
+            id: '6.6-port',
+            title: '高频熟知端口',
+            children: [
+              { id: 'c6-44', bold: 'TCP 常用前 4', text: 'FTP 数据 20 / 控制 21 · TELNET 23 · SMTP 25 · HTTP 80', tag: '必背', kw: 'TCP端口', href: 'network-6.html#section-66' },
+              { id: 'c6-53', bold: 'TCP 常用后 3', text: 'POP3 110 · IMAP 143 · HTTPS 443', tag: '必背', kw: 'TLS', href: 'network-6.html#section-66' },
+              { id: 'c6-45', bold: 'UDP 族（4 个）', text: 'DNS 53 · DHCP 67(服)/68(客) · TFTP 69 · SNMP 161', tag: '必背', kw: 'UDP端口', href: 'network-6.html#section-66' }
+            ]
           }
         ]
       }
-    ];
-
-    const TOTAL_COUNT = MODULES.reduce((sum, m) => sum + m.items.length, 0);
-    const TIER_LABEL = { red: '真题红线', amber: '大纲核心', blue: '易错辨析' };
-
-    let state = loadState();
-    let recallMask = true;
-    let viewMode = window.innerWidth <= 760 ? 'list' : 'map';
-    let filterTier = 'all';
-    let searchQuery = '';
-    let collapsedModules = new Set();
-    let revealedIds = new Set();
-    let zoom = 1;
-
-    const $ = s => document.querySelector(s);
-    const mainEl = $('#mm-main');
-
-    function loadState() {
-      try {
-        const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-        if (raw && Array.isArray(raw.mastered) && Array.isArray(raw.stuck)) {
-          return { mastered: new Set(raw.mastered), stuck: new Set(raw.stuck) };
-        }
-      } catch {}
-      return { mastered: new Set(), stuck: new Set() };
-    }
-
-    function saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-          mastered: [...state.mastered],
-          stuck: [...state.stuck]
-        }));
-      } catch {}
-    }
-
-    function readPrefs() {
-      try {
-        const p = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}');
-        return p && typeof p === 'object' && !Array.isArray(p) ? p : {};
-      } catch {
-        return {};
-      }
-    }
-
-    function syncThemeButton() {
-      const t = document.documentElement.dataset.theme || 'paper';
-      const btn = $('#mm-theme-toggle');
-      if (btn) btn.textContent = t === 'dark' ? '切回日间' : '切换夜读';
-      const mc = document.querySelector('meta[name="theme-color"]');
-      if (mc) mc.content = THEME_COLORS[t] || '#f5f3ed';
-    }
-
-    $('#mm-theme-toggle').addEventListener('click', () => {
-      const prefs = readPrefs();
-      const cur = document.documentElement.dataset.theme || 'paper';
-      const next = cur === 'dark' ? (DAY_THEMES.includes(prefs.dayTheme) ? prefs.dayTheme : 'paper') : 'dark';
-      if (cur !== 'dark' && DAY_THEMES.includes(cur)) prefs.dayTheme = cur;
-      prefs.theme = next;
-      try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch {}
-      document.documentElement.dataset.theme = next;
-      syncThemeButton();
-    });
-
-    function showToast(msg) {
-      const t = $('#toast');
-      t.textContent = msg;
-      t.hidden = false;
-      clearTimeout(showToast.timer);
-      showToast.timer = setTimeout(() => { t.hidden = true; }, 2200);
-    }
-
-    function matches(item) {
-      if (filterTier === 'red' && item.tier !== 'red') return false;
-      if (filterTier === 'amber' && item.tier !== 'amber') return false;
-      if (filterTier === 'blue' && item.tier !== 'blue') return false;
-      if (filterTier === 'stuck' && !state.stuck.has(item.id)) return false;
-      const q = searchQuery.trim().toLowerCase();
-      if (!q) return true;
-      const hay = `${item.title} ${item.tag} ${item.prompt} ${item.answer} ${item.pitfall}`.replace(/<[^>]+>/g, '').toLowerCase();
-      return hay.includes(q);
-    }
-
-    function updateStats() {
-      const masteredN = state.mastered.size;
-      const stuckN = state.stuck.size;
-      $('#stat-mastered').textContent = masteredN;
-      $('#stat-total').textContent = TOTAL_COUNT;
-      $('#stat-stuck').textContent = stuckN;
-      $('#meter-mastered').style.width = `${(masteredN / TOTAL_COUNT) * 100}%`;
-      $('#meter-stuck').style.width = `${(stuckN / TOTAL_COUNT) * 100}%`;
-
-      let redC = 0, amberC = 0, blueC = 0;
-      for (const m of MODULES) {
-        for (const it of m.items) {
-          if (it.tier === 'red') redC++;
-          else if (it.tier === 'amber') amberC++;
-          else blueC++;
-        }
-      }
-      $('#cnt-all').textContent = TOTAL_COUNT;
-      $('#cnt-red').textContent = redC;
-      $('#cnt-amber').textContent = amberC;
-      $('#cnt-blue').textContent = blueC;
-      $('#cnt-stuck').textContent = stuckN;
-
-      $('#mode-recall').setAttribute('aria-pressed', String(recallMask));
-      $('#mode-open').setAttribute('aria-pressed', String(!recallMask));
-      $('#view-map').setAttribute('aria-pressed', String(viewMode === 'map'));
-      $('#view-list').setAttribute('aria-pressed', String(viewMode === 'list'));
-      document.querySelectorAll('[data-filter]').forEach(b => {
-        b.setAttribute('aria-pressed', String(b.dataset.filter === filterTier));
-      });
-      const allCollapsed = MODULES.every(m => collapsedModules.has(m.id));
-      $('#btn-toggle-all').textContent = allCollapsed ? '全部展开' : '全部折叠';
-      $('#mm-hint-text').textContent = viewMode === 'map'
-        ? '提示：点击中间模块可折叠分支，空白处可拖拽画布'
-        : '提示：先看设问在脑中作答，点击虚线框翻牌核对';
-    }
-
-    function renderLeafCard(item) {
-      const isMastered = state.mastered.has(item.id);
-      const isStuck = state.stuck.has(item.id);
-      const isRevealed = !recallMask || revealedIds.has(item.id);
-      const stateTag = isStuck ? '⚑ 仍卡壳' : isMastered ? '✓ 已掌握' : '';
-
-      return `
-        <article class="leaf-card ${isMastered ? 'is-mastered' : ''} ${isStuck ? 'is-stuck' : ''}" data-id="${item.id}" data-tier="${item.tier}">
-          <div class="leaf-meta">
-            <div class="leaf-badges">
-              <span class="tier-badge ${item.tier}">${TIER_LABEL[item.tier]}</span>
-              <span class="year-badge">${item.tag}</span>
-            </div>
-            ${stateTag ? `<span class="leaf-state-tag">${stateTag}</span>` : ''}
-          </div>
-          <h4 class="leaf-title">${item.title}</h4>
-          <p class="leaf-prompt">${item.prompt}</p>
-          ${isRevealed ? `
-            <div class="leaf-answer">
-              <div class="leaf-answer-main">${item.answer}</div>
-              <div class="leaf-pitfall">${item.pitfall}</div>
-            </div>
-          ` : `
-            <button type="button" class="leaf-veil" data-action="reveal" data-id="${item.id}">
-              点击翻牌核对核心结论与避坑红线
-            </button>
-          `}
-          <div class="leaf-actions">
-            <div class="leaf-status-btns">
-              <button type="button" class="leaf-btn mastered-btn" data-action="mastered" data-id="${item.id}" aria-pressed="${isMastered}">✓ 已掌握</button>
-              <button type="button" class="leaf-btn stuck-btn" data-action="stuck" data-id="${item.id}" aria-pressed="${isStuck}">⚑ 仍卡壳</button>
-              ${recallMask && isRevealed ? `<button type="button" class="leaf-btn" data-action="hide" data-id="${item.id}">收起</button>` : ''}
-            </div>
-            <a class="leaf-link" href="${item.href}">回看原笔记 ↗</a>
-          </div>
-        </article>
-      `;
-    }
-
-    function getFilteredModules() {
-      return MODULES.map(m => ({
-        ...m,
-        visibleItems: m.items.filter(matches)
-      })).filter(m => m.visibleItems.length > 0);
-    }
-
-    const LEFT_MODS = new Set(['m61', 'm62', 'm63']);
-    let hasCenteredOnce = false;
-    let panDrag = null;
-
-    window.addEventListener('mousemove', e => {
-      if (!panDrag) return;
-      panDrag.vp.scrollLeft = panDrag.sLeft - (e.clientX - panDrag.startX);
-      panDrag.vp.scrollTop = panDrag.sTop - (e.clientY - panDrag.startY);
-    });
-    window.addEventListener('mouseup', () => {
-      if (!panDrag) return;
-      panDrag.vp.classList.remove('grabbing');
-      panDrag = null;
-    });
-
-    function buildBranchHtml(m) {
-      const isCollapsed = collapsedModules.has(m.id);
-      const masteredInMod = m.visibleItems.filter(it => state.mastered.has(it.id)).length;
-      return `
-        <div class="mm-branch-row" data-module-row="${m.id}">
-          <button type="button" class="mm-module" data-action="toggle-module" data-mod="${m.id}" aria-expanded="${!isCollapsed}">
-            <div class="mm-module-top">
-              <span class="mm-module-code">${m.code}</span>
-              <span class="mm-module-count">${masteredInMod}/${m.visibleItems.length}</span>
-            </div>
-            <h3>${m.title}</h3>
-            <div class="mm-module-sub">
-              <span>${isCollapsed ? '点击展开分支 ▸' : '点击收起分支 ▾'}</span>
-              <span>${m.visibleItems.length} 个考点</span>
-            </div>
-          </button>
-          ${isCollapsed ? '' : `
-            <div class="mm-leaves" data-leaves-of="${m.id}">
-              ${m.visibleItems.map(renderLeafCard).join('')}
-            </div>
-          `}
-        </div>
-      `;
-    }
-
-    function renderMapView(filtered) {
-      if (!filtered.length) {
-        mainEl.innerHTML = '<div class="mm-empty">当前筛选或搜索下没有匹配考点。点击「全部」或清空搜索框即可恢复。</div>';
-        return;
-      }
-      const prevVp = $('#mm-viewport');
-      const prevScroll = prevVp ? { left: prevVp.scrollLeft, top: prevVp.scrollTop } : null;
-
-      const leftMods = filtered.filter(m => LEFT_MODS.has(m.id));
-      const rightMods = filtered.filter(m => !LEFT_MODS.has(m.id));
-
-      mainEl.innerHTML = `
-        <div class="mm-canvas-wrap">
-          <div class="mm-zoom-bar" aria-label="画布缩放控制">
-            <button type="button" id="zoom-out" title="缩小">－</button>
-            <span class="mm-zoom-val" id="zoom-label">${Math.round(zoom * 100)}%</span>
-            <button type="button" id="zoom-in" title="放大">＋</button>
-            <button type="button" id="zoom-center" title="居中定位">居中</button>
-            <button type="button" id="zoom-fit" title="适配当前窗口">适配</button>
-          </div>
-          <div class="mm-viewport" id="mm-viewport">
-            <div class="mm-scaler" id="mm-scaler">
-              <div class="mm-stage" id="mm-stage">
-                <svg class="mm-lines" id="mm-lines" aria-hidden="true"></svg>
-                ${leftMods.length ? `<div class="mm-branches mm-wing-left" data-wing="left">${leftMods.map(buildBranchHtml).join('')}</div>` : ''}
-                <div class="mm-root" id="mm-root">
-                  <small>CH06 · 考纲 + 真题</small>
-                  <h2>第6章 应用层</h2>
-                  <p>6 个核心模块<br>34 个必会与防坑考点</p>
-                </div>
-                ${rightMods.length ? `<div class="mm-branches mm-wing-right" data-wing="right">${rightMods.map(buildBranchHtml).join('')}</div>` : ''}
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      applyZoomAndConnectors();
-      bindCanvasInteraction();
-
-      if (!hasCenteredOnce) {
-        hasCenteredOnce = true;
-        const vp = $('#mm-viewport');
-        const stage = $('#mm-stage');
-        if (vp && stage && stage.scrollWidth > vp.clientWidth - 20) {
-          const fitW = Math.max(0.68, Math.min(0.95, (vp.clientWidth - 28) / stage.scrollWidth));
-          zoom = Number(fitW.toFixed(2));
-          applyZoomAndConnectors();
-        }
-        requestAnimationFrame(() => centerRootInViewport(false));
-      } else if (prevScroll) {
-        const vp = $('#mm-viewport');
-        if (vp) {
-          vp.scrollLeft = prevScroll.left;
-          vp.scrollTop = prevScroll.top;
-        }
-      }
-    }
-
-    function renderListView(filtered) {
-      if (!filtered.length) {
-        mainEl.innerHTML = '<div class="mm-empty">当前筛选或搜索下没有匹配考点。点击「全部」或清空搜索框即可恢复。</div>';
-        return;
-      }
-      mainEl.innerHTML = `
-        <div class="mm-list-view">
-          ${filtered.map(m => {
-            const isCollapsed = collapsedModules.has(m.id);
-            const masteredInMod = m.visibleItems.filter(it => state.mastered.has(it.id)).length;
-            return `
-              <section class="list-module" data-mod="${m.id}">
-                <button type="button" class="list-module-head" data-action="toggle-module" data-mod="${m.id}" aria-expanded="${!isCollapsed}">
-                  <div class="list-module-title">
-                    <span class="mm-module-code">${m.code}</span>
-                    <h3>${m.title}</h3>
-                    <span class="mm-module-count">已掌握 ${masteredInMod}/${m.visibleItems.length}</span>
-                  </div>
-                  <span style="font-size:12px;color:var(--muted)">${isCollapsed ? '展开 ▸' : '收起 ▾'}</span>
-                </button>
-                ${isCollapsed ? '' : `
-                  <div class="list-module-body">
-                    ${m.visibleItems.map(renderLeafCard).join('')}
-                  </div>
-                `}
-              </section>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }
-
-    function drawConnectors() {
-      const stage = $('#mm-stage');
-      const svg = $('#mm-lines');
-      const root = $('#mm-root');
-      if (!stage || !svg || !root) return;
-
-      const w = stage.scrollWidth;
-      const h = stage.scrollHeight;
-      svg.setAttribute('width', String(w));
-      svg.setAttribute('height', String(h));
-      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-
-      const sRect = stage.getBoundingClientRect();
-      const rRect = root.getBoundingClientRect();
-      const rLeft = (rRect.left - sRect.left) / zoom;
-      const rRight = (rRect.right - sRect.left) / zoom;
-      const ry = (rRect.top + rRect.height / 2 - sRect.top) / zoom;
-
-      const paths = [];
-      stage.querySelectorAll('.mm-branch-row').forEach(row => {
-        const modBtn = row.querySelector('.mm-module');
-        if (!modBtn) return;
-        const isLeft = !!row.closest('[data-wing="left"]');
-        const mRect = modBtn.getBoundingClientRect();
-        const mLeft = (mRect.left - sRect.left) / zoom;
-        const mRight = (mRect.right - sRect.left) / zoom;
-        const my = (mRect.top + mRect.height / 2 - sRect.top) / zoom;
-
-        if (isLeft) {
-          const c1x = rLeft + (mRight - rLeft) * 0.48;
-          paths.push(`<path class="is-root" d="M ${rLeft.toFixed(1)} ${ry.toFixed(1)} C ${c1x.toFixed(1)} ${ry.toFixed(1)}, ${c1x.toFixed(1)} ${my.toFixed(1)}, ${mRight.toFixed(1)} ${my.toFixed(1)}" />`);
-
-          row.querySelectorAll('.leaf-card').forEach(card => {
-            const cRect = card.getBoundingClientRect();
-            const lRight = (cRect.right - sRect.left) / zoom;
-            const ly = (cRect.top + cRect.height / 2 - sRect.top) / zoom;
-            const cx = mLeft + (lRight - mLeft) * 0.48;
-            const cls = card.dataset.tier === 'red' ? 'is-red' : '';
-            paths.push(`<path class="${cls}" d="M ${mLeft.toFixed(1)} ${my.toFixed(1)} C ${cx.toFixed(1)} ${my.toFixed(1)}, ${cx.toFixed(1)} ${ly.toFixed(1)}, ${lRight.toFixed(1)} ${ly.toFixed(1)}" />`);
-          });
-        } else {
-          const c1x = rRight + (mLeft - rRight) * 0.48;
-          paths.push(`<path class="is-root" d="M ${rRight.toFixed(1)} ${ry.toFixed(1)} C ${c1x.toFixed(1)} ${ry.toFixed(1)}, ${c1x.toFixed(1)} ${my.toFixed(1)}, ${mLeft.toFixed(1)} ${my.toFixed(1)}" />`);
-
-          row.querySelectorAll('.leaf-card').forEach(card => {
-            const cRect = card.getBoundingClientRect();
-            const lLeft = (cRect.left - sRect.left) / zoom;
-            const ly = (cRect.top + cRect.height / 2 - sRect.top) / zoom;
-            const cx = mRight + (lLeft - mRight) * 0.48;
-            const cls = card.dataset.tier === 'red' ? 'is-red' : '';
-            paths.push(`<path class="${cls}" d="M ${mRight.toFixed(1)} ${my.toFixed(1)} C ${cx.toFixed(1)} ${my.toFixed(1)}, ${cx.toFixed(1)} ${ly.toFixed(1)}, ${lLeft.toFixed(1)} ${ly.toFixed(1)}" />`);
-          });
-        }
-      });
-
-      svg.innerHTML = paths.join('');
-    }
-
-    function applyZoomAndConnectors() {
-      const stage = $('#mm-stage');
-      const scaler = $('#mm-scaler');
-      const label = $('#zoom-label');
-      if (!stage || !scaler) return;
-
-      stage.style.transform = `scale(${zoom})`;
-      scaler.style.width = `${Math.ceil(stage.scrollWidth * zoom)}px`;
-      scaler.style.height = `${Math.ceil(stage.scrollHeight * zoom)}px`;
-      if (label) label.textContent = `${Math.round(zoom * 100)}%`;
-
-      requestAnimationFrame(drawConnectors);
-    }
-
-    function centerRootInViewport(smooth) {
-      const vp = $('#mm-viewport');
-      const root = $('#mm-root');
-      if (!vp || !root) return;
-      const vpRect = vp.getBoundingClientRect();
-      const rRect = root.getBoundingClientRect();
-      const targetLeft = vp.scrollLeft + (rRect.left + rRect.width / 2) - (vpRect.left + vpRect.width / 2);
-      const targetTop = vp.scrollTop + (rRect.top + rRect.height / 2) - (vpRect.top + vpRect.height / 2);
-      vp.scrollTo({
-        left: Math.max(0, targetLeft),
-        top: Math.max(0, targetTop),
-        behavior: smooth ? 'smooth' : 'auto'
-      });
-    }
-
-    function bindCanvasInteraction() {
-      const vp = $('#mm-viewport');
-      if (!vp) return;
-
-      vp.addEventListener('mousedown', e => {
-        if (e.button !== 0 || e.target.closest('button, a, input, .leaf-card, .mm-module, .mm-root')) return;
-        vp.classList.add('grabbing');
-        panDrag = { vp, startX: e.clientX, startY: e.clientY, sLeft: vp.scrollLeft, sTop: vp.scrollTop };
-      });
-
-      const zoomIn = $('#zoom-in');
-      const zoomOut = $('#zoom-out');
-      const zoomCenter = $('#zoom-center');
-      const zoomFit = $('#zoom-fit');
-      if (zoomIn) zoomIn.addEventListener('click', () => {
-        zoom = Math.min(1.35, Number((zoom + 0.1).toFixed(2)));
-        applyZoomAndConnectors();
-      });
-      if (zoomOut) zoomOut.addEventListener('click', () => {
-        zoom = Math.max(0.3, Number((zoom - 0.1).toFixed(2)));
-        applyZoomAndConnectors();
-      });
-      if (zoomCenter) zoomCenter.addEventListener('click', () => {
-        centerRootInViewport(true);
-      });
-      if (zoomFit) zoomFit.addEventListener('click', () => {
-        const stage = $('#mm-stage');
-        if (!stage) return;
-        const ratio = Math.min(
-          (vp.clientWidth - 16) / stage.scrollWidth,
-          (vp.clientHeight - 16) / stage.scrollHeight,
-          1
-        );
-        zoom = Math.max(0.28, Number(ratio.toFixed(2)));
-        applyZoomAndConnectors();
-        requestAnimationFrame(() => centerRootInViewport(true));
-      });
-    }
-
-    function renderAll() {
-      updateStats();
-      const filtered = getFilteredModules();
-      if (viewMode === 'map') {
-        renderMapView(filtered);
-      } else {
-        renderListView(filtered);
-      }
-    }
-
-    mainEl.addEventListener('click', e => {
-      const target = e.target.closest('[data-action]');
-      if (!target) return;
-      const action = target.dataset.action;
-      const id = target.dataset.id;
-
-      if (action === 'reveal') {
-        revealedIds.add(id);
-        renderAll();
-      } else if (action === 'hide') {
-        revealedIds.delete(id);
-        renderAll();
-      } else if (action === 'mastered') {
-        if (state.mastered.has(id)) {
-          state.mastered.delete(id);
-        } else {
-          state.mastered.add(id);
-          state.stuck.delete(id);
-          revealedIds.add(id);
-        }
-        saveState();
-        renderAll();
-      } else if (action === 'stuck') {
-        if (state.stuck.has(id)) {
-          state.stuck.delete(id);
-        } else {
-          state.stuck.add(id);
-          state.mastered.delete(id);
-          revealedIds.add(id);
-        }
-        saveState();
-        renderAll();
-      } else if (action === 'toggle-module') {
-        const mod = target.dataset.mod;
-        if (collapsedModules.has(mod)) collapsedModules.delete(mod);
-        else collapsedModules.add(mod);
-        renderAll();
-      }
-    });
-
-    $('#mode-recall').addEventListener('click', () => {
-      recallMask = true;
-      revealedIds.clear();
-      renderAll();
-    });
-    $('#mode-open').addEventListener('click', () => {
-      recallMask = false;
-      renderAll();
-    });
-    $('#view-map').addEventListener('click', () => {
-      viewMode = 'map';
-      hasCenteredOnce = false;
-      renderAll();
-    });
-    $('#view-list').addEventListener('click', () => {
-      viewMode = 'list';
-      renderAll();
-    });
-    document.querySelectorAll('[data-filter]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterTier = btn.dataset.filter;
-        hasCenteredOnce = false;
-        renderAll();
-      });
-    });
-    $('#mm-search').addEventListener('input', e => {
-      searchQuery = e.target.value;
-      hasCenteredOnce = false;
-      renderAll();
-    });
-    $('#btn-toggle-all').addEventListener('click', () => {
-      const allCollapsed = MODULES.every(m => collapsedModules.has(m.id));
-      if (allCollapsed) collapsedModules.clear();
-      else MODULES.forEach(m => collapsedModules.add(m.id));
-      hasCenteredOnce = false;
-      renderAll();
-    });
-    $('#btn-reset').addEventListener('click', () => {
-      if (!confirm('确认清空第6章导图的“已掌握 / 仍卡壳”进度记录吗？')) return;
-      state = { mastered: new Set(), stuck: new Set() };
-      revealedIds.clear();
-      saveState();
-      renderAll();
-      showToast('已重置第6章导图自测进度');
-    });
-
-    window.addEventListener('resize', () => {
-      if (viewMode === 'map') applyZoomAndConnectors();
-    });
-
-    syncThemeButton();
-    renderAll();
-  })();
+    ]
+  };
   </script>
+  <script src="study/mindmap.js?v=1"></script>
 </body>
 </html>

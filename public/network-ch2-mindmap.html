@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="408计算机网络第2章物理层全屏思维导图，覆盖考纲重点与2009–2026真题。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>2</text></svg>">
+  <title>第2章 物理层 · 考纲与真题思维导图</title>
+  <script src="study/theme-boot.js?v=1"></script>
+  <link rel="stylesheet" href="study/mindmap.css?v=1">
+</head>
+<body>
+  <script>
+  window.MINDMAP_CONFIG = {
+    chapter: 2,
+    pageFile: 'network-ch2-mindmap.html',
+    title: '第2章 物理层',
+    noteHref: 'network-2.html',
+    hubHref: 'network-0.html',
+    storageKey: 'notes-network-ch2-mindmap-v1',
+    chapters: [
+      { num: 1, label: '1', title: '第1章 体系结构', href: 'network-ch1-mindmap.html' },
+      { num: 2, label: '2', title: '第2章 物理层', href: 'network-ch2-mindmap.html' },
+      { num: 3, label: '3', title: '第3章 数据链路层', href: 'network-ch3-mindmap.html' },
+      { num: 4, label: '4', title: '第4章 网络层', href: 'network-ch4-mindmap.html' },
+      { num: 5, label: '5', title: '第5章 传输层', href: 'network-ch5-mindmap.html' },
+      { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
+    ],
+    tree: [
+      {
+        id: '2.1.1',
+        title: '2.1.1 通信基本概念',
+        col: 'left',
+        children: [
+          {
+            id: '2.1.1-base',
+            title: '数据、信号与码元',
+            children: [
+              { id: 'c2-01', bold: '信息与信号', text: '数据载信息，信号是数据的电磁表现', tag: '大纲', kw: '模拟 数字 编码 调制', href: 'network-2.html#section-6' },
+              { id: 'c2-02', bold: '码元与比特', text: '每码元含log₂V比特，仅V=2时1码元=1bit', tag: '必背', kw: '状态数', href: 'network-2.html#section-6' }
+            ]
+          },
+          {
+            id: '2.1.1-ch',
+            title: '信道与传输方式',
+            children: [
+              { id: 'c2-03', bold: '信源与信道', text: '信源经信道至信宿；双向线含两信道，信道≠电路', tag: '大纲', kw: '噪声源 变换器', href: 'network-2.html#section-7' },
+              { id: 'c2-04', bold: '串行与并行', text: '长距网络用串行、机内短距并行；与同步/异步无关', tag: '边界', kw: '字符同步', href: 'network-2.html#section-9' },
+              { id: 'c2-05', bold: '单向/半/全双工', text: '半双工共信道分时双向，全双工须两独立方向信道', tag: '大纲', kw: '交互方式', href: 'network-2.html#section-10' },
+              { id: 'c2-06', bold: '基带/频带/宽带', text: '基带直传原始电信号，频带载波调制，宽带多频分并行', tag: '边界', kw: '有线电视 载波', href: 'network-2.html#section-72' }
+            ]
+          },
+          {
+            id: '2.1.1-rate',
+            title: '速率、波特与带宽',
+            children: [
+              { id: 'c2-07', bold: '波特与比特率', text: 'Rb=RB·log₂V，波特率无关进制；四相位仅2bit', tag: '2011', red: true, kw: '2011-T34 1200Baud', href: 'network-2.html#section-12' },
+              { id: 'c2-08', bold: '带宽两种语境', text: '公式代Hz频宽W=fH-fL，勿代b/s网速', tag: '必背', kw: '频率范围', href: 'network-2.html#section-13' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2.1.2',
+        title: '2.1.2 信道极限容量',
+        col: 'left',
+        children: [
+          {
+            id: '2.1.2-nyq',
+            title: '奈氏准则（无噪声）',
+            children: [
+              { id: 'c2-09', bold: '失真与串扰', text: '速率高/距远/噪大/质差加重失真，超2W致码间串扰', tag: '大纲', kw: '带限低通 判决', href: 'network-2.html#section-19' },
+              {
+                id: '2.1.2-nyq-2step',
+                title: '无噪声两步模板',
+                children: [
+                  { id: 'c2-10', bold: '第1步：乘2W', text: '极限波特率RB=2W Baud，绝不可漏乘系数2', tag: '2009·错', red: true, kw: '2009-T34 24kbps', href: 'network-2.html#section-20' },
+                  { id: 'c2-11', bold: '再乘log₂V', text: '极限比特率CN=2W·log₂V，算完波特率别停笔', tag: '2022·错', red: true, kw: '2022-T34 4级ASK 800kbps', href: 'network-2.html#section-20' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '2.1.2-sha',
+            title: '香农定理（有噪声）',
+            children: [
+              { id: 'c2-12', bold: '香农容量公式', text: 'CS=W·log₂(1+S/N)，前缀无2，调制难突破', tag: '必背', red: true, kw: '高斯白噪声 SNR', href: 'network-2.html#section-21' },
+              { id: 'c2-13', bold: 'dB换算与近似', text: '先转线性S/N：30dB=1000勿直代，近似非取整', tag: '2016', red: true, kw: '2016-T34 10log10', href: 'network-2.html#section-21' },
+              { id: 'c2-14', bold: '容量反推时延', text: '先算香农极限C，再用帧长L/C求最小发送时延', tag: '2026', red: true, kw: '2026-T34 1023 1500B 6ms', href: 'network-2.html#section-21' }
+            ]
+          },
+          {
+            id: '2.1.2-comb',
+            title: '联合约束与影响因素',
+            children: [
+              { id: 'c2-15', bold: '双约束取小值', text: '同给V和SNR取min(CN,CS)；二进制锁死V=2', tag: '必背', red: true, kw: '联合上限', href: 'network-2.html#section-22' },
+              { id: 'c2-16', bold: '反求最少状态', text: '约去W得V≥√(1+S/N)，30dB至少需32种状态', tag: '2017', red: true, kw: '2017-T34', href: 'network-2.html#section-27' },
+              { id: 'c2-17', bold: '传播速度无关', text: '信号传播速度v(m/s)只定传播时延，不影响数据率', tag: '2014', red: true, kw: '2014-T35', href: 'network-2.html#section-24' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2.1.3',
+        title: '2.1.3 编码与调制',
+        col: 'left',
+        children: [
+          {
+            id: '2.1.3-code',
+            title: '基带数字编码',
+            children: [
+              {
+                id: '2.1.3-nrz',
+                title: '非归零与 4B/5B',
+                children: [
+                  { id: 'c2-18', bold: 'NRZ与RZ', text: 'NRZ看整码元绝对电平(无同步)，RZ码元中点归零', tag: '2015·错', red: true, kw: '2015-T34 电平', href: 'network-2.html#section-32' },
+                  { id: 'c2-19', bold: 'NRZI编码', text: 'NRZI看起点是否翻转；4B/5B用于快速以太网保同步', tag: '2015', kw: '100BASE-T MLT-3', href: 'network-2.html#section-32' }
+                ]
+              },
+              {
+                id: '2.1.3-man',
+                title: '曼彻斯特家族',
+                children: [
+                  { id: 'c2-20', bold: '曼彻斯特编码', text: '中点必跳兼传时钟数据，10BASE-T必用，占2倍带', tag: '2013·错', red: true, kw: '2013-T34 以太网', href: 'network-2.html#section-33' },
+                  { id: 'c2-21', bold: '差分曼彻斯特', text: '中点仅同步，起点跳变=0/不跳=1，抗极性反转', tag: '2021', red: true, kw: '2021-T34 电平比较', href: 'network-2.html#section-33' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '2.1.3-pcm',
+            title: '模拟数字化 PCM',
+            children: [
+              { id: 'c2-22', bold: 'PCM三步骤', text: '采样(fs≥2fmax)→量化(有误差)→编码，勿混2W', tag: '大纲', kw: '脉冲编码调制', href: 'network-2.html#section-34' }
+            ]
+          },
+          {
+            id: '2.1.3-mod',
+            title: '带通数字调制与 QAM',
+            children: [
+              { id: 'c2-23', bold: '四大数字调制', text: 'ASK改幅、FSK改频、PSK绝对相、DPSK看相位差', tag: '必背', kw: 'AM FM PM', href: 'network-2.html#section-35' },
+              { id: 'c2-24', bold: 'FSK双频载波', text: '二进制调制中唯一需2个不同频率载波的是FSK', tag: '2024', red: true, kw: '2024-T34', href: 'network-2.html#section-35' },
+              {
+                id: '2.1.3-qam',
+                title: 'QAM 星座图计算',
+                children: [
+                  { id: 'c2-25', bold: 'QAM星座状态', text: '幅相组合V=mn，QAM-M每码元带log₂M bit', tag: '必背', kw: '正交振幅', href: 'network-2.html#section-36' },
+                  { id: 'c2-26', bold: 'QAM阶数反推', text: '先算n=C/(2W)，必再算V=2ⁿ得型号勿直选n', tag: '2023', red: true, kw: '2023-T34 48Mbps QAM-64', href: 'network-2.html#section-36' }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2.2.1',
+        title: '2.2.1 传输介质',
+        col: 'right',
+        children: [
+          {
+            id: '2.2.1-guided',
+            title: '导向介质（有线）',
+            children: [
+              { id: 'c2-27', bold: '介质属第0层', text: '传输介质在物理层之下(第0层)，只传信号不解比特', tag: '边界', kw: '导向 非导向', href: 'network-2.html#section-71' },
+              { id: 'c2-28', bold: '双绞线与命名', text: '绞合/STP屏蔽防干扰；100BASE-T的T=双绞线', tag: '2019·错', red: true, kw: '2019-T34 UTP STP', href: 'network-2.html#section-48' },
+              { id: 'c2-29', bold: '同轴电缆', text: '外导体屏蔽抗噪优于双绞；50Ω基带，75Ω宽带电视', tag: '大纲', kw: '10BASE5 10BASE2', href: 'network-2.html#section-49' },
+              {
+                id: '2.2.1-fiber',
+                title: '光纤与单/多模',
+                children: [
+                  { id: 'c2-30', bold: '光纤共性边界', text: '抗雷电电磁干扰、无串音保密好，仍有衰减与色散', tag: '边界', kw: '纤芯 包层', href: 'network-2.html#section-50' },
+                  { id: 'c2-31', bold: '多模与单模', text: '多模全反射粗芯LED短距；单模直线细芯LD长距', tag: '必背', kw: '全反射 模态色散', href: 'network-2.html#section-50' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '2.2.1-wireless',
+            title: '非导向介质（无线）',
+            children: [
+              { id: 'c2-32', bold: '无线电波', text: '穿透强、全向传播不必精确对准，用于移动与WLAN', tag: '大纲', kw: '全向', href: 'network-2.html#section-52' },
+              { id: 'c2-33', bold: '微波/红外/激光', text: '均定向视距；红外/激光不穿墙，地面微波远距需中继', tag: '大纲', kw: '视距 中继站', href: 'network-2.html#section-53' },
+              { id: 'c2-34', bold: 'GEO卫星中继', text: '上行+下行单程0.24s、RTT0.48s，广覆盖受气候', tag: '2025大题', red: true, kw: '2025-T47 36000km', href: 'network-2.html#section-53' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2.2.2',
+        title: '2.2.2 物理层接口特性',
+        col: 'right',
+        children: [
+          {
+            id: '2.2.2-four',
+            title: '四大特性（机电功过）',
+            children: [
+              { id: 'c2-35', bold: '机械特性', text: '定插头形状、尺寸、引脚数目排列与固定锁定装置', tag: '必背', kw: 'D型插座 外形', href: 'network-2.html#section-55' },
+              { id: 'c2-36', bold: '电气特性', text: '定电压范围、电平幅度、传输速率与最大电缆长度', tag: '必背', kw: '电平 距离上限', href: 'network-2.html#section-55' },
+              { id: 'c2-37', bold: '功能特性', text: '指明某电平表示何种意义(0/1)及每条线缆引脚功能', tag: '必背', kw: '引脚功能', href: 'network-2.html#section-55' },
+              { id: 'c2-38', bold: '过程/规程特性', text: '规定完成各功能时物理线路事件发生的先后顺序时序', tag: '2012', red: true, kw: '2012-T34 规程特性 时序', href: 'network-2.html#section-55' }
+            ]
+          },
+          {
+            id: '2.2.2-bound',
+            title: '接口层次边界',
+            children: [
+              { id: 'c2-39', bold: '不含MAC地址', text: '物理层四特性均不规定MAC地址(MAC属数据链路层)', tag: '2018', red: true, kw: '2018-T34 物理地址', href: 'network-2.html#section-55' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2.3',
+        title: '2.3 物理层设备',
+        col: 'right',
+        children: [
+          {
+            id: '2.3-rep',
+            title: '中继器（2 端口）',
+            children: [
+              { id: 'c2-40', bold: '再生非纯放大', text: '中继器对数字信号整形再生；模拟信号才用放大器', tag: '边界', red: true, kw: '整形 再生 噪声放大', href: 'network-2.html#section-62' },
+              { id: 'c2-41', bold: '异介质不转协议', text: '可连不同传输介质但须同链路协议，不能转帧格式', tag: '边界', kw: '网段 同一局域网', href: 'network-2.html#section-69' },
+              { id: 'c2-42', bold: '5-4-3规则', text: '串联受时延限制不可无限级联：5段电缆4中继3挂主机', tag: '必背', kw: '10Base5', href: 'network-2.html#section-62' }
+            ]
+          },
+          {
+            id: '2.3-hub',
+            title: '集线器 Hub（多口中继）',
+            children: [
+              { id: 'c2-43', bold: '广播不识址', text: '多口中继器，无缓存不识MAC，向其余工作口广播', tag: '必背', kw: '无交换表', href: 'network-2.html#section-64' },
+              { id: 'c2-44', bold: '拓扑与半双工', text: '物理星形、逻辑总线形；仅半双工，同时只单口输入', tag: '必背', red: true, kw: '逻辑总线', href: 'network-2.html#section-64' },
+              { id: 'c2-45', bold: '不隔冲突/广播', text: '所有端口同属1个冲突域与广播域，反而扩大冲突', tag: '2016/2020', red: true, kw: '2016-T35 2020-T35', href: 'network-2.html#section-64' },
+              { id: 'c2-46', bold: '共享带宽降速', text: 'n台共享总带宽均值≤R/n；混接按共同低速工作', tag: '边界', kw: '瓜分带宽', href: 'network-2.html#section-68' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2.4',
+        title: '2.4 跨章时延与交换性能',
+        col: 'right',
+        children: [
+          {
+            id: '2.4-pipe',
+            title: '流水线与吞吐量',
+            children: [
+              { id: 'c2-47', bold: '流水线算时延', text: 'k段链路T=(k+m-1)tt+Σtp，tp加k次不乘m', tag: '2023·错', red: true, kw: '2023-T33 80.10ms 路由器', href: 'network-2.html#section-43' },
+              { id: 'c2-48', bold: '时延带宽积', text: 'BDP=R·tp(单位bit)，tp=BDP/R防混字节', tag: '2023', kw: '2023-T33', href: 'network-2.html#section-43' },
+              { id: 'c2-49', bold: '多路径吞吐量', text: '先卡两端必经接入边，能绕开的中间慢链路非瓶颈', tag: '2024', red: true, kw: '2024-T33 10Mb/s', href: 'network-2.html#section-43' }
+            ]
+          },
+          {
+            id: '2.4-vc',
+            title: '虚电路交换边界',
+            children: [
+              { id: 'c2-50', bold: '虚电路不预留', text: '建逻辑连接按VCID保序转发，但不必预分配带宽', tag: '2020', red: true, kw: '2020-T34 逻辑连接', href: 'network-2.html#section-43' }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  </script>
+  <script src="study/mindmap.js?v=1"></script>
+</body>
+</html>

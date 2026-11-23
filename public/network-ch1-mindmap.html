@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="408计算机网络第1章计算机网络体系结构全屏思维导图，覆盖考纲重点与2009–2026真题。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>1</text></svg>">
+  <title>第1章 体系结构 · 考纲与真题思维导图</title>
+  <script src="study/theme-boot.js?v=1"></script>
+  <link rel="stylesheet" href="study/mindmap.css?v=1">
+</head>
+<body>
+  <script>
+  window.MINDMAP_CONFIG = {
+    chapter: 1,
+    pageFile: 'network-ch1-mindmap.html',
+    title: '第1章 体系结构',
+    noteHref: 'network-1.html',
+    hubHref: 'network-0.html',
+    storageKey: 'notes-network-ch1-mindmap-v1',
+    chapters: [
+      { num: 1, label: '1', title: '第1章 体系结构', href: 'network-ch1-mindmap.html' },
+      { num: 2, label: '2', title: '第2章 物理层', href: 'network-ch2-mindmap.html' },
+      { num: 3, label: '3', title: '第3章 数据链路层', href: 'network-ch3-mindmap.html' },
+      { num: 4, label: '4', title: '第4章 网络层', href: 'network-ch4-mindmap.html' },
+      { num: 5, label: '5', title: '第5章 传输层', href: 'network-ch5-mindmap.html' },
+      { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
+    ],
+    tree: [
+      {
+        id: '1.1',
+        title: '1.1 概述、组成与分类',
+        col: 'left',
+        children: [
+          {
+            id: '1.1-def',
+            title: '概念与组成',
+            children: [
+              { id: 'c1-01', bold: '定义三要素', text: '自治(独立OS)＋互连＋集合，用于通信和共享', tag: '大纲', kw: '资源共享 紧耦合', href: 'network-1.html#section-6' },
+              { id: 'c1-02', bold: '两网与 ISP', text: '小写泛指多网互连；大写特指 TCP/IP 全球网', tag: '边界', kw: 'internet Internet 路由器', href: 'network-1.html#section-6' },
+              { id: 'c1-03', bold: '三视角组成', text: '硬软协议(核心)、边缘/核心、通信/资源子网', tag: '边界', kw: '协议 核心部分 资源子网', href: 'network-1.html#section-11' }
+            ]
+          },
+          {
+            id: '1.1-func',
+            title: '功能与五维分类',
+            children: [
+              { id: 'c1-04', bold: '五项功能', text: '数据通信最基本；区分分布式协同与负载均衡', tag: '大纲', kw: '资源共享 可靠性', href: 'network-1.html#section-16' },
+              { id: 'c1-05', bold: '范围与技术', text: '范围分 WAN~PAN；广播/点对点按传输技术分', tag: '边界', kw: 'MAN LAN WPAN 卫星', href: 'network-1.html#section-36' },
+              { id: 'c1-06', bold: '拓扑与容错', text: '星形怕中央单点、总线全网瘫、网状多路径容错', tag: '大纲', kw: '环形 双环', href: 'network-1.html#section-38' },
+              { id: 'c1-07', bold: '使用与介质', text: '按使用者分公用/专用；按介质分有线/无线', tag: '大纲', kw: '双绞线 同轴 光纤', href: 'network-1.html#section-39' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '1.1.4',
+        title: '1.1.4 三种交换与流水线',
+        col: 'left',
+        children: [
+          {
+            id: '1.1.4-cmp',
+            title: '三种方式对比',
+            children: [
+              { id: 'c1-08', bold: '电路交换', text: '建连独占物理通路，无存储转发；实时有序利用率低', tag: '必背', kw: '建立连接 独占', href: 'network-1.html#section-21' },
+              { id: 'c1-09', bold: '报文交换', text: '无建连、整报文逐跳存储转发；缓存压力大时延高', tag: '大纲', kw: '整报文 重传', href: 'network-1.html#section-22' },
+              { id: 'c1-10', bold: '分组交换', text: '定长上限小分组流水转发；带首部且数据报可失序', tag: '必背', red: true, kw: '数据报 虚电路 首部开销', href: 'network-1.html#section-23' },
+              { id: 'c1-11', bold: '大文件耗时', text: '广域网传大文件典型排序：报文 > 分组 > 电路', tag: '2025', red: true, kw: 'T_MS T_PS T_CS 2025-T33', href: 'network-1.html#section-24' }
+            ]
+          },
+          {
+            id: '1.1.4-calc',
+            title: '流水线与耗时计算',
+            children: [
+              { id: 'c1-12', bold: '分组与折中', text: 'm=⌈F/(P-H)⌉；过小首部占比高，过大重传贵', tag: '必背', red: true, kw: '有效载荷 向上取整', href: 'network-1.html#section-26' },
+              {
+                id: '1.1.4-pipe',
+                title: '多跳流水公式',
+                children: [
+                  { id: 'c1-13', bold: '等速流水线', text: 'T=(k+m-1)P/R+Σtp；并行非单组×m', tag: '2010/2013', red: true, kw: '2010-T34 2013-T35 并行', href: 'network-1.html#section-27' },
+                  { id: 'c1-14', bold: '路由器计数', text: '1 台路由器 = 2 段链路；传播加 k 次绝不乘 m', tag: '2023·错', red: true, kw: '2023-T33 80.10ms 80.09ms', href: 'network-1.html#section-31' },
+                  { id: 'c1-15', bold: '不等速流水', text: '首包 Σ(P/Ri)，后续间隔由最慢链路决定', tag: '必背', red: true, kw: '瓶颈链路 时序图', href: 'network-1.html#section-28' }
+                ]
+              },
+              { id: 'c1-16', bold: '报文与电路', text: '报文 Σ(F/Ri)；电路别漏 T建立＋F/R＋T传播', tag: '2025', red: true, kw: '建立时延 2025-T33', href: 'network-1.html#section-30' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '1.1.6',
+        title: '1.1.6 七大性能指标',
+        col: 'left',
+        children: [
+          {
+            id: '1.1.6-rate',
+            title: '速率、带宽与吞吐',
+            children: [
+              { id: 'c1-17', bold: '速率与单位', text: '速率前缀十进制(10³)；严分 b 与 B(1B=8b)', tag: '必背', red: true, kw: 'kbps Mbps Gbps', href: 'network-1.html#section-45' },
+              { id: 'c1-18', bold: '带宽与吞吐', text: '带宽是理论上限，吞吐是实际量(≤瓶颈带宽)', tag: '大纲', kw: '瓶颈', href: 'network-1.html#section-46' },
+              { id: 'c1-19', bold: '多路径瓶颈', text: '先锁两端必经接入边，能绕开的慢链路非瓶颈', tag: '2024', red: true, kw: '2024-T33 10Mb/s', href: 'network-1.html#section-47' }
+            ]
+          },
+          {
+            id: '1.1.6-delay',
+            title: '时延、BDP、RTT 与利用率',
+            children: [
+              { id: 'c1-20', bold: '发送与传播', text: '发送 L/R，传播 d/v；提高带宽不加快电磁波', tag: '必背', red: true, kw: '传输时延', href: 'network-1.html#section-52' },
+              { id: 'c1-21', bold: '四时延方程', text: '总时延含发/传/处/排；常考 L/R=d/v 列方程', tag: '必背', red: true, kw: '处理时延 排队时延', href: 'network-1.html#section-55' },
+              { id: 'c1-22', bold: '时延带宽积', text: '单向传播×带宽(bit)，非 RTT；tp=BDP/R', tag: '2023', red: true, kw: 'BDP 2023-T33', href: 'network-1.html#section-49' },
+              { id: 'c1-23', bold: '往返时延RTT', text: '发短分组到收确认；教材默认不含数据发送时延', tag: '边界', kw: '确认', href: 'network-1.html#section-50' },
+              { id: 'c1-24', bold: '信道利用率', text: 'U=有数据时间/总时间；非越高越好，近饱和剧增排队', tag: '边界', kw: '饱和 拥塞', href: 'network-1.html#section-51' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '1.2.1',
+        title: '1.2.1 分层与封装效率',
+        col: 'right',
+        children: [
+          {
+            id: '1.2.1-arch',
+            title: '分层原则与体系结构',
+            children: [
+              { id: 'c1-25', bold: '分层与权衡', text: '降复杂度清接口；层数过多增封装开销降效率', tag: '2026', red: true, kw: '2026-T33 拆块', href: 'network-1.html#section-64' },
+              { id: 'c1-26', bold: '体系与实现', text: '体系结构是各层协议抽象集合，不含内部实现细节', tag: '2010', red: true, kw: '2010-T33 工程实现', href: 'network-1.html#section-65' },
+              { id: 'c1-27', bold: '服务方向', text: '禁止跨层；“直接为 X 服务”＝往下找紧邻下层', tag: '2014·错', red: true, kw: '2014-T33 会话层 传输层', href: 'network-1.html#section-66' }
+            ]
+          },
+          {
+            id: '1.2.1-pdu',
+            title: 'PDU 与封装效率',
+            children: [
+              { id: 'c1-28', bold: 'PDU三元组', text: 'n-SDU+n-PCI=n-PDU=(n-1)-SDU', tag: '必背', red: true, kw: '比特流 帧 分组 报文段', href: 'network-1.html#section-67' },
+              { id: 'c1-29', bold: '封装与解封装', text: '链路层加首部和尾部，物理层透明传比特不封装', tag: '必背', red: true, kw: '首尾 不加首部', href: 'network-1.html#section-103' },
+              { id: 'c1-30', bold: '封装效率', text: 'η=D/(D+ΣHi)；除物理与应用外 5 层均加首部', tag: '2017', red: true, kw: '2017-T33 80%', href: 'network-1.html#section-70' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '1.2.2',
+        title: '1.2.2 协议、接口与服务',
+        col: 'right',
+        children: [
+          {
+            id: '1.2.2-tri',
+            title: '协议、接口与服务',
+            children: [
+              { id: 'c1-31', bold: '水平与垂直', text: '协议水平对等，服务垂直向上；下层协议透明', tag: '必背', red: true, kw: '2026-T33 实体', href: 'network-1.html#section-78' },
+              { id: 'c1-32', bold: '协议三要素', text: '语法看格式，语义看动作，同步看时序(斜线图)', tag: '2020', red: true, kw: '2020-T33 速率匹配', href: 'network-1.html#section-75' },
+              { id: 'c1-33', bold: '各层 SAP', text: '接口即 SAP：应用用户口/传输端口/IP协议/帧类型', tag: '必背', kw: '服务访问点', href: 'network-1.html#section-76' }
+            ]
+          },
+          {
+            id: '1.2.2-svc',
+            title: '服务三维分类',
+            children: [
+              { id: 'c1-34', bold: '三类服务', text: '面向连接/无连接、可靠/不可靠、有应答/无应答', tag: '大纲', kw: '尽力而为', href: 'network-1.html#section-79' },
+              { id: 'c1-35', bold: '维度不互推', text: '三维度独立，忌“所有无连接都不可靠”以偏概全', tag: '边界', kw: '独立', href: 'network-1.html#section-79' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '1.2.3',
+        title: '1.2.3 参考模型与疑难',
+        col: 'right',
+        children: [
+          {
+            id: '1.2.3-osi',
+            title: 'OSI 七层与设备',
+            children: [
+              {
+                id: '1.2.3-low',
+                title: '低三层与设备',
+                children: [
+                  { id: 'c1-36', bold: '1 物理层', text: '透明传比特流与信号特性，不控流；Hub/中继器', tag: '大纲', kw: '第0层 机械电气', href: 'network-1.html#section-88' },
+                  { id: 'c1-37', bold: '2 数据链路', text: '帧/MAC，管相邻结点差错与流控(无拥塞)；交换机', tag: '2022', red: true, kw: '2022-T33 网桥 流量控制', href: 'network-1.html#section-89' },
+                  { id: 'c1-38', bold: '3 网络层', text: '分组/IP，主机到主机路由与拥塞；OSI 支持双服务', tag: '大纲', kw: '虚电路 数据报', href: 'network-1.html#section-90' },
+                  { id: 'c1-39', bold: '设备最高层', text: '看读什么地址：路由器(3)、交换机(2)、集线器(1)', tag: '2016', red: true, kw: '2016-T33 Switch Hub', href: 'network-1.html#section-106' }
+                ]
+              },
+              {
+                id: '1.2.3-high',
+                title: '高四层与易错',
+                children: [
+                  { id: 'c1-40', bold: '4 传输层', text: '首个端到端进程通信(端口)，复用分用与端流控', tag: '2009/2022', red: true, kw: '2009-T33 2022-T33', href: 'network-1.html#section-91' },
+                  { id: 'c1-41', bold: '5 会话层', text: '自下而上第 5 层！管会话管理与同步检查点', tag: '2019·错', red: true, kw: '2019-T33 检验点 断点恢复', href: 'network-1.html#section-92' },
+                  { id: 'c1-42', bold: '6 表示层', text: '紧邻应用层下层！管数据格式转换、压缩与加密', tag: '2013·错', red: true, kw: '2013-T33 编码转换', href: 'network-1.html#section-93' },
+                  { id: 'c1-43', bold: '7 应用与差错', text: '用户网络接口；差错粒度：比特→帧→IP分组→指令', tag: '大纲', kw: '非法控制指令 FCS', href: 'network-1.html#section-94' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '1.2.3-tcpip',
+            title: 'TCP/IP 与对比',
+            children: [
+              { id: 'c1-44', bold: '四层与网际层', text: '传输层下邻网际层(路由选择)，非网络接口层', tag: '2021', red: true, kw: '2021-T33 网络层 ARP ICMP', href: 'network-1.html#section-98' },
+              { id: 'c1-45', bold: 'IP 服务性质', text: 'IP 仅无连接不可靠数据报，别把 TCP 套给 IP', tag: '2011', red: true, kw: '2011-T33 尽力交付', href: 'network-1.html#section-98' },
+              { id: 'c1-46', bold: '传输层与核心', text: 'TCP 面向连接可靠，UDP 无连接；一切围绕 IP', tag: '必背', kw: 'Everything over IP', href: 'network-1.html#section-99' },
+              { id: 'c1-47', bold: '模型对比与五层', text: 'OSI 先模型后协议，TCP/IP 事实标准；教材五层', tag: '必背', red: true, kw: '对比 四层 五层', href: 'network-1.html#section-101' }
+            ]
+          },
+          {
+            id: '1.3-diff',
+            title: '疑难辨析（1.3）',
+            children: [
+              { id: 'c1-48', bold: '端到端原则', text: 'IP 保持简单易扩展，可靠交付由端系统 TCP 补', tag: '边界', kw: '智能端系统', href: 'network-1.html#section-114' },
+              { id: 'c1-49', bold: '范围与流控', text: '相邻链路/主机网络/进程传输；流控≠全网拥塞', tag: '2022', red: true, kw: '点到点 端到端', href: 'network-1.html#section-115' }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  </script>
+  <script src="study/mindmap.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="408计算机网络第5章传输层全屏思维导图，覆盖考纲重点与2009–2026真题。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>5</text></svg>">
+  <title>第5章 传输层 · 考纲与真题思维导图</title>
+  <script src="study/theme-boot.js?v=1"></script>
+  <link rel="stylesheet" href="study/mindmap.css?v=1">
+</head>
+<body>
+  <script>
+  window.MINDMAP_CONFIG = {
+    chapter: 5,
+    pageFile: 'network-ch5-mindmap.html',
+    title: '第5章 传输层',
+    noteHref: 'network-5.html',
+    hubHref: 'network-0.html',
+    storageKey: 'notes-network-ch5-mindmap-v1',
+    chapters: [
+      { num: 1, label: '1', title: '第1章 体系结构', href: 'network-ch1-mindmap.html' },
+      { num: 2, label: '2', title: '第2章 物理层', href: 'network-ch2-mindmap.html' },
+      { num: 3, label: '3', title: '第3章 数据链路层', href: 'network-ch3-mindmap.html' },
+      { num: 4, label: '4', title: '第4章 网络层', href: 'network-ch4-mindmap.html' },
+      { num: 5, label: '5', title: '第5章 传输层', href: 'network-ch5-mindmap.html' },
+      { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
+    ],
+    tree: [
+      {
+        id: '5.1',
+        title: '5.1 传输层服务与端口',
+        col: 'left',
+        children: [
+          {
+            id: '5.1-svc',
+            title: '功能与复用分用',
+            children: [
+              { id: 'c5-01', bold: '端到端通信', text: '链路看节点，网络看主机，传输看进程间逻辑通信', tag: '2009', red: true, kw: '2009-T33 端口', href: 'network-5.html#section-9' },
+              { id: 'c5-02', bold: '复用与分用', text: '多进程共用协议；传输依目的端口、网络依协议分用', tag: '2018', red: true, kw: '2018-T39', href: 'network-5.html#section-7' },
+              { id: 'c5-03', bold: '校验范围对比', text: '传输层检首部加数据，IPv4 仅检首部；UDP 错即丢', tag: '大纲', kw: '尽最大努力', href: 'network-5.html#section-6' }
+            ]
+          },
+          {
+            id: '5.1-port',
+            title: '端口与套接字',
+            children: [
+              { id: 'c5-04', bold: '端口分类独立', text: '0~1023熟知、49152起短暂；TCP/UDP端口独立', tag: '必背', kw: '65535 登记端口', href: 'network-5.html#section-11' },
+              { id: 'c5-05', bold: '套接字与连接', text: 'Socket=IP:端口；双端四元组唯一标识TCP连接', tag: '大纲', kw: '通信端点', href: 'network-5.html#section-12' }
+            ]
+          },
+          {
+            id: '5.1-sel',
+            title: '无连接 vs 面向连接',
+            children: [
+              { id: 'c5-06', bold: '服务核心对比', text: 'UDP 无连接报文可多播；TCP 面向连接字节流一对一', tag: '必背', kw: '广播多播 8B 20B', href: 'network-5.html#section-14' },
+              { id: 'c5-07', bold: '选型与可靠界', text: '实时多播选 UDP，完整有序选 TCP；应用可补可靠', tag: '2014', red: true, kw: '2014-T39', href: 'network-5.html#section-16' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '5.2',
+        title: '5.2 用户数据报 UDP',
+        col: 'left',
+        children: [
+          {
+            id: '5.2-dat',
+            title: '报文特点与首部',
+            children: [
+              { id: 'c5-08', bold: '面向报文边界', text: '原样加 8B 首部不拆不合；无状态无确认流拥控', tag: '大纲', kw: '报文边界 IP分片', href: 'network-5.html#section-21' },
+              { id: 'c5-09', bold: '8B首部字段', text: '源口可0、无目口回ICMP；长度含首部不含伪首部', tag: '2018/25', red: true, kw: '2018-T39 2025-T37 端口不可达', href: 'network-5.html#section-19' },
+              { id: 'c5-10', bold: '效率与分片', text: '12B效率UDP60%/TCP37.5%；分片头在首片', tag: '2021', red: true, kw: '2021-T39 8B对齐 片偏移', href: 'network-5.html#section-23' }
+            ]
+          },
+          {
+            id: '5.2-chk',
+            title: '伪首部与校验和',
+            children: [
+              { id: 'c5-11', bold: '12B伪首部', text: '源目IP+0+协议17+UDP长，仅算校验不传送不计长', tag: '必背', kw: '12B TTL不在', href: 'network-5.html#section-25' },
+              { id: 'c5-12', bold: '反码回卷算法', text: '16 位相加→进位回卷加末位→取反；接收全 1 合格', tag: '2024', red: true, kw: '2024-T39 取反', href: 'network-5.html#section-26' },
+              { id: 'c5-13', bold: '全零与校验界', text: '未用填 0000，算 0 改 FFFF；检错丢弃≠可靠传输', tag: '2014/24', red: true, kw: '2014-T39 IPv6强制', href: 'network-5.html#section-27' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '5.3A',
+        title: '5.3A TCP 首部与连接管理',
+        col: 'left',
+        children: [
+          {
+            id: '5.3-hdr',
+            title: '字节流与首部',
+            children: [
+              {
+                id: '5.3-hdr-fmt',
+                title: '特点与首部格式',
+                children: [
+                  { id: 'c5-14', bold: '面向字节流', text: '面向连接、一对一全双工可靠字节流，不保应用边界', tag: '大纲', kw: '缓存 报文段', href: 'network-5.html#section-31' },
+                  { id: 'c5-15', bold: 'TCP首部', text: '最小20B最大60B；数据偏移×4B；伪首部协议号 6', tag: '必背', kw: '紧急指针 URG SACK', href: 'network-5.html#section-33' },
+                  { id: 'c5-16', bold: '32位回绕', text: '按字节编号空间 2^32 B，回绕时间 t=2^32×8/R', tag: '大纲', kw: '4GB 序号回绕', href: 'network-5.html#section-37' }
+                ]
+              },
+              {
+                id: '5.3-hdr-seq',
+                title: '控制位与序号轴',
+                children: [
+                  { id: 'c5-17', bold: '控制位可组合', text: 'ACK=1表确认有效，可与SYN/FIN/数据同时置1', tag: '模型2·错', red: true, kw: 'URG PSH RST', href: 'network-5.html#section-35' },
+                  { id: 'c5-18', bold: '双向独立序号', text: '同段 seq 说自己、ack 说对方，双向无直接算术关系', tag: '2013·错', red: true, kw: '2013-T39 模型1', href: 'network-5.html#section-73' },
+                  { id: 'c5-19', bold: '占号与数据量', text: 'SYN/FIN占1号，纯ACK占0；数据=FIN-SYN-1', tag: '2020·错', red: true, kw: '2020-T39 4000B', href: 'network-5.html#section-36' }
+                ]
+              }
+            ]
+          },
+          {
+            id: '5.3-hs',
+            title: '三次握手建连',
+            children: [
+              { id: 'c5-20', bold: '三次握手交互', text: '①SYN→②SYN+ACK→③ACK(y+1)可捎带数据', tag: '2011/19', red: true, kw: '2011-T39 2019-T39 2047', href: 'network-5.html#section-40' },
+              { id: 'c5-21', bold: '防失效与ISN', text: '三次防失效旧 SYN 误建连；ISN 随机防旧段混入窗', tag: '大纲', kw: '已失效请求', href: 'network-5.html#section-40' },
+              { id: 'c5-22', bold: '握手状态首传', text: '服进SYN-RCVD；客1RTT、服1.5RTT起可发数据', tag: '2026大题', red: true, kw: '2026-T47 SYN-SENT ESTABLISHED', href: 'network-5.html#section-40' }
+            ]
+          },
+          {
+            id: '5.3-wave',
+            title: '四次挥手与时延',
+            children: [
+              {
+                id: '5.3-wave-st',
+                title: '半关闭与状态机',
+                children: [
+                  { id: 'c5-23', bold: '半关闭四挥手', text: '发FIN只关己方；被动先ACK完余数据再发FIN', tag: '大纲', kw: '全双工', href: 'network-5.html#section-41' },
+                  { id: 'c5-24', bold: '主被动关闭态', text: '主动末ACK进TIME_WAIT，被动进CLOSE_WAIT', tag: '2021·错', red: true, kw: '2021-T38 FIN_WAIT_1 LAST_ACK', href: 'network-5.html#section-41' },
+                  { id: 'c5-25', bold: '2MSL与保活', text: '等 2MSL 防末 ACK 丢与旧段干扰；保活计时防死连', tag: '2022·错', red: true, kw: '模型7 保活计时器', href: 'network-5.html#section-79' }
+                ]
+              },
+              {
+                id: '5.3-wave-t',
+                title: '交互与关闭时延',
+                children: [
+                  { id: 'c5-26', bold: '短请求响应时', text: 'UDP 1RTT；新TCP达服1.5RTT，回客2RTT', tag: '2025·错', red: true, kw: '2025-T39 模型6 16ms 8ms', href: 'network-5.html#section-44' },
+                  { id: 'c5-27', bold: '最短关闭时间', text: '合并FIN+ACK：被动1.5RTT，主动1RTT+2MSL', tag: '2022/24·错', red: true, kw: '2022-T39 2024-T38 60.04s', href: 'network-5.html#section-45' },
+                  { id: 'c5-28', bold: '全周期四终点', text: '发完数据、对端收齐、收齐确认、进 CLOSED 是四时刻', tag: '2023/26大', red: true, kw: '2023-T47 2026-T47', href: 'network-5.html#section-46' }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '5.3B',
+        title: '5.3B 可靠传输与流量控制',
+        col: 'right',
+        children: [
+          {
+            id: '5.3-rel',
+            title: '可靠传输与重传',
+            children: [
+              { id: 'c5-29', bold: '累积确认边界', text: 'ack=N认至N-1连续字节；失序段到达ack仍指缺口', tag: '2011', red: true, kw: '2011-T40 下一个期待', href: 'network-5.html#section-48' },
+              { id: 'c5-30', bold: '超时重传RTO', text: 'RTO 随 RTTs 与抖动动态调；已发未确认留发送缓存', tag: '大纲', kw: 'RTTVAR 自适应', href: 'network-5.html#section-48' },
+              { id: 'c5-31', bold: '快重传3冗余', text: '正常后再收3个冗余ACK(第4个)，t3立即重传', tag: '2019·错', red: true, kw: '2019-T38 t3 t4', href: 'network-5.html#section-49' },
+              { id: 'c5-32', bold: 'GBN与SR', text: '累积确认似GBN，缓存失序仅重传丢段(SACK近SR)', tag: '大纲', kw: '混合体', href: 'network-5.html#section-63' },
+              { id: 'c5-33', bold: '链路无错仍需', text: 'IP 仍会独立选路失序、TTL 到期或路由器拥塞丢包', tag: '边界', kw: '端到端', href: 'network-5.html#section-66' }
+            ]
+          },
+          {
+            id: '5.3-flow',
+            title: '流量控制与窗口',
+            children: [
+              {
+                id: '5.3-flow-m',
+                title: '机制与防死锁',
+                children: [
+                  { id: 'c5-34', bold: '流控与链路比', text: '护接收缓存不溢出；首部通告动态 rwnd，端到端控制', tag: '大纲', kw: '窗口字段', href: 'network-5.html#section-52' },
+                  { id: 'c5-35', bold: '零窗持续计时', text: 'rwnd=0 停发新数据；启持续计时器发零窗探测破死锁', tag: '必背', kw: '死锁', href: 'network-5.html#section-52' },
+                  { id: 'c5-36', bold: '糊涂窗防小包', text: 'Nagle 攒小包防发端浪费；延迟通告大窗防收端糊涂窗', tag: '易混', kw: '糊涂窗口综合征', href: 'network-5.html#section-51' }
+                ]
+              },
+              {
+                id: '5.3-flow-c',
+                title: '发送窗口计算',
+                children: [
+                  { id: 'c5-37', bold: '缓存不取缩窗', text: 'ACK进缓存缩rwnd，应用读走才涨(16→1KB)', tag: '2015', red: true, kw: '2015-T39', href: 'network-5.html#section-53' },
+                  { id: 'c5-38', bold: '三步法扣在途', text: '先取min(rwnd,cwnd)，再扣在途未确认F得新发', tag: '2010/25·错', red: true, kw: '2010-T39 2025-T38 模型3', href: 'network-5.html#section-75' },
+                  { id: 'c5-39', bold: '许可序号范围', text: '收方许[ack,ack+rwnd-1]，扣已发未确认区间', tag: '2021', red: true, kw: '2021-T40 701~1000', href: 'network-5.html#section-53' }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '5.3C',
+        title: '5.3C TCP 拥塞控制',
+        col: 'right',
+        children: [
+          {
+            id: '5.3-cc-g',
+            title: '慢开始与拥塞避免',
+            children: [
+              { id: 'c5-40', bold: '拥控与流控', text: 'cwnd 护全网、rwnd 护收方；问发送窗必取 min', tag: '2014·错', red: true, kw: '2014-T38 10KB', href: 'network-5.html#section-56' },
+              { id: 'c5-41', bold: '慢开始逐ACK', text: '初1MSS，每收1新ACK加1MSS；满轮才近似翻倍', tag: '2016/26·错', red: true, kw: '2016-T41 2026-T47 模型4', href: 'network-5.html#section-76' },
+              { id: 'c5-42', bold: '撞门限不跨过', text: '达ssthresh切拥塞避免(4→6→7，绝不跨门限)', tag: '边界', kw: 'ssthresh', href: 'network-5.html#section-57' },
+              { id: 'c5-43', bold: '拥塞避免计时', text: '每满 RTT 线性 +1MSS；算时间别忘把轮数乘 RTT', tag: '2020·错', red: true, kw: '2020-T38 48ms', href: 'network-5.html#section-57' }
+            ]
+          },
+          {
+            id: '5.3-cc-s',
+            title: '拥塞信号与恢复',
+            children: [
+              { id: 'c5-44', bold: '新门限取现窗', text: '新门限取拥塞前 cwnd 一半（下限 2MSS），非旧门限', tag: '模型5·错', red: true, kw: '模型5 ssthresh', href: 'network-5.html#section-77' },
+              { id: 'c5-45', bold: '超时重慢开始', text: '重传超时表严重拥塞：门限减半、cwnd 置 1 重慢开始', tag: '2009/22', red: true, kw: '2009-T39 2022-T38', href: 'network-5.html#section-57' },
+              { id: 'c5-46', bold: '快恢复线性涨', text: '3 冗余 ACK 表轻度拥塞：快重传后 cwnd=新门限避免', tag: '2019/22', red: true, kw: '2019-T38 Reno', href: 'network-5.html#section-58' },
+              { id: 'c5-47', bold: '超时恢复轮次', text: '16→1(门限8)需慢开始3轮+避免8轮=11RTT', tag: '2022', red: true, kw: '2022-T38 11RTT', href: 'network-5.html#section-59' }
+            ]
+          }
+        ]
+      },
+      {
+        id: '5.4',
+        title: '5.4 疑难跨层与综合大题',
+        col: 'right',
+        children: [
+          {
+            id: '5.4-cross',
+            title: '跨层字段与 MSS',
+            children: [
+              { id: 'c5-48', bold: '普通路由变化', text: 'MAC/FCS逐跳换，TTL-1重算IP校验；端口不变', tag: '模型8·错', red: true, kw: '模型8', href: 'network-5.html#section-67' },
+              { id: 'c5-49', bold: 'NAT与分片', text: 'NAPT 改 IP/端口须重算启用校验和；TTL 不进伪首部', tag: '2025', red: true, kw: '2025-T37', href: 'network-5.html#section-67' },
+              { id: 'c5-50', bold: 'MSS与MTU', text: 'MSS限TCP数据(默536B)，MTU限帧载荷防分片', tag: '大纲', kw: '1500B', href: 'network-5.html#section-62' }
+            ]
+          },
+          {
+            id: '5.4-exam',
+            title: '4 大综合真题母题',
+            children: [
+              { id: 'c5-51', bold: '2012抓包', text: '1行=1格(4B)；<46B填充；标识配NAT算TTL', tag: '2012大题', red: true, kw: '2012-T47 6811 16B', href: 'network-5.html#section-38' },
+              { id: 'c5-52', bold: '2016缩窗', text: '第8ACK：rwnd=12/cwnd=9；窗0在5RTT', tag: '2016大题', red: true, kw: '2016-T41 20581 163.84', href: 'network-5.html#section-59' },
+              { id: 'c5-53', bold: '2023FTP', text: '2101逐加3MSS、7101满轮5MSS，6RTT完', tag: '2023大题', red: true, kw: '2023-T47 101 18102 2.4Mb/s', href: 'network-5.html#section-46' },
+              { id: 'c5-54', bold: '2026全链', text: 'ack2001得cwnd3MSS、swnd1KB，4RTT', tag: '2026大题', red: true, kw: '2026-T47 3002 20ms', href: 'network-5.html#section-59' }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  </script>
+  <script src="study/mindmap.js?v=1"></script>
+</body>
+</html>
