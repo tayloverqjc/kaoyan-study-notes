@@ -80,9 +80,10 @@ function upgradeShell(filePath, subject, chapter, chapters, index) {
   html = html.replace(/<div class="setting-row(?:\s+setting-themes)?"><div><strong>页面配色<\/strong>[\s\S]*?(?=<p class="storage-note">)/, () => themeRow);
 
   const navHtml = buildChapterNav(chapters, index);
+  const MINDMAP_LIMITS = { network: 6, os: 5, architecture: 7 };
   html = html.replace(/<span class="mindmap-hero-link">[\s\S]*?<\/span>/g, '');
-  if (subject.key === 'network' && chapter.number >= 1 && chapter.number <= 6) {
-    html = html.replace(/<div class="hero-meta">([\s\S]*?)<\/div>/, (_, inner) => `<div class="hero-meta">${inner}<span class="mindmap-hero-link"><i></i><a href="network-ch${chapter.number}-mindmap.html">全屏思维导图 ↗</a></span></div>`);
+  if (MINDMAP_LIMITS[subject.key] && chapter.number >= 1 && chapter.number <= MINDMAP_LIMITS[subject.key]) {
+    html = html.replace(/<div class="hero-meta">([\s\S]*?)<\/div>/, (_, inner) => `<div class="hero-meta">${inner}<span class="mindmap-hero-link"><i></i><a href="${subject.key}-ch${chapter.number}-mindmap.html">全屏思维导图 ↗</a></span></div>`);
   }
   html = html.replace(/<footer class="chapter-end">([\s\S]*?)<\/footer>/, (_, inner) => {
     let cleaned = inner.replace(/<nav class="chapter-nav"[\s\S]*?<\/nav>/, '');

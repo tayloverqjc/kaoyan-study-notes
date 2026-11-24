@@ -60,7 +60,17 @@ const MINDMAP_ASSET_DIRS = [
   ['notes/network/复盘/assets/第3章-数据链路层', 'study/mm-assets/network/ch3'],
   ['notes/network/复盘/assets/第4章-网络层', 'study/mm-assets/network/ch4'],
   ['notes/network/复盘/assets/第5章-传输层', 'study/mm-assets/network/ch5'],
-  ['notes/network/复盘/assets/第6章-应用层', 'study/mm-assets/network/ch6']
+  ['notes/network/复盘/assets/第6章-应用层', 'study/mm-assets/network/ch6'],
+  ['notes/os/复盘/images', 'study/mm-assets/os'],
+  ['notes/architecture/复盘/附件/第3章', 'study/mm-assets/architecture/ch3'],
+  ['notes/architecture/复盘/附件/第4章', 'study/mm-assets/architecture/ch4'],
+  ['notes/architecture/复盘/附件/第5章', 'study/mm-assets/architecture/ch5'],
+  ['notes/architecture/assets/第6章-总线', 'study/mm-assets/architecture/ch6'],
+  ['notes/architecture/assets/第7章_输入输出系统', 'study/mm-assets/architecture/ch7']
+];
+
+const MINDMAP_ASSET_FILES = [
+  ['notes/architecture/复盘/附件/浮点数表示范围与上溢下溢数轴示意图.png', 'study/mm-assets/architecture/ch2/浮点数表示范围与上溢下溢数轴示意图.png']
 ];
 
 function main() {
@@ -70,6 +80,14 @@ function main() {
     const src = path.join(root, ...relSrc.split('/'));
     if (fs.existsSync(src)) {
       copyDirSync(src, path.join(distDir, ...relDst.split('/')));
+    }
+  }
+  for (const [relSrc, relDst] of MINDMAP_ASSET_FILES) {
+    const src = path.join(root, ...relSrc.split('/'));
+    const dst = path.join(distDir, ...relDst.split('/'));
+    if (fs.existsSync(src)) {
+      fs.mkdirSync(path.dirname(dst), { recursive: true });
+      fs.copyFileSync(src, dst);
     }
   }
 

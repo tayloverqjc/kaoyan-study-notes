@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="408计算机组成原理第5章中央处理器双模式强化思维导图白板：严格对齐教材与复盘笔记原话，内嵌12张核心原理图、5张对比表、3个精算微例、右括号总结、必背便签与20道408真题精选。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232563eb'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>5</text></svg>">
+  <title>第5章 中央处理器 · 图文强化思维导图白板</title>
+  <script src="study/theme-boot.js?v=1"></script>
+  <link rel="stylesheet" href="study/mindmap.css?v=5">
+</head>
+<body>
+  <script>
+  window.MINDMAP_CONFIG = {
+    rich: true,
+    chapter: 5,
+    pageFile: 'architecture-ch5-mindmap.html',
+    kicker: '408 COMPUTER ORGANIZATION · CH05 WHITEBOARD',
+    title: '第5章 中央处理器',
+    subtitle: '从 CPU 组成、寄存器可见性与指令周期出发，贯通单总线与专用数据通路、硬布线与微程序控制器、异常与中断响应、五段流水线三大冒险及超标量/多核/SMP 并行体系。',
+    noteHref: 'architecture-5.html',
+    hubHref: 'architecture-0.html',
+    storageKey: 'notes-architecture-ch5-mindmap-v1',
+    chapters: [
+      { num: 1, label: '1', title: '第1章 系统概述', href: 'architecture-ch1-mindmap.html' },
+      { num: 2, label: '2', title: '第2章 数据表示与运算', href: 'architecture-ch2-mindmap.html' },
+      { num: 3, label: '3', title: '第3章 存储系统', href: 'architecture-ch3-mindmap.html' },
+      { num: 4, label: '4', title: '第4章 指令系统', href: 'architecture-ch4-mindmap.html' },
+      { num: 5, label: '5', title: '第5章 中央处理器', href: 'architecture-ch5-mindmap.html' },
+      { num: 6, label: '6', title: '第6章 总线', href: 'architecture-ch6-mindmap.html' },
+      { num: 7, label: '7', title: '第7章 I/O系统', href: 'architecture-ch7-mindmap.html' }
+    ],
+    tree: [
+      /* ==================== 5.1–5.2 CPU 组成与指令周期 ==================== */
+      {
+        id: 'm1',
+        navLabel: '1 CPU组成与指令周期',
+        title: '5.1–5.2 CPU 基本结构、寄存器与指令周期',
+        sub: '控制器与运算器如何协同执行指令？用户可见与透明寄存器、位宽决定依据及三类处理器模型如何区分？',
+        children: [
+          {
+            id: 'm1-struct',
+            title: 'CPU 功能、基本结构与寄存器体系',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/01-CPU基本组成.jpg', caption: '图 5.1 CPU 基本组成与控制器/运算器连接框架', width: 320 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/11-CPU控制器与运算器部件归属全景图.png', caption: '图 5.2 CPU 控制器与运算器部件归属全景对照', width: 330 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: '用户可见 vs 只读可见 vs 透明寄存器与位宽对照',
+                headers: ['寄存器类别', '典型代表', '用户访问权限', '位数 / 宽度决定因素'],
+                rows: [
+                  ['==用户可见寄存器==', 'GPRs、基址/变址寄存器、`SP`、`PC`', '汇编程序员可直接读写；`PC` 通常经转移/调用指令间接修改', 'GPRs = 机器字长；`PC` 看!!合法指令起始地址总数!!'],
+                  ['@@只读型用户可见@@', '标志寄存器 `FR` / `PSWR` 条件码（ZF/SF/OF/CF）', '可由条件转移指令隐式测试，不可随意算术直写', '由体系结构定义的状态位总数决定'],
+                  ['!!用户不可见（透明）!!', '`IR`、`MAR`、`MDR`、暂存器 `Y/Z`、`μPC`、`μIR`、页表基址寄存器', '对汇编程序员完全透明，仅由硬件自动装载与更新', '`IR` = 指令字长；`MAR` = 主存物理寻址空间；`MDR` = 数据总线宽 / 存储字长']
+                ]
+              }
+            ],
+            summary: {
+              title: '部件归属与位宽速判',
+              text: '① ==指令译码器 ID== 属于 CPU 控制器组合逻辑；@@地址译码器@@属于主存芯片内部，不属于 CPU。\n② `PC` 为专用控制寄存器（不在 GPRs 内），位宽看!!按边界对齐后的合法指令起点数!!，与机器字长无必然联系；`IR` 恒等于完整指令字长。'
+            },
+            children: [
+              {
+                id: 'a5-01',
+                bold: 'CPU 的 6 项基本功能',
+                text: 'CPU 核心任务是执行程序并响应异常与中断，具体包含：取指令并译码、更新程序计数器 `PC`、执行算术与逻辑运算、取操作数或写结果、处理内部异常与外部中断、以及通过时钟脉冲进行全机时序控制。',
+                short: '取指译码、更新PC、ALU运算、存取数据、异常中断、时序控制',
+                tag: '大纲',
+                kw: '基本功能 时序控制',
+                href: 'architecture-5.html#section-3'
+              },
+              {
+                id: 'a5-02',
+                bold: '控制器核心部件',
+                text: '控制器由程序计数器 `PC`、指令寄存器 `IR`、指令译码器 `ID`、存储器地址寄存器 `MAR`、存储器数据寄存器 `MDR`、控制单元 `CU`、时序产生器及中断机构组成；==MAR 与 MDR 既服务于取指阶段，又服务于执行阶段访存==。',
+                short: 'PC/IR/ID/MAR/MDR/CU/时序/中断机构；MAR与MDR兼管取指与访存',
+                tag: '必背',
+                kw: '控制器 MAR MDR CU',
+                href: 'architecture-5.html#section-4'
+              },
+              {
+                id: 'a5-03',
+                bold: '运算器与状态部件',
+                text: '运算器包含算术逻辑单元 `ALU`（纯组合逻辑电路）、通用寄存器组 `GPRs` 与单总线暂存寄存器 `Y/Z`；标志寄存器 `FR/PSWR` 锁存 `ZF、SF、OF、CF` 条件码及中断允许位 `IF`、特权级等运行状态。',
+                short: 'ALU(纯组合)+GPRs+暂存Y/Z；FR/PSWR存条件码与IF/特权级',
+                tag: '必背',
+                kw: 'ALU GPRs FR PSWR',
+                href: 'architecture-5.html#section-5'
+              },
+              {
+                id: 'a5-04',
+                bold: '指令译码器与地址译码器区分',
+                text: '==指令译码器 ID== 位于 CPU 控制器内部，负责解析 `IR` 中的操作码字段；!!地址译码器!!位于主存芯片内部，负责将 `MAR` 送来的地址译为存储矩阵行列选通信号，不属于 CPU。',
+                short: 'ID属CPU控制器译操作码；地址译码器属主存芯片不在CPU内',
+                tag: '易混',
+                kw: 'ID 地址译码器 归属',
+                href: 'architecture-5.html#section-4'
+              },
+              {
+                id: 'a5-05',
+                bold: '用户可见与透明寄存器边界',
+                text: '汇编程序员可见寄存器包括 `GPRs`、`PC`、`SP`、基址/变址寄存器及条件标志位（只读测试）；!!`IR`、`MAR`、`MDR`、暂存器 `Y/Z`、`μPC`、`μIR`、流水段寄存器对用户程序完全透明!!，不可在指令中显式读写。',
+                short: '可见：GPRs/PC/SP/标志；透明：IR/MAR/MDR/Y/Z/μPC/段寄存器',
+                tag: '2010/21',
+                red: true,
+                kw: '2010-T18 2021-T17 透明寄存器',
+                href: 'architecture-5.html#section-7'
+              },
+              {
+                id: 'a5-06',
+                bold: 'PC 专用属性与更新机制',
+                text: '标准 CPU 架构下 ==PC 是专用控制寄存器，不包含在通用寄存器组 GPRs 内部==。顺序执行时 `PC` 增加当前指令所占==字节数==（仅按字编址定长一字或单字节指令时才加 1）；条件转移仅在条件满足时写入目标地址。',
+                short: 'PC属专用控制寄存器不在GPRs内；顺序加指令字节数',
+                tag: '2025',
+                red: true,
+                kw: '2025-T19 专用寄存器 PC自增',
+                href: 'architecture-5.html#section-7'
+              },
+              {
+                id: 'a5-07',
+                bold: 'PC 与 IR 最小位数判定',
+                text: '`IR` 位数恒等于定长指令字长；`PC` 最小位数取决于==合法指令起始位置总数==。例如 `4GB`（`2^32 B`）按字节编址、`32` 位定长指令按!!4B 字边界对齐!!时，低 2 位恒为 `00`，`PC` 至少 `30` 位，而 `IR` 仍须 `32` 位。',
+                short: '4GB按4B字边界对齐：PC至少30位(省低2位00)，IR恒32位',
+                tag: '2016·错',
+                red: true,
+                kw: '2016-T18 30位 32位 字边界对齐',
+                href: 'architecture-5.html#section-8'
+              }
+            ]
+          },
+          {
+            id: 'm1-cycle',
+            title: '指令执行流程、时序层次与执行模型',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/02-指令执行一般流程.jpg', caption: '图 5.3 取指—译码—执行—中断检测一般流程', width: 310 }
+            ],
+            exams: [
+              {
+                year: '2016·T18',
+                mistake: true,
+                nodeId: 'a5-07',
+                href: 'architecture-5.html#section-8',
+                q: '某计算机主存空间为 `4GB`，字长 `32` 位，按字节编址，采用 `32` 位字长指令格式。若指令按字边界对齐存放，则 `PC` 和 `IR` 的位数至少分别是？',
+                opts: ['A. 30、30', 'B. 30、32', 'C. 32、30', 'D. 32、32'],
+                ans: 'B',
+                explain: '主存 `4GB = 2^32 B`，指令定长 `4B` 且按字边界对齐，所有合法指令起始字节地址低 2 位恒为 `00`，合法起点共 `2^30` 个 → ==PC 至少 30 位==；`IR` 存放完整指令字 → ==IR 为 32 位==。',
+                pitfall: '当时看到 4GB 按字节编址直接把 32 位给了 PC（错选 D），忽略了“32 位定长 + 字边界对齐 + 至少”。'
+              },
+              {
+                year: '2011·T19',
+                mistake: true,
+                nodeId: 'a5-11',
+                href: 'architecture-5.html#section-15',
+                q: '假定不采用 Cache 和指令预取技术，且机器处于“开中断”状态。下列有关指令执行的叙述中，错误的是？',
+                opts: ['A. 每个指令周期中 CPU 都至少访问内存一次', 'B. 每个指令周期一定大于或等于一个 CPU 时钟周期', 'C. 空操作指令的指令周期中任何寄存器的内容都不会被改变', 'D. 当前程序在每条指令执行结束时都可能被外部中断打断'],
+                ans: 'C',
+                explain: '空操作 `NOP` 虽不改变算术运算与数据寄存器结果，但仍需经过取指阶段，因此至少改写 ==PC ← PC + L== 以及指令寄存器 ==IR==，C 错。',
+                pitfall: '当时一度误将 NOP 理解为“所有寄存器纹丝不动”（纸面改判后选对 C）。'
+              },
+              {
+                year: '2019·T17',
+                mistake: true,
+                nodeId: 'a5-10',
+                href: 'architecture-5.html#section-15',
+                q: '某指令功能为 `R[r2] ← R[r1] + M[R[0]]`，源操作数分别采用寄存器与寄存器间接寻址。该指令在==取数及执行过程==中需要用到的是？ `I. GPRs  II. ALU  III. Memory  IV. 指令译码器(ID)`',
+                opts: ['A. 仅 I、II', 'B. 仅 I、II、III', 'C. 仅 II、III、IV', 'D. 仅 I、III、IV'],
+                ans: 'B',
+                explain: '取 `R[r1]`、`R[0]` 与写 `R[r2]` 用 `GPRs`，读 `M[R[0]]` 用 `Memory`，相加用 `ALU`；!!ID 仅在译码阶段工作!!，不在题干限定的“取数及执行过程”内。',
+                pitfall: '容易忽略阶段限定词，把全生命周期用过的指令译码器 ID 混入选区。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-08',
+                bold: '时空区分指令与数据',
+                text: '主存中指令与数据均为无差别二进制代码，CPU 依靠时空机制区分：@@时间上@@，取指阶段读出的是指令，执行阶段读出的是数据；@@空间上@@，取指流入 `IR` 用于译码，执行流入 `GPRs` 或 `ALU` 暂存器参与运算。',
+                short: '时间：取指为指令、执行为数据；空间：入IR译码、入GPR/ALU运算',
+                tag: '大纲',
+                kw: '时间维度 空间维度 指令数据区分',
+                href: 'architecture-5.html#section-12'
+              },
+              {
+                id: 'a5-09',
+                bold: '三层时序与时钟周期下限',
+                text: '时序分为==时钟周期 `T_clk`==（最基本同步单位，`f = 1 / T_clk`）、机器周期（完成一个基本操作阶段，含若干时钟周期）与指令周期。时钟周期下限满足 `T_clk ≥ T_clk→q + T_comb_max + T_setup`，由相邻状态元件间最大组合延迟决定。',
+                short: 'T_clk≥T_clk→q+T_comb_max+T_setup；指令周期≥1时钟周期',
+                tag: '2019',
+                red: true,
+                kw: '2019-T16 机器周期 时钟周期',
+                href: 'architecture-5.html#section-14'
+              },
+              {
+                id: 'a5-10',
+                bold: '五阶段指令周期与阶段边界',
+                text: '经典五段：`IF`（取指、更新 PC，必经）、`ID`（操作码译码与读寄存器，必经）、`EX`（ALU 运算、算有效地址、分支判定）、`MEM`（仅访存指令使用）、`WB`（运算与 LOAD 写回）。!!取数及执行阶段不包含指令译码器 ID!!。',
+                short: 'IF/ID必经，MEM仅访存用，WB仅运算与LOAD用；取数执行不含ID',
+                tag: '2019·错',
+                red: true,
+                kw: '2019-T17 IF ID EX MEM WB',
+                href: 'architecture-5.html#section-15'
+              },
+              {
+                id: 'a5-11',
+                bold: '空操作指令 NOP 行为',
+                text: '`NOP` 不执行有意义的算术逻辑运算、不改写数据寄存器与主存，但在取指阶段==仍消耗时钟周期、装入 IR 并推进 `PC ← PC + L`==。',
+                short: 'NOP不改运算数据，但取指仍改写IR并自增PC',
+                tag: '2011·错',
+                red: true,
+                kw: '2011-T19 NOP 空操作',
+                href: 'architecture-5.html#section-15'
+              },
+              {
+                id: 'a5-12',
+                bold: '三类执行模型与 CPU 时间公式',
+                text: '`CPU 时间 = IC × CPI × T_clk = (IC × CPI) / f`。单周期 `CPI = 1` 但 `T_clk` 受最慢指令（通常为 `lw`）拖长、主频低；多周期 `CPI > 1` 但各段可复用部件、主频高；流水线理想 `CPI → 1` 且多条指令重叠并发。',
+                short: 'T=IC×CPI×T_clk；单周期CPI=1但周期最长，多周期可复用，流水重叠',
+                tag: '必背',
+                kw: '单周期 多周期 流水线 CPI',
+                href: 'architecture-5.html#section-16'
+              },
+              {
+                id: 'a5-13',
+                bold: '实际 CPI 与 Cache 缺失率联动',
+                text: '评价 CPU 性能不可孤立看 `CPI` 或主频；实际程序的有效 `CPI` 包含流水线停顿与 ==Cache 缺失引发的访存停顿周期==，因此与 Cache 缺失率及缺失代价直接相关。',
+                short: '实际CPI含访存停顿，与Cache缺失率直接相关',
+                tag: '2025',
+                red: true,
+                kw: '2025-T18 Cache缺失率 实际CPI',
+                href: 'architecture-5.html#section-17'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 5.3 数据通路与单总线 ==================== */
+      {
+        id: 'm2',
+        navLabel: '2 数据通路与单总线',
+        title: '5.3 数据通路组成元件、单总线与专用数据通路',
+        sub: '操作元件与状态元件如何划分？单总线微操作节拍、MDRin 方向及单周期专用通路控制信号如何拿满分？',
+        children: [
+          {
+            id: 'm2-elem',
+            title: '数据通路边界、两类元件与组织形式',
+            media: [
+              {
+                type: 'table',
+                title: '单总线数据通路 vs 专用单周期数据通路对比',
+                headers: ['比较维度', '单总线结构数据通路', '专用结构数据通路（单周期模型）'],
+                rows: [
+                  ['互连方式', '所有寄存器与部件挂接同一条 CPU 内部总线', '部件间专用点对点连线 + 多路选择器 MUX 切换'],
+                  ['单拍并发能力', '内部总线每拍==仅允许 1 个 `Xout` 驱动==，多操作串行分拍', '多组独立通路（如 `PC+4` 加法器、分支加法器、ALU）同拍并发'],
+                  ['存储器结构', '通常普林斯顿结构（共享 `MAR`/`MDR`）', '==哈佛结构==（指令存储器 IM 与数据存储器 DM 分离）'],
+                  ['指令寄存器 IR', '必须设置 `IR` 与暂存器 `Y/Z` 跨拍锁存', '通常不设独立 `IR`，指令字直接送译码与寄存器堆'],
+                  ['典型匹配模型', '多周期处理器（!!单周期 CPU 禁止采用单总线!!）', '单周期处理器（时钟周期由最慢指令 `lw` 关键路径决定）']
+                ]
+              }
+            ],
+            children: [
+              {
+                id: 'a5-14',
+                bold: '数据通路边界（不含 CU）',
+                text: '数据通路包含 `ALU`、寄存器堆、`MUX`、总线及异常检测响应路径，负责数据的流动、暂存与加工；!!不包含产生控制信号的控制部件 CU!!。',
+                short: '数据通路负责数据流动暂存加工，不含产生控制信号的CU',
+                tag: '2017/21',
+                red: true,
+                kw: '2017-T19 2021-T18 CU边界',
+                href: 'architecture-5.html#section-19'
+              },
+              {
+                id: 'a5-15',
+                bold: '组合逻辑元件 vs 时序逻辑元件',
+                text: '@@组合逻辑（操作元件）@@无记忆、不依赖时钟边沿：==ALU、MUX、译码器、三态门、扩展器==；@@时序逻辑（状态元件）@@有记忆、在时钟边沿锁存更新：==PC、GPRs、IR、MAR、MDR、Y/Z、FR==。',
+                short: '组合(无时钟)：ALU/MUX/译码/三态门；时序(看边沿)：PC/GPR/Y/Z',
+                tag: '2023',
+                red: true,
+                kw: '2023-T18 操作元件 状态元件',
+                href: 'architecture-5.html#section-19'
+              },
+              {
+                id: 'a5-16',
+                bold: '单周期处理器禁配单总线',
+                text: '!!单周期处理器不能采用单总线数据通路!!。单周期要求在 1 个时钟周期内并发完成取指、读数、运算、访存与写回等多组传送，而单总线任一时刻只支持 1 组内部数据传送，无法单拍完成。',
+                short: '单周期1拍需多组并发传送，单总线每拍仅传1数故不兼容',
+                tag: '2016·错',
+                red: true,
+                kw: '2016-T20 单周期 单总线',
+                href: 'architecture-5.html#section-20'
+              }
+            ]
+          },
+          {
+            id: 'm2-single',
+            title: '单总线数据通路与微操作节拍设计',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/03-单总线数据通路.jpg', caption: '图 5.4 CPU 内部单总线数据通路与 Y/Z 暂存器连接', width: 330 }
+            ],
+            media: [
+              {
+                type: 'example',
+                title: '单总线公共取指（7 拍）与内外通路并行微操作（2015·44 / 2022·43）',
+                body: '**① 公共取指（设主存读需 5 拍，不计 PC 增量）**：\n`C1`: `PCout=1, MARin=1`（`(PC)→MAR`，1 拍）；\n`C2~C6`: `Read=1`（主存经外部通路直送 `MDR`，5 拍，!!严禁附加 MDRin!!）；\n`C7`: `MDRout=1, IRin=1`（`(MDR)→IR`，1 拍）→ 共 ==7 拍==。\n**② `sub R1, R3, (R2)` 最小执行拍（4 拍）**：\n第 1 拍 `R2out, MARin`；第 2 拍 ==内总线 `R3out, Tin` 与外通路 `Read: 主存→MDR` 并行==；第 3 拍 `MDRout, ALUop=sub` 锁入 `SR`；第 4 拍 `SRout, R1in`。'
+              }
+            ],
+            sticky: {
+              title: '单总线 MDRin、GPRs 与 CU 铁律',
+              text: '① `MDRin` 仅管==内部总线 → MDR==；主存 `Read` 经外部通路直送 MDR，!!绝不加 `MDRin=1`!!。\n② 通用寄存器编号来自 `IR`：读端口 `rs` 接 ==多路选择器 MUX==，写端口 `rd` 接 ==地址译码器==。\n③ 控制单元 `CU` 的核心寄存器输入为 ==IR + FR==（另加时序节拍），不含 PC/MAR/MDR。'
+            },
+            exams: [
+              {
+                year: '2016·T20',
+                mistake: true,
+                nodeId: 'a5-16',
+                href: 'architecture-5.html#section-20',
+                q: '单周期处理器中所有指令的指令周期为一个时钟周期。下列关于单周期处理器的叙述中，错误的是？',
+                opts: ['A. 可以采用单总线结构数据通路', 'B. 处理器时钟频率较低', 'C. 在指令执行过程中控制信号不变', 'D. 每条指令的 CPI 为 1'],
+                ans: 'A',
+                explain: '单周期需在 1 拍内完成多组并行传送，单总线每拍只能驱动 1 个源部件，只能用于多周期处理器，A 错；单周期受最慢指令限制主频低、周期内控制信号恒定、`CPI=1`，B/C/D 正确。',
+                pitfall: '易把“单周期”与“单总线”字面混淆，需牢记单周期靠并行硬件换 1 拍。'
+              },
+              {
+                year: '2015·T43 大题',
+                mistake: true,
+                nodeId: 'a5-17',
+                href: 'architecture-5.html#section-22',
+                q: '16 位单总线 CPU（按字节编址，`GPRs` 为 `R0~R3`，`ALU` 7 种操作，`SR` 3 种操作，PC 增量接常数 `2`），辨析 `ALUop`/`SRop` 位数、暂存器 `T` 作用、三态门作用、连接控制部件 CU 的端点与需补连数据线。',
+                ans: 'ALUop=3位、SRop=2位｜连CU控制端：①SRout ②SRop ③ALUop ⑤Tin ⑧MUXop｜补数据线：⑥→⑨、⑦→④',
+                explain: '7 种 ALU 操作需 `⌈log2(7)⌉ = 3` 位，3 种 SR 操作需 `⌈log2(3)⌉ = 2` 位；三态门防止总线竞争；仅 `xxout/xxin/xxop` 选通使能端连 CU，送入 ALU/MUX 数值端的是数据线。',
+                pitfall: '当时误把连到 ALU/MUX 的部分数据连线与来自 CU 的控制信号端混淆。'
+              },
+              {
+                year: '2015·T44 大题',
+                mistake: true,
+                nodeId: 'a5-19',
+                href: 'architecture-5.html#section-23',
+                q: '沿用 2015·T43 单总线模型，设取指已完成，执行 `sub R1, R3, (R2)`（`R1 ← R3 - M[R2]`）和 `inc R1`（`R1 ← R1 + 1`）至少各需几个时钟周期？',
+                ans: 'sub 至少 4 拍｜inc 至少 2 拍',
+                explain: '`sub`：① `R2→MAR`；② ==内总线 `R3→T` 与外主存 `Read→MDR` 并行==；③ `T - MDR → SR`；④ `SR → R1`（共 4 拍）。`inc`：① `R1+1 → SR`；② `SR → R1`（跨越锁存器 `SR` 不可合为 1 拍，共 2 拍）。',
+                pitfall: '当时误答 2 拍/1 拍，漏掉间址访存、`SR` 跨拍锁存；若忘第 2 拍内外并行也会多算成 5 拍。'
+              },
+              {
+                year: '2022·T43 大题',
+                mistake: true,
+                nodeId: 'a5-20',
+                href: 'architecture-5.html#section-23',
+                q: '16 位单总线 CPU（`rs/rd` 各 4 位，主存 `Read` 需 5 拍）：问 GPRs 最多几个、`rs/rd` 来源及 `rd` 所接器件、取指控制信号序列与拍数、CU 的输入寄存器？',
+                ans: '16 个｜来自 IR，rd 接地址译码器（rs 接 MUX）｜PCout,MARin(1拍)→Read(5拍，无MDRin)→MDRout,IRin(1拍)共7拍｜CU 输入：IR 与 FR',
+                explain: '4 位编号可寻址 `2^4 = 16` 个寄存器；写目的 `rd` 经地址译码器生成独热写使能；主存 `Read` 经外部数据口直入 `MDR`，不可发内部总线写信号 `MDRin`；`CU` 依据 `IR` 操作码与 `FR` 状态标志产生控制信号。',
+                pitfall: '当时 7 拍算对但读主存拍误加了 `MDRin=1`，且 `rs/rd` 来源与 `CU` 输入寄存器初次作答不全。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-17',
+                bold: '总线互斥驱动与控制端识别',
+                text: '`Xin` 将内部总线数据打入部件 X，`Xout` 控制三态门将 X 驱动到内部总线。任一拍内部总线==仅允许 1 个 `Xout` 有效==（防总线冲突），但可同时有多个 `Xin` 有效（广播写入）。读图须严格区分数据线与 CU 控制端（`xxin`/`xxout`/`xxop`）。',
+                short: '同拍仅1个Xout、可多Xin广播；三态门防冲突，分清数据线与控制端',
+                tag: '2015·错',
+                red: true,
+                kw: '2015-T43 三态门 Xin Xout',
+                href: 'architecture-5.html#section-22'
+              },
+              {
+                id: 'a5-18',
+                bold: '暂存器 Y 与 Z 的硬件必要性',
+                text: 'ALU 为无记忆组合逻辑，双操作数须同时到达：==暂存器 Y== 锁存经总线先送到的第一操作数，待下一拍第二操作数上总线时共同输入 ALU；==暂存器 Z== 锁存 ALU 输出结果，!!防止输出直接回连总线造成反馈自激振荡!!。',
+                short: 'Y锁存第一源操作数；Z锁存ALU输出防总线反馈自激',
+                tag: '必背',
+                kw: '暂存寄存器 Y Z 反馈自激',
+                href: 'architecture-5.html#section-22'
+              },
+              {
+                id: 'a5-19',
+                bold: 'Read 方向边界与内外通路并行',
+                text: '主存 `Read` 经外部数据通路直接进入 `MDR`，!!不发内部总线写信号 `MDRin`!!。当外部主存正在执行 `Read → MDR` 时，CPU 内部单总线空闲，可==同拍并行执行寄存器传送（如 `R3 → T`）==以缩短总拍数。',
+                short: '主存Read走外通路不加MDRin；Read期间可与内总线传送并行',
+                tag: '2015/22·错',
+                red: true,
+                kw: '2015-T44 2022-T43 MDRin Read并行',
+                href: 'architecture-5.html#section-23'
+              },
+              {
+                id: 'a5-20',
+                bold: 'GPRs 读写接口与 CU 输入来源',
+                text: '通用寄存器堆 `rs/rd` 编号均来自指令寄存器 `IR`：读端口 `rs` 接==多路选择器 MUX==（多选一输出），写端口 `rd` 接==地址译码器==（译出唯一写使能）。控制单元 `CU` 的寄存器输入来源为 `IR` 与 `FR`（另含时序节拍）。',
+                short: 'rs/rd来自IR：rs读接MUX、rd写接译码器；CU输入IR与FR',
+                tag: '2022·错',
+                red: true,
+                kw: '2022-T43 MUX 地址译码器 CU输入',
+                href: 'architecture-5.html#section-23'
+              }
+            ]
+          },
+          {
+            id: 'm2-dedicated',
+            title: '专用单周期数据通路与扩展/标志控制',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/04-完整单周期数据通路.jpg', caption: '图 5.5 完整 MIPS 风格单周期专用数据通路与控制信号', width: 350 }
+            ],
+            exams: [
+              {
+                year: '2024·T43 大题',
+                mistake: true,
+                nodeId: 'a5-23',
+                href: 'architecture-5.html#section-26',
+                q: '32 位 RISC-V 部分数据通路：`add` 两操作数为 `87654321H` 与 `98765432H` 求 `F/CF/OF`；解释 `slli` 为何 `Ext` 可任选 `0` 或 `1`；给出 `lw`（机器码 `A040A103H`，`R[01H]=FFFFA2D0H`）的 `Ext/ALUctr/ALUBsrc` 及有效地址 `EA`。',
+                ans: 'F=1FDB9753H, CF=1, OF=1｜slli的IR[31:20]高7位恒为0｜lw: Ext=1, ALUctr=000, ALUBsrc=1, EA=FFFF9CD4H',
+                explain: '① 32 位和为 `1 1FDB 9753H`，截留低 32 位得 `F=1FDB9753H`，第 33 位进位 `CF=1`，两负相加得正 `OF=1`；② `slli` 的 12 位输入 `IR[31:20]` 高 7 位恒 `0000000`（最高位为 0），故零扩展与符号扩展全补 0 等价；③ `lw` 偏移 `A04H` 为负补码（`-5FCH`），须 `Ext=1` 符号扩展为 `FFFFFA04H`，加 `FFFFA2D0H` 得 `FFFF9CD4H`。',
+                pitfall: '当时 F 十六进制算错、slli 未点透高位恒 0、lw 误写 Ext=0 且负偏移加法末位算错。'
+              },
+              {
+                year: '2026·T44 大题',
+                star: true,
+                nodeId: 'a5-24',
+                href: 'architecture-5.html#section-26',
+                q: '16 位按字节编址专用数据通路（含多路汇合器件 `①/②`、支持 3 种扩展模式的 `Extop`、`AluBSrc` 接常数 `2`）：辨析 `①/②` 器件类型、`Extop` 最小位数、取指拍控制信号，以及左移 S 型与访存 M 型指令 `Extop` 能否相同？',
+                ans: '①②均为MUX｜Extop至少2位｜取指MARSrc=0, AluASrc=0, AluBSrc=1(常数2), RegWr=0｜不能相同',
+                explain: '多输入汇入单输出且受选通控制的器件必为多路选择器 `MUX`；区分 3 种扩展模式需 `⌈log2(3)⌉ = 2` 位；16 位定长按字节编址取指选常数 `2` 算 `PC+2`；左移取 4 位无符号零扩展而 M 型取 12 位有符号偏移，故 `Extop` 不可相同。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-21',
+                bold: '单周期专用通路 5 大架构特征',
+                text: '① 指令存储器与数据存储器分离（哈佛结构）避免同拍冲突；② 不设独立 `IR`；③ 时钟周期由最慢指令（通常为 `lw`）决定；④ 部件专用不可复用（须分设 `PC+4` 加法器、分支加法器与 `ALU`）；⑤ 控制信号整周期保持稳定。',
+                short: '哈佛分离、无IR、lw定周期、部件专用多实例、控制信号整拍稳',
+                tag: '必背',
+                kw: '哈佛结构 lw关键路径 控制信号',
+                href: 'architecture-5.html#section-27'
+              },
+              {
+                id: 'a5-22',
+                bold: '单周期 8 大控制信号映射',
+                text: '`RegDst`（0 选 `rt`/1 选 `rd`）、`RegWr`（写寄存器）、`ALUSrc`（0 选 `rt`/1 选立即数）、`MemtoReg`（0 选 ALU/1 选内存）、`MemWr`（写内存）、`Branch`（与 `Zero` 相与决定分支）、`Jump`（无条件跳转）、`ExtOp`（0 零扩展/1 符号扩展）。',
+                short: 'R型RegDst=1；lw须ALUSrc=MemtoReg=RegWr=1；sw须MemWr=1且RegWr=0',
+                tag: '必背',
+                kw: 'RegDst ALUSrc MemtoReg ExtOp',
+                href: 'architecture-5.html#section-25'
+              },
+              {
+                id: 'a5-23',
+                bold: '立即数扩展模式与位宽判定',
+                text: '算术运算与访存偏移（如 `lw` 负偏移 `A04H = -5FCH`）必须用==符号扩展 `Ext=1`==，逻辑/无符号移位用零扩展；RISC-V `slli` 因 `IR[31:20]` 高 7 位固定为 `0000000`，`Ext=0/1` 等价。`Extop` 位数由总扩展模式数取 `⌈log2(模式数)⌉` 决定。',
+                short: '地址偏移与算术必符号扩展；slli高7位恒0故Ext任选；3模式需2位',
+                tag: '2024/26·错',
+                red: true,
+                kw: '2024-T43 2026-T44 ExtOp 符号扩展',
+                href: 'architecture-5.html#section-26'
+              },
+              {
+                id: 'a5-24',
+                bold: '加法 F/CF/OF 与数据通路 MUX 识别',
+                text: '定长加法 `F` 只保留低字长结果，`CF` 判无符号进位/借位，`OF` 判有符号溢出（两正得负或两负得正，减法须先取反减数符号位）。读数据通路图时，凡多路数据线汇入单一出口并受选通控制的梯形/矩形一律为 ==MUX==。',
+                short: 'F取低32位、CF判无符号、OF判有符号；多入单出受选通必为MUX',
+                tag: '2022/24/26',
+                red: true,
+                kw: '2022-T43 2024-T43 2026-T44 OF CF MUX',
+                href: 'architecture-5.html#section-26'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 5.4 硬布线与微程序控制器 ==================== */
+      {
+        id: 'm3',
+        navLabel: '3 硬布线与微程序',
+        title: '5.4 硬布线控制器与微程序控制器',
+        sub: '组合逻辑控制器与存储程序式微程序控制器如何取舍？控存访问方式、字段直接编码与容量计算有哪些必杀陷阱？',
+        children: [
+          {
+            id: 'm3-ctrl',
+            title: '控制器输入、硬布线机制与核心对比',
+            media: [
+              {
+                type: 'table',
+                title: '硬布线 vs 微程序控制器 & 水平 vs 垂直微指令对照',
+                headers: ['对比维度', '硬布线控制器 / 水平型微指令', '微程序控制器 / 垂直型微指令'],
+                rows: [
+                  ['控制信号生成', '@@硬布线@@：组合逻辑门即时生成，==无访控存延迟，速度最快==', '@@微程序@@：从控存 `CM` 按微地址读取微指令，有访 `CM` 延迟'],
+                  ['规整性与扩展', '@@硬布线@@：电路繁琐不规整，!!修改扩充指令极其困难!!（适 RISC）', '@@微程序@@：结构规整模块化，==易修改扩展==（适 CISC）'],
+                  ['微指令格式', '&&水平型&&：长操作控制字段 + 顺序控制字段，并行控制能力强', '&&垂直型&&：含微操作码 `μOP` 类似机器指令，通常每条 1 个微操作'],
+                  ['字长与微程序长', '&&水平型&&：微指令字长==长==、微程序==短==、执行速度==快==', '&&垂直型&&：微指令字长==短==、微程序==长==、编写较容易但速度==慢==']
+                ]
+              }
+            ],
+            summary: {
+              title: '控制器选型与控存访问边界',
+              text: '① 硬布线赢在==速度==（RISC），输在==扩充修改难==；微程序赢在==规整易改==（CISC），输在访 CM 延迟。\n② 控存 `CS/CM` 位于 CPU 内部，经典用 `ROM`，!!按微地址访问（经 CMAR）!!，绝不是按内容访问（按内容访问仅相联存储器 CAM）。'
+            },
+            children: [
+              {
+                id: 'a5-25',
+                bold: '控制器 CU 的 4 类输入信号',
+                text: '控制单元 `CU` 综合 4 类输入生成微操作控制信号：`IR` 的操作码（经 ID 译码）、时序产生器的节拍脉冲、标志寄存器 `FR` 的状态标志（ZF/OF/SF/CF）、外部请求信号（INTR/NMI/HOLD/READY）。',
+                short: 'CU输入：IR操作码、节拍脉冲、FR标志、外部请求(INTR/READY)',
+                tag: '大纲',
+                kw: 'CU输入 操作码 时序 状态标志',
+                href: 'architecture-5.html#section-30'
+              },
+              {
+                id: 'a5-26',
+                bold: '硬布线控制器工作原理与特点',
+                text: '由门电路和触发器组成纯硬件逻辑，每个控制信号表示为布尔函数 `C_i = Σ(I_j · T_k · S_m)`。优点是==速度极快==（仅门延迟）；缺点是电路繁杂、!!增改指令须改硬件电路极其困难!!；适用于格式规整的 `RISC`。',
+                short: '组合逻辑门即时输出最快，但修改扩充极难，适用于RISC',
+                tag: '2009',
+                red: true,
+                kw: '2009-T19 硬布线 组合逻辑 RISC',
+                href: 'architecture-5.html#section-33'
+              }
+            ]
+          },
+          {
+            id: 'm3-micro',
+            title: '微程序控制器结构、术语层级与控存 CM',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/06-微程序控制器结构.jpg', caption: '图 5.6 微程序控制器内部结构与控制信号流', width: 300 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/12-微程序控制器基本结构与四级术语体系.png', caption: '图 5.7 微程序控制器基本结构与四级术语对应体系', width: 340 }
+            ],
+            exams: [
+              {
+                year: '2017·T18',
+                mistake: true,
+                nodeId: 'a5-28',
+                href: 'architecture-5.html#section-36',
+                q: '下列关于主存储器（MM）和控制存储器（CS）的叙述中，错误的是？',
+                opts: ['A. MM 在 CPU 外，CS 在 CPU 内', 'B. MM 按地址访问，CS 按内容访问', 'C. MM 存储指令和数据，CS 存储微指令', 'D. MM 用 RAM 和 ROM 实现，CS 用 ROM 实现'],
+                ans: 'B',
+                explain: '控存 `CS` 通过微地址寄存器 `CMAR`（`μPC`）==按微地址访问==，不是按内容访问（按内容访问的是相联存储器 `CAM`），B 错；在经典微程序模型下 CS 固化微程序用 ROM 实现，D 正确。',
+                pitfall: '当时因想到现代 CPU 可写微码而误怀疑 D 错（错选 D），忽略了 B 的“按内容访问”是铁错。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-27',
+                bold: '微程序五级层级关系',
+                text: '==微命令==（因，最基本控制信号）驱动==微操作==（果，原子硬件动作）；一条==微指令==包含同拍并行的微命令与下地址控制信息；一段==微程序==由若干微指令组成，解释执行一条==机器指令==；控存微程序总数 = 机器指令种数 + 公共微程序数。',
+                short: '微命令(因)→微操作(果)；微指令含微命令+下地址；1指令对应1微程序+公共段',
+                tag: '必背',
+                kw: '微命令 微操作 微指令 微程序 公共微程序',
+                href: 'architecture-5.html#section-35'
+              },
+              {
+                id: 'a5-28',
+                bold: '控制存储器 CM vs 主存储器 MM',
+                text: '`CM` 位于==CPU 控制器内部==，存放微程序/微指令，经典采用高速 `ROM`（或可写控存 WCS），由 `CMAR`/`μPC` ==按微地址访问==（!!非按内容访问!!）；`MM` 位于 CPU 外部，存放机器指令和数据，采用 `RAM/ROM`，由 `MAR`/`PC` 寻址。',
+                short: 'CM在CPU内用ROM存微指令、按微地址访问(非CAM)；MM在CPU外',
+                tag: '2017·错',
+                red: true,
+                kw: '2017-T18 控存 CMAR ROM CAM',
+                href: 'architecture-5.html#section-36'
+              },
+              {
+                id: 'a5-29',
+                bold: 'PC、MAR 与 μPC 空间严格区分',
+                text: '`PC` 存放下一条==机器指令==的主存地址；`MAR` 存放当前访存的==主存物理地址==；`μPC`（`CMAR`）存放下一条==微指令==在控制存储器中的微地址。三者面向不同存储空间，严禁混淆。',
+                short: 'PC指下条机器指令主存址，MAR指当前主存址，μPC指控存微地址',
+                tag: '易混',
+                kw: 'PC MAR μPC CMAR',
+                href: 'architecture-5.html#section-36'
+              },
+              {
+                id: 'a5-30',
+                bold: '微程序控制器组成与 6 步主线',
+                text: '由 `CM`、`μIR`（`CMDR`，含操作控制字段与顺序控制字段）、`μPC`（`CMAR`）与微地址形成部件构成。流程：公共取指微程序→操作码映射入口微地址入 `μPC`→读微指令入 `μIR`→发微命令→更新 `μPC`→末条微指令强制转回公共取指入口。',
+                short: 'CM+μIR+μPC+微地址形成部件；取指→OP映射入口→读微指令循环→返取指',
+                tag: '大纲',
+                kw: 'CMDR 微地址形成部件 入口地址',
+                href: 'architecture-5.html#section-37'
+              }
+            ]
+          },
+          {
+            id: 'm3-encode',
+            title: '微指令编码方式、下地址与 CM 容量计算',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/10-微指令格式设计分类思维导图.png', caption: '图 5.8 微指令编码、下地址与水平/垂直格式分类导图', width: 330 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/13-微程序控制器下地址与CM容量计算模型.png', caption: '图 5.9 微程序下地址形成与控制存储器 CM 容量计算模型', width: 340 }
+            ],
+            media: [
+              {
+                type: 'example',
+                title: '字段直接编码位数与 CM 容量计算（2012·T18 / 2014·T18）',
+                body: '**① 字段直接编码（2012·T18）**：设 5 个互斥组分别含 `7、3、12、5、6` 个微命令，每组必留 1 个全 0 无操作状态：`⌈log2(7+1)⌉ + ⌈log2(3+1)⌉ + ⌈log2(12+1)⌉ + ⌈log2(5+1)⌉ + ⌈log2(6+1)⌉ = 3 + 2 + 4 + 3 + 3 =` ==15 位==。\n**② 控存总条数与下地址（2014·T18）**：32 条机器指令各平均 4 条微指令，加公共取指微程序 2 条 → 总微指令数 `N = 2 + 32 × 4 = 130` 条 → 断定法下地址字段至少 `⌈log2(130)⌉ =` ==8 位==；若微指令字长 `w`，CM 最小容量为 `2^k × w`（全译码）或 `N × w`。'
+              }
+            ],
+            sticky: {
+              title: '字段编码 +1 与公共取指防漏铁律',
+              text: '① 字段直接编码原则：==互斥同段、相容异段==，每段必加 1 个全 0 无操作码 → 单段位数 `b = ⌈log2(m + 1)⌉`。\n② 算控存微指令总条数 `N` 时，!!千万别漏加公共取指（及间址/中断）微程序条数!!。'
+            },
+            exams: [
+              {
+                year: '2014·T18',
+                star: true,
+                nodeId: 'a5-32',
+                href: 'architecture-5.html#section-41',
+                q: '某计算机采用微程序控制器，共有 `32` 条指令，公共的取指令微程序包含 `2` 条微指令，各指令对应的微程序平均由 `4` 条微指令组成，采用断定法（下地址字段法）确定下条微指令地址，则下地址字段位数至少是？',
+                opts: ['A. 5', 'B. 6', 'C. 8', 'D. 9'],
+                ans: 'C',
+                explain: '总微指令条数 = 公共取指 `2` 条 + `32 × 4 = 128` 条 = ==130 条==；因 `2^7 = 128 < 130 ≤ 256 = 2^8`，下地址字段至少需 `⌈log2(130)⌉ = 8` 位（若漏加 2 条公共取指会错算为 7 位）。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-31',
+                bold: '操作控制字段三种编码方式',
+                text: '① @@直接编码@@：1 位代表 1 个微命令，无译码延迟、并行最强但字长最长；② ==字段直接编码==：互斥同段、相容异段，每段须留 1 个全 0 无操作态，位数 `b = ⌈log2(m + 1)⌉`；③ @@字段间接编码@@：二级隐式译码，字长更短但延迟增高。',
+                short: '直接编码1位1令最快；字段直接互斥同段+1空态算⌈log2(m+1)⌉；间接二级译码',
+                tag: '2012',
+                red: true,
+                kw: '2012-T18 字段直接编码 互斥 相容',
+                href: 'architecture-5.html#section-39'
+              },
+              {
+                id: 'a5-32',
+                bold: '下地址形成与控存容量模型',
+                text: '下地址形成含==增量计数器法==（`μPC + 1`）、==断定方式==（微指令下地址字段结合测试条件）与==操作码映射==。总微指令条数 `N` 须含公共微程序，`CMAR`/下地址最小位数 `k = ⌈log2(N)⌉`，控存容量 `2^k × w` 或 `N × w`。',
+                short: '下地址：增量/断定/OP映射；N必含公共取指，k=⌈log2(N)⌉',
+                tag: '2014',
+                red: true,
+                kw: '2014-T18 130条 8位 控存容量',
+                href: 'architecture-5.html#section-40'
+              },
+              {
+                id: 'a5-33',
+                bold: '水平型微指令 vs 垂直型微指令',
+                text: '@@水平型@@一次可并发多个相容微命令，字长长、微程序短、速度快、编写难；@@垂直型@@设微操作码 `μOP` 类似机器指令，通常每条 1 个基本微操作，字长短、微程序长、速度慢、易编写。',
+                short: '水平：并行强字长长程序短快；垂直：似汇编字长短程序长慢',
+                tag: '必背',
+                kw: '水平型 垂直型 微指令',
+                href: 'architecture-5.html#section-42'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 5.5 异常和中断机制 ==================== */
+      {
+        id: 'm4',
+        navLabel: '4 异常与中断机制',
+        title: '5.5 异常与中断的分类、断点与软硬件响应',
+        sub: '如何一眼划清内部异常与外部中断？硬件中断隐指令与软件服务程序的交接点、以及四类事件的返回断点分别在哪？',
+        children: [
+          {
+            id: 'm4-class',
+            title: '异常与中断的本质区分及分类体系',
+            summary: {
+              title: '异常 vs 中断与断点速查',
+              text: '① 内/外划分只看==直接触发源==：当前指令执行触发→@@内部异常@@（同步、执行中检出）；指令流外硬件发起→&&外部中断&&（异步、指令边界采样）。\n② 断点规则：!!可恢复 Fault（缺页）返回当前指令重执!!；==Trap 与外部中断返回下一条指令==；Abort/不可恢复故障不返回。'
+            },
+            exams: [
+              {
+                year: '2020·T20',
+                mistake: true,
+                nodeId: 'a5-34',
+                href: 'architecture-5.html#section-45',
+                q: '下列事件中，属于外部中断事件的是？ `I. 访存时缺页  II. 定时器到时  III. 网络数据包到达`',
+                opts: ['A. 仅 I、II', 'B. 仅 I、III', 'C. 仅 II、III', 'D. I、II、III'],
+                ans: 'C',
+                explain: '内外划分看直接触发源：访存缺页由当前访存指令直接触发，属==内部异常（可恢复 Fault）==；定时器到时与网卡收包来自 CPU 外部硬件，属==外部中断==。',
+                pitfall: '当时误因“缺页后续要读磁盘外设”而把 I 划入外部中断（错选 B）。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-34',
+                bold: '内部异常 vs 外部中断本质区分',
+                text: '@@异常（内中断）@@源自 CPU 内部指令执行，==同步==可重现，在==指令执行过程中实时检测==（缺页、除零、非法操作码、`syscall`）；@@中断（外中断）@@源自外设/时钟，==异步==随机，在==每条指令执行结束边界采样==（通过 `INTR/NMI` 与 `INTA` 握手）。',
+                short: '异常内生同步执行中检；中断外生异步指令边界采样；缺页属内异常',
+                tag: '2020·错',
+                red: true,
+                kw: '2020-T20 同步 异步 缺页',
+                href: 'architecture-5.html#section-45'
+              },
+              {
+                id: 'a5-35',
+                bold: '内部异常三类：Fault / Trap / Abort',
+                text: '① ==故障 Fault==：指令完成前检出，可恢复者（缺页）重执当前指令，不可恢复者（除零、非法操作码、地址越界）终止进程；② ==自陷 Trap==：程序主动触发（`syscall`、`int`、断点调试），返下一条指令；③ ==终止 Abort==：严重硬件故障（主存/总线校验错），不返回。',
+                short: 'Fault(缺页重试/除零终止)、Trap(主动调返下条)、Abort(重硬件错不返)',
+                tag: '2015/16/20/21',
+                red: true,
+                kw: '2015-T22 2016-T22 2020-T18 2021-T21 Fault Trap Abort',
+                href: 'architecture-5.html#section-47'
+              },
+              {
+                id: 'a5-36',
+                bold: 'Cache 缺失 vs 缺页故障辨析',
+                text: '!!Cache 缺失不属于异常!!，由硬件自动完成主存块调入与替换，对 OS 和软件完全透明；`TLB` 缺失通常查慢表亦未必缺页；唯有==缺页故障 Page Fault== 是内部可恢复故障，须陷入 OS 内核调页后重试该访存指令。',
+                short: 'Cache缺失纯硬件透明非异常；缺页属Fault须进OS调页重试',
+                tag: '易混',
+                kw: 'Cache Miss Page Fault TLB',
+                href: 'architecture-5.html#section-47'
+              },
+              {
+                id: 'a5-37',
+                bold: '外部中断三维度分类',
+                text: '① 可屏蔽中断（`INTR`，受标志位 `IF` 与屏蔽字控制）vs 不可屏蔽中断（`NMI`，掉电/灾难错误不受 `IF` 屏蔽）；② 向量中断（硬件送类型号查 IVT 快）vs 非向量中断（软件轮询慢）；③ 单重中断（全程关中断）vs 多重嵌套中断（保现场后提前开中断）。',
+                short: 'INTR受IF控/NMI不可屏蔽；向量查IVT快；单重关中断/多重可嵌套',
+                tag: '大纲',
+                kw: 'INTR NMI 向量中断 多重中断',
+                href: 'architecture-5.html#section-48'
+              }
+            ]
+          },
+          {
+            id: 'm4-resp',
+            title: '硬件隐指令响应与软件服务程序分工',
+            sticky: {
+              title: '硬件隐指令 vs 软件 ISR & PSW 分水岭',
+              text: '① ==关中断、保存断点 PC（及 PSW）、查 IVT 引出入口==由**硬件中断隐指令**自动完成；题问“中断服务程序内”必从 ==I. 保护现场== 起步。\n② 中断处理一定会保存而子程序调用不必保存的是 !!程序状态字寄存器 PSW!!（通用地址寄存器 ≠ 返回地址）。'
+            },
+            exams: [
+              {
+                year: '2010·T21',
+                mistake: true,
+                nodeId: 'a5-39',
+                href: 'architecture-5.html#section-51',
+                q: '单级中断系统中，==中断服务程序内==的执行顺序是？ `I. 保护现场  II. 开中断  III. 关中断  IV. 保存断点  V. 中断事件处理  VI. 恢复现场  VII. 中断返回`',
+                opts: ['A. I → V → VI → II → VII', 'B. III → I → V → VII', 'C. III → IV → V → VI → VII', 'D. IV → I → V → VI → VII'],
+                ans: 'A',
+                explain: '`III. 关中断` 与 `IV. 保存断点` 由进入 ISR 前的==硬件中断隐指令==自动完成；单级 ISR 内软件执行顺序为 `I. 保护现场 → V. 中断事件处理 → VI. 恢复现场 → II. 开中断 → VII. 中断返回`。',
+                pitfall: '当时惯性选了从 III 关中断起步的 B，把硬件隐指令混进软件 ISR 且漏了恢复现场。'
+              },
+              {
+                year: '2012·T24',
+                mistake: true,
+                nodeId: 'a5-40',
+                href: 'architecture-5.html#section-51',
+                q: '中断处理和子程序调用都需要压栈以保护现场，中断处理一定会保存而子程序调用不需要保存其内容的是？',
+                opts: ['A. 程序计数器', 'B. 程序状态字寄存器', 'C. 通用数据寄存器', 'D. 通用地址寄存器'],
+                ans: 'B',
+                explain: '两者均需保存返回地址 `PC`（A），通用数据/地址寄存器（C/D）按需保存；唯独中断随机发生且涉及特权级、中断允许位与条件码改变，必须完整保存 ==程序状态字寄存器 PSW==。',
+                pitfall: '当时错把 D“通用地址寄存器”当成返回地址而误选 D。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-38',
+                bold: '硬件响应阶段 3 步原子操作',
+                text: 'CPU 检出异常或采样到有效中断后，由硬件隐指令自动完成 3 步：① ==关中断==（`IF ← 0`）；② ==保存断点 `PC` 与 `PSW`== 至内核栈或专用寄存器；③ ==识别事件类型并查 IVT== 将服务程序入口地址装入 `PC`。',
+                short: '硬件隐指令：关中断IF←0 → 存断点PC与PSW → 查IVT装入口PC',
+                tag: '2010/12',
+                red: true,
+                kw: '2012-T22 中断隐指令 IVT',
+                href: 'architecture-5.html#section-50'
+              },
+              {
+                id: 'a5-39',
+                bold: '软件服务程序执行顺序',
+                text: '单级中断服务程序内由 OS 内核软件依次执行：==保护现场==（保存所用通用寄存器）→ ==执行中断服务主体== → ==恢复现场== → ==开中断== → ==中断返回==（`IRET/ERET` 自动恢复 `PSW` 与断点 `PC`）。多重中断在保护现场后提前开中断。',
+                short: '单级ISR：保现场→处理→复现场→开中断→IRET；多重提前开中断',
+                tag: '2010·错',
+                red: true,
+                kw: '2010-T21 2012-T22 保护现场 IRET',
+                href: 'architecture-5.html#section-51'
+              },
+              {
+                id: 'a5-40',
+                bold: '中断处理 vs 子程序调用保护差异',
+                text: '两者均需保存返回地址 `PC`，通用数据/地址寄存器视调用约定按需保存；==中断处理必保而子程序调用不必保的是 `PSW`==（含条件码、中断允许位与特权态，且中断常伴用户态→内核态切换）。',
+                short: '均保PC、按需保通用寄存器；中断必保而子程序不必保PSW',
+                tag: '2012·错',
+                red: true,
+                kw: '2012-T24 PSW 子程序调用',
+                href: 'architecture-5.html#section-51'
+              },
+              {
+                id: 'a5-41',
+                bold: '四类事件断点保存位置汇总',
+                text: '@@可恢复故障（缺页）@@保存==当前故障指令地址==，处理后重试该指令；@@自陷 Trap@@与@@外部中断@@保存==下一条指令地址==，返回后继续顺序执行；@@不可恢复故障与终止@@通常直接终止进程或重启。',
+                short: '缺页Fault存当前址重试；Trap与外中断存下条址；Abort不返回',
+                tag: '2015/21',
+                red: true,
+                kw: '2015-T22 2021-T21 断点保存',
+                href: 'architecture-5.html#section-52'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 5.6.1–5.6.4 五段流水线与冒险 ==================== */
+      {
+        id: 'm5',
+        navLabel: '5 五段流水线与冒险',
+        title: '5.6.1–5.6.4 五段流水线、性能指标与三大冒险',
+        sub: '如何用读写表与“产生拍 vs 使用拍”精准定位 RAW、Load-Use、前端反压与控制冒险？吞吐率与加速比怎么算？',
+        children: [
+          {
+            id: 'm5-base',
+            title: '五段流水线结构、段寄存器与性能指标',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/08-五段流水线时空图.jpg', caption: '图 5.10 五段指令流水线时空重叠图（IF/ID/EX/MEM/WB）', width: 320 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/07-五段流水线逻辑结构.jpg', caption: '图 5.11 五段流水线逻辑结构与四个段间锁存寄存器', width: 340 }
+            ],
+            exams: [
+              {
+                year: '2013·T18',
+                star: true,
+                nodeId: 'a5-44',
+                href: 'architecture-5.html#section-58',
+                q: '某 CPU 主频 `1.03 GHz`，采用 4 级流水线，每段需 1 个时钟周期。无任何阻塞执行 `100` 条指令，实际吞吐率为？',
+                opts: ['A. 0.25×10^9 条/秒', 'B. 0.97×10^9 条/秒', 'C. 1.0×10^9 条/秒', 'D. 1.03×10^9 条/秒'],
+                ans: 'C',
+                explain: '执行 `100` 条指令共耗 `k + n - 1 = 4 + 100 - 1 = 103` 拍；总耗时 `T = 103 / (1.03 × 10^9 s^-1) = 100 ns`；实际吞吐率 `TP = 100 / 100 ns =` ==1.0×10^9 条/秒==（D 为理论最大吞吐率）。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-42',
+                bold: '流水线本质与适合流水化的 ISA',
+                text: '流水线利用==时间并行==大幅提高==指令吞吐率 TP==，但!!不缩短单条指令的执行延迟!!（加段间寄存器甚至略增单指令耗时）。利于流水化的 ISA 特征：==定长规整指令格式、LOAD/STORE 架构、操作数按边界对齐==。',
+                short: '提吞吐不缩单指令延迟；定长规整+LOAD/STORE+边界对齐利流水',
+                tag: '2011',
+                red: true,
+                kw: '2011-T18 ISA 吞吐率 边界对齐',
+                href: 'architecture-5.html#section-54'
+              },
+              {
+                id: 'a5-43',
+                bold: '流水段寄存器的职责',
+                text: '相邻流水段之间设 `IF/ID、ID/EX、EX/MEM、MEM/WB` 四个锁存寄存器，在时钟边沿锁存并向后传递==中间数据与后续阶段控制信号==，对汇编程序员完全透明。',
+                short: '4个段间寄存器锁存数据与后续控制信号，对程序员透明',
+                tag: '必背',
+                kw: 'IF/ID ID/EX EX/MEM MEM/WB',
+                href: 'architecture-5.html#section-56'
+              },
+              {
+                id: 'a5-44',
+                bold: '流水线时钟周期与 4 大性能指标',
+                text: '时钟周期 ==T_clk = max(t_i) + t_reg==；`n` 条指令总时间 `T = (k + n - 1) × T_clk`（度为 `m` 超标量 `T = (k + ⌈n/m⌉ - 1) × T_clk`）；吞吐率 `TP = n / T → 1/T_clk`；加速比 `S = nk / (k + n - 1) → k`；效率 `E = S / k = n / (k + n - 1) → 1`。',
+                short: 'T_clk=max(t_i)+t_reg；T=(k+n-1)T_clk；TP=n/T；S=nk/(k+n-1)',
+                tag: '2009/13/18',
+                red: true,
+                kw: '2009-T18 2013-T18 2018-T20 加速比 效率',
+                href: 'architecture-5.html#section-58'
+              },
+              {
+                id: 'a5-45',
+                bold: '经典五段 MIPS 指令段占用分布',
+                text: '==lw 五段全满最复杂==；R 型与 I 型运算 `MEM` 为空；`sw` 的 `WB` 为空；`beq` 在 `EX` 比较、`MEM` 写 `PC`、`WB` 为空；`j` 在 `EX` 更新 `PC`、`MEM/WB` 均为空。基本标量流水线理想 `CPI = 1`。',
+                short: 'lw五段全满；R/I空MEM；sw/beq空WB；标量流水理想CPI=1',
+                tag: '2020/26',
+                red: true,
+                kw: '2020-T17 2026-T20 lw beq sw',
+                href: 'architecture-5.html#section-60'
+              }
+            ]
+          },
+          {
+            id: 'm5-hazard',
+            title: '三大流水线冒险：成因、转发与精准定位',
+            media: [
+              {
+                type: 'table',
+                title: '三大流水线冒险成因、判定与解决措施总表',
+                headers: ['冒险类型', '本质成因', '高频真题触发场景', '核心硬件 / 软件解决措施'],
+                rows: [
+                  ['@@结构冒险@@', '多条指令同拍争用同一物理部件', '单端口主存同时处理 `IF` 取指与 `MEM` 访存；寄存器堆读写冲突', '==分立指令/数据 Cache（哈佛）==、多端口寄存器堆、硬件阻塞插气泡'],
+                  ['!!数据冒险!!', '后指令依赖前指令尚未写回的结果（按序仅生 ==RAW==；乱序才生 WAR/WAW）', '① 普通 `alu→alu` 或 `add→load`；② 隔行 `I1→I3`；③ !!Load-Use（`lw` 紧邻使用者）!!', '==旁路转发==（消除 `alu→alu`/`add→load`，本身不引起阻塞）；!!Load-Use 仍必停 1 拍!!；无转发时硬件阻塞/插 `nop`/编译调度'],
+                  ['==控制冒险==', '分支/跳转/异常改变指令流致预取无效', '`beq`/`bne` 未确定跳转方向前顺序预取的下一条指令', '延迟分支（延迟槽）、静态/动态分支预测（1/2 位饱和计数器 BHT）、预测错清空 Flush（!!越深惩罚越大!!）']
+                ]
+              },
+              {
+                type: 'example',
+                title: 'Load-Use 转发停顿 & 无转发禁同拍读写推演（2023·T19 / 2012·T44）',
+                body: '**① 有转发五段流水（2023·T19）**：`I1: add s2,s1,s0` → `I2: load s3,0(s2)` → `I3: beq t2,s3,L1` → `I4: addi`。\n`I1` 在 `EX` 末算出 `s2` 转发给 `I2` 的 `EX` 初 → &&I2 不阻塞&&；`I2` 在 `MEM` 末才读出 `s3`，紧邻 `I3` 来不及 → !!I3 阻塞（Load-Use）!!；硬件阻塞处理控制冒险 → !!I4 阻塞!!。\n**② 无转发且禁止同拍读写（2012·T44，`x = x*2 + a`）**：必须满足 `消费者 ID = 生产者 WB + 1`；将独立 `I2: LOAD R2,[a]` 提前填缝后，`I1` WB=5 → `I3(SHL)` ID=6/WB=9 → `I4(ADD)` ID=10/WB=13 → `I5(STORE)` ID=14/WB=17，共 ==17 拍==（且 5 段流水相对非流水线加速比 `S = 5×5 / 17 ≈ 1.47`）。'
+              }
+            ],
+            sticky: {
+              title: '五段流水线冒险 4 步判定铁律',
+              text: '① **先列读写表**（含隔行 `I1→I3` 及 `bne/beq` 自身读寄存器），再画时空图。\n② **对齐产出拍与使用拍**：ALU 在 `EX` 末产出，Load 在 `MEM` 末产出；有转发时 `add→load` 不堵，==Load-Use 必停 1 拍==。\n③ **区分阻塞位置**：无转发时 `I3` 卡 `ID` 等写回，`I4` 堵在 `IF` 是==按序前端反压==（不是 IF 读寄存器）。\n④ **32 位定长相对分支公式**：`EA = PC + 4 + 4 × OFFSET`（切勿跨题抄 16 位 `+2`）。'
+            },
+            exams: [
+              {
+                year: '2019·T18',
+                mistake: true,
+                nodeId: 'a5-47',
+                href: 'architecture-5.html#section-63',
+                q: '五段流水线执行 `I1: add s2,s1,s0`、`I2: load s3,0(t2)`、`I3: add s2,s2,s3`、`I4: store s2,0(t2)`，不存在数据冒险的指令对是？',
+                opts: ['A. I1 和 I3', 'B. I2 和 I3', 'C. I2 和 I4', 'D. I3 和 I4'],
+                ans: 'C',
+                explain: '列读写表：`I1` 写 `s2` → `I3` 读 `s2`（第 4 拍 `I3` 在 `ID` 时 `I1` 尚未第 5 拍 `WB`，==隔行仍有 RAW==）；`I2` 写 `s3` → `I3` 读 `s3`（RAW）；`I3` 写 `s2` → `I4` 读 `s2`（RAW）；`I2` 写 `s3` 而 `I4` 仅读 `s2,t2` → 无数据冒险。',
+                pitfall: '当时未先列读写表直接画时空图，误以为隔着 I2 的 I1 与 I3 不存在冒险（错选 A）。'
+              },
+              {
+                year: '2023·T19',
+                mistake: true,
+                nodeId: 'a5-49',
+                href: 'architecture-5.html#section-63',
+                q: '五段 RISC 流水线采用==转发==处理数据冒险、==硬件阻塞==处理控制冒险，执行 `I1: add s2,s1,s0`、`I2: load s3,0(s2)`、`I3: beq t2,s3,L1`、`I4: addi t2,t2,20`，发生阻塞的指令是？',
+                opts: ['A. 仅 I3', 'B. I2、I4', 'C. I3、I4', 'D. I2、I3、I4'],
+                ans: 'C',
+                explain: '`I1→I2` 的 `s2` 在 `EX` 末转发直达 `I2` 的 `EX` 初，==I2 不阻塞==；`I2→I3` 为 Load-Use，转发来不及故 ==I3 阻塞==；`I3` 为条件分支，硬件阻塞处理控制冒险使 ==I4 阻塞==。',
+                pitfall: '当时看见 I1→I2 有 RAW 就把“有相关”当成“必阻塞”（错选 D）。'
+              },
+              {
+                year: '2012·T44 大题',
+                mistake: true,
+                nodeId: 'a5-49',
+                href: 'architecture-5.html#section-63',
+                q: '按序 5 段流水线，==无转发且禁止同拍读写同一寄存器==：`I1: LOAD R1,[a]`、`I2: LOAD R2,[b]`、`I3: ADD R1,R2`（写回 R2）、`I4: STORE R2,[x]`。说明 `I3` 的 `ID` 与 `I4` 的 `IF` 阻塞原因；并求 `x = x*2 + a` 最少拍数。',
+                ans: 'I3-ID：RAW 等 I1/I2 写回 R1/R2｜I4-IF：I3 卡 ID 致按序前端反压｜x=x*2+a 提前 LOAD a 最少 17 拍',
+                explain: '无转发且禁同拍读写须满足 `消费者 ID > 生产者 WB`：`I1/I2` 第 5/6 拍写回，`I3` 最早第 7 拍 `ID`（RAW 阻塞）；`I4` 在 `IF` 尚未读 `R2`，是被 `I3` 卡在 `ID` 顶住的按序前端反压；计算 `x=x*2+a` 提前 `LOAD R2,[a]` 填缝后第 17 拍完成 `STORE`。',
+                pitfall: '当时误把 I4 的 IF 阻塞写成“IF 段读不到 R2”，且第（4）问初次留空后补推对 17 拍。'
+              },
+              {
+                year: '2014·T44 大题',
+                mistake: true,
+                nodeId: 'a5-50',
+                href: 'architecture-5.html#section-64',
+                q: '32 位定长循环代码 `I1(08048100H) sll R4,R2,2` … `I5 addi R2,R2,1`、`I6(08048114H) bne R2,R6,loop`（机器码 `1446FFFAH`）。求 `OFFSET`、转移目标公式；无转发且每次分支阻塞 3 拍时，哪几条因数据相关阻塞？为何下轮 `I1` 不再因 `I5` 阻塞？',
+                ans: 'OFFSET=-6，EA=PC+4+4×OFFSET｜数据阻塞：I2、I3、I4、I6｜I6引3拍控制阻塞期间I5已完成WB，下轮I1不再新增数据阻塞',
+                explain: '32 位指令按字节编址每条占 `4B`，`OFFSET=FFFAH=-6`，目标 `08048114H+4+4×(-6)=08048100H`；`I5` 写 `R2`→`I6` 读 `R2` 故 ==I6 既是 RAW 消费者又是控制冒险源==；在 `I6` 自身等待及随后 3 拍控制阻塞期间 `I5` 已写回 `R2`，故下一轮 `I1` 无新增数据阻塞。',
+                pitfall: '当时跨题把相对寻址公式错写成 16 位步长 `PC+2+2×OFFSET`，且漏掉了分支指令 I6 自身的 RAW 数据阻塞。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-46',
+                bold: '结构冒险成因与消除措施',
+                text: '多条指令同拍争用同一硬件部件（如单一主存同时承担 `IF` 与 `MEM`）。解决：① ==分立指令 Cache 与数据 Cache==（哈佛架构）；② ==多端口寄存器堆==（独立读写口）；③ 硬件阻塞插入气泡。',
+                short: '同拍争部件：分立I/D Cache+多端口GPRs+硬件阻塞',
+                tag: '必背',
+                kw: '结构冒险 分立Cache 多端口',
+                href: 'architecture-5.html#section-62'
+              },
+              {
+                id: 'a5-47',
+                bold: 'RAW/WAR/WAW 与隔行数据冒险',
+                text: '按序发射按序完成的五段流水线中==只可能发生 RAW（写后读，真相关）==，且!!隔行指令（如 `I1→I3`）在 `I1` 未完成 `WB` 前同样发生 RAW!!；`WAR`（反相关）与 `WAW`（输出相关）仅在乱序执行流水线中出现。',
+                short: '按序流水仅生RAW(含隔行I1→I3)；WAR/WAW仅见于乱序执行',
+                tag: '2016/19·错',
+                red: true,
+                kw: '2016-T19 2019-T18 RAW WAR WAW',
+                href: 'architecture-5.html#section-63'
+              },
+              {
+                id: 'a5-48',
+                bold: '转发技术与 RAW 解决手段',
+                text: '解决 RAW 三手段：硬件阻塞/插 `nop`、==旁路转发 Forwarding==（将 `EX/MEM` 或 `MEM/WB` 结果直引回 `ALU` 输入端）、编译指令调度。注意：==转发是消除冲突的优化手段，本身不引起流水线阻塞==，可完全消除 `alu→alu` 与 `add→load` 阻塞。',
+                short: '转发直引段寄存器结果入ALU，本身不阻塞，消除alu→alu与add→load',
+                tag: '2010/23',
+                red: true,
+                kw: '2010-T19 转发 旁路 编译调度',
+                href: 'architecture-5.html#section-63'
+              },
+              {
+                id: 'a5-49',
+                bold: 'Load-Use 特例与前端反压机制',
+                text: '`lw` 数据在 `MEM` 末才读出，紧随其后的 `EX` 消费者无法逆时间转发，故 ==Load-Use 即使有转发也必硬件暂停至少 1 拍==（如 `load→add`、`load→beq`）。无转发且禁同拍读写时满足 `ID > WB`，后继指令停在 `IF` 属==按序前端反压==。',
+                short: 'Load-Use有转发仍必停1拍；无转发禁同拍读写ID>WB，后指令IF为前端反压',
+                tag: '2012/23/24·错',
+                red: true,
+                kw: '2012-T44 2023-T19 2024-T19 Load-Use 前端反压',
+                href: 'architecture-5.html#section-63'
+              },
+              {
+                id: 'a5-50',
+                bold: '控制冒险与深流水线清空代价',
+                text: '分支/跳转/异常破坏预取连续性，解决措施：延迟分支（分支延迟槽）、静态/动态分支预测（1/2 位饱和计数器 `BHT`）及预测失败清空 `Flush`。!!流水线级数越深，分支预测错误造成的清空惩罚越大!!；32 位定长相对分支为 `EA = PC + 4 + 4×OFFSET`。',
+                short: '延迟槽+动态预测BHT+错则Flush；越深惩罚越大；32位EA=PC+4+4×OFFSET',
+                tag: '2014·错',
+                red: true,
+                kw: '2014-T44 控制冒险 BHT Flush 延迟槽',
+                href: 'architecture-5.html#section-64'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 5.6.5 & 5.7 高级流水与多核 ==================== */
+      {
+        id: 'm6',
+        navLabel: '6 高级流水与多核',
+        title: '5.6.5 & 5.7 高级流水线、Flynn 分类与多核 SMP',
+        sub: '超标量、VLIW 与超流水线如何提升并行度？SMT 超线程与真双核、UMA 与 NUMA、Cache 一致性边界在哪？',
+        children: [
+          {
+            id: 'm6-adv',
+            title: '高级流水线技术与 Flynn 体系分类',
+            media: [
+              {
+                type: 'table',
+                title: '高级流水线、硬件多线程与多核/SIMD 核心对比',
+                headers: ['架构 / 技术', '并行维度与发射能力', '理想 CPI', '关键特征与真题避坑边界'],
+                rows: [
+                  ['==超标量==（动态多发射）', '空间并行：单拍硬件动态发射多条指令', '`< 1`（`1/m`）', '多套执行部件 + 动态调度；!!不能缩短单个流水段物理延迟!!'],
+                  ['@@VLIW@@（静态多发射）', '编译器将多条并行操作打包为超长指令字', '`< 1`', '硬件控制简规，但极度依赖编译优化、代码膨胀、二进制兼容弱'],
+                  ['@@超流水线@@', '时间并行：将原有流水段进一步细分加深', '`= 1`', '大幅提高主频；因 `t_reg > 0` 周期不严格减半，!!分支错惩罚剧增!!'],
+                  ['&&同时多线程 SMT&&', '单拍同时发射来自==多个线程==的多条指令', '`< 1`', '==单核超标量即可支持==（超线程 HT 呈两逻辑核，共享 ALU/Cache）'],
+                  ['&&多核 / SIMD&&', '多核为 MIMD 多独立物理核；SIMD 为单 CU 控多 PE', '多核整体 `< 1`', '双核有两套独立执行单元（单线程不加速）；SIMD 遇 `if-else` 掩码降效']
+                ]
+              }
+            ],
+            summary: {
+              title: '并行架构四大高频辨析',
+              text: '① 缩短单段延迟靠@@超流水线@@，单拍多发射靠==超标量==（绝不混为一谈）。\n② 标量流水线属 `SISD`；阵列/向量/GPU 属 `SIMD`；多核与 SMP 属 `MIMD`。\n③ 仅 `SMT` 可在单拍发射多线程指令；超线程逻辑核共享物理执行部件，!!不等同于双物理核!!。'
+            },
+            exams: [
+              {
+                year: '2017·T17',
+                mistake: true,
+                nodeId: 'a5-51',
+                href: 'architecture-5.html#section-65',
+                q: '下列关于超标量流水线特性的叙述中，正确的是？ `I. 能缩短流水线功能段的处理时间  II. 能在一个时钟周期内同时发射多条指令  III. 能结合动态调度技术提高指令执行并行性`',
+                opts: ['A. 仅 II', 'B. 仅 I、III', 'C. 仅 II、III', 'D. I、II 和 III'],
+                ans: 'C',
+                explain: '缩短单功能段处理时间是==超流水线==细分流水段的作用，非超标量（I 错）；超标量配置多套功能部件，单拍可同时发射多条指令（II 对）并可结合动态调度乱序发射（III 对）。',
+                pitfall: '当时把“吞吐率提高”笼统等同于“每段变快”，多选了 I（错选 D）。'
+              }
+            ],
+            children: [
+              {
+                id: 'a5-51',
+                bold: '超标量（动态多发射）特性',
+                text: '配置多套并行执行部件与硬件动态依赖检查逻辑，实现==单时钟周期并发发射多条独立指令==，常结合动态调度/乱序执行，理想 `CPI < 1`；!!不能缩短单个功能段的物理处理时间!!。',
+                short: '单拍多发射+动态调度，理想CPI<1；不缩短单段处理时间',
+                tag: '2017/20·错',
+                red: true,
+                kw: '2017-T17 2020-T17 超标量 动态调度',
+                href: 'architecture-5.html#section-65'
+              },
+              {
+                id: 'a5-52',
+                bold: 'VLIW 与超流水线对比',
+                text: '@@VLIW（超长指令字）@@靠编译器静态打包并行操作（`CPI < 1`），硬件简洁但代码膨胀、兼容弱；@@超流水线@@靠细分流水段提高主频（`CPI = 1`），因段间锁存开销 `t_reg > 0` 周期不会严格减半，且分支清空代价剧增。',
+                short: 'VLIW靠编译静态打包；超流水细分段提主频但t_reg与分支惩罚增',
+                tag: '必背',
+                kw: 'VLIW 超流水线 t_reg',
+                href: 'architecture-5.html#section-65'
+              },
+              {
+                id: 'a5-53',
+                bold: 'Flynn 四分类与 SIMD 局限',
+                text: '按指令流与数据流分：`SISD`（传统单核、==标量流水线==）、`SIMD`（单 CU 控多 PE：阵列/向量处理机、GPU；遇 `if-else` 须条件掩码致效率下降）、`MISD`（工程几乎不存在）、`MIMD`（多核、SMP、多计算机）。',
+                short: '标量流水属SISD；阵列/向量属SIMD(分支掩码降效)；多核SMP属MIMD',
+                tag: '大纲',
+                kw: 'Flynn SISD SIMD MIMD 向量处理机',
+                href: 'architecture-5.html#section-67'
+              },
+              {
+                id: 'a5-54',
+                bold: 'MIMD：多计算机 vs 多处理器',
+                text: '@@多计算机系统@@各节点拥有私有存储器与独立物理地址空间，节点间通过==网络消息传递==通信；@@多处理器系统（SMP）@@共享单一==统一物理地址空间==，通过普通 `LOAD/STORE` 读写共享变量通信。',
+                short: '多计算机私有地址靠消息传递；多处理器SMP共享地址靠LOAD/STORE',
+                tag: '大纲',
+                kw: '多计算机 消息传递 共享变量',
+                href: 'architecture-5.html#section-69'
+              }
+            ]
+          },
+          {
+            id: 'm6-multi',
+            title: '硬件多线程、多核处理器与共享内存 SMP',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch5/09-双核CPU结构.jpg', caption: '图 5.12 双核 CPU 内部结构（私有 L1/L2 与共享 L3/主存）', width: 320 }
+            ],
+            children: [
+              {
+                id: 'a5-55',
+                bold: '三类硬件多线程机制',
+                text: '核内为多线程提供独立 `PC` 与架构寄存器堆：@@细粒度@@每拍轮流切换（仅发 1 线程，掩短停顿）；@@粗粒度@@遇长延迟（如 L2/L3 缺失）切换（仅发 1 线程，需排空）；==同时多线程 SMT== 单拍可同时发射多线程多条指令，==单核超标量即可支持==。',
+                short: '细/粗粒度单拍仅发1线程；唯SMT单拍并发多线程且单核超标量支持',
+                tag: '2022',
+                red: true,
+                kw: '2022-T22 细粒度 粗粒度 SMT',
+                href: 'architecture-5.html#section-70'
+              },
+              {
+                id: 'a5-56',
+                bold: '超线程 HT 逻辑核与物理核边界',
+                text: '超线程（`HT`）是 `SMT` 的典型实现：在单个物理核内复制架构状态，向 OS 呈现==两个逻辑核==，但底层 `ALU`、浮点单元与 `Cache` 仍共享，遇争用须挂起，性能约提升 `20%~30%`，!!不等同于双物理核!!。',
+                short: 'HT单物理核复制状态呈两逻辑核，共享ALU/Cache，不等同真双核',
+                tag: '易混',
+                kw: '超线程 HT 逻辑核 物理核',
+                href: 'architecture-5.html#section-71'
+              },
+              {
+                id: 'a5-57',
+                bold: '多核处理器架构特征',
+                text: '单硅片集成多个==独立物理执行核心==（纯空间并行）；标称 `2.4GHz` 双核指每核均 `2.4GHz`，同等性能下功耗低于极限超频单核；各核通常私有 `L1/L2 Cache`、共享末级 `L3 Cache`；!!无法直接加速纯单线程串行程序!!。',
+                short: '独立物理核同主频降功耗；私有L1/L2、共享L3；不加速单线程',
+                tag: '必背',
+                kw: '多核 私有L1 共享L3 单线程',
+                href: 'architecture-5.html#section-73'
+              },
+              {
+                id: 'a5-58',
+                bold: 'SMP：UMA/NUMA、Cache 一致性与同步',
+                text: '@@UMA@@ 各核访问任意物理内存延迟相同；@@NUMA@@ 访问本地绑定内存快、远程节点内存慢。多核私有 Cache 须靠硬件==一致性协议（如总线监听 MESI）==保证副本最新；并发临界区依赖原子指令（`Test-and-Set`、`LL/SC`）实现互斥同步。',
+                short: 'UMA延迟均等/NUMA本地快远程慢；MESI保Cache一致；原子指令保同步',
+                tag: '大纲',
+                kw: 'SMP UMA NUMA MESI Test-and-Set LL/SC',
+                href: 'architecture-5.html#section-75'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  </script>
+  <script src="study/mindmap.js?v=5"></script>
+</body>
+</html>

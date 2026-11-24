@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="408计算机组成原理第3章存储系统双模式强化思维导图白板：严格对齐教材与复盘笔记原话，内嵌18张核心原理图、5张对比表、3个微算例、4组右括号总结、4张必背便签与20道408真题精选。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232563eb'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>3</text></svg>">
+  <title>第3章 存储系统 · 图文强化思维导图白板</title>
+  <script src="study/theme-boot.js?v=1"></script>
+  <link rel="stylesheet" href="study/mindmap.css?v=5">
+</head>
+<body>
+  <script>
+  window.MINDMAP_CONFIG = {
+    rich: true,
+    chapter: 3,
+    pageFile: 'architecture-ch3-mindmap.html',
+    kicker: '408 COMPUTER ORGANIZATION · CH03 WHITEBOARD',
+    title: '第3章 存储系统',
+    subtitle: '以“Cache—主存解决速度、主存—辅存解决容量”两级层次为主线：存储器分类与 MAR/MDR → SRAM/DRAM 刷新与外存 → 主存扩展与多体交叉 → Cache 映射、替换与写策略 → 虚拟存储与 TLB 协同访存。',
+    noteHref: 'architecture-3.html',
+    hubHref: 'architecture-0.html',
+    storageKey: 'notes-architecture-ch3-mindmap-v1',
+    chapters: [
+      { num: 1, label: '1', title: '第1章 系统概述', href: 'architecture-ch1-mindmap.html' },
+      { num: 2, label: '2', title: '第2章 数据表示与运算', href: 'architecture-ch2-mindmap.html' },
+      { num: 3, label: '3', title: '第3章 存储系统', href: 'architecture-ch3-mindmap.html' },
+      { num: 4, label: '4', title: '第4章 指令系统', href: 'architecture-ch4-mindmap.html' },
+      { num: 5, label: '5', title: '第5章 中央处理器', href: 'architecture-ch5-mindmap.html' },
+      { num: 6, label: '6', title: '第6章 总线', href: 'architecture-ch6-mindmap.html' },
+      { num: 7, label: '7', title: '第7章 I/O系统', href: 'architecture-ch7-mindmap.html' }
+    ],
+    tree: [
+      /* ==================== 3.1 存储器概述、层次结构与局部性 ==================== */
+      {
+        id: 'm1',
+        navLabel: '1 存储层次与局部性',
+        title: '3.1 存储器概述、层次结构与局部性原理',
+        sub: '四维分类边界 · MAR/MDR 与读写过程 · Cache—主存与主存—辅存两级层次 · 存取周期、带宽与程序局部性',
+        children: [
+          {
+            id: 'm1-class',
+            title: '存储器分类与主存基本组成（MAR/MDR）',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图02.jpg', caption: '图 3.1 主存储器基本组成：MAR 经地址译码选单元，MDR 经数据线交换数据', width: 320 }
+            ],
+            exams: [
+              {
+                year: '2010·T16',
+                star: true,
+                nodeId: 'a3-02',
+                href: 'architecture-3.html#section-7',
+                q: '下列有关 RAM 和 ROM 的叙述中，正确的是？ I. RAM 易失、ROM 非易失；II. 二者均采用随机存取；III. 二者均可用作 Cache；IV. 二者均需刷新。',
+                opts: ['A. 仅 I、II', 'B. 仅 II、III', 'C. 仅 I、II、IV', 'D. 仅 II、III、IV'],
+                ans: 'A',
+                explain: '半导体 RAM 与 ROM ==均支持按地址随机存取==，区别在于易失性（I、II 正确）；Cache 须高速动态读写只能用 SRAM（III 错），且仅有电容存电荷的 DRAM 需周期刷新（IV 错）。',
+                pitfall: '易将 ROM 的“只读”与“随机存取”混为一谈，误以为 ROM 不是随机存取存储器。'
+              },
+              {
+                year: '2011·T15',
+                mistake: true,
+                nodeId: 'a3-04',
+                href: 'architecture-3.html#section-8',
+                q: '某计算机存储器按字节编址，主存地址空间大小为 `64MB`，现用 `4M×8` 位 RAM 芯片组成 `32MB` 主存储器，则 `MAR` 位数至少是？',
+                opts: ['A. 22 位', 'B. 23 位', 'C. 25 位', 'D. 26 位'],
+                ans: 'D',
+                explain: '`MAR` 是 CPU 发出物理地址的寄存器，位数严格由==主存最大可寻址地址空间==决定：`64MB = 2^26 B`，故至少需 `26` 位；仅实装 `32MB` 芯片并不缩短地址空间。',
+                pitfall: '当时误按实际安装容量 `32MB` 算得 `25` 位错选 C，混淆了地址空间与实装芯片容量。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-01',
+                bold: '按元件与存取方式分类',
+                text: '按存储元件分半导体（SRAM/DRAM/Flash）、磁表面（磁盘/磁带）和光存储器；按存取方式分==随机存取==（半导体 RAM/ROM、EPROM）、@@顺序存取@@（磁带）、@@直接存取@@（机械磁盘、!!CD-ROM 只读光盘!!）与&&相联存储器&&（按内容并行匹配，如 TLB）。',
+                short: '半导体 RAM/ROM/EPROM 随机存取；CD-ROM/磁盘直接存取；TLB 按内容相联',
+                tag: '2011',
+                red: true,
+                kw: '2011-T14 EPROM CD-ROM 相联存储器',
+                href: 'architecture-3.html#section-5'
+              },
+              {
+                id: 'a3-02',
+                bold: '可更改性、易失性与破坏性读出',
+                text: '四类分类维度相互独立：RAM 易失、ROM 非易失，但==二者均支持随机存取==；DRAM 为!!破坏性读出!!，读后须立即再生，SRAM、ROM 和磁盘均为非破坏性读出。',
+                short: '随机存取≠可改写；RAM易失ROM非易失均随机；DRAM破坏性读出须再生',
+                tag: '2010',
+                red: true,
+                kw: '2010-T16 易失性 破坏性读出 再生',
+                href: 'architecture-3.html#section-7'
+              },
+              {
+                id: 'a3-03',
+                bold: '主存组成与基本读写四步',
+                text: '主存由存储体（存储矩阵）、地址译码器、读写控制电路及 `MAR`/`MDR` 构成。读写流程：① CPU 送地址入 `MAR` → ② 地址译码器选中存储单元 → ③ 控制线发读/写命令 → ④ 经 `MDR` 与数据线完成写入或读出。',
+                short: 'MAR 译码选单元，控制线定读写，MDR 经数据线完成数据交换',
+                tag: '大纲',
+                kw: '存储体 存储元 编址单位 地址译码器',
+                href: 'architecture-3.html#section-8'
+              },
+              {
+                id: 'a3-04',
+                bold: 'MAR/MDR 位宽与存储容量边界',
+                text: '`MAR` 位数等于地址线位数，!!按主存地址空间确定而非实际安装芯片容量!!（`n` 位地址可寻 `2^n` 个编址单位）；`MDR` 位数等于数据线宽度（不一定等于机器字长）；`存储容量 = 地址数 × 编址单位`。',
+                short: 'MAR 看主存地址空间（非实装容量）；MDR 等数据线宽',
+                tag: '2011·错',
+                red: true,
+                kw: '2011-T15 64MB 26位 MDR',
+                href: 'architecture-3.html#section-8'
+              },
+              {
+                id: 'a3-05',
+                bold: '主存检纠错与海明码校验位数',
+                text: '主存采用海明码纠正 `1` 位错时，数据位 `n` 与校验位 `k` 须满足 ==2^k ≥ n + k + 1==（不等式右侧务必加上校验位 `k` 自身及无错状态 `1`）；例如 `8` 位数据至少需 `k = 4` 位校验位（`16 ≥ 13`）。',
+                short: '海明码纠 1 位错满足 2^k ≥ n+k+1；8 位数据需 4 位校验',
+                tag: '2013',
+                red: true,
+                kw: '2013-T15 海明码 校验位',
+                href: 'architecture-3.html#section-10'
+              }
+            ]
+          },
+          {
+            id: 'm1-hier',
+            title: '三级存储层次、性能指标与局部性原理',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图04.jpg', caption: '图 3.2 三级存储层次：Cache—主存解决速度，主存—辅存解决容量', width: 290 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图05.jpg', caption: '图 3.3 存储周期 Tm = 存取时间 Ta + 复原时间', width: 280 }
+            ],
+            summary: {
+              title: '两级存储层次与局部性速判',
+              text: '① @@Cache—主存层@@：硬件自动调度、对所有程序员透明、交换单位为==主存块==、解决速度矛盾；!!Cache 不增加主存地址空间!!。\n② @@主存—辅存层@@：硬件+OS 协同、对应用程序员透明（对 OS 开发者不透明）、交换单位为==页或段==、解决容量矛盾。\n③ 辅存与 CPU 无直接通路，须先调入主存。'
+            },
+            children: [
+              {
+                id: 'a3-06',
+                bold: '两级存储层次结构与透明性',
+                text: '从上到下速度变慢、容量增大、单位价格降低。CPU 可直接与 Cache 和主存交换信息，辅存只能经主存与 CPU 交换。高速层缓存低速层活跃副本，但==副本内容并非始终同步==（修改后可能尚未写回）。',
+                short: 'Cache—主存硬件透明换块解速度；主存—辅存软硬换页解容量',
+                tag: '必背',
+                kw: '三级存储 透明性 枢纽 副本',
+                href: 'architecture-3.html#section-9'
+              },
+              {
+                id: 'a3-07',
+                bold: '存取时间 Ta、存储周期 Tm 与带宽',
+                text: '存取时间 `Ta` 为完成一次读/写本身的时间；存储周期 `Tm` 为连续两次独立读写之间的==最小时间间隔==，包含复原/再生时间，故通常 !!Tm > Ta!!；`存储器带宽 = 每存储周期数据量 ÷ Tm`（先统一 bit/B 与 ns/s）。',
+                short: 'Tm = Ta + 复原时间（常 Tm>Ta）；带宽 = 单次数据量 / Tm',
+                tag: '必背',
+                kw: '存取时间 存储周期 复原时间 带宽',
+                href: 'architecture-3.html#section-10'
+              },
+              {
+                id: 'a3-08',
+                bold: '时间局部性与空间局部性',
+                text: '@@时间局部性@@指刚访问过的单元不久后可能再次访问（循环体、被反复读写的累加变量）；@@空间局部性@@指刚访问单元的邻近单元不久后可能被访问（顺序取指、连续扫描数组）。判断时须!!先限定对象再列访问序列!!，不可把循环变量的重用代替数组本身。',
+                short: '时间看重用、空间看邻近；判断必先限定指令或数组对象',
+                tag: '2017',
+                red: true,
+                kw: '2017-T14 时间局部性 空间局部性',
+                href: 'architecture-3.html#section-55'
+              },
+              {
+                id: 'a3-09',
+                bold: '多维数组行优先与局部性优化',
+                text: 'C 语言多维数组按==行优先==存放，最右下标变化时地址连续。最内层循环遍历最右下标（如按行访问 `a[i][j]`）空间局部性最佳；顺序单趟扫描数组每个元素仅访一次，对数组本身无时间局部性，而循环体指令兼具时间与空间局部性。',
+                short: '行优先最右下标连续，内层循环应遍历最右下标以利空间局部性',
+                tag: '2010/23',
+                red: true,
+                kw: '2010-T44 2023-T43 行优先 最右下标',
+                href: 'architecture-3.html#section-55'
+              },
+              {
+                id: 'a3-10',
+                bold: '读改写访存次数与首末地址占块/占页',
+                text: '语句 `a[k] = a[k] + 32` 每元素含 ==1 次读 + 1 次写共 2 次访存==（每块首次读缺失调块，后续写与同块其余元素均命中，如 16B 块 4 个 `int` 共 8 次访存缺失率 `1/8`）。数组覆盖块/页数按 `末号 - 首号 + 1 = ⌈(首偏移 + 总字节数) / 块或页大小⌉` 计算。',
+                short: '读改写每元 2 次访存；跨块/页数必按首偏移加总长向上取整',
+                tag: '2016/25',
+                red: true,
+                kw: '2016-T15 2025-T43 读写次数 非对齐',
+                href: 'architecture-3.html#section-55'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 3.2 主存器件与 3.4 外部存储器 ==================== */
+      {
+        id: 'm2',
+        navLabel: '2 主存DRAM与外存',
+        title: '3.2 主存芯片（SRAM/DRAM/ROM/Flash）与 3.4 外存（磁盘/RAID/SSD）',
+        sub: 'SRAM/DRAM 特性与刷新 · 引脚复用与行列阵列 · 磁盘 CHS 与 DMA 优先权 · RAID 容错与 SSD 磨损均衡',
+        children: [
+          {
+            id: 'm2-dram',
+            title: 'SRAM、DRAM、引脚复用与非易失性存储器',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图07.jpg', caption: '图 3.4 4M×4 位 DRAM：11 根地址引脚经 RAS/CAS 分时复用与行刷新计数通路', width: 320 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图08.jpg', caption: '图 3.5 DRAM 行缓冲器暂存整行数据，支持连续列突发输出', width: 280 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: 'SRAM vs DRAM 与 DRAM 三大刷新方式对比',
+                headers: ['对比维度', 'SRAM（静态 RAM）', 'DRAM（动态 RAM）', '说明 / 三大刷新方式要点'],
+                rows: [
+                  ['存储元件与易失性', '双稳态触发器（6 管 MOS），==易失==', '栅极电容电荷（1 管 1 容），==易失==', '“静态”仅指无需刷新，!!断电依然丢失!!'],
+                  ['读出与刷新', '非破坏性读出、无需刷新', '!!破坏性读出须再生!!、须定时按行刷新', '刷新防漏电（不输出片外），再生防破坏读出'],
+                  ['行列地址与用途', '行列同时送；快、低集成、作 ==Cache==', 'RAS/CAS !!分时复用!!；高集成、作 ==主存==', '地址引脚 = `max(行位数, 列位数)`；数据引脚 = 位宽 `b`'],
+                  ['刷新① 集中刷新', '不适用', '刷新周期末尾集中逐行刷新全部行', '存在集中“死时间”（刷新期不能访存）'],
+                  ['刷新② 分散刷新', '不适用', '每个存储周期前半读写、后半刷新 1 行', '无死时间，但加长存储周期且过度刷新'],
+                  ['刷新③ 异步刷新', '不适用', '每 `刷新周期 ÷ 行数` 间隔仅刷新 1 行', '死时间缩至单个存取周期，==效率高最常用==']
+                ]
+              }
+            ],
+            sticky: {
+              title: 'DRAM 引脚、刷新与器件辨析铁律',
+              text: '① `16M×8` 位 DRAM：单元 `2^24` 行列相等各 `12` 位 → 地址引脚复用取 ==12 根==；`×8` 表示位宽 → 数据引脚直接为 !!8 根!!（切忌取 `log2(8)=3`）。\n② `SDRAM` 的 `S` 是==同步（Synchronous）==，内核仍是 DRAM 须周期刷新。\n③ `CD-ROM` 是光盘属直接存取；`Flash` 读快写慢、按页读写按块擦除。'
+            },
+            exams: [
+              {
+                year: '2014·T15',
+                mistake: true,
+                nodeId: 'a3-13',
+                href: 'architecture-3.html#section-17',
+                q: '某容量为 `4M×8` 位的 DRAM 芯片，采用地址引脚复用技术，则该芯片的地址引脚和数据引脚总数至少为？（专项变式：`16M×8` 位 DRAM 地址与数据引脚各多少根？）',
+                opts: ['A. 11 + 3 = 14', 'B. 11 + 8 = 19', 'C. 22 + 8 = 30', 'D. 22 + 3 = 25'],
+                ans: 'B',
+                explain: '`4M = 2^22`，行列相等各 `11` 位，地址引脚分时复用取 `11` 根；`×8` 位直接对应 `8` 根数据引脚，合计 `11 + 8 = 19` 根（`16M×8` 同理得地址 `12` 根 + 数据 `8` 根 = `20` 根）。',
+                pitfall: '曾在 `16M×8` DRAM 专项检测中误对数据位宽 `8` 取对数算成 `3` 根（提交 12, 12, 3），牢记数据引脚直接等于位宽 `b`。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-11',
+                bold: 'SRAM 与 DRAM 存储原理对比',
+                text: 'SRAM 靠==双稳态触发器==存 0/1，非破坏性读出、无需刷新、速度快但集成度低功耗大，用于 Cache；DRAM 靠==栅极电容电荷==存 0/1，集成度高成本低，但破坏性读出且电荷泄漏须定时刷新，用于主存。二者均为易失性存储器。',
+                short: 'SRAM 触发器快作 Cache 不刷新但易失；DRAM 电容高集成作主存须刷新再生',
+                tag: '必背',
+                kw: '触发器 栅极电容 易失性 Cache 主存',
+                href: 'architecture-3.html#section-13'
+              },
+              {
+                id: 'a3-12',
+                bold: '存储芯片结构与二维双译码',
+                text: '芯片由存储矩阵、地址译码器、I/O 电路、片选线与读写控制线组成。单译码（一维）译码线过多；DRAM 普遍采用==双译码（二维 X 行 + Y 列）==，行列交叉选中同一位平面组上的存储单元，大幅减少译码输出线。',
+                short: 'DRAM 用二维双译码（X/Y 行列交叉）降译码线数，多芯片靠片选线选片',
+                tag: '大纲',
+                kw: '双译码 位平面 片选控制线 读写控制线',
+                href: 'architecture-3.html#section-15'
+              },
+              {
+                id: 'a3-13',
+                bold: 'DRAM 地址引脚复用与行列优化设计',
+                text: '行地址与列地址在 `RAS`/`CAS` 控制下经同一组引脚分时送入：完整地址位 = 行位 + 列位，==地址引脚数 = max(行位数, 列位数)==（仅行列位数相等时恰好减半），!!数据引脚数 = 位宽 b（不取对数）!!。为兼顾最少引脚与最少刷新次数，阵列设计近似正方形且 ==行数 r ≤ 列数 c==（如 `2K` 单元选 `32行×64列`）。',
+                short: '地址脚取 max(行,列)，数据脚直写 b；阵列近似方形且 r≤c 省刷新',
+                tag: '2014/18/22·错',
+                red: true,
+                kw: '2014-T15 2018-T17 2022-T17 16M×8 RAS CAS',
+                href: 'architecture-3.html#section-17'
+              },
+              {
+                id: 'a3-14',
+                bold: 'DRAM 按行刷新机制与三种方式',
+                text: '刷新仅需行地址与 `RAS` 选中整行内部读出再写回（无需列地址，不向片外输出），==全片刷新次数 = 行数==，刷新计数器位数 = 行地址位数。刷新分集中（有集中死区）、分散（无死区但拖慢周期）和@@异步刷新@@（每 `刷新周期/行数` 刷一行，死区缩至 1 周期）。',
+                short: '按行刷新无列地址，次数=行数；异步刷新死区缩至 1 周期最常用',
+                tag: '必背',
+                kw: '按行刷新 刷新计数器 集中 分散 异步',
+                href: 'architecture-3.html#section-18'
+              },
+              {
+                id: 'a3-15',
+                bold: '行缓冲器、突发传输与同步 SDRAM',
+                text: '行缓冲器暂存被选中整行所有列（`容量 = 列数 × 单元位数`），支持给出首列地址后连续==突发传输==；`SDRAM` 按存储器总线时钟边沿锁存命令地址并支持页内突发，!!本质仍是 DRAM，仍需周期性刷新!!。',
+                short: '行缓冲=列数×单元位；SDRAM 同步于总线时钟但仍是 DRAM 须刷新',
+                tag: '2015',
+                red: true,
+                kw: '2015-T17 SDRAM 行缓冲器 突发传输',
+                href: 'architecture-3.html#section-20'
+              },
+              {
+                id: 'a3-16',
+                bold: '非易失性 ROM 与 Flash 闪存特性',
+                text: '半导体 ROM（MROM/PROM/EPROM）非易失且随机读，其中 EPROM 须紫外线整片擦除；Flash 采用==浮栅 MOS 存储元==，非易失、支持电擦除与在线重写，用于 BIOS/U 盘/SSD，但!!读取快、写入（须先按块擦除）明显较慢，读写性能不对称!!。',
+                short: 'ROM 非易失随机读；Flash 浮栅 MOS 电擦除，读快写慢性能不对称',
+                tag: '2012',
+                red: true,
+                kw: '2012-T16 Flash EPROM BIOS 读写不对称',
+                href: 'architecture-3.html#section-25'
+              }
+            ]
+          },
+          {
+            id: 'm2-disk',
+            title: '磁盘存储器、CHS 编址、RAID 与固态硬盘 SSD',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图17.jpg', caption: '图 3.6 磁盘记录面、同心磁道（柱面）与最小读写单位扇区', width: 270 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图19.jpg', caption: '图 3.7 SSD 内部组织：闪存翻译层 + 闪存芯片（按页读写、按块擦除）', width: 310 }
+            ],
+            exams: [
+              {
+                year: '2022·T44 大题',
+                mistake: true,
+                nodeId: 'a3-19',
+                href: 'architecture-3.html#section-48',
+                q: '某磁盘有 `4` 个双面盘片、每面 `20000` 道、每道 `500` 扇区（每扇区 `512B`），转速 `7200` 转/分，平均寻道 `5ms`，DMA 周期挪用缓冲 `64bit`。问：(1) 磁盘地址三字段及位数；(2) 单扇区平均访问时间；(3) 读一扇区 DMA 请求次数及总线优先权。',
+                ans: '(1) C 15位 / H 3位 / S 9位｜(2) 9.18ms｜(3) 64次，DMA优先',
+                explain: '① CHS 三字段各自独立编码：`C = ⌈log2(20000)⌉ = 15`，`H = ⌈log2(8)⌉ = 3`，`S = ⌈log2(500)⌉ = 9`；② 转速 `120 r/s`，半圈旋转 `4.167ms` + 1 扇区传输 `0.0167ms` + 寻道 `5ms` ≈ ==9.18ms==；③ 缓冲 `64bit = 8B`，`512B/8B = 64` 次；DMA 优先防缓冲溢出丢失数据。',
+                pitfall: '当时误把全盘磁道数 `8×20000` 与全盘扇区数扁平编号，导致 C 算成 18 位、S 算成 27 位；牢记 CHS 三字段各自独立取对数向上取整。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-17',
+                bold: '磁盘组成、扇区粒度与磁盘高速缓存',
+                text: '磁盘由==盘片、磁盘驱动器和磁盘控制器==组成；记录面数 = 磁头数，单面磁道数 = 柱面数；!!扇区是磁盘物理读写的最小单位!!（非 1B），含地址标头、用户数据与校验信息。磁盘高速缓存开辟在==主存==中用于合并小块读写，与 CPU Cache 无关。',
+                short: '盘片/驱动/控制器三组成；扇区为最小读写单位；磁盘缓存在主存中',
+                tag: '2019',
+                red: true,
+                kw: '2019-T20 扇区 磁盘高速缓存 柱面',
+                href: 'architecture-3.html#section-44'
+              },
+              {
+                id: 'a3-18',
+                bold: '磁盘容量、存取时间与数据传输率',
+                text: '因扇区须留间隙、地址与校验元数据，==格式化容量 < 非格式化容量==。`存取时间 = 寻道时间 + 平均旋转等待 1/(2r) + 传输时间 1/(rS)`（转速 `r` 须先由转/分换为转/秒，半圈为旋转均值而非寻道）；最大传输率 `Dr = r × 每道字节数`。',
+                short: '格式化<非格式化；存取=寻道+半圈1/(2r)+传输；Dr=r×N',
+                tag: '2013/15',
+                red: true,
+                kw: '2013-T21 2015-T20 格式化容量 半圈 7200rpm',
+                href: 'architecture-3.html#section-47'
+              },
+              {
+                id: 'a3-19',
+                bold: '磁盘地址 CHS 三字段独立编码',
+                text: '磁盘地址依次分为==柱面号 C、磁头（盘面）号 H、扇区号 S==，寻址先定位柱面臂、再选磁头面、最后定位扇区，故三字段!!各自在自身范围内独立编号!!：`⌈log2 C⌉`、`⌈log2 H⌉`、`⌈log2 S⌉`，不可用全盘磁道/扇区总数替代。',
+                short: 'CHS 三字段各自取 ⌈log2⌉ 独立编码，绝不乘成全盘总数',
+                tag: '2022大·错',
+                red: true,
+                kw: '2022-T44 CHS 柱面 磁头 扇区',
+                href: 'architecture-3.html#section-48'
+              },
+              {
+                id: 'a3-20',
+                bold: '周期挪用 DMA 请求次数与总线优先权',
+                text: '周期挪用下 `DMA 请求次数 = 扇区字节量 ÷ 缓冲区字节宽`（先将 bit 换为 B，如 `64bit = 8B`，`512B/8B = 64` 次）。数据缓冲寄存器 `DBR` 位于==I/O 接口内部==且容量极小，外设数据实时涌入，不及时送入主存会覆盖丢失，而 CPU 可暂等，故 !!DMA 优先级高于 CPU!!。',
+                short: 'DMA 请求数=扇区B/DBR字节宽；DBR在I/O接口防溢出故DMA优先',
+                tag: '2012/22大',
+                red: true,
+                kw: '2012-T43 2022-T44 DBR 周期挪用 优先权',
+                href: 'architecture-3.html#section-49'
+              },
+              {
+                id: 'a3-21',
+                bold: '磁盘阵列 RAID 级别与容错本质',
+                text: '`RAID0` 多盘条带化并行仅提速==无容错==；`RAID1` 双盘镜像高可靠但有效容量减半；`RAID2` 海明码纠错，`RAID3` 位交叉奇偶校验，`RAID4` 块交叉奇偶校验，`RAID5` 无独立校验盘的分布式奇偶校验。!!提高可靠性靠镜像与奇偶校验!!，条带化只提速。',
+                short: 'RAID0 条带仅提速；RAID1 镜像、RAID2~5 校验提可靠性',
+                tag: '2013',
+                red: true,
+                kw: '2013-T20 RAID0 RAID1 RAID5 镜像 奇偶校验',
+                href: 'architecture-3.html#section-50'
+              },
+              {
+                id: 'a3-22',
+                bold: '固态硬盘 SSD 组织与磨损均衡',
+                text: 'SSD 由==闪存芯片 + 闪存翻译层==（将逻辑块转为底层物理闪存读写）构成，==以页为单位读写、以块为单位擦除==。改写有效页须先复制整块有效页到已擦除新块再写，故随机写慢。通过@@动态磨损均衡@@（写选低磨损空闲块）与@@静态磨损均衡@@（后台迁移冷数据）均衡擦写寿命。',
+                short: '闪存翻译层+芯片；按页读写按块擦除随机写慢；动/静态磨损均衡',
+                tag: '大纲',
+                kw: 'SSD 闪存翻译层 页读写 块擦除 磨损均衡',
+                href: 'architecture-3.html#section-52'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 3.3 主存扩展与 3.2.3 多体交叉 ==================== */
+      {
+        id: 'm3',
+        navLabel: '3 扩容与多体交叉',
+        title: '3.3 主存容量扩展、非对齐跨界与 3.2.3 多模块交叉存储',
+        sub: '三总线连接与非对齐跨界公式 · 位/字/字位同时扩展与片选译码 · 高/低位交叉、冲突判定与突发传送时序',
+        children: [
+          {
+            id: 'm3-expand',
+            title: '主存与 CPU 连接、非对齐访问与容量扩展',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图16.jpg', caption: '图 3.8 字位同时扩展：先位扩展成组（分接数据位），再高位译码字扩展选组', width: 320 }
+            ],
+            media: [
+              {
+                type: 'example',
+                title: '微算例 1：字位同时扩展片数、DRAM 引脚与非对齐跨界（2009 / 2017 / 专项）',
+                body: '① 字位扩展（2009·T15）：`64KB` 按字节编址空间，其中 `4KB` ROM 用 `2K×8` 需 `4K/2K = 2` 片；余 `60KB` RAM 用 `4K×4` 需 `(60K/4K) × (8/4) = 15 × 2 = 30` 片（两倍数皆须为整数）。\n② DRAM 引脚复用（`16M×8`）：单元 `2^24` 行列各 `12` 位 → 地址引脚 `12` 根，数据引脚直接为 `8` 根，共 `20` 根。\n③ 非对齐跨界（2017·T13）：`32` 位（`4B`）对齐总线读 `804001AH` 起的 `8B double` → 首偏移 `o = 1AH mod 4 = 2`，跨 `18~1BH`、`1C~1FH`、`20~23H` 共 `⌈(2+8)/4⌉ = 3` 个存储周期。'
+              }
+            ],
+            sticky: {
+              title: 'MAR 空间、扩片口径与非对齐跨界铁律',
+              text: '① 求 `MAR` 看==最大主存地址空间==；求芯片数看==实际安装容量==（按字节编址单空间用 `512K×8` 扩 `4MB` 为 `8` 片，不另乘总线宽 `32/8`）。\n② 非对齐数据跨界必画对齐网格或套 !!N = ⌈((A mod W) + L) / W⌉!!，切忌直接算 `L ÷ W` 漏掉首块偏移。'
+            },
+            exams: [
+              {
+                year: '2017·T13',
+                mistake: true,
+                nodeId: 'a3-24',
+                href: 'architecture-3.html#section-34',
+                q: '主存按字节编址，由 4 片 `64M×8` 位 DRAM 交叉编址构成，连 `32` 位存储器总线，每次最多读写 `32` 位对齐数据。若 `double` 型变量 `x` 首地址为 `804001AH`，读取 `x` 需几个存储周期？',
+                opts: ['A. 1', 'B. 2', 'C. 3', 'D. 4'],
+                ans: 'C',
+                explain: '`double` 长 `8B`（`804001AH ~ 8040021H`），`4B` 对齐边界为 `18~1BH`、`1C~1FH`、`20~23H`，共跨 ==3 个对齐单元==，故需 `3` 个存储周期（公式 `⌈(2+8)/4⌉ = 3`）。',
+                pitfall: '当时直接口算 `8B ÷ 4B = 2` 错选 B，忽略了首地址 `…1AH` 相对 4B 边界有 `2B` 偏移。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-23',
+                bold: '主存三总线连接与统一编址',
+                text: '主存经地址总线（决定最大寻址空间）、数据总线（位宽×工作频率正比理论带宽）和控制总线与 CPU 相连；ROM 正常读无需写信号，具体片选/使能以芯片给定引脚电平为准。RAM 与 ROM ==统一编址==，各占互不重叠的地址段。',
+                short: '三总线连 CPU；RAM/ROM 统一编址，控制线以给定引脚有效电平为准',
+                tag: '大纲',
+                kw: '三总线 统一编址 片选 有效电平',
+                href: 'architecture-3.html#section-34'
+              },
+              {
+                id: 'a3-24',
+                bold: '非对齐数据跨界最少访问次数',
+                text: '按字节编址，数据首址 `A`、长 `L` B，每次最多访问按 `W` B 对齐的传输块时，末址 `A + L - 1`，最少访问次数 ==N = ⌊(A+L-1)/W⌋ - ⌊A/W⌋ + 1 = ⌈((A mod W)+L)/W⌉==。仅当每块占 1 存储周期时才直接等于存储周期数。',
+                short: '非对齐跨界数 N = ⌈((A mod W)+L)/W⌉，先画首末地址对齐网格',
+                tag: '2017·错',
+                red: true,
+                kw: '2017-T13 804001AH double 对齐',
+                href: 'architecture-3.html#section-34'
+              },
+              {
+                id: 'a3-25',
+                bold: '位扩展、字扩展与字位同时扩展',
+                text: '@@位扩展@@（扩字长）：地址、片选、读写线并联，各片数据线分接总线不同位，==同时工作==；@@字扩展@@（扩单元数）：低位地址与数据线并联，高位地址经译码器产片选，==分时工作==；@@字位同时扩展@@：先位扩展成组，再以高位译码对组做字扩展。',
+                short: '位扩同时工作分接数据位；字扩分时工作高位译码选片；同时扩先位后字',
+                tag: '必背',
+                kw: '位扩展 字扩展 字位同时扩展 译码器',
+                href: 'architecture-3.html#section-35'
+              },
+              {
+                id: 'a3-26',
+                bold: '芯片数量公式与地址区间分配',
+                text: '`总片数 = (目标字数 / 芯片字数) × (目标字长 / 芯片字长)`，!!两倍数均须为合理整数!!（不可仅按总 bit 相除）。区间单元数 = `末地址 - 首地址 + 1`；每组占 `2^n` 编址单位、片选码 `s` 时，`首址 = s × 2^n`、`末址 = (s+1) × 2^n - 1`（`30` 位空间高 `1/4` 为 `3000 0000H ~ 3FFF FFFFH`）。',
+                short: '总片数=字扩×位扩均须整数；单元数=末-首+1，终点防多加 1',
+                tag: '2009/16/21/23',
+                red: true,
+                kw: '2009-T15 2016-T16 2021-T15 2023-T15',
+                href: 'architecture-3.html#section-39'
+              },
+              {
+                id: 'a3-27',
+                bold: '片选译码器输入线与地址跨度边界',
+                text: '片选译码器输入线取==能区分各组的那几位高位变化地址==（将各组首末地址写成二进制即可直读）；片选码 `k` 位仅表示最多可接 `2^k` 组，!!并不把单片芯片再切成 2^k 份!!；按字编址时无须低位选字内字节。',
+                short: '高位区分各组位进译码器；片选 k 位限最多 2^k 组，不切分单片跨度',
+                tag: '2010/23',
+                red: true,
+                kw: '2010-T15 2023-T15 0B1FH 译码输入线',
+                href: 'architecture-3.html#section-40'
+              }
+            ]
+          },
+          {
+            id: 'm3-interleave',
+            title: '多模块交叉存储与主存—Cache 突发传送',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图10.jpg', caption: '图 3.9 低位交叉编址：低位地址作模块号，连续地址轮流落入各体', width: 270 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图11.jpg', caption: '图 3.10 低位交叉轮流启动：每隔总线周期 r 启动一体，流水输出', width: 280 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/three_structures_timelines.png', caption: '图 3.11 主存与 Cache 间窄形、宽形与多体交叉三种传送结构时序', width: 320 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: '高位交叉（连续编址）vs 低位交叉（交叉编址）多体带宽对比',
+                headers: ['比较项目', '高位交叉（连续编址）', '低位交叉（轮流启动）', '低位交叉（同时启动）'],
+                rows: [
+                  ['地址划分', '==高位体号== + 低位体内地址', '高位体内地址 + ==低位体号==', '共用片内行/列地址，连续字节落各片'],
+                  ['连续地址分布', '集中落在同一模块（跨边界才换体）', '按 `地址 mod m` 轮流分布到不同体', '相邻 `m` 字节同步并列输出满总线宽'],
+                  ['连续取 `m` 字耗时', '顺序取 `m × T`（无连续流水加速）', '==T + (m - 1) × r==（需 `m ≥ ⌈T/r⌉`）', '1 个存储周期一次读出 `m` 字节对齐块'],
+                  ['带宽与冲突', '单模块带宽；不同体独立请求仍可并行', '稳态每 `r` 传 1 字（`T=mr` 时提速 `m` 倍）；同体间隔 `< T` 冲突', '匹配宽总线峰值带宽；非对齐跨块需多次访问']
+                ]
+              }
+            ],
+            summary: {
+              title: '多体交叉冲突与突发传送公式',
+              text: '① 轮流启动不间断流水条件：==m ≥ ⌈T / r⌉==；连续读 `m` 字耗时 ==T + (m - 1) × r==（交叉只提系统吞吐率，!!不缩短单模块存储周期 T!!）。\n② 访存冲突唯一判据：同一模块两次实际启动时刻相隔 `< T`；若冲突须顺延至 `t_last + T`。\n③ 多体突发传送耗时：`送首地址命令 + 体 0 准备数据 + N 拍总线连传`。'
+            },
+            exams: [
+              {
+                year: '2013·T43 大题',
+                star: true,
+                nodeId: 'a3-32',
+                href: 'architecture-3.html#section-32',
+                q: 'CPU 主频 `800MHz`、Cache 命中 CPI=`4`、块长 `32B`；8 体交叉每体 `32` 位周期 `40ns`；总线宽 `32` 位频 `200MHz` 支持 `32B` 读突发。求：(1) 时钟周期与总线带宽；(2) 1 次读突发耗时；(3) 100 条指令（每条访存 1.2 次、缺失率 5%）的 CPU 执行时间。',
+                ans: '(1) 1.25ns/5ns，800MB/s｜(2) 85ns｜(3) 1010ns',
+                explain: '① 总线带宽 `4B × 200MHz = 800MB/s`；② 读突发 = 送首地址 `5ns` + 体 0 准备 `40ns`（其余 7 体每隔 5ns 重叠准备）+ 连传 8 拍 `40ns` = ==85ns==；③ 基础时间 `100×4×1.25 = 500ns` + 缺失停顿 `6×85 = 510ns` = ==1010ns==。',
+                pitfall: '易疑惑为何 CPU 执行时间须加缺失停顿 `510ns`：题给“命中时 CPI=4”仅含理想执行时间，不重叠等待数据的停顿实实在在拉长 CPU 总耗时。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-28',
+                bold: '单体多字与高位交叉（连续编址）',
+                text: '单体多字每单元存多字、一次读多字提速但不扩容，遇转移指令预读作废；高位交叉以==高位作体号==、低位作体内地址，顺序访问集中于同一模块不利连续并行（但独立请求本就在不同模块且通路允许时仍可并行）。',
+                short: '单体多字遇转移效率降；高位交叉高位选体，连续访问集中同体',
+                tag: '大纲',
+                kw: '单体多字 高位交叉 连续编址',
+                href: 'architecture-3.html#section-28'
+              },
+              {
+                id: 'a3-29',
+                bold: '低位交叉编址体号判定',
+                text: '低位交叉以==低位作模块号==、高位作体内地址：`模块号 = 单元地址 mod m`；当 `m = 2^k` 时，地址最低 `k` 位即模块号（如 8 体低位交叉看最低 `3` 位，`0018 001DH` 末位 `D = 1101B` 模 8 余 `5`，落 5 号体）。',
+                short: '低位交叉模块号 = 地址 mod m；m=2^k 直接看地址最低 k 位',
+                tag: '2026',
+                red: true,
+                kw: '2026-T15 低位交叉 8体 0018001DH',
+                href: 'architecture-3.html#section-29'
+              },
+              {
+                id: 'a3-30',
+                bold: '轮流启动流水与访存冲突判据',
+                text: '设单体存储周期 `T`、总线周期 `r`，流水不间断需 `m ≥ ⌈T/r⌉`，连取 `m` 字耗时 ==T + (m - 1)r==。访存冲突本质是!!同一模块两次实际启动间隔小于 T!!：如 4 体序列 `8004, 8000` 同模 `0` 且仅隔 `r`，后者必须等待至 `t_last + T`（`8008` 与 `8004` 已隔 `4r` 不冲突）。',
+                short: 'm≥⌈T/r⌉，耗时 T+(m-1)r；同体两次启动间隔 < T 即发生访存冲突',
+                tag: '2015',
+                red: true,
+                kw: '2015-T18 轮流启动 访存冲突 8004 8000',
+                href: 'architecture-3.html#section-30'
+              },
+              {
+                id: 'a3-31',
+                bold: '同时启动内存条与位扩展统一口径',
+                text: '如 8 片 `16M×8` 位 DRAM 共用片内行列地址同步输出 `64` 位匹配 `64` 位总线：从容量组织角度属@@位扩展@@，从按字节分布与启动方式角度属@@低位交叉、同时启动@@，每次并行读取 `8B` 地址对齐块。',
+                short: '8 片并宽 64 位：容量组织称位扩展，字节分布称低位交叉同时启动',
+                tag: '2022',
+                red: true,
+                kw: '2022-T17 同时启动 内存条 对齐块',
+                href: 'architecture-3.html#section-31'
+              },
+              {
+                id: 'a3-32',
+                bold: '主存—Cache 三种传送结构与突发时序',
+                text: '传 4 字主存块（送址 1、准备 10、传 1 周期）：窄形 `4×(1+10+1) = 48`、宽形（2 字宽）`2×12 = 24`、多体交叉 `1 + 10 + 4×1 = 15`。突发传送仅发一次首地址与命令，各体准备时间重叠，总线逐拍连传数据：`T_burst = T_addr + T_prep + N × T_bus`。',
+                short: '多体突发仅发 1 次首地址，各体准备重叠，耗时=首址+准备+N×总线拍',
+                tag: '2013大',
+                red: true,
+                kw: '2013-T43 窄形 宽形 突发传送 85ns',
+                href: 'architecture-3.html#section-32'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 3.5A Cache 映射、比较器、容量与多级结构 ==================== */
+      {
+        id: 'm4',
+        navLabel: '4 Cache映射与容量',
+        title: '3.5A Cache 原理、三种地址映射、容量计算与多级分离结构',
+        sub: '访问流程与 AMAT · 直接/全相联/组相联比较器与字段划分 · 单行位宽 vs 总容量 · I/D 分离与多级 Cache',
+        children: [
+          {
+            id: 'm4-map',
+            title: 'Cache 基本原理、三种映射与比较器',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图21.jpg', caption: '图 3.12 Cache 基本访问流程：命中直读，缺失从主存调入整块写入 Cache 行', width: 270 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图25.jpg', caption: '图 3.13 2 路组相联映射：组号定位候选组，组内 r 路并行比对 Tag', width: 310 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图28.jpg', caption: '图 3.14 直接、全相联与组相联三种映射下的物理地址字段组成', width: 300 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: '直接映射 / 组相联映射 / 全相联映射地址拆分与开销对比',
+                headers: ['对比项', '直接映射（r=1）', 'r 路组相联（Q=L/r 组）', '全相联（Q=1）'],
+                rows: [
+                  ['主存块可放位置', '唯一指定行（`块号 mod L`）', '固定组内任一行（`块号 mod Q`）', 'Cache 中任意空闲行'],
+                  ['物理地址字段划分', '`Tag(p-c-b) | 行号(c) | 块内(b)`', '`Tag(p-s-b) | 组号(s) | 块内(b)`', '`Tag(p-b 完整块号) | 块内(b)`'],
+                  ['比较器个数与位数', '==1 个==，宽 `p-c-b` 位', '==r 个（=路数）==，宽 `p-s-b` 位', '==总行数 L 个==，宽 `p-b` 位'],
+                  ['替换算法与开销', '!!无需替换算法!!（无 LRU 位），Tag 最短', '组满时需替换，Tag 与复杂度居中', '满时需替换，Tag 最长、硬件最贵'],
+                  ['冲突概率与命中率', '冲突最高、空间利用率与命中率最低', '居中，兼顾成本与命中率（最常用）', '冲突最低、命中率最高（适合小容量如 TLB）']
+                ]
+              }
+            ],
+            summary: {
+              title: '地址字段 vs Cache 行硬件存储铁律',
+              text: '① 物理地址是“门牌号”：`Tag | Index(行/组号) | Offset(块内偏移)`，其中 !!只有 Tag 真正存进 Cache 行!!，`Index` 仅用于寻址选行/选组，`Offset` 仅用于行内选字节。\n② 命中双条件：==Tag 相等 且 有效位 V = 1==（缺一不可）。\n③ 连续主存块映射顺序：先填满块内偏移进位到==组号递增==，而非先填满同一组的各路。'
+            },
+            exams: [
+              {
+                year: '2022·T16',
+                mistake: true,
+                nodeId: 'a3-37',
+                href: 'architecture-3.html#section-63',
+                q: '主存地址 `32` 位、按字节编址，Cache 数据区容量 `32KB`，主存块大小 `64B`，采用 `8` 路组相联方式，该 Cache 中比较器的个数和位数分别是？',
+                opts: ['A. 8，20', 'B. 8，23', 'C. 64，20', 'D. 64，23'],
+                ans: 'A',
+                explain: '总行数 `32KB/64B = 512`，组数 `Q = 512/8 = 64`（`s = 6` 位），块内偏移 `b = 6` 位，故 `Tag = 32 - 6 - 6 = 20` 位。组号先锁定 1 个组，组内仅需对 ==8 路并行比较 Tag== → `8` 个比较器，每个 `20` 位。',
+                pitfall: '首次不会，易误把组数 `64` 当成比较器个数错选 C/D；牢记“比较器个数 = 路数 `r`，位数 = Tag 位数”。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-33',
+                bold: 'Cache 基本访问流程与硬件透明性',
+                text: 'CPU 访存先查 Cache（统考默认串行先查 Cache）：命中直取数据；缺失则从主存将所在==整个主存块==调入 Cache 行，同时把所需==字==送 CPU。全过程在指令周期内由==硬件自动完成==；取指缺失时保持 `PC` 不变，待调块后重取。',
+                short: '先查 Cache，缺则调主存整块入行并送字给 CPU；全硬件自动完成',
+                tag: '必背',
+                kw: '主存块 Cache行 保持PC 硬件自动',
+                href: 'architecture-3.html#section-57'
+              },
+              {
+                id: 'a3-34',
+                bold: 'Cache 命中率与平均访问时间 AMAT',
+                text: '命中率 `H = Nc / (Nc + Nm)`。若命中时间 `Tc`、额外缺失损失 `Tm`，则 ==AMAT = H×Tc + (1-H)×(Tc+Tm) = Tc + (1-H)×Tm==；若题给一次缺失访问的完整耗时 `T_miss`，则用 `H×Tc + (1-H)×T_miss`，切忌重复加 `Tc`。',
+                short: 'H=Nc/(Nc+Nm)；额外损失口径 AMAT=Tc+(1-H)×Tm，勿重复加 Tc',
+                tag: '2009/25',
+                red: true,
+                kw: '2009-T21 2025-T43 AMAT 缺失损失',
+                href: 'architecture-3.html#section-58'
+              },
+              {
+                id: 'a3-35',
+                bold: '直接映射原理与特征',
+                text: '主存块仅能放入 Cache 唯一行：`行号 = 主存块号 mod Cache 总行数`，主存块号低 `c` 位作行号、高 `t` 位作 Tag。目标行已有内容时无条件覆盖，!!不需要替换算法!!；硬件最简单，但块冲突率最高、空间利用率最低。',
+                short: '行号 = 主存块号 mod 行数；无替换算法，冲突概率最高',
+                tag: '必背',
+                kw: '直接映射 唯一行 无替换算法',
+                href: 'architecture-3.html#section-61'
+              },
+              {
+                id: 'a3-36',
+                bold: '全相联映射与相联比对',
+                text: '主存块可装入 Cache 任意空闲行，地址仅分 `Tag（完整主存块号）| 块内偏移`；查找时将地址 Tag 与==所有行==并行比较（相联存储器机制）。冲突最低、命中率最高，但比较器数等于总行数、成本高，不适合大容量 Cache。',
+                short: '主存块入任意行，Tag=完整块号全行并行比对，命中最高但贵',
+                tag: '大纲',
+                kw: '全相联 完整块号 相联存储器',
+                href: 'architecture-3.html#section-62'
+              },
+              {
+                id: 'a3-37',
+                bold: 'r 路组相联映射与比较器计算',
+                text: 'Cache 分 `Q = 总行数 / r` 组、每组 `r` 行（组间直接、组内全相联），`组号 = 主存块号 mod Q`（!!必先用地址除以块大小得主存块号再取模!!，勿直模字节地址）。`r` 路组相联需 ==r 个比较器==（非组数 `Q`），每比较器宽 ==Tag 位数==。',
+                short: '先算主存块号再 mod 组数 Q；r 路需 r 个 Tag 宽度比较器',
+                tag: '2009/22/26·错',
+                red: true,
+                kw: '2009-T14 2022-T16 2026-T18 路数 比较器',
+                href: 'architecture-3.html#section-63'
+              },
+              {
+                id: 'a3-38',
+                bold: '命中双条件、Tag 恒定律与连续块映射',
+                text: '命中必满足 ==Tag 匹配 且 有效位 V=1==（Tag 等而 `V=0` 仍缺失）。主存容量、Cache 数据区容量与路数固定时，块长加倍使 `b+1`、`s-1`，==Tag 位数不变==；直接映射 `Tag = log2(主存容量/Cache容量)`。顺序递增主存块时组号先递增，而非先填满同组各路。',
+                short: '命中看 Tag 等且 V=1；块加倍 Tag 位不变；连续块先换组不先满路',
+                tag: '2018/20大',
+                red: true,
+                kw: '2018-T44 2020-T44 有效位 连续块',
+                href: 'architecture-3.html#section-65'
+              }
+            ]
+          },
+          {
+            id: 'm4-cap',
+            title: 'Cache 行结构、总容量计算与分离/多级应用',
+            media: [
+              {
+                type: 'example',
+                title: '微算例 2：Cache 单行位宽与总容量精确算例（2018 / 2020 / 2021）',
+                body: '① 2018·T44（28 位 PA，2 路 8 组共 16 行，32B 块，回写 + LRU）：块内 `5` 位、组号 `3` 位 → `Tag = 20` 位；单行 = `数据 256 + Tag 20 + 有效位 1 + 脏位 1 + LRU 1 = 279 bit`；总容量 = `16 × 279 = 4464 bit = 558 B`。\n② 2020·T44（32 位 PA，8 路 64 组，64B 块，直写 + LRU）：`Tag = 20` 位、`LRU = log2(8) = 3` 位、==直写无脏位==（仍有 1 位有效位）。\n③ 2021·T16（32 位 PA，32KB 直接映射回写，32B 块）：直接映射==无 LRU 位==；仅问“单行位数” → `256 + 17 + 1 + 1 = 275 bit` 即停！'
+              }
+            ],
+            exams: [
+              {
+                year: '2015·T15',
+                mistake: true,
+                nodeId: 'a3-40',
+                href: 'architecture-3.html#section-71',
+                q: '主存地址 `32` 位、按字节编址，直接映射，主存块大小 `4` 字（每字 `32` 位），采用回写方式，能存放 `4K` 字数据的 Cache 总容量位数至少是？',
+                opts: ['A. 146K', 'B. 147K', 'C. 148K', 'D. 158K'],
+                ans: 'C',
+                explain: '块长 `4×32bit = 128bit = 16B`（`b=4`）；总行数 `4K字 / 4字 = 1024 = 2^10`（`c=10`）；`Tag = 32 - 10 - 4 = 18` 位；单行 `128 + 18 + 1(V) + 1(Dirty) = 148 bit` → 总容量 ==148K bit==。',
+                pitfall: '首次不会，易漏加回写脏位（错选 147K）或把行号/偏移错算进 Cache 行内。'
+              },
+              {
+                year: '2021·T16',
+                mistake: true,
+                nodeId: 'a3-39',
+                href: 'architecture-3.html#section-71',
+                q: '主存地址 `32` 位、按字节编址，Cache 数据区 `32KB`，块长 `32B`，直接映射、回写策略，则 ==Cache 行的位数==至少是？',
+                opts: ['A. 275', 'B. 274', 'C. 258', 'D. 257'],
+                ans: 'A',
+                explain: '行数 `32KB/32B = 1024`（`c=10`），偏移 `b=5`，`Tag = 32 - 10 - 5 = 17`；单行位数 = `256 + 17 + 1(有效位) + 1(回写脏位) = 275 bit`（直接映射无 LRU 位，问单行不乘行数）。',
+                pitfall: '首次不会，审题务必区分“Cache 行的位数（单行）”与“Cache 总容量（单行×总行数）”，且回写勿漏 1 位脏位。'
+              },
+              {
+                year: '2014·T16',
+                mistake: true,
+                nodeId: 'a3-41',
+                href: 'architecture-3.html#section-73',
+                q: '采用指令 Cache 与数据 Cache 分离的主要目的是？',
+                opts: ['A. 降低 Cache 的缺失损失', 'B. 提高 Cache 的命中率', 'C. 降低 CPU 平均访存时间', 'D. 减少指令流水线资源冲突'],
+                ans: 'D',
+                explain: '流水线中某拍可同时有指令在 ==IF（取指）==、另条指令在 ==MEM（访数）==；统一单端口 Cache 会产生结构冒险，分离 I-Cache 与 D-Cache 直接消除该==资源冲突==。',
+                pitfall: '首次不会，易误选 B/C；分离后各自容量减半未必直接提升局部命中率，最直接的结构动机是减少流水线资源冲突。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-39',
+                bold: 'Cache 单行标记控制信息与位数',
+                text: '每行由 `数据区（块长×8 bit）+ 标记 Tag + 有效位（1）+ 脏位（回写 1 / 直写 0）+ 替换位（LRU 每行 log2 r 位，直接映射和随机替换无替换位）` 组成。!!行号/组号与块内偏移均不存入行内!!；问“行位数”算完单行即止。',
+                short: '单行 = 数据 + Tag + V(1) + 脏(回写1) + LRU(log2 r)，不含 Index/Offset',
+                tag: '2021·错',
+                red: true,
+                kw: '2021-T16 275bit 有效位 脏位 LRU位',
+                href: 'architecture-3.html#section-71'
+              },
+              {
+                id: 'a3-40',
+                bold: 'Cache 总容量计算与 bit/B 陷阱',
+                text: '题干称“Cache 容量 32KB”默认指==数据区容量==；问“总容量”时须算 ==总容量 = 单行总位数 × 总行数==，并核对答案要求 `bit` 还是 `B`（差 `8` 倍；若题说明不计一致性与替换位则去掉脏位和 LRU 位）。',
+                short: '总容量 = 单行位数 × 总行数；严防漏乘行数与 bit/B 8 倍差',
+                tag: '2010/15·错',
+                red: true,
+                kw: '2015-T15 2010-T44 148K 4256bit 532B',
+                href: 'architecture-3.html#section-71'
+              },
+              {
+                id: 'a3-41',
+                bold: '指令 Cache 与数据 Cache 分离',
+                text: '分离 I-Cache 与 D-Cache 的主要目的是==减少指令流水线资源冲突（消除 IF 取指与 MEM 访数同拍结构冒险）==，同时可针对指令（空间局部性更好）与数据的不同特性分别优化。',
+                short: 'I/D 分离主因是消除流水线 IF 与 MEM 资源冲突（结构冒险）',
+                tag: '2014·错',
+                red: true,
+                kw: '2014-T16 结构冒险 IF MEM 分离Cache',
+                href: 'architecture-3.html#section-73'
+              },
+              {
+                id: 'a3-42',
+                bold: '多级 Cache（L1/L2）结构与全局命中率',
+                text: 'L1 离 CPU 最近、快而小（常分离 I/D，D-Cache 用写分配+回写），L2 较大且速度次之。L1/L2 通常均用回写法，L1 脏块替换写回 L2 承接以防写缓冲溢出。全局命中率 ==H = H1 + (1 - H1) × H2==（`H2` 为 L2 局部命中率）。',
+                short: 'L1快小分离、L2承接L1脏块写回；全局命中 H = H1 + (1-H1)H2',
+                tag: '大纲',
+                kw: '两级Cache L1 L2 局部命中率 全局命中率',
+                href: 'architecture-3.html#section-74'
+              },
+              {
+                id: 'a3-43',
+                bold: '影响 Cache 性能的关键权衡（块大小）',
+                text: '全相联命中率高于组相联与直接映射；增大容量通常提高命中率。==块大小须适中==：过小难以利用空间局部性；过大既增加每次缺失调块损失，又在总容量固定时减少行数、加剧冲突替换反而降低命中率。',
+                short: '块长须适中：过小亏局部性，过大增缺失损失且减行数增冲突',
+                tag: '大纲',
+                kw: '块大小 空间局部性 缺失损失 行数',
+                href: 'architecture-3.html#section-75'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 3.5B 替换算法、写策略与数组访存实战 ==================== */
+      {
+        id: 'm5',
+        navLabel: '5 替换写策略与数组',
+        title: '3.5B Cache 替换算法、写策略一致性与数组命中率综合实战',
+        sub: 'RAND/FIFO/LRU/LFU 与抖动 · 全写/回写与写分配/非写分配 · 二维数组步长冲突与非对齐跨块 AMAT',
+        children: [
+          {
+            id: 'm5-rep',
+            title: '替换算法（LRU 计数器）与缺失处理流程',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图26.jpg', caption: '图 3.15 4 路组相联 LRU 计数器替换过程（左侧阴影为计数值，右侧为主存块号）', width: 330 }
+            ],
+            exams: [
+              {
+                year: '2012·T17',
+                mistake: true,
+                nodeId: 'a3-45',
+                href: 'architecture-3.html#section-67',
+                q: '按字编址，Cache 共 `4` 行、块长 `1` 字，初始空，`2` 路组相联 + `LRU`。依次访问 `0, 4, 8, 2, 0, 6, 8, 6, 4, 8`，命中次数是？',
+                opts: ['A. 1', 'B. 2', 'C. 3', 'D. 4'],
+                ans: 'A（按严审1字/块）｜原书口径 C',
+                explain: '严格按“1 字/块 + 低位分组 `g = b mod 2`”，全为偶数全部落第 `0` 组，仅第 8 次访问 `6` 命中（==1 次，A==）；配套旧解析暗用 `⌊a/2⌋ mod 2` 分组才得 `3` 次（C）。考场严守“块大小 → 块号 → 组数 → 组号 → 逐组 LRU”。',
+                pitfall: '首次不会且存在印刷题干与解析分组口径冲突；绝不倒推修改“1 字/块”条件，务必按给定块大小与分组规则逐组推演 LRU。'
+              },
+              {
+                year: '2020·T44 大题',
+                mistake: true,
+                nodeId: 'a3-46',
+                href: 'architecture-3.html#section-67',
+                q: '32 位地址、I/D Cache 各 `32KB`、`64B` 块、`8` 路组相联、直写 + `LRU`。(1) 每行 Tag、LRU 各几位？有无修改位？(2) 对齐数组 `int s[1024]` 执行 `s[k]=2*s[k]`，缺失几次？(3) 简述首次取指 `00010003H` 缺失过程。',
+                ans: '(1) Tag 20位、LRU 3位、无修改位｜(2) 64次｜(3) 查第0组→调64B块→填Tag/V=1/LRU→偏移3取指',
+                explain: '① `512` 行分 `64` 组（`s=6, b=6`）→ `Tag = 20` 位；8 路每行 `log2(8) = 3` 位 LRU；==直写无脏位==；② `4096B` 对齐占 `64` 块，每块首元读缺调入，写与余下 15 元读写全中 → `64` 次缺失；③ `00010003H` 拆为 Tag `00010H`、组 `0`、偏移 `3`，调 `00010000H~0001003FH` 入第 0 组空闲行并更新状态。',
+                pitfall: '第(1)问首次不会算 8 路每行 LRU 位数；按 408 教材每行次序计数口径即为 `log2(r)`（8 路 3 位），直写必答“无修改位”。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-44',
+                bold: 'RAND、FIFO、LRU、LFU 四种替换算法',
+                text: '仅全相联或组相联组满时需替换。@@随机（RAND）@@与@@先进先出（FIFO）@@均未利用局部性（FIFO 易换出热点块）；@@最近最少使用（LRU）@@替换最近最久未用行（利用时间局部性，考频最高）；@@最不经常使用（LFU）@@替换累计访问次数最少行。',
+                short: 'LRU 看最近最久未用（利局部性），LFU 看累计次数，FIFO/RAND 不用局部性',
+                tag: '必背',
+                kw: 'RAND FIFO LRU LFU 替换算法',
+                href: 'architecture-3.html#section-66'
+              },
+              {
+                id: 'a3-45',
+                bold: 'LRU 计数器更新三规则与每行位数',
+                text: '按教材每行计数口径，`r` 路组相联每行需 ==log2(r) 位== LRU 计数器（各组独立维护，不跨组比较）。更新规则：① 命中行清 `0`，原值小于命中行者 `+1`，其余不变；② 未命中且有空行，新行置 `0`，其他非空行 `+1`；③ 未命中且组满，替换计数值最大行并置 `0`，其余全 `+1`。',
+                short: '每行 log2(r) 位；命中清0且更小者+1；组满换最大者置0余+1',
+                tag: '2012/20·错',
+                red: true,
+                kw: '2012-T17 2020-T44 LRU计数器 更新规则',
+                href: 'architecture-3.html#section-67'
+              },
+              {
+                id: 'a3-46',
+                bold: '缺失处理大题规范与抖动现象',
+                text: '活跃访问块数大于同组路数 `r` 时将持续相互替换引发==抖动==（如 4 路循环访 5 块命中率 0%）。缺失过程大题五步模板：切分地址（Tag/组号/偏移）→ 定位该组并行比对 Tag 与 `V` → 选空闲行或 LRU 替换（回写脏块须写回）→ 调主存整块填 Tag、置 `V=1`、更新 LRU → 按偏移取数送 CPU。',
+                short: '超路数引发抖动；缺失问答必写地址切分、查组、调块、更新 Tag/V/LRU',
+                tag: '2020大·错',
+                red: true,
+                kw: '2020-T44 抖动 缺失过程模板',
+                href: 'architecture-3.html#section-67'
+              }
+            ]
+          },
+          {
+            id: 'm5-write',
+            title: 'Cache 写策略与一致性维护',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图27.jpg', caption: '图 3.16 全写法配写缓冲：CPU 写入 Cache 与写缓冲后继续执行，由写缓冲异步写回主存', width: 310 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: '写命中（全写 vs 回写）与写不命中（写分配 vs 非写分配）对比',
+                headers: ['策略类别', '策略名称', '核心操作流程', '脏位与主存访次', '典型搭配与特点'],
+                rows: [
+                  ['写命中', '==全写法（直写法）==', '同时写入 Cache 和主存（可经写缓冲异步写主存）', '!!无脏位!!；每次写必访主存（替换直接覆盖）', '常配@@非写分配法@@；实时一致但写频繁易致写缓冲饱和'],
+                  ['写命中', '==回写法（写回法）==', '仅写 Cache 并置 `Dirty=1`；仅替换脏块时写回主存', '!!必设 1 位脏位!!；大幅减少写主存次数', '常配@@写分配法@@；效率高，主存与 Cache 暂时不一致'],
+                  ['写不命中', '@@写分配法@@', '将所写主存块调入 Cache 并更新（写入）', '每次写缺失须调块，利用空间局部性', '常配==回写法==（如 L1 D-Cache）'],
+                  ['写不命中', '@@非写分配法@@', '直接把数据写入主存，不调入 Cache', '不污染 Cache 空间，未利用后续空间局部性', '常配==全写法==']
+                ]
+              }
+            ],
+            sticky: {
+              title: '写策略边界与数组访存次数防漏',
+              text: '① 全写/回写仅管==写命中==，写分配/非写分配仅管==写不命中==，读操作不涉及写策略。\n② 直写法下即使指令与读全命中，写回变量仍须同步写主存（`x=x+3` 至少访主存 !!1 次!!，回写下为 `0` 次）。\n③ 看到 `s[k]=2*s[k]` 或 `d[i]=d[i]/x` 立刻标出每元素 ==1 读 + 1 写 = 2 次访存==，且先查首地址偏移 `VA & (B-1)`。'
+            },
+            exams: [
+              {
+                year: '2015·T16',
+                mistake: true,
+                nodeId: 'a3-47',
+                href: 'architecture-3.html#section-69',
+                q: '编译器将 `x = x + 3;` 转为 `add xaddr, 3`，系统采用页式虚存、配 TLB，且 Cache 采用==直写（Write Through）==方式，完成该指令需要访问主存的次数==至少==是？',
+                opts: ['A. 0', 'B. 1', 'C. 2', 'D. 3'],
+                ans: 'B',
+                explain: '求“至少”取最理想情况：TLB 命中（查页表 `0` 次）+ 取指命中（`0` 次）+ 读 `x` 命中（`0` 次）；但最后写回 `x` 因采用==直写法==，即使写命中也必须同步写主存，故至少访主存 ==1 次==。',
+                pitfall: '当时见“先读 x 再写 x”机械算成 `1 + 1 = 2` 次错选 C，忘记读 `x` 可以在 Cache 命中不访主存。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-47',
+                bold: '全写法（直写法）与写缓冲',
+                text: '写命中时数据==同时写入 Cache 和主存==，主存始终同步，替换直接覆盖!!无须脏位!!；即使全命中，写指令也至少访主存 `1` 次。加设@@写缓冲@@（FIFO 队列）可异步写主存缓解速度差，但高频写时可能饱和溢出。',
+                short: '直写同步写主存无脏位，写命中仍至少访主存 1 次；写缓冲异步缓解',
+                tag: '2015·错',
+                red: true,
+                kw: '2015-T16 直写法 全写法 写缓冲 至少1次',
+                href: 'architecture-3.html#section-69'
+              },
+              {
+                id: 'a3-48',
+                bold: '回写法与修改位（脏位）',
+                text: '写命中时仅修改 Cache 行并将该行==修改位（脏位）置 1==，不立即写主存；该行被替换时若 `Dirty = 1` 才写回主存，`Dirty = 0` 直接覆盖。显著减少写主存次数，全命中时写操作访主存最少 `0` 次。',
+                short: '回写仅写 Cache 置脏位，替换脏块才写回主存，大幅减访主存',
+                tag: '必背',
+                kw: '回写法 写回法 脏位 修改位',
+                href: 'architecture-3.html#section-69'
+              },
+              {
+                id: 'a3-49',
+                bold: '写分配法与非写分配法',
+                text: '写不命中时：@@写分配法@@将该主存块调入 Cache 再更新（利用空间局部性，常与==回写法==搭配）；@@非写分配法@@直接写入主存不调入 Cache（常与==全写法==搭配）。注意直写更新主存不等于 Cache 未命中。',
+                short: '写分配调块常配回写；非写分配直写主存常配全写',
+                tag: '必背',
+                kw: '写分配 非写分配 搭配',
+                href: 'architecture-3.html#section-70'
+              }
+            ]
+          },
+          {
+            id: 'm5-array',
+            title: '二维/一维数组命中率、非对齐与缺失停顿实战',
+            media: [
+              {
+                type: 'example',
+                title: '微算例 3：二维数组行/列遍历命中率与非对齐 129 块对比（2010 / 2023 / 2025）',
+                body: '① 2010·T44（直接映射 8 行、64B 块、`int a[256][256]` 首址 320 对齐）：行优先每块 16 元素（1 缺 15 中）→ ==93.75%==；列优先行跨度 `256×4 = 1024B = 16 块`，`16 mod 8 = 0` 全撞同一行反复互踢 → ==0%==。\n② 2023·T43（4 路组相联 64 组、32B 块、`int a[24][64]`）：列优先行跨度 `64×4 = 256B = 8 块`，组号依次 `0,8,16,…,56` 循环 3 轮，每组并发仅需 `3` 行 `≤ 4` 路不被挤走！第 0 列带入后第 1~7 列全命中 → 行、列命中率同为 ==7/8 = 87.5%==。\n③ 2025·T43（8 路 64 组、64B 块、`int d[2048]` 首址 `0180 0020H`）：首偏移 `20H = 32B` → 占 `⌈(32+8192)/64⌉ = 129` 块、跨 `⌈(32+8192)/4096⌉ = 3` 页；`d[i]=d[i]/x` 读写共 `4096` 次 → 缺失率 `129/4096 ≈ 3.15%`，`AMAT = 2 + 3.15%×200 ≈ 8.30` 周期。'
+              }
+            ],
+            exams: [
+              {
+                year: '2010·T44 大题',
+                mistake: true,
+                nodeId: 'a3-50',
+                href: 'architecture-3.html#section-55',
+                q: '主存 `256MB`、I/D Cache 分离各 `8` 行、块 `64B`、直接映射；`int a[256][256]` 行优先存、首址十进制 `320`（`i,j,sum` 在寄存器）。求：(1) 不计一致性与替换位的数据 Cache 总容量；(2) `a[0][31]` 与 `a[1][1]` 映射行号；(3) 按行程序 A 与按列程序 B 命中率。',
+                ans: '(1) 4256 bit = 532 B｜(2) 6 行、5 行｜(3) A: 93.75%、B: 0%，A 更快',
+                explain: '① 28 位地址（`c=3, b=6, Tag=19`），单行 `512+19+1 = 532 bit`，乘 `8` 行得 ==4256 bit = 532 B==；② `a[0][31]` 址 `444`（块 6 → 行 `6`），`a[1][1]` 址 `1348`（块 21 → 行 `5`）；③ A 按行 `15/16 = 93.75%`，B 按列步长 `16` 块模 `8` 余 `0` 全冲突得 `0%`。',
+                pitfall: '第(1)问曾算完单行 `532 bit` 就停笔，既漏乘 `8` 行又混淆 `532 bit` 与 `532 B`（差 8 倍）。'
+              },
+              {
+                year: '2025·T43 大题',
+                star: true,
+                nodeId: 'a3-51',
+                href: 'architecture-3.html#section-63',
+                q: '32 位地址、4KB 页、32KB 8 路 D-Cache（64B 块，命中 2 周期、缺失损失 200 周期）；`int d[2048]` 首址 `0180 0020H`，执行 `d[i]=d[i]/x`。求：(1) 组号/块内位数及 VA 中索引位；(2) `d[100]` 虚址与组号；(3) `d[0]` 偏移、缺失率与 AMAT；(4) 占页数与缺页次数。',
+                ans: '(1) 各6位，VA[11:6]｜(2) 018001B0H，第6组｜(3) 32B，3.15%，8.30周期｜(4) 3页，3次',
+                explain: '① `6+6=12 ≤ 12`（页内偏移），故 `VA[11:6]` 直接作组索引；② `01800020H + 400(190H) = 018001B0H`，`1B0H >> 6 = 6`；③ 首偏移 `20H = 32B`，跨 ==129 块==，每元读写 2 次共 `4096` 次，缺失率 `129/4096 ≈ 3.15%`，`AMAT = 2 + 3.15%×200 ≈ 8.30`；④ 首末址 `01800020H~0180201FH` 跨 ==3 页==，缺页 `3` 次。',
+                pitfall: '直接用 `8192/64 = 128` 漏算首偏移 `20H` 致分子少 1 块，或用 `2048` 作分母漏算写访问致分母少一半。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-50',
+                bold: '二维数组列遍历命中率判据（非一概 0%）',
+                text: '判断命中率本质是看==块在被用完前是否会被替换==：先算行字节跨度与块跨度，再看映射到同一组的并发活跃块数是否超过路数 `r`。若并发块数 `≤ r`（如 2023 年 4 路每组仅占 3 块），按列遍历仍可完整复用同块后续列，命中率与按行相同。',
+                short: '勿见列访就写 0%：先算块跨度，比较同组并发块数与路数 r 判是否替换',
+                tag: '2010/23大·错',
+                red: true,
+                kw: '2010-T44 2023-T43 步长 同组冲突 87.5%',
+                href: 'architecture-3.html#section-55'
+              },
+              {
+                id: 'a3-51',
+                bold: '非对齐数组占块/占页与读写双访存',
+                text: '拿到数组题第一步先查首地址低位 `o = VA & (B - 1)` 并算末址 `VA + N - 1`：首地址未对齐时首尾半块各占一整块/页（`N_块 = ⌈(o+N)/B⌉`）；循环内若既读又写（如 `d[i]=d[i]/x`），分母须计 `2 × 元素数`，而首次读调块后同元素写与块内后续读写均命中。',
+                short: '先查首偏移算 ⌈(o+N)/B⌉ 防少块少页；读改写分母计 2×元素数',
+                tag: '2020/25大',
+                red: true,
+                kw: '2025-T43 129块 4096次 01800020H',
+                href: 'architecture-3.html#section-63'
+              },
+              {
+                id: 'a3-52',
+                bold: 'CPU 总执行时间与缺失停顿叠加模型',
+                text: '题给“Cache 命中时的基本 CPI”且不重叠停顿时：`T_CPU = 指令数 × 基本CPI × 时钟周期 + 缺失总次数 × 单次缺失损失`。!!所有指令均须计入基本时间（不可给基本时间乘命中率 H）!!；仅当题干明示已给“实际平均 CPI”时才不重复叠加停顿。',
+                short: 'T_CPU = 基本执行时间 + 缺失次数×缺失损失；基本时间绝不乘 H',
+                tag: '2013大',
+                red: true,
+                kw: '2013-T43 CPI 缺失停顿 1010ns',
+                href: 'architecture-3.html#section-58'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 3.6 虚拟存储器、TLB、MMU 与段页式 ==================== */
+      {
+        id: 'm6',
+        navLabel: '6 虚拟存储与TLB协同',
+        title: '3.6 虚拟存储器、页表、TLB+Cache 协同与 MMU 边界',
+        sub: '类全相联与强制回写 · 页表转换与缺页重启 · TLB 映射与三缺失组合 · MMU 边界、段/段页式及 Cache 对比',
+        children: [
+          {
+            id: 'm6-page',
+            title: '虚拟存储基本概念、页式地址转换与缺页重启',
+            sticky: {
+              title: '页表进制转换与缺页重启铁律',
+              text: '① 查十进制行号的页表前，务必先把十六进制虚页号转为十进制（如 `0008 2840H` 虚页号 !!82H = 130!!，切勿误查十进制第 `82` 行判缺页）。\n② 缺页处理时间若==已包含更新 TLB 与页表==，指令重启后再查 ==TLB（命中）== 即可直接访数，不再花时间查主存页表；新页装入被淘汰旧页腾出的物理页框。'
+            },
+            exams: [
+              {
+                year: '2024·T16',
+                mistake: true,
+                nodeId: 'a3-53',
+                href: 'architecture-3.html#section-77',
+                q: '对于页式虚拟存储管理系统，下列关于存储器层次结构的叙述中，错误的是？',
+                opts: ['A. Cache—主存交换单位为主存块，主存—外存为页', 'B. Cache 替换由硬件实现，主存—外存由软件实现', 'C. Cache 可采用回写法，主存—外存通常采用回写法', 'D. Cache 可采用直接映射，主存—外存通常采用直接映射'],
+                ans: 'D',
+                explain: '磁盘调页延迟极高，为避免冲突换页导致抖动，主存—外存层次采用==类全相联映射==（任一虚页可放入主存任意空闲页框），绝非直接映射，故 D 错。',
+                pitfall: '首次不会，易混淆两级层次的映射方式差异；牢记主存—外存是软件替换 + 强制回写 + 类全相联。'
+              },
+              {
+                year: '2022·T15',
+                mistake: true,
+                nodeId: 'a3-55',
+                href: 'architecture-3.html#section-80',
+                q: '物理地址 `24` 位、虚存 `4GB`、页大小 `4KB`。页表（虚页号为十进制）中第 `82` 项存在位 `0`，第 `130` 项存在位 `1`、实页号 `018H`。访问虚地址 `00082840H` 的结果是？',
+                opts: ['A. 物理地址 024840H', 'B. 物理地址 180840H', 'C. 物理地址 018840H', 'D. 检测到缺页异常'],
+                ans: 'C',
+                explain: '`4KB` 页偏移占末 3 位十六进制 `840H`；虚页号为十六进制 `82H = 8×16 + 2 = 130`（十进制）；查第 `130` 项有效得实页号 `018H`，拼接得 ==018840H==。',
+                pitfall: '当时直接拿十六进制 `82` 去查十进制第 `82` 项（存在位 0），误判缺页错选 D。'
+              },
+              {
+                year: '2009·T44 大题',
+                mistake: true,
+                nodeId: 'a3-56',
+                href: 'architecture-3.html#section-77',
+                q: '页大小 `4KB`，访主存 `100ns`、TLB `10ns`，缺页处理 `10^8 ns`（==已含更新 TLB 和页表==），驻留集 2（初始页 0→`101H`、页 2→`254H`），LRU 局部淘汰，TLB 初始空。依次访问 `2362H, 1565H, 25A5H`，求各自耗时及 `1565H` 的物理地址。',
+                ans: '210ns / 10^8+220ns / 110ns｜PA = 101565H',
+                explain: '① `2362H`（页 2）：TLB 缺 `10` + 查页表 `100` + 访数 `100` = `210ns`；② `1565H`（页 1）：TLB `10` + 页表 `100` + 缺页 `10^8`（LRU 汰页 0，页 1 复用页框 ==101H== 并更新 TLB）+ 指令重启再查 TLB 命中 `10` + 访数 `100` = ==10^8 + 220 ns==；③ `25A5H`（页 2）：TLB 中 `10` + 访数 `100` = `110ns`。',
+                pitfall: '初答第 2 次误算为 `10^8 + 320ns`（多加了一次重启查页表 100ns），且曾疑惑页框 `101H` 归属；更新 TLB 后重启直接 TLB 命中，新页复用被汰页腾出的页框。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-53',
+                bold: '虚拟存储核心特征：类全相联与强制回写',
+                text: '虚拟存储器由==硬件与操作系统协同==实现，分离虚拟与物理地址空间，对应用程序员透明。任一虚页可装入主存任意空闲页框（==类全相联映射==，非直接映射）；因辅存速度极慢，主存—辅存!!只能采用回写策略!!（仅脏页换出时写回辅存）。',
+                short: '软硬协同；类全相联映射（任入空闲页框）且因盘慢只能回写',
+                tag: '2016/24·错',
+                red: true,
+                kw: '2024-T16 2016-T45 类全相联 回写',
+                href: 'architecture-3.html#section-77'
+              },
+              {
+                id: 'a3-54',
+                bold: '页表结构、表项字段与页面大小权衡',
+                text: '页表常驻主存，按虚页号直接下标索引（==线性页表项内不存虚页号==），字段含有效位（存在位）、脏位（修改位）、引用位、保护权限与实页号/外存地址。页面过小致页表庞大且局部性差，过大则页内碎片增且调页 I/O 慢，常取 `4KB` 起。',
+                short: '页表在主存不存虚页号，含存在/脏/引用/保护位；页长权衡表长与碎片',
+                tag: '必背',
+                kw: '页表项 存在位 脏位 内部碎片 页面大小',
+                href: 'architecture-3.html#section-79'
+              },
+              {
+                id: 'a3-55',
+                bold: '页式地址转换与十六进制查表规范',
+                text: '虚页与页框等大，==页内偏移完全不变==（`d = log2(页大小)`）。以页表基址寄存器加 `虚页号 × 表项长` 查页表：存在位为 `1` 时将实页号与原页内偏移==直接拼接==得物理地址（`表项地址` 查表前须统一进制，十六进制 `82H` 查十进制第 `130` 项）。',
+                short: '实页号与原偏移拼接得 PA；查十进制页表必先将十六进制 VPN 转十进制',
+                tag: '2022·错',
+                red: true,
+                kw: '2022-T15 82H 130 拼接 页表基址',
+                href: 'architecture-3.html#section-80'
+              },
+              {
+                id: 'a3-56',
+                bold: '缺页异常处理、指令重启与页框复用',
+                text: '页表存在位为 `0` 触发==缺页异常（内中断/故障）==，由操作系统调入缺页（满则按策略置换，脏页写回）并更新页表与 TLB，随后!!返回重新执行引发缺页的同一条指令!!（故多触发 `+1` 次 TLB 访问，如 1000 次循环访数组最少 `1001` 次 TLB）；新页复用淘汰页腾出的物理页框。',
+                short: '缺页由 OS 调页并重执当前指令（+1 次 TLB）；新页复用被汰页框',
+                tag: '2009/14/19·错',
+                red: true,
+                kw: '2009-T44 2014-T45 2019-T14 重执 1001次 sll',
+                href: 'architecture-3.html#section-77'
+              }
+            ]
+          },
+          {
+            id: 'm6-tlb',
+            title: '快表 TLB、MMU 边界与 TLB+Cache 联合访存',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图36.jpg', caption: '图 3.17 全相联 TLB 与 2 路组相联 Cache 多级硬件协同结构', width: 320 },
+              { type: 'img', src: 'study/mm-assets/architecture/ch3/图37.jpg', caption: '图 3.18 带 TLB 虚拟存储器的完整 CPU 访存与缺失处理流程', width: 320 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: 'TLB、Page（页表）与 Cache 三种缺失的 8 种组合判定表',
+                headers: ['组合', 'TLB', 'Page（主存）', 'Cache', '是否可能与访主存情况'],
+                rows: [
+                  ['1', '命中', '命中', '命中', '&&可能&&：映射与数据均缓存，==0 次访主存==（读操作）'],
+                  ['2', '命中', '命中', '缺失', '&&可能&&：映射在 TLB、块不在 Cache，访主存 `1` 次调块'],
+                  ['3', '缺失', '命中', '命中', '&&可能&&：TLB 被换出但数据块仍在 Cache，访主存 `1` 次查页表'],
+                  ['4', '缺失', '命中', '缺失', '&&可能&&：查页表 `1` 次 + 调 Cache 块 `1` 次 = 访主存 `2` 次'],
+                  ['5', '缺失', '缺失', '缺失', '&&可能&&：缺页异常访问磁盘调页，至少访主存 `2` 次'],
+                  ['6~7', '命中', '!!缺失!!', '任意', '!!不可能!!：TLB 是有效页表项缓存，Page 缺失则 TLB 必缺失'],
+                  ['8', '缺失', '!!缺失!!', '命中', '!!不可能!!：Cache 是主存副本，Page 不在主存则不可能在 Cache 命中']
+                ]
+              }
+            ],
+            summary: {
+              title: '虚拟存储三层命中与 MMU 分工',
+              text: '① 两条组合铁律：==TLB 命中 ⇒ Page 必在主存==；==Page 缺失 ⇒ TLB 与 Cache 必均缺失==。\n② 职责分界：@@MMU@@ 管到生成物理地址 `PA` 为止（检 TLB 缺失、页面缺失、访问越权）；@@Cache 控制逻辑@@ 拿 `PA` 检 Cache 缺失。\n③ 物理材质：==TLB 与 Cache 均用高速 SRAM==，只有慢表（Page）存在主存 DRAM。'
+            },
+            exams: [
+              {
+                year: '2020·T15',
+                mistake: true,
+                nodeId: 'a3-57',
+                href: 'architecture-3.html#section-82',
+                q: '下列关于 TLB 和 Cache 的叙述中，错误的是？',
+                opts: ['A. 命中率都与程序局部性有关', 'B. 缺失后都需要去访问主存', 'C. 缺失处理都可以由硬件实现', 'D. 都由 DRAM 存储器组成'],
+                ans: 'D',
+                explain: 'TLB 与 Cache 均须与 CPU 高速同频交互，由高速 ==SRAM==（或相联存储器）组成，而非速度慢且须刷新的 DRAM（D 错）；硬件页表遍历器可实现 TLB 缺失硬件处理（C 正确）。',
+                pitfall: '当时误以为 TLB 缺失只能软件处理而错选 C，漏看了 D 中的 DRAM 材质错误。'
+              },
+              {
+                year: '2024·T18',
+                mistake: true,
+                nodeId: 'a3-59',
+                href: 'architecture-3.html#section-84',
+                q: '下列事件中，==不是在 MMU 地址转换过程中检测的==是？',
+                opts: ['A. 访问越权', 'B. Cache 缺失', 'C. 页面缺失', 'D. TLB 缺失'],
+                ans: 'B',
+                explain: '`MMU`（存储器管理单元）专职 `VA → PA` 转换与保护检查，检测 ==TLB 缺失、页面缺失、访问越权==；待 `PA` 生成后，!!Cache 缺失由 Cache 控制逻辑检测!!，不在 MMU 内。',
+                pitfall: '当时对 MMU 边界不清错选 A；牢记 MMU 产出 PA 即止步，之后才进入 Cache 控制器。'
+              }
+            ],
+            children: [
+              {
+                id: 'a3-57',
+                bold: 'TLB 材质、映射方式与虚页号细分',
+                text: 'TLB 由==高速 SRAM== 构成，缓存常用页表项（表项须存虚页号 Tag、实页号与有效位）。全相联以完整虚页号为 Tag；组相联将==虚页号低位作 TLB 组号、高位作 TLB 标记==（!!切勿取全 VA 低位，且按 VA 位宽算虚页号!!；如 `VA 32` 位、`1KB` 页、32 项 4 路分 8 组 → 组号 `3` 位、Tag `22 - 3 = 19` 位）。',
+                short: 'TLB 用 SRAM；组号取自 VPN 低位（依 VA 算 VPN），Tag = VPN位 - 组号位',
+                tag: '2011/20/21/24/26·错',
+                red: true,
+                kw: '2020-T15 2021-T44 2024-T17 2026-T19 SRAM TLB组号',
+                href: 'architecture-3.html#section-82'
+              },
+              {
+                id: 'a3-58',
+                bold: 'TLB+Cache 联合访存与免转换求组号',
+                text: '先经 TLB/页表完成 `VA → PA`，再用 `PA` 查 Cache。当 ==Cache 组号位 + 块内偏移位 ≤ 页内偏移位（s + b ≤ d）== 时，VA 与 PA 对应低位完全一致，可直接由 VA 确定 Cache 组号与块内偏移（如 2018·T44、2025·T43），但 !!Cache Tag 仍须来自物理地址 PA!!。',
+                short: '先 VA→PA 再查 Cache；s+b≤d 时 VA 低位直定 Cache 组号，Tag 仍用 PA',
+                tag: '2018/25大',
+                red: true,
+                kw: '2018-T44 2025-T43 0007C260H 免转换求组号',
+                href: 'architecture-3.html#section-83'
+              },
+              {
+                id: 'a3-59',
+                bold: 'MMU 职责边界与三类缺失处理者',
+                text: '`MMU` 检测==TLB 缺失、页面缺失与访问越权==；!!Cache 缺失不由 MMU 检测!!，而由 Cache 控制逻辑在 `PA` 生成后检测。处理者分工：Cache 缺失==纯硬件==自动完成；TLB 缺失==硬件或软件均可==；缺页由==操作系统缺页异常处理程序==完成。',
+                short: 'MMU 检 TLB/缺页/越权不检 Cache；Cache 纯硬、TLB 软硬皆可、缺页归 OS',
+                tag: '2024·错',
+                red: true,
+                kw: '2024-T18 MMU 越权 硬件 软件处理',
+                href: 'architecture-3.html#section-84'
+              },
+              {
+                id: 'a3-60',
+                bold: 'TLB/Page/Cache 三缺失逻辑约束',
+                text: '共 `5` 种可能组合与 `3` 种不可能组合：TLB 缺失不等于缺页（Page 仍可命中），亦不等于 Cache 缺失（Cache 仍可命中）；但!!绝不可能出现“TLB 命中而 Page 缺失”或“Page 缺失而 Cache 命中”!!（页表 `P=0` 同步后 TLB 中对应项必 `V=0`）。',
+                short: '5 可能 3 不可能：Page 缺则 TLB 与 Cache 必缺；TLB 缺不必然缺页/缺块',
+                tag: '2010/26',
+                red: true,
+                kw: '2010-T17 2026-T19 三缺失组合 一致性',
+                href: 'architecture-3.html#section-84'
+              }
+            ]
+          },
+          {
+            id: 'm6-seg',
+            title: '段式、段页式与虚拟存储器 vs Cache 对比',
+            children: [
+              {
+                id: 'a3-61',
+                bold: '页式、段式与段页式结构对照',
+                text: '@@页式@@：物理定长、对程序员透明、实页号与偏移==拼接==、存内部碎片；@@段式@@：按程序逻辑变长、不透明、段起点与段内地址==相加==（须越界检查段长）、存外部碎片、便于共享保护；@@段页式@@：先逻辑分段再段内分页，按页调入无外碎片，需段表+页表==两次查表==。',
+                short: '页定长透明拼接内碎片；段变长不透明相加外碎片；段页两次查表无外碎片',
+                tag: '必背',
+                kw: '段式 段页式 拼接 相加 内部碎片 外部碎片',
+                href: 'architecture-3.html#section-86'
+              },
+              {
+                id: 'a3-62',
+                bold: '虚拟存储器与 Cache 的系统级异同',
+                text: '相同：均基于局部性原理、按块/页交换、涉及映射/替换/写策略。不同：Cache 解速度、纯硬件全透明、CPU 直通主存、支持直接/组相联/全相联及全写/回写；虚存解容量、软硬协同、辅存无直通 CPU 通路、缺页代价高数个数量级、==类全相联且只能回写==。',
+                short: '同依局部性；异在速度vs容量、纯硬vs软硬、多映射全回写vs全相联必回写',
+                tag: '2024·错',
+                red: true,
+                kw: '2024-T16 虚存与Cache对比 透明性 缺页代价',
+                href: 'architecture-3.html#section-87'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  </script>
+  <script src="study/mindmap.js?v=5"></script>
+</body>
+</html>
