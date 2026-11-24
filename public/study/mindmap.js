@@ -4,6 +4,7 @@
   const cfg = window.MINDMAP_CONFIG;
   if (!cfg || !Array.isArray(cfg.tree)) return;
 
+  const IS_RICH = !!cfg.rich;
   const PREFS_KEY = 'personal-notes-reader-prefs';
   const STORAGE_KEY = cfg.storageKey || `notes-network-ch${cfg.chapter}-mindmap-v1`;
   const RETURN_KEY = `mm-return-state:${cfg.pageFile}`;
@@ -40,7 +41,7 @@
     glass: '#0d141e',
     momo: '#f1f6f5',
     light: '#ffffff',
-    dark: '#17211b'
+    dark: '#141c18'
   };
 
   const TREE = cfg.tree;
@@ -53,6 +54,25 @@
     '"': '&quot;',
     "'": '&#39;'
   }[c]));
+
+  // Safe inline rich-text highlighter & formula markup (HTML-escaped first)
+  function fmtRich(s) {
+    let out = esc(s);
+    out = out.replace(/==(.+?)==/g, '<mark class="hl-y">$1</mark>');
+    out = out.replace(/!!(.+?)!!/g, '<mark class="hl-r">$1</mark>');
+    out = out.replace(/@@(.+?)@@/g, '<mark class="hl-b">$1</mark>');
+    out = out.replace(/&amp;&amp;(.+?)&amp;&amp;/g, '<mark class="hl-g">$1</mark>');
+    out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/`([^`]+)`/g, '<code class="mm-code">$1</code>');
+    out = out.replace(/\n/g, '<br>');
+    return out;
+  }
+
+  function stripMarkup(s) {
+    return String(s ?? '')
+      .replace(/==|!!|@@|&&|\*\*/g, '')
+      .replace(/`/g, '');
+  }
 
   const ALL_LEAVES = [];
   const LEAF_PARENTS = new Map();
@@ -70,12 +90,20 @@
   collectLeaves(TREE, [], []);
   const LEAF_MAP = new Map(ALL_LEAVES.map(x => [x.id, x]));
 
-  // Build full-screen viewport and minimal HUD shells
+  if (IS_RICH) document.body.classList.add('is-rich');
+
   const chapterLinksHtml = CHAPTERS.length ? `
     <span class="hud-sep"></span>
     <nav class="hud-chapters" aria-label="切换章节导图">
       ${CHAPTERS.map(ch => `<a class="hud-ch" href="${esc(ch.href)}" title="${esc(ch.title)}"${ch.num === cfg.chapter ? ' aria-current="page"' : ''}>${esc(ch.label)}</a>`).join('')}
     </nav>` : '';
+
+  const modeButtonsHtml = IS_RICH ? `
+    <button type="button" class="hud-btn" id="btn-skeleton" aria-pressed="false" title="在图文强化白板与极简一屏骨架之间切换">极简骨架</button>
+    <button type="button" class="hud-btn" id="btn-exams" aria-pressed="true" title="显示或隐藏考点右侧 408 真题卡">真题卡</button>
+  ` : `
+    <button type="button" class="hud-btn" id="btn-layout" title="切换双栏全览或单树">切单树</button>
+  `;
 
   document.body.innerHTML = `
     <div class="canvas-vp" id="vp" aria-label="${esc(cfg.title)}思维导图画布">
@@ -92,19 +120,26 @@
       <span class="hud-title">${esc(cfg.title)}</span>
     </div>
 
+    ${IS_RICH ? `
+    <nav class="hud-modules" id="hud-modules" aria-label="快速定位核心模块">
+      <button type="button" class="hud-mod-btn" data-jump-mod="__root__">总览中心</button>
+      ${TREE.map(m => `<button type="button" class="hud-mod-btn" data-jump-mod="${esc(m.id)}">${esc(m.navLabel || m.title)}</button>`).join('')}
+    </nav>` : ''}
+
     <div class="hud-br">
       <span class="hud-stat">掌握 <b id="st-m">0</b>/<span id="st-total">0</span> · 卡壳 <span class="stuck-n" id="st-s">0</span></span>
       <span class="hud-sep"></span>
       <input type="search" class="hud-search" id="search-box" placeholder="搜考点/年份…" aria-label="搜索导图">
-      <button type="button" class="hud-btn" id="btn-layout" title="切换双栏全览或单树">切单树</button>
+      ${modeButtonsHtml}
       <button type="button" class="hud-btn" id="btn-red" aria-pressed="false" title="只高亮真题与错题红线">仅红线</button>
-      <button type="button" class="hud-btn" id="btn-blur" aria-pressed="false" title="只留加粗主语，遮住后面结论；第1次点揭晓，第2次点跳原笔记">遮罩自测</button>
+      <button type="button" class="hud-btn" id="btn-blur" aria-pressed="false" title="遮住重点结论自测；第1次点揭晓，第2次点跳原笔记">遮罩自测</button>
       <button type="button" class="hud-btn" id="btn-collapse">折叠到二级</button>
       <span class="hud-sep"></span>
       <button type="button" class="hud-btn" id="btn-zout" title="缩小">−</button>
       <span class="zoom-readout" id="z-val">100%</span>
       <button type="button" class="hud-btn" id="btn-zin" title="放大">＋</button>
       <button type="button" class="hud-btn" id="btn-fit" title="整章全览">全览</button>
+      ${IS_RICH ? '<button type="button" class="hud-btn" id="btn-readview" title="回到清晰读图视角">读图</button>' : ''}
       <button type="button" class="hud-btn" id="btn-print" title="打印或另存为 PDF">导出PDF</button>
       <button type="button" class="hud-btn" id="btn-theme" aria-expanded="false" aria-controls="theme-pop" title="切换配色与暮光壁纸（跨全站同步）">主题</button>
     </div>
@@ -122,13 +157,25 @@
       </div>
     </div>
 
+    <div class="mm-lightbox" id="mm-lightbox" role="dialog" aria-modal="true" aria-label="原理图放大预览" hidden>
+      <div class="mm-lb-box">
+        <div class="mm-lb-bar">
+          <span id="mm-lb-cap"></span>
+          <button type="button" class="mm-lb-close" id="mm-lb-close">关闭 (Esc)</button>
+        </div>
+        <img id="mm-lb-img" alt="">
+      </div>
+    </div>
+
     <div class="mm-toast" id="mm-toast" role="status" aria-live="polite" hidden></div>
   `;
 
   let state = loadState();
   let collapsed = new Set();
   let revealed = new Set();
-  let layoutMode = 'dual';
+  let layoutMode = IS_RICH ? 'rich' : 'dual';
+  let skeletonMode = false;
+  let showExams = true;
   let onlyRed = false;
   let recallBlur = false;
   let searchText = '';
@@ -141,6 +188,9 @@
   const vp = document.getElementById('vp');
   const world = document.getElementById('world');
   const toastEl = document.getElementById('mm-toast');
+  const lbEl = document.getElementById('mm-lightbox');
+  const lbImg = document.getElementById('mm-lb-img');
+  const lbCap = document.getElementById('mm-lb-cap');
   const USE_CSS_ZOOM = typeof CSS !== 'undefined' && typeof CSS.supports === 'function' && CSS.supports('zoom', '1.5');
   let bracketRaf = 0;
 
@@ -150,6 +200,21 @@
     clearTimeout(showToast.t);
     showToast.t = setTimeout(() => { toastEl.hidden = true; }, 1900);
   }
+
+  function openLightbox(src, caption) {
+    lbImg.src = src;
+    lbImg.alt = caption || '原理图';
+    lbCap.textContent = caption || '高清原理图预览';
+    lbEl.hidden = false;
+  }
+  function closeLightbox() {
+    lbEl.hidden = true;
+    lbImg.removeAttribute('src');
+  }
+  document.getElementById('mm-lb-close').addEventListener('click', closeLightbox);
+  lbEl.addEventListener('click', e => {
+    if (e.target === lbEl) closeLightbox();
+  });
 
   function loadState() {
     try {
@@ -268,17 +333,111 @@
     return node.children.reduce((s, c) => s + countLeaves(c), 0);
   }
 
+  function renderMediaItem(item) {
+    if (!item) return '';
+    if (item.type === 'img') {
+      const styleW = item.width ? ` style="max-width:${Number(item.width)}px"` : '';
+      return `
+        <figure class="mm-fig" data-lightbox="${esc(item.src)}" data-cap="${esc(item.caption || '')}"${styleW}>
+          <img src="${esc(item.src)}" alt="${esc(item.caption || '原理图')}" loading="eager">
+          <figcaption class="mm-fig-cap">
+            <span>${esc(item.caption || '')}</span>
+            <span>点击放大 🔍</span>
+          </figcaption>
+        </figure>
+      `;
+    }
+    if (item.type === 'table') {
+      return `
+        <div class="mm-table-card">
+          ${item.title ? `<div class="mm-table-title">${esc(item.title)}</div>` : ''}
+          <table class="mm-table">
+            ${item.headers ? `<thead><tr>${item.headers.map(h => `<th>${fmtRich(h)}</th>`).join('')}</tr></thead>` : ''}
+            <tbody>
+              ${(item.rows || []).map(row => `<tr>${row.map(cell => `<td>${fmtRich(cell)}</td>`).join('')}</tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+    if (item.type === 'example') {
+      return `
+        <div class="mm-example-card">
+          ${item.title ? `<div class="mm-example-title">${esc(item.title)}</div>` : ''}
+          <div>${fmtRich(item.body)}</div>
+        </div>
+      `;
+    }
+    return '';
+  }
+
+  function renderExamCards(exams) {
+    if (!Array.isArray(exams) || !exams.length) return '';
+    return `
+      <div class="mm-exams">
+        ${exams.map(ex => `
+          <article class="mm-exam-card${ex.mistake ? ' is-mistake' : ''}">
+            <div class="mm-exam-head">
+              <div class="mm-exam-badges">
+                <span class="mm-exam-yr">${esc(ex.year)}</span>
+                ${ex.mistake ? '<span class="mm-exam-flag">🔥 个人错题</span>' : ''}
+                ${ex.star ? '<span class="mm-exam-flag is-star">★ 高频母题</span>' : ''}
+              </div>
+              ${ex.href ? `<button type="button" class="mm-exam-note-btn" data-exam-jump="${esc(ex.href)}" data-exam-node="${esc(ex.nodeId || '')}" data-exam-label="${esc(ex.year)}">原笔记 ↗</button>` : ''}
+            </div>
+            <div class="mm-exam-q">${fmtRich(ex.q)}</div>
+            ${Array.isArray(ex.opts) && ex.opts.length ? `<div class="mm-exam-opts">${ex.opts.map(o => `<span>${fmtRich(o)}</span>`).join('')}</div>` : ''}
+            <details class="mm-exam-ans">
+              <summary>核对答案与秒杀思路</summary>
+              <div class="mm-exam-ans-body">
+                <div><strong>答案：${esc(ex.ans)}</strong></div>
+                <div>${fmtRich(ex.explain)}</div>
+                ${ex.pitfall ? `<div class="mm-exam-pitfall">踩坑复盘：${fmtRich(ex.pitfall)}</div>` : ''}
+              </div>
+            </details>
+          </article>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderRightRail(node) {
+    if (!node.summary && !node.sticky) return '';
+    const sumHtml = node.summary ? `
+      <div class="mm-summary" data-summary-target="1">
+        ${node.summary.title ? `<div class="mm-summary-head">${esc(node.summary.title)}</div>` : ''}
+        <div>${fmtRich(node.summary.text)}</div>
+      </div>` : '';
+    const stickyHtml = node.sticky ? `
+      <div class="mm-sticky">
+        <div class="mm-sticky-head">📌 ${esc(node.sticky.title || '必背铁律')}</div>
+        <div>${fmtRich(node.sticky.text)}</div>
+      </div>` : '';
+    return `<div class="mm-right-rail">${sumHtml}${stickyHtml}</div>`;
+  }
+
   function renderNode(node, depth) {
     if (node.children && node.children.length) {
       const isCol = collapsed.has(node.id);
-      const childGapCls = `gap-${Math.min(depth, 3)}`;
+      const childGapCls = `gap-${Math.min(depth, 4)}`;
+      const leadHtml = (!isCol && IS_RICH && Array.isArray(node.leadMedia) && node.leadMedia.length)
+        ? `<div class="mm-lead-media">${node.leadMedia.map(renderMediaItem).join('')}</div>`
+        : '';
+      const inlineMediaHtml = (!isCol && IS_RICH && Array.isArray(node.media) && node.media.length)
+        ? node.media.map(m => `<div class="t-node t-media" data-depth="${depth + 1}">${renderMediaItem(m)}</div>`).join('')
+        : '';
+      const subHtml = (IS_RICH && node.sub && depth === 1) ? `<span class="br-sub">${esc(node.sub)}</span>` : '';
+
       return `
-        <div class="t-node" data-depth="${depth}">
-          <button type="button" class="node-branch depth-${depth}" data-branch="${esc(node.id)}" title="点击展开/收起">
-            <span>${esc(node.title)}</span>
-            ${isCol ? `<span class="branch-badge">+${countLeaves(node)}</span>` : ''}
+        <div class="t-node" data-depth="${depth}" data-node-id="${esc(node.id)}">
+          <button type="button" class="node-branch depth-${depth}" data-branch="${esc(node.id)}" title="点击展开/收起分支">
+            <span>${esc(node.title)}${isCol ? ` <span class="branch-badge">+${countLeaves(node)}</span>` : ''}</span>
+            ${subHtml}
           </button>
-          ${isCol ? '' : `<div class="t-children ${childGapCls}">${node.children.map(c => renderNode(c, depth + 1)).join('')}</div>`}
+          ${leadHtml}
+          ${isCol ? '' : `<div class="t-children ${childGapCls}">${inlineMediaHtml}${node.children.map(c => renderNode(c, depth + 1)).join('')}</div>`}
+          ${isCol || !IS_RICH ? '' : renderRightRail(node)}
+          ${isCol || !IS_RICH ? '' : renderExamCards(node.exams)}
         </div>
       `;
     }
@@ -286,7 +445,8 @@
     const q = searchText.trim().toLowerCase();
     const isM = state.mastered.has(node.id);
     const isS = state.stuck.has(node.id);
-    const hay = `${node.bold} ${node.text} ${node.tag} ${node.crumbs || ''} ${node.kw || ''}`.toLowerCase();
+    const bodyText = (IS_RICH && skeletonMode && node.short) ? node.short : node.text;
+    const hay = `${node.bold} ${stripMarkup(node.text)} ${node.short || ''} ${node.tag} ${node.crumbs || ''} ${node.kw || ''}`.toLowerCase();
     const isMatch = q ? hay.includes(q) : false;
     const isDim = (onlyRed && !node.red) || (q && !isMatch);
     const cls = [
@@ -298,18 +458,39 @@
     ].filter(Boolean).join(' ');
     const dot = isS ? '<i class="leaf-dot stuck" title="仍卡壳"></i>'
       : isM ? '<i class="leaf-dot mastered" title="已掌握"></i>' : '';
+    const formattedBody = IS_RICH ? fmtRich(bodyText) : esc(bodyText);
 
     return `
       <div class="t-node" data-depth="${depth}">
         <button type="button" class="${cls}" data-leaf="${esc(node.id)}" title="点击跳转原笔记对应小节（右键标记掌握/卡壳）">
-          ${dot}<span class="leaf-copy"><strong>${esc(node.bold)}</strong><span class="leaf-plain">：${esc(node.text)}</span></span><span class="leaf-tag ${node.red ? 'is-red' : ''}">（${esc(node.tag)}）</span><span class="leaf-jump" aria-hidden="true">↗</span>
+          ${dot}<span class="leaf-copy"><strong>${esc(node.bold)}</strong><span class="leaf-plain">：${formattedBody}</span><span class="leaf-tag ${node.red ? 'is-red' : ''}">（${esc(node.tag)}）</span><span class="leaf-jump" aria-hidden="true">↗</span></span>
         </button>
       </div>
     `;
   }
 
   function renderTree(syncBracketsNow) {
-    if (layoutMode === 'dual') {
+    if (IS_RICH) {
+      world.innerHTML = `
+        <div class="board-rich" id="board">
+          <svg class="tree-svg" id="tree-svg" aria-hidden="true"></svg>
+          <div class="t-node" data-depth="0">
+            <div class="node-root-rich" id="node-root">
+              ${cfg.kicker ? `<div class="rr-kicker">${esc(cfg.kicker)}</div>` : ''}
+              <div class="rr-title">${esc(cfg.title)}</div>
+              ${cfg.subtitle ? `<div class="rr-sub">${esc(cfg.subtitle)}</div>` : ''}
+            </div>
+            <div class="t-children gap-root">${TREE.map(n => renderNode(n, 1)).join('')}</div>
+          </div>
+        </div>
+      `;
+      // Redraw brackets once any embedded diagram finishes loading
+      world.querySelectorAll('.mm-fig img').forEach(img => {
+        if (!img.complete) {
+          img.addEventListener('load', () => scheduleBrackets(), { once: true });
+        }
+      });
+    } else if (layoutMode === 'dual') {
       const leftNodes = TREE.filter(n => n.col === 'left');
       const rightNodes = TREE.filter(n => n.col === 'right');
       world.innerHTML = `
@@ -337,11 +518,11 @@
     else scheduleBrackets();
   }
 
-  function makeBracketPath(px, py, anchors, radius, isSpine) {
+  function makeBracketPath(px, py, anchors, radius, clsName) {
     if (!anchors.length) return '';
     const minX = Math.min(...anchors.map(a => a.x));
     const xMid = px + Math.max(10, (minX - px) * 0.45);
-    const cls = isSpine ? ' class="is-spine"' : '';
+    const cls = clsName ? ` class="${clsName}"` : '';
     const out = [`<path${cls} d="M ${px.toFixed(1)} ${py.toFixed(1)} L ${xMid.toFixed(1)} ${py.toFixed(1)}" />`];
 
     if (anchors.length === 1) {
@@ -350,7 +531,7 @@
         out.push(`<path${cls} d="M ${xMid.toFixed(1)} ${py.toFixed(1)} L ${c.x.toFixed(1)} ${c.y.toFixed(1)}" />`);
       } else {
         const dir = c.y > py ? 1 : -1;
-        const r = Math.min(radius, Math.abs(c.y - py) / 2, (c.x - xMid) * 0.45);
+        const r = Math.min(radius, Math.abs(c.y - py) / 2, Math.max(2, (c.x - xMid) * 0.45));
         out.push(`<path${cls} d="M ${xMid.toFixed(1)} ${py.toFixed(1)} L ${xMid.toFixed(1)} ${(c.y - dir * r).toFixed(1)} Q ${xMid.toFixed(1)} ${c.y.toFixed(1)} ${(xMid + r).toFixed(1)} ${c.y.toFixed(1)} L ${c.x.toFixed(1)} ${c.y.toFixed(1)}" />`);
       }
       return out.join('');
@@ -360,14 +541,14 @@
     const last = anchors[anchors.length - 1];
 
     if (first.y < py - 1) {
-      const rT = Math.min(radius, (py - first.y) * 0.48, (first.x - xMid) * 0.48);
+      const rT = Math.min(radius, (py - first.y) * 0.48, Math.max(2, (first.x - xMid) * 0.48));
       out.push(`<path${cls} d="M ${xMid.toFixed(1)} ${py.toFixed(1)} L ${xMid.toFixed(1)} ${(first.y + rT).toFixed(1)} Q ${xMid.toFixed(1)} ${first.y.toFixed(1)} ${(xMid + rT).toFixed(1)} ${first.y.toFixed(1)} L ${first.x.toFixed(1)} ${first.y.toFixed(1)}" />`);
     } else {
       out.push(`<path${cls} d="M ${xMid.toFixed(1)} ${first.y.toFixed(1)} L ${first.x.toFixed(1)} ${first.y.toFixed(1)}" />`);
     }
 
     if (last.y > py + 1) {
-      const rB = Math.min(radius, (last.y - py) * 0.48, (last.x - xMid) * 0.48);
+      const rB = Math.min(radius, (last.y - py) * 0.48, Math.max(2, (last.x - xMid) * 0.48));
       out.push(`<path${cls} d="M ${xMid.toFixed(1)} ${py.toFixed(1)} L ${xMid.toFixed(1)} ${(last.y - rB).toFixed(1)} Q ${xMid.toFixed(1)} ${last.y.toFixed(1)} ${(xMid + rB).toFixed(1)} ${last.y.toFixed(1)} L ${last.x.toFixed(1)} ${last.y.toFixed(1)}" />`);
     } else {
       out.push(`<path${cls} d="M ${xMid.toFixed(1)} ${last.y.toFixed(1)} L ${last.x.toFixed(1)} ${last.y.toFixed(1)}" />`);
@@ -381,6 +562,25 @@
       out.push(`<path${cls} d="M ${xMid.toFixed(1)} ${c.y.toFixed(1)} L ${c.x.toFixed(1)} ${c.y.toFixed(1)}" />`);
     }
     return out.join('');
+  }
+
+  // Classic BOK26-style right-facing curly brace "}" summarizing sibling children
+  function makeRightCurlyBrace(xBase, yTop, yBot, xTip) {
+    const h = yBot - yTop;
+    if (h < 18) return '';
+    const yMid = (yTop + yBot) / 2;
+    const xArm = xBase + (xTip - xBase) * 0.52;
+    const r = Math.min(11, h * 0.16, (xArm - xBase) * 0.9);
+    const d = [
+      `M ${xBase.toFixed(1)} ${yTop.toFixed(1)}`,
+      `Q ${xArm.toFixed(1)} ${yTop.toFixed(1)} ${xArm.toFixed(1)} ${(yTop + r).toFixed(1)}`,
+      `L ${xArm.toFixed(1)} ${(yMid - r).toFixed(1)}`,
+      `Q ${xArm.toFixed(1)} ${yMid.toFixed(1)} ${xTip.toFixed(1)} ${yMid.toFixed(1)}`,
+      `Q ${xArm.toFixed(1)} ${yMid.toFixed(1)} ${xArm.toFixed(1)} ${(yMid + r).toFixed(1)}`,
+      `L ${xArm.toFixed(1)} ${(yBot - r).toFixed(1)}`,
+      `Q ${xArm.toFixed(1)} ${yBot.toFixed(1)} ${xBase.toFixed(1)} ${yBot.toFixed(1)}`
+    ].join(' ');
+    return `<path class="is-summary-brace" d="${d}" />`;
   }
 
   function makeLeftSpine(anchors, radius) {
@@ -416,26 +616,55 @@
       return {
         x: (r.left - bRect.left) / zoom,
         right: (r.right - bRect.left) / zoom,
+        top: (r.top - bRect.top) / zoom,
+        bottom: (r.bottom - bRect.top) / zoom,
         y: (r.top + r.height / 2 - bRect.top) / zoom
       };
     };
 
     const paths = [];
+    const richVisual = IS_RICH && !skeletonMode;
 
     board.querySelectorAll('.t-node').forEach(nodeEl => {
       const chWrap = nodeEl.querySelector(':scope > .t-children');
       if (!chWrap) return;
-      const pBtn = nodeEl.querySelector(':scope > button, :scope > .node-root');
+      const pBtn = nodeEl.querySelector(':scope > button, :scope > .node-root, :scope > .node-root-rich');
       if (!pBtn) return;
+      const leadEl = richVisual ? nodeEl.querySelector(':scope > .mm-lead-media') : null;
       const p = box(pBtn);
-      const childBtns = [...chWrap.querySelectorAll(':scope > .t-node > button, :scope > .t-node > .node-root')];
-      if (!childBtns.length) return;
+      const childEls = [...chWrap.querySelectorAll(':scope > .t-node > button, :scope > .t-node > .node-root, :scope > .t-node > .mm-fig, :scope > .t-node > .mm-table-card, :scope > .t-node > .mm-example-card')];
+      const visibleChildren = childEls.filter(el => el.offsetParent !== null);
+      if (!visibleChildren.length) return;
+
       const depth = Number(nodeEl.dataset.depth || 1);
-      const childAnchors = childBtns.map(btn => {
-        const cb = box(btn);
+      const cls = IS_RICH ? (depth === 0 ? 'is-rich-root' : 'is-rich-line') : (depth === 0 ? 'is-spine' : '');
+      const childAnchors = visibleChildren.map(el => {
+        const cb = box(el);
         return { x: cb.x, y: cb.y };
       });
-      paths.push(makeBracketPath(p.right, p.y, childAnchors, depth === 0 ? 10 : 7, depth === 0));
+
+      if (leadEl && leadEl.offsetParent !== null) {
+        const lb = box(leadEl);
+        paths.push(`<path class="${cls}" d="M ${p.right.toFixed(1)} ${p.y.toFixed(1)} L ${lb.x.toFixed(1)} ${lb.y.toFixed(1)}" />`);
+        paths.push(makeBracketPath(lb.right, lb.y, childAnchors, 9, cls));
+      } else {
+        paths.push(makeBracketPath(p.right, p.y, childAnchors, depth === 0 ? 11 : 8, cls));
+      }
+
+      // Draw right-facing curly brace "}" toward .mm-summary
+      if (richVisual) {
+        const rightRail = nodeEl.querySelector(':scope > .mm-right-rail');
+        const sumEl = rightRail ? rightRail.querySelector('[data-summary-target]') : null;
+        if (sumEl && sumEl.offsetParent !== null) {
+          const cb = box(chWrap);
+          const sb = box(sumEl);
+          const xBase = cb.right + 7;
+          const xTip = sb.x - 5;
+          if (xTip > xBase + 8) {
+            paths.push(makeRightCurlyBrace(xBase, cb.top + 6, cb.bottom - 6, xTip));
+          }
+        }
+      }
     });
 
     board.querySelectorAll('[data-spine-col]').forEach(colEl => {
@@ -481,19 +710,80 @@
     const vh = vp.clientHeight;
     const bw = board.scrollWidth;
     const bh = board.scrollHeight;
-    const topSafe = vw <= 760 ? 50 : 44;
-    const botSafe = vw <= 760 ? 94 : 52;
-    const padX = vw <= 760 ? 10 : 20;
+    const topSafe = vw <= 760 ? 50 : 48;
+    const botSafe = vw <= 760 ? 94 : 56;
+    const padX = vw <= 760 ? 12 : 24;
     const availH = Math.max(200, vh - topSafe - botSafe);
     const fit = Math.min((vw - padX) / bw, availH / bh, 1.05);
-    zoom = Math.max(0.28, Number(fit.toFixed(3)));
-    tx = Math.max(6, (vw - bw * zoom) / 2);
+    const minZ = IS_RICH ? 0.10 : 0.28;
+    zoom = Math.max(minZ, Number(fit.toFixed(3)));
+    tx = Math.max(8, (vw - bw * zoom) / 2);
     ty = topSafe + Math.max(0, (availH - bh * zoom) / 2);
     applyTransform(!skipBracketRedraw);
   }
 
+  function offsetInBoard(el, board) {
+    let x = 0, y = 0, cur = el;
+    while (cur && cur !== board) {
+      x += cur.offsetLeft;
+      y += cur.offsetTop;
+      cur = cur.offsetParent;
+    }
+    return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+  }
+
+  // Comfortable initial reading view for infinite rich whiteboards (centers on target module or first module)
+  function focusRichModule(modId, skipBracketRedraw) {
+    const board = document.getElementById('board');
+    if (!board) return;
+    const vw = vp.clientWidth;
+    const vh = vp.clientHeight;
+    const topSafe = vw <= 760 ? 92 : 94;
+    const botSafe = vw <= 760 ? 104 : 62;
+    const availH = Math.max(240, vh - topSafe - botSafe);
+
+    if (modId === '__root__') {
+      fitToViewport(skipBracketRedraw);
+      document.querySelectorAll('.hud-mod-btn').forEach(b => {
+        b.classList.toggle('is-active', b.dataset.jumpMod === '__root__');
+      });
+      return;
+    }
+
+    const targetId = modId || (TREE[0] && TREE[0].id);
+    const modEl = targetId ? board.querySelector(`[data-node-id="${targetId}"]`) : null;
+    if (!modEl) {
+      fitToViewport(skipBracketRedraw);
+      return;
+    }
+
+    const m = offsetInBoard(modEl, board);
+    const fitMod = Math.min((vw - 44) / Math.max(1, m.w), availH / Math.max(1, m.h));
+    const minRead = vw <= 760 ? 0.45 : 0.64;
+    const maxRead = vw <= 760 ? 0.72 : 0.86;
+    zoom = Number(Math.max(minRead, Math.min(maxRead, fitMod)).toFixed(3));
+    applyTransform(false);
+
+    const mr = modEl.getBoundingClientRect();
+    const targetLeft = vw <= 760 ? 12 : 24;
+    const targetTop = topSafe + Math.max(0, (availH - mr.height) / 2);
+    tx = Math.round(tx + (targetLeft - mr.left));
+    ty = Math.round(ty + (targetTop - mr.top));
+    applyTransform(!skipBracketRedraw);
+
+    document.querySelectorAll('.hud-mod-btn').forEach(b => {
+      b.classList.toggle('is-active', b.dataset.jumpMod === targetId);
+    });
+  }
+
+  function focusRichReadingView(skipBracketRedraw) {
+    focusRichModule(TREE[0] && TREE[0].id, skipBracketRedraw);
+  }
+
   function zoomAtPoint(nextZoom, clientX, clientY) {
-    const clamped = Math.max(0.25, Math.min(2.2, Number(nextZoom.toFixed(3))));
+    const minZ = IS_RICH ? 0.10 : 0.25;
+    const maxZ = IS_RICH ? 2.5 : 2.2;
+    const clamped = Math.max(minZ, Math.min(maxZ, Number(nextZoom.toFixed(3))));
     const ratio = clamped / zoom;
     tx = clientX - (clientX - tx) * ratio;
     ty = clientY - (clientY - ty) * ratio;
@@ -507,8 +797,21 @@
     document.getElementById('st-s').textContent = state.stuck.size;
     const allL1Collapsed = TREE.every(m => collapsed.has(m.id));
     const allL2Collapsed = !allL1Collapsed && TREE.every(m => (m.children || []).every(g => !(g.children && g.children.length) || collapsed.has(g.id)));
-    document.getElementById('btn-collapse').textContent = allL1Collapsed ? '全部展开' : allL2Collapsed ? '折叠到一节' : '折叠到二级';
-    document.getElementById('btn-layout').textContent = layoutMode === 'dual' ? '切单树' : '双栏全览';
+    document.getElementById('btn-collapse').textContent = allL1Collapsed ? '全部展开' : allL2Collapsed ? '折叠到一级' : '折叠到二级';
+    const layoutBtn = document.getElementById('btn-layout');
+    if (layoutBtn) layoutBtn.textContent = layoutMode === 'dual' ? '切单树' : '双栏全览';
+    const skelBtn = document.getElementById('btn-skeleton');
+    if (skelBtn) {
+      skelBtn.textContent = skeletonMode ? '图文强化' : '极简骨架';
+      skelBtn.setAttribute('aria-pressed', String(skeletonMode));
+    }
+    const examsBtn = document.getElementById('btn-exams');
+    if (examsBtn) {
+      examsBtn.setAttribute('aria-pressed', String(showExams));
+      examsBtn.style.display = skeletonMode ? 'none' : '';
+    }
+    document.body.classList.toggle('mode-skeleton', skeletonMode);
+    document.body.classList.toggle('hide-exams', !showExams);
     document.getElementById('btn-red').setAttribute('aria-pressed', String(onlyRed));
     document.getElementById('btn-blur').setAttribute('aria-pressed', String(recallBlur));
     document.body.classList.toggle('recall-blur', recallBlur);
@@ -530,11 +833,11 @@
     const rightSafe = vw - 28;
 
     const r = el.getBoundingClientRect();
-    const minReadable = vw <= 760 ? 0.88 : 0.72;
+    const minReadable = vw <= 760 ? 0.72 : 0.76;
     const isClipped = r.left < leftSafe || r.right > rightSafe || r.top < topSafe || r.bottom > botSafe;
 
     if (isClipped || (forceReadableZoom && zoom < minReadable)) {
-      const nextZoom = forceReadableZoom ? Math.max(zoom, vw <= 760 ? 0.92 : 0.84) : zoom;
+      const nextZoom = forceReadableZoom ? Math.max(zoom, vw <= 760 ? 0.85 : 0.86) : zoom;
       const cx = r.left + r.width / 2;
       const cy = r.top + r.height / 2;
       const wx = (cx - tx) / zoom;
@@ -565,27 +868,29 @@
     renderTree();
   }
 
-  function jumpToOriginalNote(leaf) {
+  function jumpToOriginalNote(href, nodeId, label) {
     try {
       sessionStorage.setItem(RETURN_KEY, JSON.stringify({
         layoutMode,
+        skeletonMode,
+        showExams,
         zoom,
         tx,
         ty,
         collapsed: [...collapsed],
         onlyRed,
         recallBlur,
-        focusId: leaf.id,
+        focusId: nodeId || '',
         vw: vp.clientWidth,
         vh: vp.clientHeight,
         ts: Date.now()
       }));
     } catch {}
 
-    const hashIdx = leaf.href.indexOf('#');
-    const base = hashIdx >= 0 ? leaf.href.slice(0, hashIdx) : leaf.href;
-    const hash = hashIdx >= 0 ? leaf.href.slice(hashIdx + 1) : '';
-    const qs = `from=${encodeURIComponent(cfg.pageFile)}&node=${encodeURIComponent(leaf.id)}&label=${encodeURIComponent(leaf.bold)}`;
+    const hashIdx = href.indexOf('#');
+    const base = hashIdx >= 0 ? href.slice(0, hashIdx) : href;
+    const hash = hashIdx >= 0 ? href.slice(hashIdx + 1) : '';
+    const qs = `from=${encodeURIComponent(cfg.pageFile)}&node=${encodeURIComponent(nodeId || '')}&label=${encodeURIComponent(label || cfg.title)}`;
     const sep = base.includes('?') ? '&' : '?';
     window.location.href = `${base}${sep}${qs}${hash ? '#' + hash : ''}`;
   }
@@ -604,7 +909,7 @@
     let saved = null;
     try {
       const raw = JSON.parse(sessionStorage.getItem(RETURN_KEY) || 'null');
-      if (raw && raw.focusId && Date.now() - Number(raw.ts || 0) < 6 * 3600 * 1000) {
+      if (raw && Date.now() - Number(raw.ts || 0) < 6 * 3600 * 1000) {
         saved = raw;
       }
     } catch {}
@@ -617,7 +922,11 @@
 
     if (targetFocus) {
       if (saved && (saved.focusId === targetFocus || isBackNav)) {
-        layoutMode = saved.layoutMode === 'single' ? 'single' : 'dual';
+        if (!IS_RICH) layoutMode = saved.layoutMode === 'single' ? 'single' : 'dual';
+        if (IS_RICH) {
+          skeletonMode = !!saved.skeletonMode;
+          showExams = saved.showExams !== false;
+        }
         onlyRed = !!saved.onlyRed;
         recallBlur = !!saved.recallBlur;
         collapsed = new Set(Array.isArray(saved.collapsed) ? saved.collapsed : []);
@@ -642,7 +951,8 @@
         drawAllBrackets();
         ensureLeafVisible(targetFocus, false);
       } else {
-        fitToViewport(true);
+        if (IS_RICH && !skeletonMode) focusRichReadingView(true);
+        else fitToViewport(true);
         drawAllBrackets();
         ensureLeafVisible(targetFocus, true);
       }
@@ -658,13 +968,14 @@
     }
 
     renderTree(true);
-    fitToViewport(false);
+    if (IS_RICH && !skeletonMode) focusRichReadingView(false);
+    else fitToViewport(false);
   }
 
   // Pan & Zoom
   let drag = null;
   vp.addEventListener('mousedown', e => {
-    if (e.button !== 0 || e.target.closest('button, a, input')) return;
+    if (e.button !== 0 || e.target.closest('button, a, input, summary, .mm-fig')) return;
     drag = { sx: e.clientX, sy: e.clientY, tx0: tx, ty0: ty, moved: false };
     vp.classList.add('grabbing');
   });
@@ -679,7 +990,7 @@
   });
   window.addEventListener('mouseup', e => {
     if (!drag) return;
-    const wasClick = !drag.moved && !e.target.closest('button, a');
+    const wasClick = !drag.moved && !e.target.closest('button, a, summary, .mm-fig');
     drag = null;
     vp.classList.remove('grabbing');
     if (wasClick) clearReturnedHighlight();
@@ -691,7 +1002,7 @@
 
   let touchState = null;
   vp.addEventListener('touchstart', e => {
-    if (e.target.closest('button, a')) return;
+    if (e.target.closest('button, a, summary')) return;
     if (e.touches.length === 1) {
       touchState = { mode: 'pan', x: e.touches[0].clientX, y: e.touches[0].clientY, tx0: tx, ty0: ty };
     } else if (e.touches.length === 2) {
@@ -721,7 +1032,22 @@
   }, { passive: true });
   vp.addEventListener('touchend', () => { touchState = null; });
 
+  // Redraw SVG brackets whenever an exam answer <details> toggles height
+  world.addEventListener('toggle', () => scheduleBrackets(), true);
+
   world.addEventListener('click', e => {
+    const fig = e.target.closest('[data-lightbox]');
+    if (fig) {
+      openLightbox(fig.dataset.lightbox, fig.dataset.cap);
+      return;
+    }
+
+    const examJump = e.target.closest('[data-exam-jump]');
+    if (examJump) {
+      jumpToOriginalNote(examJump.dataset.examJump, examJump.dataset.examNode, examJump.dataset.examLabel);
+      return;
+    }
+
     const leafBtn = e.target.closest('[data-leaf]');
     if (leafBtn) {
       const leafId = leafBtn.dataset.leaf;
@@ -740,7 +1066,7 @@
         return;
       }
 
-      jumpToOriginalNote(leaf);
+      jumpToOriginalNote(leaf.href, leaf.id, leaf.bold);
       return;
     }
 
@@ -762,16 +1088,69 @@
 
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
+      if (!lbEl.hidden) closeLightbox();
       toggleThemePop(false);
       clearReturnedHighlight();
     }
   });
 
-  document.getElementById('btn-layout').addEventListener('click', () => {
-    layoutMode = layoutMode === 'dual' ? 'single' : 'dual';
-    renderTree();
-    requestAnimationFrame(() => fitToViewport(false));
-  });
+  const btnLayout = document.getElementById('btn-layout');
+  if (btnLayout) {
+    btnLayout.addEventListener('click', () => {
+      layoutMode = layoutMode === 'dual' ? 'single' : 'dual';
+      renderTree();
+      requestAnimationFrame(() => fitToViewport(false));
+    });
+  }
+
+  const btnSkeleton = document.getElementById('btn-skeleton');
+  if (btnSkeleton) {
+    btnSkeleton.addEventListener('click', () => {
+      skeletonMode = !skeletonMode;
+      renderTree(true);
+      requestAnimationFrame(() => {
+        if (skeletonMode) fitToViewport(false);
+        else focusRichReadingView(false);
+      });
+      showToast(skeletonMode ? '已切至：极简一屏骨架' : '已切至：图文强化白板');
+    });
+  }
+
+  const btnExams = document.getElementById('btn-exams');
+  if (btnExams) {
+    btnExams.addEventListener('click', () => {
+      showExams = !showExams;
+      updateHudStats();
+      scheduleBrackets();
+      showToast(showExams ? '已展开右侧 408 真题卡' : '已隐藏真题卡');
+    });
+  }
+
+  const hudMods = document.getElementById('hud-modules');
+  if (hudMods) {
+    hudMods.addEventListener('click', e => {
+      const btn = e.target.closest('[data-jump-mod]');
+      if (!btn) return;
+      const id = btn.dataset.jumpMod;
+      if (id !== '__root__' && collapsed.has(id)) {
+        collapsed.delete(id);
+        renderTree(true);
+      }
+      focusRichModule(id, false);
+    });
+  }
+
+  const btnReadView = document.getElementById('btn-readview');
+  if (btnReadView) {
+    btnReadView.addEventListener('click', () => {
+      if (skeletonMode) {
+        skeletonMode = false;
+        renderTree(true);
+      }
+      focusRichReadingView(false);
+    });
+  }
+
   document.getElementById('btn-zin').addEventListener('click', () => {
     zoomAtPoint(zoom * 1.15, vp.clientWidth / 2, vp.clientHeight / 2);
   });
@@ -801,7 +1180,11 @@
       });
     }
     renderTree();
-    requestAnimationFrame(() => fitToViewport(false));
+    requestAnimationFrame(() => {
+      if (IS_RICH && !skeletonMode && !allL1Collapsed) fitToViewport(false);
+      else if (IS_RICH && !skeletonMode) focusRichReadingView(false);
+      else fitToViewport(false);
+    });
   });
   document.getElementById('search-box').addEventListener('input', e => {
     searchText = e.target.value;
@@ -809,7 +1192,10 @@
     renderTree();
   });
 
-  window.addEventListener('resize', () => fitToViewport(false));
+  window.addEventListener('resize', () => {
+    if (IS_RICH && !skeletonMode) scheduleBrackets();
+    else fitToViewport(false);
+  });
   window.addEventListener('storage', e => {
     if (e.key === PREFS_KEY) applyStoredPrefs();
   });

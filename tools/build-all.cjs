@@ -54,9 +54,24 @@ function copyDirSync(src, dst) {
   }
 }
 
+const MINDMAP_ASSET_DIRS = [
+  ['notes/network/复盘/assets/chapter1', 'study/mm-assets/network/ch1'],
+  ['notes/network/复盘/assets/第2章-物理层', 'study/mm-assets/network/ch2'],
+  ['notes/network/复盘/assets/第3章-数据链路层', 'study/mm-assets/network/ch3'],
+  ['notes/network/复盘/assets/第4章-网络层', 'study/mm-assets/network/ch4'],
+  ['notes/network/复盘/assets/第5章-传输层', 'study/mm-assets/network/ch5'],
+  ['notes/network/复盘/assets/第6章-应用层', 'study/mm-assets/network/ch6']
+];
+
 function main() {
   fs.rmSync(distDir, { recursive: true, force: true });
   copyDirSync(publicDir, distDir);
+  for (const [relSrc, relDst] of MINDMAP_ASSET_DIRS) {
+    const src = path.join(root, ...relSrc.split('/'));
+    if (fs.existsSync(src)) {
+      copyDirSync(src, path.join(distDir, ...relDst.split('/')));
+    }
+  }
 
   const reportsBySubject = new Map();
   const mermaidFiles = [];
