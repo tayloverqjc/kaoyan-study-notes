@@ -4,18 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f5f3ed">
-  <meta name="description" content="408计算机网络第3章数据链路层全屏思维导图，覆盖考纲重点与2009–2026真题。">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>3</text></svg>">
-  <title>第3章 数据链路层 · 考纲与真题思维导图</title>
+  <meta name="description" content="408计算机网络第3章数据链路层双模式强化思维导图白板：严格对齐教材与复盘笔记原话，内嵌15张核心原理图、对比表、右括号总结、必背便签与16道408真题精选。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232563eb'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>3</text></svg>">
+  <title>第3章 数据链路层 · 图文强化思维导图白板</title>
   <script src="study/theme-boot.js?v=1"></script>
   <link rel="stylesheet" href="study/mindmap.css?v=5">
 </head>
 <body>
   <script>
   window.MINDMAP_CONFIG = {
+    rich: true,
     chapter: 3,
     pageFile: 'network-ch3-mindmap.html',
+    kicker: '408 COMPUTER NETWORK · CH03 WHITEBOARD',
     title: '第3章 数据链路层',
+    subtitle: '解决相邻节点间以帧为单位的数据传输：封装成帧与透明传输 → 码距/CRC/海明差错控制 → 滑动窗口与 S-W/GBN/SR 可靠传输 → 广播信道介质访问控制 → 以太网、802.11、VLAN、PPP 与交换机自学习。',
     noteHref: 'network-3.html',
     hubHref: 'network-0.html',
     storageKey: 'notes-network-ch3-mindmap-v1',
@@ -28,271 +31,1043 @@
       { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
     ],
     tree: [
+      /* ==================== 3.1–3.2 数据链路层功能与组帧 ==================== */
       {
-        id: '3.1',
-        title: '3.1 链路层功能',
-        col: 'left',
+        id: 'm1',
+        navLabel: '1 组帧与透明',
+        title: '3.1–3.2 链路层功能、组帧与透明传输',
+        sub: '相邻节点间以帧为单位的逻辑通信：链路/数据链路/层次边界 → 三类服务模型 → 四种组帧方法与透明传输。',
         children: [
           {
-            id: '3.1-pos',
-            title: '地位与分层边界',
-            children: [
-              { id: 'c3-01', bold: '链路与数据链路', text: '链路是物理线路，加协议网卡成数据链路；逐跳换MAC', tag: '大纲', kw: 'MAC子层 帧', href: 'network-3.html#section-4' },
-              { id: 'c3-02', bold: '层次功能边界', text: '电路管理与隐蔽细节属物理层；拥塞控制属网络/传输层', tag: '边界', kw: '链路管理', href: 'network-3.html#section-12' },
-              { id: 'c3-03', bold: '成帧与MTU', text: 'MTU是载荷上限非整帧长；透明传输防数据误作定界符', tag: '大纲', kw: '1500B 帧定界', href: 'network-3.html#section-8' }
-            ]
-          },
-          {
-            id: '3.1-svc',
-            title: '流控与三类服务',
-            children: [
-              { id: 'c3-04', bold: '流控vs拥塞', text: '链路流控限邻跳发速防溢出；端到端流控在传输层', tag: '边界', kw: '滑动窗口', href: 'network-3.html#section-9' },
-              { id: 'c3-05', bold: '三类服务模型', text: '可靠或重实时选无确认无连接；编号防重、超时防丢', tag: '大纲', kw: '以帧编号 802.11 以太网', href: 'network-3.html#section-10' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '3.2',
-        title: '3.2 组帧与透明传输',
-        col: 'left',
-        children: [
-          {
-            id: '3.2-byte',
-            title: '字符与字节法',
-            children: [
-              { id: 'c3-06', bold: '字符计数法', text: '首部计总字节含自身；计数字段出错致后续多帧失步', tag: '大纲', kw: '失步', href: 'network-3.html#section-16' },
-              { id: 'c3-07', bold: '字节填充法', text: '载荷遇定界符或ESC前均插ESC；收端见ESC即删', tag: '大纲', kw: 'SOH EOT FLAG', href: 'network-3.html#section-17' }
-            ]
-          },
-          {
-            id: '3.2-bit',
-            title: '比特与违规法',
-            children: [
-              { id: 'c3-08', bold: '零比特填充', text: '仅扫载荷，见连续5个1立刻填0；不对首尾标志填充', tag: '2013', red: true, kw: '2013-T37 01111110 HDLC', href: 'network-3.html#section-18' },
-              { id: 'c3-09', bold: '违规编码法', text: '用曼彻斯特无跳变非法电平定界；零开销但依编码冗余', tag: '大纲', kw: '高高 低低', href: 'network-3.html#section-19' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '3.3',
-        title: '3.3 差错控制编码',
-        col: 'left',
-        children: [
-          {
-            id: '3.3-dist',
-            title: '码距与能力定理',
-            children: [
-              { id: 'c3-10', bold: '码距检纠上限', text: '码字两两异或取最小d；纯检d-1、纯纠⌊(d-1)/2⌋', tag: '2025', red: true, kw: '2025-T34 海明距离 d=4', href: 'network-3.html#section-26' },
-              { id: 'c3-11', bold: '边纠边检模式', text: '须满足d≥e+c+1(e>c)；扩展海明d=4可纠1检2', tag: '边界', kw: 'SEC-DED', href: 'network-3.html#section-26' }
-            ]
-          },
-          {
-            id: '3.3-det',
-            title: '检错：奇偶与 CRC',
-            children: [
-              { id: 'c3-12', bold: '奇偶校验码', text: '码距恒为2；只能检奇数位错，漏检双位错且无法纠错', tag: '大纲', kw: '1的个数', href: 'network-3.html#section-28' },
-              { id: 'c3-13', bold: 'CRC发送特性', text: '数据补r个0模2除G得r位FCS；检全单位及≤r突发错', tag: '大纲', kw: '生成多项式 移位寄存器', href: 'network-3.html#section-30' },
-              { id: 'c3-14', bold: 'CRC接收校验', text: '接收端直接除完整码字勿再补0；余0仅表未检出差错', tag: '2023', red: true, kw: '2023-T37 模2除', href: 'network-3.html#section-31' }
-            ]
-          },
-          {
-            id: '3.3-cor',
-            title: '纠错：海明码',
-            children: [
-              { id: 'c3-15', bold: '海明不等式', text: '求最少校验位k用2^k≥n+k+1；绝勿用码距公式反推', tag: '2013·错', red: true, kw: '2013 校验位', href: 'network-3.html#section-32' },
-              { id: 'c3-16', bold: '海明构造纠错', text: '校验位放2^(i-1)处，按位号二进制分组；校验子指错位', tag: '大纲', kw: '纠1位 校验子', href: 'network-3.html#section-33' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '3.4',
-        title: '3.4 流控与可靠传输',
-        col: 'left',
-        children: [
-          {
-            id: '3.4-win',
-            title: '滑动窗口与序号',
-            children: [
-              { id: 'c3-17', bold: '滑动窗口属性', text: '链路层窗口大小通常固定；最多有WT帧已发未确认', tag: '大纲', kw: '在途帧', href: 'network-3.html#section-40' },
-              { id: 'c3-18', bold: '序号位数铁律', text: '总约束WT+WR≤2^m；算出WT=8时3位不够至少4位', tag: '2015·错', red: true, kw: '2015-T35', href: 'network-3.html#section-41' },
-              { id: 'c3-19', bold: '窗上限防重叠', text: 'GBN留1空号WT≤2^m-1；SR等窗≤2^(m-1)', tag: '2019', red: true, kw: '2019-T35 8-5=3', href: 'network-3.html#section-41' }
-            ]
-          },
-          {
-            id: '3.4-arq',
-            title: '三种 ARQ 协议',
+            id: 'm1-func',
+            title: '链路层地位、层次边界与三类服务',
+            summary: {
+              title: '层次边界与服务模型速判',
+              text: '物理层管@@比特信号、电路管理与隐蔽物理传输细节@@；数据链路层管==相邻节点一跳的成帧、透明传输、差错检测与介质访问控制（MAC）==；网络/传输层管@@路由、拥塞控制与端到端进程流量控制@@。只检错不重传仍是不可靠的尽最大努力交付。'
+            },
             children: [
               {
-                id: '3.4-sw',
-                title: '停止-等待 S-W',
-                children: [
-                  { id: 'c3-20', bold: '停止-等待SW', text: 'WT=WR=1、1位序号防重；大RTT卫星利用率极低恒<1', tag: '2018', red: true, kw: '2018-T36 2020-T36', href: 'network-3.html#section-43' }
-                ]
+                id: 'c3-01',
+                bold: '链路、数据链路与帧',
+                text: '@@链路@@是相邻节点间的无源物理线路；@@数据链路@@是在物理链路上加上实现通信协议的软硬件（通常由网卡实现）形成的逻辑通信通道；协议数据单元为==帧（Frame）==。端到端路径上源/目的 IP 通常不变，而帧及其源/目的 MAC 地址逐跳改变。',
+                short: '链路是物理线路，加协议网卡成数据链路；逐跳换MAC',
+                tag: '大纲',
+                kw: 'MAC子层 帧 点对点信道 广播信道',
+                href: 'network-3.html#section-4'
               },
               {
-                id: '3.4-gbn',
-                title: '后退 N 帧 GBN',
-                children: [
-                  { id: 'c3-21', bold: 'GBN累计确认', text: 'WR=1丢失序帧；收ACK k划掉0~k，超时全退重传', tag: '2009·错', red: true, kw: '2009-T35', href: 'network-3.html#section-44' },
-                  { id: 'c3-22', bold: '双向捎带帧', text: 'x看窗余量，y随按序收帧推进；超时重传必须刷新y', tag: '2017大题·错', red: true, kw: '2017-T47 S_2,3', href: 'network-3.html#section-52' }
-                ]
+                id: 'c3-02',
+                bold: '层次功能边界',
+                text: '数据链路层负责组帧、在不可靠物理连接上提供节点到节点传输及控制对物理介质的访问（MAC 子层）；!!电路管理与为终端节点隐蔽物理传输细节属于物理层!!，!!拥塞控制属于网络层或传输层!!。',
+                short: '电路管理与隐蔽细节属物理层；拥塞控制属网络/传输层',
+                tag: '边界',
+                kw: '链路管理 电路管理 拥塞控制',
+                href: 'network-3.html#section-12'
               },
               {
-                id: '3.4-sr',
-                title: '选择重传 SR',
-                children: [
-                  { id: 'c3-23', bold: 'SR缓存独确', text: 'WR>1缓存失序帧、独立确认与计时；错谁只重传谁', tag: '2011', red: true, kw: '2011-T35 非累积', href: 'network-3.html#section-45' },
-                  { id: 'c3-24', bold: 'SR左边界停滞', text: '先收后续ACK左边界不动，可发空余号，超时只重左帧', tag: '2024', red: true, kw: '2024-T37 失序ACK', href: 'network-3.html#section-45' }
-                ]
+                id: 'c3-03',
+                bold: '封装成帧、MTU 与透明传输',
+                text: '封装成帧是在网络层数据前后加首尾部实现帧定界；==MTU 是帧中数据载荷（Payload）允许的最大长度==（以太网 `1500B`），!!绝非整个帧的最大长度!!；透明传输保证数据中任意比特或字符组合都不会被误判为定界符等控制信息。',
+                short: 'MTU是载荷上限非整帧长；透明传输防数据误作定界符',
+                tag: '大纲',
+                kw: '1500B 帧定界 透明传输',
+                href: 'network-3.html#section-8'
+              },
+              {
+                id: 'c3-04',
+                bold: '流量控制 vs 拥塞控制',
+                text: '流量控制实质是对==发送方发送速率的限制==，防止接收方缓存溢出（点对点局部匹配）：数据链路层控制@@相邻节点一跳@@且窗口通常固定，传输层控制@@端到端进程间@@且窗口动态通告；拥塞控制解决全局网络过载。',
+                short: '链路流控限邻跳发速防溢出；端到端流控在传输层',
+                tag: '边界',
+                kw: '滑动窗口 相邻节点 端到端',
+                href: 'network-3.html#section-9'
+              },
+              {
+                id: 'c3-05',
+                bold: '差错类型与三类服务模型',
+                text: '位错用 CRC 检测；帧错（丢失、重复、失序）靠==计时器超时重发（防丢失）==与==帧编号（防重复与失序）==。信道误码率极低或实时性要求极高（数据迟到比损坏更严重）时选用@@无确认的无连接服务@@；无线 802.11 采用@@有确认的无连接服务@@；只检错丢弃仍属不可靠服务。',
+                short: '可靠或重实时选无确认无连接；编号防重、超时防丢',
+                tag: '大纲',
+                kw: '帧编号 超时重传 802.11 以太网',
+                href: 'network-3.html#section-10'
               }
             ]
           },
           {
-            id: '3.4-util',
-            title: '信道利用率与速率',
-            children: [
-              { id: 'c3-25', bold: '流水线周期母', text: '分母是TD+RTT+TA，发传重叠；绝勿加WT·TD', tag: '2014·错', red: true, kw: '2014-T36', href: 'network-3.html#section-49' },
-              { id: 'c3-26', bold: '捎带与满载窗', text: '等长捎带分母2TD+RTT；满载先上取整WT再定序号位', tag: '2017/25', red: true, kw: '2012-T36 2017-T47 2025-T47', href: 'network-3.html#section-49' },
-              { id: 'c3-27', bold: '同位宽利用率', text: '3位序号WT为1/4/7；利用率SW≤SR≤GBN', tag: '2023', red: true, kw: '2023-T35', href: 'network-3.html#section-49' },
-              { id: 'c3-28', bold: '极值与净速率', text: '变长帧取L_min算满载窗；有效速率分子仅计净载荷', tag: '2010大题', red: true, kw: '2010-T47 1518B 1500B', href: 'network-3.html#section-50' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '3.5',
-        title: '3.5 介质访问控制',
-        col: 'right',
-        children: [
-          {
-            id: '3.5-static',
-            title: '静态信道划分',
-            children: [
-              { id: 'c3-29', bold: '静态信道划分', text: '无冲突；FDM模拟、TDM数字、STDM带址、WDM光', tag: '2013', red: true, kw: '2013-T36 CDMA', href: 'network-3.html#section-57' },
-              { id: 'c3-30', bold: 'TDM介质条件', text: '介质位速率>单路、频宽>复合信号；切勿跨量纲比大小', tag: '边界', kw: 'Hz b/s 量纲', href: 'network-3.html#section-57' },
-              { id: 'c3-31', bold: 'CDMA解码', text: '码片正交(内积0)；0→-1、1→+1，内积判±1或0', tag: '2014', red: true, kw: '2014-T37 规格化内积', href: 'network-3.html#section-58' }
-            ]
-          },
-          {
-            id: '3.5-dyn',
-            title: '随机与轮询访问',
-            children: [
-              { id: 'c3-32', bold: '随机访问冲突', text: '时隙ALOHA危险期减半；CSMA因传播时延仍会冲突', tag: '2013', red: true, kw: '2013-T36', href: 'network-3.html#section-60' },
-              { id: 'c3-33', bold: '三种坚持策略', text: '1-坚持忙时持续听易撞；非坚持随机等；p-坚持用时隙', tag: '大纲', kw: '时隙信道', href: 'network-3.html#section-61' },
-              { id: 'c3-34', bold: '令牌传递协议', text: '逻辑环物理星，重负载无冲突；半双工由源站回收帧', tag: '大纲', kw: '802.5 FDDI MAU', href: 'network-3.html#section-62' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '3.6',
-        title: '3.6 局域网技术',
-        col: 'right',
-        children: [
-          {
-            id: '3.6-eth',
-            title: '以太网与 CSMA/CD',
+            id: 'm1-frame',
+            title: '四种组帧方法与透明传输',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.7-零比特填充.jpg', caption: '图 3.7 零比特填充：发送端每连续 5 个 1 后填 0，接收端删 0 还原', width: 340 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: '四种组帧方法核心对比',
+                headers: ['组帧方法', '定界依据', '透明传输手段', '主要缺点或适用条件'],
+                rows: [
+                  ['@@字符计数法@@', '首部计数字段（含自身 `1B`）', '无特殊填充', '!!计数字段出错致后续多帧连续失步!!'],
+                  ['@@字节填充法@@', '特殊控制字符（`SOH/EOT/FLAG`）', '载荷遇定界符或 `ESC` 前插 ==ESC==', '面向字节；收端见 `ESC` 删除并保留下一字节'],
+                  ['@@零比特填充法@@', '固定比特串 `01111110`（如 HDLC）', '载荷遇==连续 5 个 1 后强制填 0==', '面向比特硬件扫描；绝不对首尾标志填充'],
+                  ['@@违规编码法@@', '物理层非法电平（如曼彻斯特无跳变）', '&&无须额外填充（零开销）&&', '!!仅适用于存在编码冗余的物理层环境!!']
+                ]
+              }
+            ],
             children: [
               {
-                id: '3.6-ethfmt',
-                title: '架构、服务与 V2 帧',
-                children: [
-                  { id: 'c3-35', bold: 'LAN与MAC', text: '802分MAC/LLC；48位MAC固化网卡，错单播静弃', tag: '大纲', kw: 'IEEE 802 三要素 全F', href: 'network-3.html#section-67' },
-                  { id: 'c3-36', bold: '以太网服务', text: '无连接不可靠，FCS检错即弃无ACK；10G仅全双工', tag: '2012', red: true, kw: '2012-T35 10Base-5', href: 'network-3.html#section-69' },
-                  { id: 'c3-37', bold: '以太网V2帧', text: '6目6源2类+46~1500+4FCS=64~1518B', tag: '2012大题', red: true, kw: '2012-T47 8B前导码 0800', href: 'network-3.html#section-74' }
-                ]
+                id: 'c3-06',
+                bold: '字符计数法',
+                text: '帧首部计数字段记录本帧总字节数（==包含计数字段自身占用的 1B==）；一旦计数字段因传输差错改变，接收方将无法定位下一帧起点，导致!!后续多帧连续失去同步!!。',
+                short: '首部计总字节含自身；计数字段出错致后续多帧失步',
+                tag: '大纲',
+                kw: '失步 计数字段',
+                href: 'network-3.html#section-16'
               },
               {
-                id: '3.6-cd',
-                title: 'CSMA/CD 核心计算',
-                children: [
-                  { id: 'c3-38', bold: '争用期与帧长', text: '仅半双工用；L_min=2τR，题给128B勿硬代64B', tag: '2009/15/19', red: true, kw: '2009-T37 2015-T36 2019-T36 51.2us', href: 'network-3.html#section-72' },
-                  { id: 'c3-39', bold: '碰撞与Hub距', text: '相遇τ/2、均检[τ,2τ)；Hub距v(L/2R-TH)', tag: '2016/22·错', red: true, kw: '2010-T47 2016-T36 2022-T47', href: 'network-3.html#section-72' },
-                  { id: 'c3-40', bold: '二进制退避', text: 'k=min(i,10)取0~2^k-1乘2τ；16次弃', tag: '2023/2025', red: true, kw: '2023-T36 2025-T35 1023', href: 'network-3.html#section-73' }
-                ]
+                id: 'c3-07',
+                bold: '字节填充法',
+                text: '以特殊控制字符（`SOH`、`EOT` 或 `FLAG`）标记首尾；发送方逐字节扫描载荷，==遇控制字符或转义字符 ESC 自身均在其前插入 ESC==；接收方遇 `ESC` 删除之，将其后紧邻字节按普通数据保留。',
+                short: '载荷遇定界符或ESC前均插ESC；收端见ESC即删',
+                tag: '大纲',
+                kw: 'SOH EOT FLAG ESC',
+                href: 'network-3.html#section-17'
+              },
+              {
+                id: 'c3-08',
+                bold: '零比特填充法',
+                text: '以 `01111110` 为首尾标志（HDLC、同步 PPP）：发送方仅扫描数据字段，==只要连续出现 5 个 1 立即强制在其后填 0==（!!不是等 6 个 1 才填，且不对首尾标志填充!!）；新填入的 `0` 打断连续 1 计数；接收方见 5 个连续 1 后跟 `0` 即删该 `0` 还原。',
+                short: '仅扫载荷，见连续5个1立刻填0；不对首尾标志填充',
+                tag: '2013',
+                red: true,
+                kw: '2013-T37 01111110 HDLC',
+                href: 'network-3.html#section-18'
+              },
+              {
+                id: 'c3-09',
+                bold: '违规编码法',
+                text: '利用物理层编码中不会表示正常数据的冗余信号定界（如曼彻斯特编码中无中间跳变的==高-高或低-低==非法电平组合），&&无须额外填充字符或比特&&，但依赖物理编码冗余。',
+                short: '用曼彻斯特无跳变非法电平定界；零开销但依编码冗余',
+                tag: '大纲',
+                kw: '高高 低低 曼彻斯特',
+                href: 'network-3.html#section-19'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 3.3 差错控制编码 ==================== */
+      {
+        id: 'm2',
+        navLabel: '2 差错控制',
+        title: '3.3 差错控制编码（码距、CRC 与海明码）',
+        sub: '利用冗余位发现并定位比特翻转：最小海明距离决定检纠上限 → 奇偶校验与 CRC 模 2 除法 → 海明不等式与单比特纠错。',
+        children: [
+          {
+            id: 'm2-dist',
+            title: '最小码距与检错/纠错能力定理',
+            sticky: {
+              title: '海明不等式 vs 最小码距防混铁律',
+              text: '① 求最少校验位数 `k`：必须用==海明不等式 `2^k ≥ n + k + 1`==（覆盖 `n+k` 个单比特错位 + 1 个无错态），!!绝勿用最小码距公式反推 `k`!!。\n② 求检/纠错能力：对编码集两两异或取最小码距 `d_min`——纯检 `d_min - 1` 位、纯纠 `⌊(d_min - 1)/2⌋` 位、边纠边检须 `d_min ≥ e + c + 1` (`e > c`)。'
+            },
+            exams: [
+              {
+                year: '2013·分类T1',
+                mistake: true,
+                nodeId: 'c3-15',
+                href: 'network-3.html#section-32',
+                q: '用海明码对长度为 `8` 位的数据进行检/纠错时，若能纠正一位错，则校验位数至少为？',
+                opts: ['A. 2', 'B. 3', 'C. 4', 'D. 5'],
+                ans: 'C',
+                explain: '信息位数 `n = 8`，代入海明不等式 `2^k ≥ n + k + 1 = 8 + k + 1`：`k = 3` 时 `8 < 12` 不足；`k = 4` 时 `16 ≥ 13` 满足，故至少需要 ==4 位==校验位。',
+                pitfall: '当时误用码距公式 `⌊(x-1)/2⌋=1` 碰巧凑出 4，但码距推不出校验位数，换 `n=11/16` 会立刻算错。'
+              }
+            ],
+            children: [
+              {
+                id: 'c3-10',
+                bold: '最小码距与纯检/纯纠上限',
+                text: '两码字对应位不同个数为海明距离（异或后统计 `1` 的个数）；编码集中!!任意两合法码字的最小海明距离!!为码距 `d_min`（须两两比全集）。纯检错模式 `d_min ≥ e + 1`（最多 100% 检 ==d_min - 1== 位）；纯纠错模式 `d_min ≥ 2c + 1`（最多纠 ==⌊(d_min - 1)/2⌋== 位）。',
+                short: '码字两两异或取最小d；纯检d-1、纯纠⌊(d-1)/2⌋',
+                tag: '2025',
+                red: true,
+                kw: '2025-T34 海明距离 d=4',
+                href: 'network-3.html#section-26'
+              },
+              {
+                id: 'c3-11',
+                bold: '同时纠错与检错（SEC-DED）',
+                text: '同时纠正 `c` 位并检测 `e` 位（`e > c`）须满足 ==d_min ≥ e + c + 1==。标准海明码 `d_min = 3` 仅纠 1 位；增加 1 位全校验位得扩展海明码 `d_min = 4`，可工作于@@纠 1 位同时检 2 位（SEC-DED）@@（发生 3 位错会距另一合法码字为 1 而被误纠正）。',
+                short: '须满足d≥e+c+1(e>c)；扩展海明d=4可纠1检2',
+                tag: '边界',
+                kw: 'SEC-DED 扩展海明码',
+                href: 'network-3.html#section-26'
               }
             ]
           },
           {
-            id: '3.6-wifi',
-            title: 'IEEE 802.11 Wi-Fi',
+            id: 'm2-det',
+            title: '检错编码：奇偶校验与 CRC',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.8-CRC模2除法.jpg', caption: '图 3.8 CRC 模 2 除法：数据补 r 个 0 后除以 G，取 r 位余数为 FCS', width: 300 }
+            ],
+            media: [
+              {
+                type: 'example',
+                title: 'CRC 收发双端动作与 2023 真题直接模 2 除验证',
+                body: '设生成多项式 `G(x) = x^4 + x + 1`（最高阶 `r = 4`，除数 `G = 10011`）：\n① ==发送端==：数据 `M` 后补 `r = 4` 个 `0` → 模 2 除（不借位异或）→ 取 `4` 位余数（不足左补 `0`）作为 `FCS` 拼在 `M` 后发出。\n② ==接收端==：!!直接拿完整接收码字除以 G，不必再补 r 个 0!!（因 `G(x)` 常数项为 `1` 与 `x^r` 互素）。验 D 项 `101111100`：`101111100 ⊕ 100110000 = 001001100`，再异或 `001001100` 得余数 ==0000==。'
+              }
+            ],
+            exams: [
+              {
+                year: '2023·T37',
+                star: true,
+                nodeId: 'c3-14',
+                href: 'network-3.html#section-31',
+                q: '甲向乙发送数据采用 CRC 校验，生成多项式 `G(x) = x^4 + x + 1`（`10011`），乙收到下列比特串时，可判定传输未发生错误的是？',
+                opts: ['A. 101110000', 'B. 101110100', 'C. 101111000', 'D. 101111100'],
+                ans: 'D',
+                explain: '接收端直接用完整码字模 2 除以 `10011`：A/B/C 余数分别为 `1100 / 1000 / 0100`，仅 D 项余数为 ==0000==。',
+                pitfall: '无需在接收码字后多补 4 个 0；理论上零余数严谨语义为“未检出差错”，考场按零余数选。'
+              }
+            ],
             children: [
               {
-                id: '3.6-wifibase',
-                title: '组成与 CSMA/CA',
-                children: [
-                  { id: 'c3-41', bold: '无线网组成', text: 'BSS含AP与站，DS联ESS，SSID≤32B；自组无AP', tag: '大纲', kw: 'ad hoc', href: 'network-3.html#section-76' },
-                  { id: 'c3-42', bold: '无线防冲突', text: '难边发边听且有隐蔽/暴露站，用CSMA/CA逐帧ACK', tag: '2011/2015', red: true, kw: '2011-T36 2015-T36', href: 'network-3.html#section-77' },
-                  { id: 'c3-43', bold: 'IFS与冻结', text: 'SIFS<PIFS<DIFS；发帧等DIFS，忙时退避冻结', tag: '2018/2020', red: true, kw: '2018-T35 2020-T37', href: 'network-3.html#section-78' }
-                ]
+                id: 'c3-12',
+                bold: '奇偶校验码',
+                text: '在 `n` 位数据后加 `1` 位校验位使码字中 `1` 的总数为奇数（奇校验）或偶数（偶校验）；码距恒为 `2`，==只能检出奇数个比特错，偶数位翻转（含双位错）完全漏检，无法纠错==。',
+                short: '码距恒为2；只能检奇数位错，漏检双位错且无法纠错',
+                tag: '大纲',
+                kw: '1的个数 奇校验 偶校验',
+                href: 'network-3.html#section-28'
               },
               {
-                id: '3.6-wifimodel',
-                title: 'NAV 与四地址模型',
-                children: [
-                  { id: 'c3-44', bold: '预约与NAV', text: '收CTS切算2SIFS+DATA+ACK；起发不含DIFS', tag: '2024·错/26', red: true, kw: '2024-T36 2026-T35 RTS CTS', href: 'network-3.html#section-78' },
-                  { id: 'c3-45', bold: '无线四地址', text: '1收2发3补端：上行AP/SA/DA，下行DA/AP/SA', tag: '2022大题·错', red: true, kw: '2017-T35 2022-T47 ToDS FromDS', href: 'network-3.html#section-79' }
-                ]
+                id: 'c3-13',
+                bold: 'CRC 发送步骤与特性',
+                text: '收发双方预先商定最高阶为 `r` 的生成多项式 `G(x)`（除数 `r+1` 位，首尾位为 `1`）；数据后补 `r` 个 `0` 模 2 除 `G` 得 `r` 位 `FCS`（不足 `r` 位左补 `0`）。CRC 可检测==所有单比特错及长度 ≤ r 的突发错==，无自动纠错能力，可用移位寄存器高速硬件实现。',
+                short: '数据补r个0模2除G得r位FCS；检全单位及≤r突发错',
+                tag: '大纲',
+                kw: '生成多项式 移位寄存器 FCS',
+                href: 'network-3.html#section-30'
+              },
+              {
+                id: 'c3-14',
+                bold: 'CRC 接收校验与零余数语义',
+                text: '接收端==直接用完整接收码字模 2 除以 G，切勿再补 r 个 0==：余数非 `0` 判定出错并丢弃该帧；!!余数为 0 仅表示未检出差错，不能绝对断言无错!!（若非零错误多项式恰被 `G(x)` 整除仍会漏检）。',
+                short: '接收端直接除完整码字勿再补0；余0仅表未检出差错',
+                tag: '2023',
+                red: true,
+                kw: '2023-T37 模2除 漏检',
+                href: 'network-3.html#section-31'
               }
             ]
           },
           {
-            id: '3.6-vlan',
-            title: 'VLAN 与 802.1Q',
+            id: 'm2-ham',
+            title: '纠错编码：海明码',
             children: [
-              { id: 'c3-46', bold: 'VLAN隔离', text: '二层逻辑广播域，按口/MAC/IP划；跨VLAN须路由', tag: '2024/2026', red: true, kw: '2024-T35 2026-T36 ARP', href: 'network-3.html#section-80' },
-              { id: 'c3-47', bold: '802.1Q帧', text: '插4B标签(12位VID)；最大1522B、载荷下限42B', tag: '必背', kw: '0x8100 Access Trunk', href: 'network-3.html#section-81' }
+              {
+                id: 'c3-15',
+                bold: '海明不等式',
+                text: '`n` 位信息位加 `k` 位校验位需覆盖 `n + k` 个单比特出错位置及 `1` 个无错状态，故满足 ==2^k ≥ n + k + 1==（如 `n = 8 → k = 4`，`n = 10 → k = 4`）。!!求最少校验位数 k 绝勿用最小码距公式反推!!。',
+                short: '求最少校验位k用2^k≥n+k+1；绝勿用码距公式反推',
+                tag: '2013·错',
+                red: true,
+                kw: '2013 校验位 2^k>=n+k+1',
+                href: 'network-3.html#section-32'
+              },
+              {
+                id: 'c3-16',
+                bold: '海明码构造与校验子纠错',
+                text: '校验位 `P_i` 放海明位号 ==2^(i-1)==（第 `1, 2, 4, 8…` 位）；其余位填信息位，按位号二进制第 `i` 位为 `1` 归入 `P_i` 校验组做奇/偶校验。接收端计算校验子 `S_k…S_1`：全 `0` 无单比特错；非 `0` 时==校验子十进制值即为出错位号，将该位取反即可纠错==。',
+                short: '校验位放2^(i-1)处，按位号二进制分组；校验子指错位',
+                tag: '大纲',
+                kw: '纠1位 校验子 1 2 4 8',
+                href: 'network-3.html#section-33'
+              }
             ]
           }
         ]
       },
+
+      /* ==================== 3.4 流量控制与可靠传输 ARQ ==================== */
       {
-        id: '3.7',
-        title: '3.7 广域网与 PPP',
-        col: 'right',
+        id: 'm3',
+        navLabel: '3 滑动窗口ARQ',
+        title: '3.4 流量控制、滑动窗口与可靠传输（ARQ）',
+        sub: '帧编号、确认、超时重传与接收缓存协同工作：窗口序号铁律 Wt + Wr ≤ 2^n → S-W / GBN / SR 机制对比 → 流水线利用率与速率。',
         children: [
           {
-            id: '3.7-wan',
-            title: 'WAN 与协议归属',
+            id: 'm3-win',
+            title: '滑动窗口机制与序号位数约束',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.9-发送窗口滑动.jpg', caption: '图 3.9 发送窗口滑动：窗口内包含已发未确认帧与允许发送帧', width: 350 }
+            ],
+            sticky: {
+              title: '滑动窗口与序号位数铁律',
+              text: '总约束：==Wt + Wr ≤ 2^n==（防新旧帧序号重叠）。\n① GBN (`Wr = 1`)：须留 1 空号，==Wt ≤ 2^n - 1==。\n② SR (`Wr > 1`)：等窗口时 ==Wt = Wr ≤ 2^(n-1)==；若给定 `Wt`，则 `Wr ≤ min(Wt, 2^n - Wt)`。\n③ !!算出 Wt = 8 时，3 位序号最多 Wt = 7 绝对不够，至少须 4 位!!。'
+            },
+            exams: [
+              {
+                year: '2015·T35',
+                mistake: true,
+                nodeId: 'c3-18',
+                href: 'network-3.html#section-41',
+                q: '主机甲经 `128 kbps` 卫星链路（单向传播延迟 `250 ms`）发送 `1000 B` 帧，不计确认帧开销，为使链路利用率 `≥ 80%`，帧序号比特数至少为？',
+                opts: ['A. 3', 'B. 4', 'C. 7', 'D. 8'],
+                ans: 'B',
+                explain: '① `T_D = 8000 / 128000 = 62.5 ms`，`RTT = 500 ms`；② `Wt × 62.5 / 562.5 ≥ 0.8 → Wt ≥ 7.2`，取整 ==Wt ≥ 8==；③ 因 `Wr ≥ 1`，由 `Wt + Wr ≤ 2^m`（GBN `2^m - 1 ≥ 8`）得 ==m ≥ 4==（`m=3` 最大 `Wt=7`，利用率 `7/9 ≈ 77.8% < 80%`）。',
+                pitfall: '当时已算对 `Wt ≥ 7.2 → 8`，却直接凑 `2^3 = 8` 错选 A（3 位），遗漏接收窗口至少占 1 个编号的铁律。'
+              }
+            ],
             children: [
-              { id: 'c3-48', bold: 'WAN归属', text: 'WAN涉下三层用节点交换机；HDLC属ISO非TCP/IP', tag: '边界', kw: '面向比特', href: 'network-3.html#section-85' }
+              {
+                id: 'c3-17',
+                bold: '滑动窗口基本属性',
+                text: '数据链路层滑动窗口大小在整个通信过程中==通常是固定的==（区别于传输层 TCP 动态窗口）；发送窗口为 `Wt` 时，最多可有 `Wt` 个帧已发送但尚未收到确认。',
+                short: '链路层窗口大小通常固定；最多有WT帧已发未确认',
+                tag: '大纲',
+                kw: '在途帧 固定窗口',
+                href: 'network-3.html#section-40'
+              },
+              {
+                id: 'c3-18',
+                bold: '序号位数总约束与防坑两步',
+                text: '`n` 比特序号空间为 `2^n`（`0 ~ 2^n - 1`），必须满足 ==Wt + Wr ≤ 2^n==。求最少序号位数须两步走：① 先算出所需 `Wt` 并向上取整；② 再代入 `Wt + Wr ≤ 2^n`（如 `Wt = 8` 须 `2^n ≥ 9 → n ≥ 4`）。',
+                short: '总约束WT+WR≤2^m；算出WT=8时3位不够至少4位',
+                tag: '2015·错',
+                red: true,
+                kw: '2015-T35 卫星链路 4位',
+                href: 'network-3.html#section-41'
+              },
+              {
+                id: 'c3-19',
+                bold: '窗上限防新旧帧重叠',
+                text: '若 GBN 取 `Wt = 2^n`，整轮 ACK 全丢超时重传时接收方无法区分旧重传帧与新帧，故 GBN 须留 1 空号（==Wt ≤ 2^n - 1==）；SR 须满足 `Wt + Wr ≤ 2^n`（等窗口时 ==Wt = Wr ≤ 2^(n-1)==；若 `n = 3, Wt = 5` 则 `Wr ≤ 8 - 5 = 3`）。',
+                short: 'GBN留1空号WT≤2^m-1；SR等窗≤2^(m-1)',
+                tag: '2019',
+                red: true,
+                kw: '2019-T35 8-5=3 序号重叠',
+                href: 'network-3.html#section-41'
+              }
             ]
           },
           {
-            id: '3.7-ppp',
-            title: '点对点协议 PPP',
+            id: 'm3-arq',
+            title: '三种 ARQ 协议：S-W、GBN 与 SR',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.11-GBN工作时序.jpg', caption: '图 3.11 GBN：失序帧一律丢弃，超时后从最早未确认帧起整体后退重传', width: 340 },
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.12-SR工作时序.jpg', caption: '图 3.12 SR：缓存窗口内失序无差错帧，仅重传超时帧后成批按序交付', width: 340 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: '停止-等待 (S-W) / 后退 N 帧 (GBN) / 选择重传 (SR) 核心对比',
+                headers: ['比较维度', '停止-等待 (S-W)', '后退 N 帧 (GBN)', '选择重传 (SR)'],
+                rows: [
+                  ['发送 / 接收窗口', '`Wt = 1, Wr = 1`', '`1 < Wt ≤ 2^n - 1`, `Wr = 1`', '`Wt + Wr ≤ 2^n`（等窗 `≤ 2^(n-1)`）'],
+                  ['确认机制', '单帧确认（1 位序号）', '==累积确认==（ACK k 认 0~k）', '@@逐帧独立确认@@（非累积）'],
+                  ['失序帧处理', '丢弃', '!!直接丢弃!!（仅按序收）', '&&缓存于接收窗口内&&，补齐后成批交付'],
+                  ['超时重传范围', '重传当前帧', '!!超时帧及其后所有未确认帧!!', '&&仅重传该超时帧本身&&'],
+                  ['计时器与缓存', '1 个计时器 / 1 帧缓存', '1 个计时器 / 1 帧接收缓存', '每未确认帧 1 个独立计时器 / `Wr` 缓存'],
+                  ['3 位序号最大窗与利用率', '`Wt = 1`（恒 `< 100%`）', '`Wt = 7`（同位宽上限最高）', '`Wt = 4`（同位宽 ==U_SW ≤ U_SR ≤ U_GBN==）']
+                ]
+              }
+            ],
+            summary: {
+              title: 'GBN 划区间法与 SR 停滞规则',
+              text: '① GBN 别数“丢了几个 ACK”：拿逻辑最新有效累计确认==划掉整片前缀==（收到 `ACK 3` 即划掉 `0~3`，哪怕 `ACK 1` 丢失），从最早未确认帧起全部重传；双向捎带重传 `S_x,y` 须@@刷新确认号 y@@。\n② SR 收到失序 ACK 时左边界不动，不触发重传，可先发空余新号，仅当左边界帧超时才单独重传它。'
+            },
+            exams: [
+              {
+                year: '2009·T35',
+                mistake: true,
+                nodeId: 'c3-21',
+                href: 'network-3.html#section-44',
+                q: '数据链路层采用后退 N 帧（GBN）协议，发送方已发送 `0~7` 号帧。计时器超时时只收到 `0、2、3` 号帧的确认，则需重发的帧数是？',
+                opts: ['A. 2', 'B. 3', 'C. 4', 'D. 5'],
+                ans: 'C',
+                explain: 'GBN 采用==累积确认==：收到 `ACK 3` 即确认 `0、1、2、3` 号帧均已正确收到（哪怕 `ACK 1` 丢失）；划掉 `0~3` 后，超时从最早未确认的 `4` 号帧起回退重传 `4、5、6、7` 共 ==4 帧==。',
+                pitfall: '当时未按累积确认划掉 `0~3` 整片前缀，错按丢确认计数选了 B（3 帧）。'
+              },
+              {
+                year: '2017·T47 大题',
+                mistake: true,
+                star: true,
+                nodeId: 'c3-22',
+                href: 'network-3.html#section-52',
+                q: '甲乙双方采用 GBN 双向等长（`1000B`）捎带确认，`S_x,y / R_x,y`（3 位序号，`y` 为期待下一帧），`100Mbps, RTT=0.96ms`。图(a) 收到 `R_0,1 / R_1,3 / R_3,3`；图(b) 发 `S_0,0~S_4,2`、收 `R_0,1 / R_1,2 / R_2,2` 后 `S_2,0` 超时。求：(1)图(a)已确认帧 (2)图(a)还可发几帧及首尾帧 (3)图(b)重发几帧及首帧 (4)最大信道利用率。',
+                ans: '3帧(S_0,0~S_2,0)｜5帧(S_5,2~S_1,2)｜3帧(首S_2,3)｜50%',
+                explain: '① 最新 `y=3` 确认 `0,1,2` 共 3 帧；② 3 位 GBN `Wt=7`，`3,4` 未确认故可再发 `5` 帧（`5,6,7,0,1`），甲仅按序收到乙 `0,1`（`R_3,3` 失序不推 `y`）故 `y=2`，首 `S_5,2`、尾 `S_1,2`；③ 图(b) `y=2` 剩 `2,3,4` 未确认重发 3 帧，甲已按序收乙 `0,1,2` 故重传首帧须刷新 `y` 为 ==S_2,3==；④ 等长捎带 `T_D = T_A = 0.08ms`，`U = 7×0.08 / (0.08 + 0.96 + 0.08) = 50%`。',
+                pitfall: '两处高频失误：① 超时重传 `S_2,3` 易照抄旧 `S_2,0` 忘记刷新 `y`；② 双向等长捎带周期分母漏计反向 `T_A = T_D`。'
+              }
+            ],
             children: [
-              { id: 'c3-49', bold: 'PPP组成与帧', text: '成帧+LCP+NCP；0x7E定界，载荷0~1500B', tag: '大纲', kw: '0xFF 0x03', href: 'network-3.html#section-86' },
-              { id: 'c3-50', bold: 'PPP透明传输', text: '异步用0x7D字节填充，同步用零比特填充(五1插0)', tag: '必背', kw: '字节填充 零比特', href: 'network-3.html#section-89' },
-              { id: 'c3-51', bold: 'PPP服务性质', text: '仅全双工点对点；LCP/NCP建链，数据段仅CRC不可靠', tag: '边界', kw: '不可靠服务', href: 'network-3.html#section-105' }
+              {
+                id: 'c3-20',
+                bold: '停止-等待协议 (S-W)',
+                text: '`Wt = Wr = 1`，每发 1 帧即停等确认；`1` 比特序号（`0/1` 交替）即可防重复，ACK 丢失引发重传时接收方==丢弃重复帧并重发 ACK==。信道利用率恒 `< 100%`，在大时延带宽积信道（如卫星链路）利用率极低。',
+                short: 'WT=WR=1、1位序号防重；大RTT卫星利用率极低恒<1',
+                tag: '2018',
+                red: true,
+                kw: '2018-T36 2020-T36 1位序号',
+                href: 'network-3.html#section-43'
+              },
+              {
+                id: 'c3-21',
+                bold: '后退 N 帧协议 (GBN)',
+                text: '`Wr = 1` 仅按序接收，失序帧即使正确也!!一律丢弃!!；采用==累积确认==（ACK k 确认 0~k 全部前缀）；发送方维护最早未确认帧的 1 个计时器，超时后==重传窗口内所有已发未确认帧==。',
+                short: 'WR=1丢失序帧；收ACK k划掉0~k，超时全退重传',
+                tag: '2009·错',
+                red: true,
+                kw: '2009-T35 累积确认 划区间',
+                href: 'network-3.html#section-44'
+              },
+              {
+                id: 'c3-22',
+                bold: '双向捎带确认双序号追踪',
+                text: '双向捎带帧 `S_x,y` 中 `x` 由己方发送窗口控制，`y` 仅随己方==按序收到==的对方数据帧推进（失序帧不推进 `y`）；先看题干确认 `y` 是“已收编号”还是“期待下一帧编号”；!!超时重传时 x 沿用原帧号，但 y 必须刷新为当前最新期待值!!。',
+                short: 'x看窗余量，y随按序收帧推进；超时重传必须刷新y',
+                tag: '2017大题·错',
+                red: true,
+                kw: '2017-T47 S_2,3 捎带确认',
+                href: 'network-3.html#section-52'
+              },
+              {
+                id: 'c3-23',
+                bold: '选择重传协议 (SR)',
+                text: '`Wr > 1` 支持无序接收，==缓存落入接收窗口内的失序无差错帧==，待缺口补齐后成批按序交付网络层；采用==逐帧独立确认==（ACK k 仅认 k 本身，无累积含义），为每帧设独立计时器，超时仅重传该帧。',
+                short: 'WR>1缓存失序帧、独立确认与计时；错谁只重传谁',
+                tag: '2011',
+                red: true,
+                kw: '2011-T35 非累积 独立计时',
+                href: 'network-3.html#section-45'
+              },
+              {
+                id: 'c3-24',
+                bold: 'SR 失序 ACK 与左边界停滞',
+                text: '收到失序 ACK（如已发 `F1, F2, F3`，先收 `ACK 2/3` 但 `F1` 未确认）时，仅标记 `2/3` 已确认，==发送窗口左边界停留在 1 处不动，不触发 F1 重传==，仍可发送窗口内空余序号（如 `F4`）；待 `F1` 自身超时仅重传 `F1`。',
+                short: '先收后续ACK左边界不动，可发空余号，超时只重左帧',
+                tag: '2024',
+                red: true,
+                kw: '2024-T37 失序ACK 左边界',
+                href: 'network-3.html#section-45'
+              }
+            ]
+          },
+          {
+            id: 'm3-util',
+            title: '流水线信道利用率与实际传输速率',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.13-停止等待发送周期.jpg', caption: '图 3.13 发送周期 T_cycle = T_D + RTT + T_A，连续 ARQ 后续帧发送与传播重叠', width: 330 }
+            ],
+            media: [
+              {
+                type: 'example',
+                title: '连续 ARQ 流水线利用率与满载窗口推导（2014 / 2015 / 2023）',
+                body: '设 `T_D = L_D / C`，`T_A = L_A / C`，`RTT = 2T_p`，发送周期 `T_cycle = T_D + RTT + T_A`。\n① ==利用率==：`U = min(1, (Wt × T_D) / (T_D + RTT + T_A))`（发第 `2~Wt` 帧与第 `1` 帧传播并行，!!分母绝不写 Wt×T_D!!）。\n② ==满载最小窗==：`Wt ≥ ⌈T_cycle / T_D⌉`；变长帧须取 `L_min` 算 `T_D`；再代 `Wt + Wr ≤ 2^m` 求最少序号位数 `m`。\n③ ==有效净速率==：分子仅计剥去帧首尾后的有效载荷比特数除以 `T_cycle`。'
+              }
+            ],
+            exams: [
+              {
+                year: '2014·T36',
+                mistake: true,
+                nodeId: 'c3-25',
+                href: 'network-3.html#section-49',
+                q: '甲乙使用 GBN，`Wt = 1000`，帧长 `1000B`，带宽 `100Mbps`，短确认帧传输延迟忽略，单向传播延迟 `50ms`，甲最大平均数据传输速率约为？',
+                opts: ['A. 10Mbps', 'B. 20Mbps', 'C. 80Mbps', 'D. 100Mbps'],
+                ans: 'C',
+                explain: '① `T_D = 8000 / 10^8 = 0.08ms`，`RTT = 100ms`，`T_A = 0`；② 发送第 `2~1000` 帧与第 1 帧传播完全重叠，周期 ==T_cycle = T_D + RTT = 100.08ms==；③ `U = (1000 × 0.08) / 100.08 ≈ 79.94%`，平均速率 `≈ 80 Mbps`。',
+                pitfall: '原推导误将整窗发送时延 `80ms` 与 `RTT 100ms` 相加得 `180ms` 作分母，忽略流水线发送与传播重叠。'
+              }
+            ],
+            children: [
+              {
+                id: 'c3-25',
+                bold: '流水线发送周期分母',
+                text: '第 1 帧在 `t = T_D` 发完即开始传播，等待第 1 帧 ACK 返回的 `RTT` 内发送方持续发送第 `2~Wt` 帧（发送与传播重叠），故发送周期恒为 ==T_D + RTT + T_A==，!!分母绝不能写成 Wt × T_D + RTT!!。',
+                short: '分母是TD+RTT+TA，发传重叠；绝勿加WT·TD',
+                tag: '2014·错',
+                red: true,
+                kw: '2014-T36 80Mbps 周期分母',
+                href: 'network-3.html#section-49'
+              },
+              {
+                id: 'c3-26',
+                bold: '捎带确认周期与满载窗口',
+                text: '忽略短确认帧时 `T_A = 0`；双向等长帧捎带确认时反向帧也有完整发送时延，==T_A = T_D，周期为 2T_D + RTT==。求满载或指定利用率最少序号位：先算 `Wt` 向上取整，再套 `Wt + Wr ≤ 2^m`。',
+                short: '等长捎带分母2TD+RTT；满载先上取整WT再定序号位',
+                tag: '2017/25',
+                red: true,
+                kw: '2012-T36 2017-T47 2025-T47',
+                href: 'network-3.html#section-49'
+              },
+              {
+                id: 'c3-27',
+                bold: '相同序号位宽下的利用率排序',
+                text: '给定相同 `n` 比特序号（如 `n = 3`），三者最大发送窗口分别为 `Wt(S-W) = 1`、`Wt(SR) = 2^(n-1) = 4`、`Wt(GBN) = 2^n - 1 = 7`，故无差错同信道环境下 ==U_SW ≤ U_SR ≤ U_GBN==。',
+                short: '3位序号WT为1/4/7；利用率SW≤SR≤GBN',
+                tag: '2023',
+                red: true,
+                kw: '2023-T35 同位宽 利用率对比',
+                href: 'network-3.html#section-49'
+              },
+              {
+                id: 'c3-28',
+                bold: '变长帧极值与有效净速率',
+                text: '帧长在 `[L_min, L_max]` 变化且要求任意情况下满载时，须取 ==最小帧长 L_min== 算最小 `T_D` 来定最大窗口；求有效数据传输速率时，==分子只计剥去帧首尾后的有效载荷==（如 1518B 以太网帧扣 18B 取 `1500B`）。',
+                short: '变长帧取L_min算满载窗；有效速率分子仅计净载荷',
+                tag: '2010大题',
+                red: true,
+                kw: '2010-T47 1518B 1500B 有效速率',
+                href: 'network-3.html#section-50'
+              }
             ]
           }
         ]
       },
+
+      /* ==================== 3.5 介质访问控制 ==================== */
       {
-        id: '3.8',
-        title: '3.8 链路层设备与域',
-        col: 'right',
+        id: 'm4',
+        navLabel: '4 介质访问MAC',
+        title: '3.5 介质访问控制（静态划分、随机与轮询）',
+        sub: '多站点共享广播信道时如何分配发送权：无冲突静态划分与 CDMA 正交解码 → 随机争用 ALOHA/CSMA → 重负载无冲突令牌传递。',
         children: [
           {
-            id: '3.8-sw',
-            title: '网桥与交换机原理',
+            id: 'm4-static',
+            title: '静态信道划分与 CDMA 正交解码',
+            summary: {
+              title: '三大类 MAC 协议冲突性与适用负载',
+              text: '① ==静态信道划分==（FDM/TDM/WDM/CDMA）：&&绝不发生冲突&&，适合用户少、负载稳定场景。\n② ==动态随机访问==（ALOHA/CSMA/CSMA-CD/CSMA-CA）：!!可能发生冲突!!（传播时延所致），适合轻负载突发流量。\n③ ==动态轮询访问==（令牌环 802.5/FDDI）：&&绝不发生冲突&&，适合重负载与确定性时延场景。'
+            },
             children: [
-              { id: 'c3-52', bold: '交换机与吞吐', text: '即多端口网桥，每口独占带宽可并行；全换Hub退化1R', tag: '2015', red: true, kw: '2015-T37 总吞吐', href: 'network-3.html#section-96' },
-              { id: 'c3-53', bold: '直通vs存转', text: '直通读6B目的MAC即转(0.48μs)不检错；存转整帧检错', tag: '2013', red: true, kw: '2013-T38 Cut-through', href: 'network-3.html#section-97' },
-              { id: 'c3-54', bold: '自学习转滤洪', text: '学源MAC查目的MAC；同口滤、未知/广播洪泛；旁观不入表', tag: '2009/14/21', red: true, kw: '2009-T36 2014-T34 2021-T47', href: 'network-3.html#section-98' }
+              {
+                id: 'c3-29',
+                bold: '静态信道划分复用方式',
+                text: '将广播信道静态划分为互不干扰子信道，&&绝不发生物理冲突&&：@@FDM@@ 划频带适合模拟信号；@@TDM@@ 划固定时隙抗干扰强适合数字信号；@@STDM@@ 动态按需分时隙，时隙内==必须携带源/目的地址==；@@WDM@@ 为光频分复用；@@CDMA@@ 既共享时间又共享频率。',
+                short: '无冲突；FDM模拟、TDM数字、STDM带址、WDM光',
+                tag: '2013',
+                red: true,
+                kw: '2013-T36 CDMA STDM WDM',
+                href: 'network-3.html#section-57'
+              },
+              {
+                id: 'c3-30',
+                bold: 'TDM 物理介质条件与量纲陷阱',
+                text: '`N` 路信号时分复用在同一物理介质上须满足：① 介质位速率（`b/s`）`> 单路信号位速率`（`R_medium ≥ N × R_single`）；② 介质频带宽度（`Hz`）`> 复合信号所需频宽`。!!切勿跨量纲比较频带宽度 (Hz) 与位速率 (b/s)!!。',
+                short: '介质位速率>单路、频宽>复合信号；切勿跨量纲比大小',
+                tag: '边界',
+                kw: 'Hz b/s 量纲 TDM',
+                href: 'network-3.html#section-57'
+              },
+              {
+                id: 'c3-31',
+                bold: 'CDMA 正交码片与规格化内积解码',
+                text: '码片长 `m`，将比特 `0 → -1`、`1 → +1`；不同站点码片须==相互正交（规格化内积 A·B = (1/m)ΣA_i B_i = 0）==。发送 `1` 发 `+A`、发 `0` 发 `-A`、不发传 `0`；接收端用目标码片 `A` 与叠加信号 `R` 逐组求规格化内积：==+1 判比特 1，-1 判比特 0，0 判未发送==。',
+                short: '码片正交(内积0)；0→-1、1→+1，内积判±1或0',
+                tag: '2014',
+                red: true,
+                kw: '2014-T37 规格化内积 正交',
+                href: 'network-3.html#section-58'
+              }
             ]
           },
           {
-            id: '3.8-dom',
-            title: '域隔离与拓扑实战',
+            id: 'm4-dyn',
+            title: '随机访问（ALOHA / CSMA）与令牌传递',
             children: [
-              { id: 'c3-55', bold: '冲突与广播域', text: 'Hub无隔离；交换机隔冲突域；路由/VLAN隔两域', tag: '2010/2020', red: true, kw: '2010-T38 2020-T35 2022-T47', href: 'network-3.html#section-100' },
-              { id: 'c3-56', bold: '物理层接收判', text: '同Hub主机物理层全收信号；Switch建表后单播仅发目口', tag: '2016', red: true, kw: '2016-T35', href: 'network-3.html#section-101' },
-              { id: 'c3-57', bold: 'DHCP广播', text: '发现帧目MAC全F；路由E0能收不跨转，S不改MAC', tag: '2022大题·错', red: true, kw: '2022-T47 DHCPDISCOVER 0.0.0.0', href: 'network-3.html#section-99' }
+              {
+                id: 'c3-32',
+                bold: 'ALOHA 与 CSMA 冲突成因',
+                text: '纯 ALOHA 有帧即发、冲突率最高；时隙 ALOHA 仅在时隙起点发送，==将冲突危险期减半==。CSMA 先听后发，但因物理线路存在!!传播时延!!，A 听空闲时 B 的信号可能仍在途中，故仍会发生冲突。',
+                short: '时隙ALOHA危险期减半；CSMA因传播时延仍会冲突',
+                tag: '2013',
+                red: true,
+                kw: '2013-T36 传播时延 危险期',
+                href: 'network-3.html#section-60'
+              },
+              {
+                id: 'c3-33',
+                bold: '三种 CSMA 坚持策略',
+                text: '@@1-坚持@@：空闲立即发，忙时持续监听（信道刚空易多站同发冲突）；@@非坚持@@：空闲立即发，忙时放弃监听并随机等待再听（冲突少但利用率低、延迟大）；@@p-坚持@@：仅用于==时隙信道==，空闲以概率 `p` 发、`1-p` 推迟至下一时隙，忙时持续监听。',
+                short: '1-坚持忙时持续听易撞；非坚持随机等；p-坚持用时隙',
+                tag: '大纲',
+                kw: '时隙信道 1-坚持 非坚持 p-坚持',
+                href: 'network-3.html#section-61'
+              },
+              {
+                id: 'c3-34',
+                bold: '轮询访问：令牌传递协议',
+                text: '==逻辑环形、物理常为星形（MAU 连接）==；环上唯一令牌单向循环，仅持令牌站可在持有时间内发送，&&重负载下绝不发生冲突&&。半双工共享总带宽；数据帧绕环一周由==源站点回收并释放新令牌==；最坏等待时延为其余所有节点传令牌与发送数据时间之和。',
+                short: '逻辑环物理星，重负载无冲突；半双工由源站回收帧',
+                tag: '大纲',
+                kw: '802.5 FDDI MAU 源站回收',
+                href: 'network-3.html#section-62'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 3.6 局域网：以太网、Wi-Fi 与 VLAN ==================== */
+      {
+        id: 'm5',
+        navLabel: '5 以太网与无线VLAN',
+        title: '3.6 局域网：以太网 CSMA/CD、802.11 与 VLAN',
+        sub: '有线半双工边发边听 CSMA/CD 与 V2 帧 → 无线预约避免 CSMA/CA、NAV 与 802.11 三地址 → 逻辑广播域 VLAN 与 802.1Q。',
+        children: [
+          {
+            id: 'm5-eth',
+            title: '以太网服务、V2 帧格式与 CSMA/CD 计算',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.22-CSMACD冲突传播.jpg', caption: '图 3.22 CSMA/CD：信号最迟经争用期 2τ 传回发送端以检测最远端冲突', width: 330 },
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.23-以太网V2帧格式.jpg', caption: '图 3.23 以太网 V2 MAC 帧（64~1518B，不含物理层 8B 前导码）', width: 350 }
+            ],
+            sticky: {
+              title: 'CSMA/CD 最短帧长与退避截断铁律',
+              text: '① ==最短帧长 = 2τ × R = 64B==（10Mb/s 争用期 `51.2 μs`），仅用于半双工共享介质，全双工交换以太网不用。\n② 经 Hub 往返过两次，最大距离 ==d_max = v × (L_min / (2R) - T_H)==（先除 2 再扣单程 `T_H`）。\n③ 连续第 `i` 次冲突：`k = min(i, 10)`，等概率选 `r ∈ [0, 2^k - 1]`，退避 `r × 2τ`，满 `16` 次放弃报错。'
+            },
+            media: [
+              {
+                type: 'example',
+                title: 'CSMA/CD 冲突检测、Hub 扣减与退避截断速算（2010 / 2016 / 2023）',
+                body: '① ==碰撞相遇 vs 双方均检测到==：单向时延 `τ = d / v`。同时发送时中点相遇在 `τ/2`，但双方均检测到碰撞在 `τ`；压哨发送时上限为 `2τ` → 均检测到区间 `[τ, 2τ)`。\n② ==经 Hub 最远距离（2016·T36）==：`100Base-T`、`L_min=64B`、`T_H=1.535μs`、`v=200m/μs` → 往返 `5.12μs` → 除 2 得单向 `2.56μs` → 扣 `T_H` 得 `1.025μs` → `d_max = 205m`。\n③ ==第 11 次冲突截断（2023/2025）==：`k = min(11, 10) = 10`，最大 `r = 1023`，10Mb/s 最大退避 `1023 × 51.2μs = 52.3776ms`。'
+              }
+            ],
+            exams: [
+              {
+                year: '2016·T36',
+                mistake: true,
+                nodeId: 'c3-39',
+                href: 'network-3.html#section-72',
+                q: '若 `100Base-T` 集线器（Hub）再生比特流延时 `1.535 μs`，信号传播速度 `200 m/μs`，不计前导码，则接在同一 Hub 下的 H3 与 H4 最远相距？',
+                opts: ['A. 200m', 'B. 205m', 'C. 359m', 'D. 512m'],
+                ans: 'B',
+                explain: '① `T_D = 64 × 8 / 10^8 = 5.12 μs`；② 往返过 Hub 两次，单向总预算 `5.12 / 2 = 2.56 μs`，扣单程 `T_H = 1.535 μs` 得 `T_p = 1.025 μs`；③ `d_max = 200 × 1.025 = 205 m`。',
+                pitfall: '当时未作答；干扰项 C（359m）错在往返总过程只扣了一次 `T_H`，D（512m）完全忽略 `T_H`。'
+              },
+              {
+                year: '2019·T36',
+                star: true,
+                nodeId: 'c3-38',
+                href: 'network-3.html#section-72',
+                q: '采用 CSMA/CD 的 `100Mbps` 局域网，最小帧长是 `128B`，则一个冲突域内两站点间单向传播时延最多是？',
+                opts: ['A. 2.56μs', 'B. 5.12μs', 'C. 10.24μs', 'D. 20.48μs'],
+                ans: 'B',
+                explain: '按题干代 `L_min = 128B`：`T_D = 128 × 8 / 10^8 = 10.24 μs`，单向传播时延上限 `τ_max = T_D / 2 = 5.12 μs`（A 错代 `64B`，C 漏除 2）。'
+              },
+              {
+                year: '2010·T47 大题',
+                star: true,
+                nodeId: 'c3-39',
+                href: 'network-3.html#section-72',
+                q: 'CSMA/CD 局域网 `10Mb/s`，甲乙相距 `2km`，`v = 200000km/s`：(1)发生冲突时从开始发送到两台主机均检测到冲突的最短与最长时间；(2)无冲突时甲发 `1518B` 最长以太网帧、乙回 `64B` ACK 才发下一帧，求有效数据传输速率（不计前导码）。',
+                ans: '最短 10μs、最长 20μs｜有效速率 9.33 Mb/s',
+                explain: '① `τ = 2 / 200000 = 10μs`：同时发在 `5μs` 中点相遇、`10μs` 双方均检测到（最短 `τ`）；压哨发上限 `2τ = 20μs`；② `T_D = 1214.4μs, T_A = 51.2μs, RTT = 20μs → T_cycle = 1285.6μs`；有效载荷剥去 18B 首尾取 ==1500B==，`R_eff = (1500 × 8) / 1285.6μs ≈ 9.33 Mb/s`。',
+                pitfall: '勿把信号相遇时刻 `τ/2` 写成双方均检测到冲突时刻；有效速率分子取 `1500B` 而非整帧 `1518B`。'
+              },
+              {
+                year: '2012·T35',
+                star: true,
+                nodeId: 'c3-36',
+                href: 'network-3.html#section-69',
+                q: '以太网的 MAC 协议提供的是？',
+                opts: ['A. 无连接不可靠服务', 'B. 无连接可靠服务', 'C. 有连接不可靠服务', 'D. 有连接可靠服务'],
+                ans: 'A',
+                explain: '标准以太网发帧前不建立连接，使用 FCS 检错但错帧直接丢弃、无逐帧确认与重传，属于==无连接不可靠服务==。'
+              }
+            ],
+            children: [
+              {
+                id: 'c3-35',
+                bold: '局域网架构与 MAC 地址',
+                text: 'LAN 三要素为拓扑、介质与==介质访问控制方式（最关键）==；IEEE 802 将链路层分为 MAC 子层（介质相关）与 LLC 子层（介质无关）。网卡跨物理/链路层，用曼彻斯特编码自同步；`48 bit` MAC 固化在网卡 ROM（非 DNS 查询），广播为全 `F`，错单播帧静默丢弃不报错。',
+                short: '802分MAC/LLC；48位MAC固化网卡，错单播静弃',
+                tag: '大纲',
+                kw: 'IEEE 802 三要素 全F 网卡',
+                href: 'network-3.html#section-67'
+              },
+              {
+                id: 'c3-36',
+                bold: '以太网服务模型与介质标准',
+                text: '以太网逻辑总线、现代物理星形，提供==无连接的不可靠交付服务==（FCS 检错即弃无 ACK）。`10Base-5/2` 为粗/细同轴（500m/185m）；`10Base-T/100Base-T` 为双绞线 `100m`；`10GBase-R` 光纤!!仅支持全双工，不使用 CSMA/CD!!。',
+                short: '无连接不可靠，FCS检错即弃无ACK；10G仅全双工',
+                tag: '2012',
+                red: true,
+                kw: '2012-T35 10Base-5 10GBase-R',
+                href: 'network-3.html#section-69'
+              },
+              {
+                id: 'c3-37',
+                bold: '以太网 V2 MAC 帧格式',
+                text: '构成：`6B` 目的 MAC + `6B` 源 MAC + `2B` 类型（`0x0800` IPv4 / `0x0806` ARP）+ ==46~1500B 数据载荷==（`46 = 64 - 18`）+ `4B` FCS = ==64~1518B==。!!物理层 8B 前导码（7B 前同步码 + 1B SFD）不计入 MAC 帧长，也不在 FCS 校验范围内!!；依靠帧间最小间隔判定帧结束。',
+                short: '6目6源2类+46~1500+4FCS=64~1518B',
+                tag: '2012大题',
+                red: true,
+                kw: '2012-T47 8B前导码 0800 46B',
+                href: 'network-3.html#section-74'
+              },
+              {
+                id: 'c3-38',
+                bold: 'CSMA/CD 争用期与最短帧长',
+                text: '先听后发、边听边发、冲突停发、随机重发；!!仅适用于半双工共享总线或 Hub 网段!!，全双工不用。争用期 `2τ`，最短帧长 ==L_min = 2τ × R==（10Mb/s 为 `64B`，小于 64B 为残帧直接丢弃）；!!题干另给最短帧长（如 128B）须按题代值，最小帧变化 ΔL 对应距离变化 Δd = vΔL/(2R)!!。',
+                short: '仅半双工用；L_min=2τR，题给128B勿硬代64B',
+                tag: '2009/15/19',
+                red: true,
+                kw: '2009-T37 2015-T36 2019-T36 51.2us',
+                href: 'network-3.html#section-72'
+              },
+              {
+                id: 'c3-39',
+                bold: '碰撞检测时刻与经 Hub 最远距离',
+                text: '两站发生冲突时信号最早在 `τ/2` 中点相遇，但==双方均检测到冲突的时间区间为 [τ, 2τ)==。链路经过转发延时为 `T_H` 的 Hub 时，往返经过两次 Hub，争用期变为 `2τ + 2T_H`，最远距离 ==d_max = v × (L_min / (2R) - T_H)==。',
+                short: '相遇τ/2、均检[τ,2τ)；Hub距v(L/2R-TH)',
+                tag: '2016/22·错',
+                red: true,
+                kw: '2010-T47 2016-T36 2022-T47 Hub延时',
+                href: 'network-3.html#section-72'
+              },
+              {
+                id: 'c3-40',
+                bold: '截断二进制指数退避算法',
+                text: '冲突停发并送 `32/48 bit` 人为干扰信号后：取 ==k = min(冲突次数 i, 10)==，从 `[0, 2^k - 1]` 等概率随机取整数 `r`，等待 `r × 2τ`；重传次数越多冲突范围越大、再次冲突概率越低；连续冲突满 !!16 次!!放弃发送并向网络层报错。',
+                short: 'k=min(i,10)取0~2^k-1乘2τ；16次弃',
+                tag: '2023/2025',
+                red: true,
+                kw: '2023-T36 2025-T35 1023 16次',
+                href: 'network-3.html#section-73'
+              }
+            ]
+          },
+          {
+            id: 'm5-wifi',
+            title: 'IEEE 802.11 无线局域网：CSMA/CA、NAV 与地址字段',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.26-无线隐蔽站.jpg', caption: '图 3.26 隐蔽站 A、C 听不到彼此，同时向 AP 发送会在 AP 处冲突', width: 255 },
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.28-802.11数据帧格式.jpg', caption: '图 3.28 802.11 数据帧格式：To DS / From DS 决定地址 1、2、3 含义', width: 350 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: 'CSMA/CD vs CSMA/CA 核心机制对比',
+                headers: ['比较项', 'CSMA/CD（802.3 有线以太网）', 'CSMA/CA（802.11 无线局域网）'],
+                rows: [
+                  ['冲突处理策略', '==边发边听碰撞检测==，冲突即停发', '@@预约信道冲突避免@@（硬件难边发边听，存在隐蔽/暴露站）'],
+                  ['确认服务模型', '无连接不可靠，!!无逐帧 ACK!!', '==有确认的无连接服务==，每数据帧须收 ACK'],
+                  ['退避触发与方式', '冲突后执行截断二进制指数退避', '发前忙或连发时等 `DIFS` 后随机退避，==忙时冻结计时器=='],
+                  ['关键定时与预约', '争用期 `2τ`、最短帧长 `64B`', '`SIFS < PIFS < DIFS`、`RTS/CTS` 预约与虚拟载波监听 ==NAV==']
+                ]
+              },
+              {
+                type: 'table',
+                title: '802.11 数据帧上/下行三地址速查（1 收、2 发、3 补端）',
+                headers: ['无线传输方向', 'To DS', 'From DS', '地址 1（RA 直接收）', '地址 2（TA 直接发）', '地址 3（链路外补位）'],
+                rows: [
+                  ['==上行 `STA → AP`==', '`1`', '`0`', '==AP 的 MAC==', '工作站源 MAC (`SA`)', '最终目的 MAC (`DA`，出外网为网关)'],
+                  ['@@下行 `AP → STA`@@', '`0`', '`1`', '@@工作站目的 MAC (`DA`)@@', 'AP 的 MAC', '原始源 MAC (`SA`)']
+                ]
+              }
+            ],
+            exams: [
+              {
+                year: '2011·T36',
+                star: true,
+                nodeId: 'c3-42',
+                href: 'network-3.html#section-77',
+                q: '下列选项中，对正确接收到的数据帧进行确认的 MAC 协议是？',
+                opts: ['A. CSMA', 'B. CDMA', 'C. CSMA/CD', 'D. CSMA/CA'],
+                ans: 'D',
+                explain: '无线局域网难以边发边检测远端碰撞，==CSMA/CA== 对正常单播数据帧采用逐帧 ACK 确认；CSMA/CD 与 CSMA 无逐帧 ACK，CDMA 靠正交码片区分用户。'
+              },
+              {
+                year: '2015·T36',
+                star: true,
+                nodeId: 'c3-42',
+                href: 'network-3.html#section-72',
+                q: '下列关于 CSMA/CD 协议的叙述中，错误的是？',
+                opts: ['A. 边发送数据帧，边检测是否发生冲突', 'B. 适用于无线网络，以实现无线链路共享', 'C. 需要根据网络跨距和数据传输速率限定最小帧长', 'D. 当信号传播延迟趋近 0 时，信道利用率趋近 100%'],
+                ans: 'B',
+                explain: '无线网络存在隐蔽站且硬件无法边发边听，须使用 CSMA/CA 而非 CSMA/CD（B 错）；教材理想模型中 `τ → 0` 时冲突窗口趋零、理想利用率趋近 `100%`（D 正确）。'
+              },
+              {
+                year: '2024·T36',
+                mistake: true,
+                nodeId: 'c3-44',
+                href: 'network-3.html#section-78',
+                q: '802.11 无线网中 `DIFS=128μs, SIFS=28μs`，RTS/CTS/ACK 传输时延为 `3/2/2μs`（忽略传播时延）。A 向 AP 发 `1998B` 数据帧，带宽 `54Mb/s`，隐蔽站 B 收到 AP 的 CTS 时设置的 NAV 值为？',
+                opts: ['A. 326μs', 'B. 354μs', 'C. 385μs', 'D. 513μs'],
+                ans: 'B',
+                explain: '① `T_DATA = 1998 × 8 / (54 × 10^6) = 296 μs`；② 从 CTS 右侧切开：`SIFS → DATA → SIFS → ACK`，得 ==NAV = 2×28 + 296 + 2 = 354 μs==（A 漏 1 个 SIFS，C/D 多计了 RTS/DIFS）。',
+                pitfall: '当时虽算对但在卷面批注“NAV是啥？”；牢记 NAV 是虚拟载波监听倒计时，收到 CTS 后仅计 CTS 之后的预约时长。'
+              }
+            ],
+            children: [
+              {
+                id: 'c3-41',
+                bold: '无线局域网基本组成',
+                text: '@@BSS（基本服务集）@@含 1 个 AP 与若干移动站；多个 BSS 经分配系统（DS）互联成 @@ESS（扩展服务集）@@；SSID 为 Wi-Fi 名称（`≤ 32B`）；@@自组网络（ad hoc）@@无 AP 基础设施，各站点对等通信并可转发。',
+                short: 'BSS含AP与站，DS联ESS，SSID≤32B；自组无AP',
+                tag: '大纲',
+                kw: 'ad hoc BSS ESS SSID',
+                href: 'network-3.html#section-76'
+              },
+              {
+                id: 'c3-42',
+                bold: '无线不用 CSMA/CD 的原因与逐帧 ACK',
+                text: '① 发射功率远大于接收功率，!!硬件无法边发边听!!；② 存在@@隐蔽站@@（A/C 互听不到却同发 AP 碰撞）与@@暴露站@@（B 听 A 发而误停）。因此 802.11 采用 ==CSMA/CA + 逐帧 ACK 确认==（有确认的无连接服务）。',
+                short: '难边发边听且有隐蔽/暴露站，用CSMA/CA逐帧ACK',
+                tag: '2011/2015',
+                red: true,
+                kw: '2011-T36 2015-T36 隐蔽站 暴露站',
+                href: 'network-3.html#section-77'
+              },
+              {
+                id: 'c3-43',
+                bold: '帧间间隔 IFS 与退避冻结规则',
+                text: '优先级由高到低：==SIFS < PIFS < DIFS==。`SIFS` 用于 ACK、CTS 与分片后续帧；`DIFS` 用于普通数据帧与 RTS。发送前信道忙或连发时，等 `DIFS` 启动随机退避：空闲倒数，!!信道变忙立即冻结计时器!!，再次持续空闲 `DIFS` 后从冻结值继续倒数。',
+                short: 'SIFS<PIFS<DIFS；发帧等DIFS，忙时退避冻结',
+                tag: '2018/2020',
+                red: true,
+                kw: '2018-T35 2020-T37 SIFS DIFS 冻结',
+                href: 'network-3.html#section-78'
+              },
+              {
+                id: 'c3-44',
+                bold: 'RTS/CTS 预约、NAV 与起止切分',
+                text: '完整时序：`DIFS → RTS → SIFS → CTS | SIFS → DATA → SIFS → ACK`。隐蔽站收到 CTS 后按持续期字段设置虚拟载波监听倒计时 ==NAV = 2×SIFS + DATA + ACK==（仅计 CTS 之后，不含 RTS/DIFS）；若题目从==开始发送 DATA 计时==至收到确认，起点已在 `DIFS` 后，!!同样不含 DIFS!!。',
+                short: '收CTS切算2SIFS+DATA+ACK；起发不含DIFS',
+                tag: '2024·错/26',
+                red: true,
+                kw: '2024-T36 2026-T35 RTS CTS NAV',
+                href: 'network-3.html#section-78'
+              },
+              {
+                id: 'c3-45',
+                bold: '802.11 数据帧三地址速填规则',
+                text: '先圈定题目所问无线跳的方向，再套口诀==地址 1 直接收 (RA)、地址 2 直接发 (TA)、地址 3 补无线链路外端地址==：上行 `STA → AP` (`To DS=1, From DS=0`) 为 `(AP, SA, DA)`；下行 `AP → STA` (`To DS=0, From DS=1`) 为 `(DA, AP, SA)`。',
+                short: '1收2发3补端：上行AP/SA/DA，下行DA/AP/SA',
+                tag: '2022大题·错',
+                red: true,
+                kw: '2017-T35 2022-T47 ToDS FromDS',
+                href: 'network-3.html#section-79'
+              }
+            ]
+          },
+          {
+            id: 'm5-vlan',
+            title: '虚拟局域网 VLAN 与 802.1Q 帧',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.30-802.1Q帧格式.jpg', caption: '图 3.30 802.1Q 帧：源 MAC 与类型间插入 4B VLAN 标签（含 12 位 VID）', width: 340 }
+            ],
+            children: [
+              {
+                id: 'c3-46',
+                bold: 'VLAN 逻辑广播域隔离',
+                text: 'VLAN 是建立在交换技术上的==二层逻辑广播域划分服务==（非新型物理局域网），可按端口（最常用）、MAC 或网络层协议/IP 划分（无基于用户名划分）。!!不同 VLAN 彼此隔离广播域，连同台交换机也不通二层单播/广播帧与 ARP，跨 VLAN 须经路由器或三层交换机!!。',
+                short: '二层逻辑广播域，按口/MAC/IP划；跨VLAN须路由',
+                tag: '2024/2026',
+                red: true,
+                kw: '2024-T35 2026-T36 ARP 广播域',
+                href: 'network-3.html#section-80'
+              },
+              {
+                id: 'c3-47',
+                bold: '802.1Q 标签帧与端口类型',
+                text: '在源 MAC 与类型间插入 ==4B 标签==（`2B TPID = 0x8100` + `2B TCI`，含 ==12 位 VID== 支持 `4096` 个 VLAN）：最大帧长变为 ==1522B==，最小帧长仍 `64B`，故==数据载荷下限变为 42B==（不足需填 `42 - L_IP`）。@@Access 口@@接主机传无标签帧，@@Trunk 口@@连交换机传带标签帧。',
+                short: '插4B标签(12位VID)；最大1522B、载荷下限42B',
+                tag: '必背',
+                kw: '0x8100 Access Trunk 1522B 42B',
+                href: 'network-3.html#section-81'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 3.7–3.8 广域网 PPP 与交换机 ==================== */
+      {
+        id: 'm6',
+        navLabel: '6 PPP与交换机',
+        title: '3.7–3.8 广域网 PPP、交换机自学习与域隔离',
+        sub: '广域网与 PPP 封装/状态转换 → 多端口网桥交换机自学习与直通/存储转发 → 冲突域、广播域与综合拓扑实战。',
+        children: [
+          {
+            id: 'm6-ppp',
+            title: '广域网与点对点协议 PPP',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.33-PPP帧格式.jpg', caption: '图 3.33 PPP 帧格式：首尾 0x7E 定界，信息段 0~1500B 无最短帧限制', width: 340 },
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.34-PPP状态转换.jpg', caption: '图 3.34 PPP 状态转换：静止 → 物理建链 → LCP → 鉴别 → NCP → 打开传输', width: 320 }
+            ],
+            summary: {
+              title: 'PPP 协议核心特征与边界',
+              text: 'PPP 面向字节、==仅支持全双工点对点链路==（不支持广播/多点、不用 CSMA/CD、无最短帧长限制）；通过 LCP 建链、一套 NCP 支持多种网络层协议，但数据阶段==不编号、不确认、不重传==（仅 CRC 检错丢弃），属于!!面向连接的不可靠数据传输服务!!。'
+            },
+            children: [
+              {
+                id: 'c3-48',
+                bold: '广域网特征与 HDLC 归属',
+                text: '广域网（WAN）由节点交换机与点对点链路组成，采用分组交换存储转发，涉及@@下三层@@（物理/链路/网络层）；互联网靠路由器互联 LAN 与 WAN。!!HDLC 由 ISO 制定、面向比特，绝不属于 TCP/IP 协议族!!。',
+                short: 'WAN涉下三层用节点交换机；HDLC属ISO非TCP/IP',
+                tag: '边界',
+                kw: '面向比特 节点交换机 ISO',
+                href: 'network-3.html#section-85'
+              },
+              {
+                id: 'c3-49',
+                bold: 'PPP 三大组成与帧格式',
+                text: '三大组成：① ==成帧方法==；② ==LCP==（建/配/测/拆数据链路）；③ ==一套 NCP==（分别配置多种网络层协议）。帧格式：`F(0x7E)` + `A(0xFF)` + `C(0x03)` + `2B 协议`（`0x0021` IP / `0xC021` LCP）+ ==0~1500B 信息== + `2B FCS` + `F(0x7E)`。',
+                short: '成帧+LCP+NCP；0x7E定界，载荷0~1500B',
+                tag: '大纲',
+                kw: '0xFF 0x03 0x7E LCP NCP',
+                href: 'network-3.html#section-86'
+              },
+              {
+                id: 'c3-50',
+                bold: 'PPP 双模式透明传输',
+                text: '@@异步传输（逐字节）@@采用==字节填充法==（转义字符 `0x7D`：`0x7E → 0x7D, 0x5E`；`0x7D → 0x7D, 0x5D`）；@@同步传输（逐比特）@@采用==零比特填充法==（每见连续 5 个 `1` 立即填 `0`）。',
+                short: '异步用0x7D字节填充，同步用零比特填充(五1插0)',
+                tag: '必背',
+                kw: '字节填充 零比特 0x7D',
+                href: 'network-3.html#section-89'
+              },
+              {
+                id: 'c3-51',
+                bold: 'PPP 服务性质与无最短帧限制',
+                text: 'PPP 面向字节（帧长必为整数字节）、仅支持全双工点对点链路，无争用故!!无最短帧长限制（信息段可为 0B）!!；虽经 LCP/NCP 协商建链，但数据阶段只做 CRC 检错、错帧即弃，属==面向连接的不可靠服务==。',
+                short: '仅全双工点对点；LCP/NCP建链，数据段仅CRC不可靠',
+                tag: '边界',
+                kw: '不可靠服务 状态转换',
+                href: 'network-3.html#section-105'
+              }
+            ]
+          },
+          {
+            id: 'm6-sw',
+            title: '网桥、交换机转发方式与自学习',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.35a-交换表初始状态.jpg', caption: '图 3.35a 交换机初始状态：交换表为空，收到单播先学源 MAC 再洪泛', width: 270 },
+              { type: 'img', src: 'study/mm-assets/network/ch3/图3.35b-交换机自学习结果.jpg', caption: '图 3.35b 自学习完成后：按目的 MAC 查表精准定向转发或同口过滤', width: 270 }
+            ],
+            sticky: {
+              title: '交换机自学习、转发与直通延迟铁律',
+              text: '① ==学习看源 MAC==：记录 `{源 MAC, 入端口}` 并刷新老化计时（!!绝不从目的 MAC 学习，未发过帧的主机不入表!!）。\n② ==转发看目的 MAC==：已知异口定向单播转；已知同口过滤丢弃；未知单播/广播除入端口外洪泛。\n③ ==直通交换==仅读 `6B = 48 bit` 目的 MAC 即转，100Mbps 最小转发延迟 `48 / 100M = 0.48 μs`。'
+            },
+            exams: [
+              {
+                year: '2009·T36',
+                star: true,
+                nodeId: 'c3-54',
+                href: 'network-3.html#section-98',
+                q: '以太网交换机进行转发决策时使用的 PDU 地址是？',
+                opts: ['A. 目的物理地址', 'B. 目的 IP 地址', 'C. 源物理地址', 'D. 源 IP 地址'],
+                ans: 'A',
+                explain: '二层交换机收到帧后，用==源物理地址==自学习建表，用==目的物理地址（目的 MAC）==查交换表完成转发决策。',
+                pitfall: '区分“学习入口用源 MAC”与“转发决策用目的 MAC”。'
+              },
+              {
+                year: '2013·T38',
+                star: true,
+                nodeId: 'c3-53',
+                href: 'network-3.html#section-97',
+                q: '对于 `100Mbps` 以太网交换机，输出端口无排队，以直通交换（cut-through）方式转发一个以太网帧（不含前导码）时，引入的转发延迟至少是？',
+                opts: ['A. 0μs', 'B. 0.48μs', 'C. 5.12μs', 'D. 121.44μs'],
+                ans: 'B',
+                explain: '直通交换无需接收整帧，读完最前面的 ==6B 目的 MAC（48 bit）== 即可查表转发：`t = 48 / (100 × 10^6) = 0.48 μs`（C/D 为存储转发最小帧/最大帧时间）。'
+              }
+            ],
+            children: [
+              {
+                id: 'c3-52',
+                bold: '交换机本质、独占带宽与总吞吐',
+                text: '以太网交换机实质为==多端口网桥==（数据链路层设备），每端口独占额定带宽 `R` 且全双工多对并行通信：`N` 主机 + `M` 服务器全用交换机最大总吞吐 `(N + M) × R`；某网段换 Hub 退化为共享 `1 × R`；!!全换 Hub 退化为单一冲突域 1 × R!!。',
+                short: '即多端口网桥，每口独占带宽可并行；全换Hub退化1R',
+                tag: '2015',
+                red: true,
+                kw: '2015-T37 总吞吐 多端口网桥',
+                href: 'network-3.html#section-96'
+              },
+              {
+                id: 'c3-53',
+                bold: '直通交换 vs 存储转发',
+                text: '@@直通交换（Cut-through）@@仅读 `6B` 目的 MAC 即转，时延极小（100Mbps 为 ==0.48 μs==），但!!不检错且不支持不同速率端口匹配!!；@@存储转发@@接收整帧经 FCS 检错无误再转，时延较大但可过滤错帧并支持异速端口转换。',
+                short: '直通读6B目的MAC即转(0.48μs)不检错；存转整帧检错',
+                tag: '2013',
+                red: true,
+                kw: '2013-T38 Cut-through 0.48us',
+                href: 'network-3.html#section-97'
+              },
+              {
+                id: 'c3-54',
+                bold: '自学习算法：转、滤、洪三动作',
+                text: '① 依==源 MAC 与入端口==更新交换表；② 查==目的 MAC==：已知且出端口 `≠` 入端口→精准单播转发；已知且出端口 `=` 入端口→过滤丢弃；未知单播或广播帧→除入端口外洪泛。!!未发过帧的旁观主机不入交换表，但仍会收到洪泛广播帧!!。',
+                short: '学源MAC查目的MAC；同口滤、未知/广播洪泛；旁观不入表',
+                tag: '2009/14/21',
+                red: true,
+                kw: '2009-T36 2014-T34 2021-T47 洪泛 过滤',
+                href: 'network-3.html#section-98'
+              }
+            ]
+          },
+          {
+            id: 'm6-dom',
+            title: '冲突域/广播域隔离与拓扑综合实战',
+            media: [
+              {
+                type: 'table',
+                title: 'Hub vs 二层交换机 vs 路由器 vs VLAN 层次与域隔离对比',
+                headers: ['网络设备 / 技术', '工作层次', '隔离冲突域', '隔离广播域', '典型转发与带宽特性'],
+                rows: [
+                  ['@@中继器 / 集线器 (Hub)@@', '物理层', '!!否（0 隔离）!!', '!!否（0 隔离）!!', '盲目广播电信号；所有端口共享 `1 × R`'],
+                  ['==网桥 / 二层交换机 (Switch)==', '数据链路层', '&&是（每口独立）&&', '!!否（默认同域）!!', '按 MAC 查表转发；每口独占带宽可并行'],
+                  ['&&路由器 / 三层交换机&&', '网络层', '&&是&&', '&&是（每口独立）&&', '按 IP 路由转发；隔离二层普通广播帧'],
+                  ['&&VLAN (802.1Q)&&', '二层逻辑划分', '&&是&&', '&&是（每 VLAN 独立）&&', '跨 VLAN 单播/广播/ARP 均须经三层转发']
+                ]
+              }
+            ],
+            exams: [
+              {
+                year: '2022·T47 大题',
+                mistake: true,
+                star: true,
+                nodeId: 'c3-57',
+                href: 'network-3.html#section-99',
+                q: '路由器 `R`（`E0` 连交换机 `S`，另接 `设备1`→`H1` 与 `设备2`→`H2,H3`）；`S` 连 DHCP 服务器（`...B1`）与 AP（`...C1`）→ 无线 `H4(...D1), H5(...E1)`。H1/H2 同广播域不同冲突域，H2/H3 同冲突域；`100BaseT` 过 `设备2` 延时 `1.51μs`，`v=2×10^8m/s`。求：(1)设备1/2选型 (2)H2-H3 最远距 (3)H4 首发 DHCP 报文 M、R-E0 能否收到、S 发给 DHCP 帧目的 MAC (4)H4 发 IP 给 H5 时 H5 收到的 802.11 三地址。',
+                ans: '100BaseT交换机 / Hub｜210m｜DHCPDISCOVER / 能 / FF-FF-FF-FF-FF-FF｜E1 / C1 / D1',
+                explain: '① 同广播域隔冲突域选==交换机==，同冲突域选==Hub==；② `T_D = 5.12μs`，`d_max = 200 × (5.12/2 - 1.51) = 210m`；③ H4 初入网发广播 ==DHCPDISCOVER==，S 洪泛故 `R-E0` ==能收到==（但不跨口转二层广播），S 发往服务器仍保持 ==FF-FF-FF-FF-FF-FF==；④ H5 收下行帧（`AP→H5, From DS=1`）：地址 1=`...E1`(H5)、地址 2=`...C1`(AP)、地址 3=`...D1`(H4)。',
+                pitfall: '当时后两问未独立做出：① 误以为交换机 S 会替主机把广播目的 MAC 改成服务器单播 MAC；② 802.11 混淆上行与下行三地址。'
+              }
+            ],
+            children: [
+              {
+                id: 'c3-55',
+                bold: '冲突域与广播域计数规则',
+                text: '拓扑计数先用@@路由器接口与 VLAN 切分广播域@@，再用@@交换机/网桥端口切分冲突域@@；中继器与 Hub 既不隔冲突域也不隔广播域。',
+                short: 'Hub无隔离；交换机隔冲突域；路由/VLAN隔两域',
+                tag: '2010/2020',
+                red: true,
+                kw: '2010-T38 2020-T35 2022-T47 冲突域 广播域',
+                href: 'network-3.html#section-100'
+              },
+              {
+                id: 'c3-56',
+                bold: '混合拓扑物理层接收判定',
+                text: 'Hub 在物理层向除入端口外所有接口广播电信号，故==连在同一 Hub 上的所有主机物理层均能收到信号==（网卡链路层再依目的 MAC 决定丢弃）；交换机建表后单播帧仅发向目的端口，==其他端口主机在物理层收不到该信号==。',
+                short: '同Hub主机物理层全收信号；Switch建表后单播仅发目口',
+                tag: '2016',
+                red: true,
+                kw: '2016-T35 物理层接收 集线器',
+                href: 'network-3.html#section-101'
+              },
+              {
+                id: 'c3-57',
+                bold: 'DHCP 发现广播路径与不改 MAC 边界',
+                text: '主机刚接入网络时尚无 IP 也未知服务器位置，首发 ==DHCPDISCOVER==（源 IP `0.0.0.0`、目的 IP `255.255.255.255`、目的 MAC ==FF-FF-FF-FF-FF-FF==）。交换机洪泛使同广播域的==路由器 E0 接口能收到该帧==（但不跨口转发普通二层广播），且!!二层交换机转发时绝不改写帧内广播目的 MAC!!。',
+                short: '发现帧目MAC全F；路由E0能收不跨转，S不改MAC',
+                tag: '2022大题·错',
+                red: true,
+                kw: '2022-T47 DHCPDISCOVER 0.0.0.0 广播洪泛',
+                href: 'network-3.html#section-99'
+              }
             ]
           }
         ]

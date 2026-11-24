@@ -4,18 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f5f3ed">
-  <meta name="description" content="408计算机网络第6章应用层全屏思维导图，覆盖考纲重点与2009–2026真题。">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>6</text></svg>">
-  <title>第6章 应用层 · 考纲与真题思维导图</title>
+  <meta name="description" content="408计算机网络第6章应用层双模式强化思维导图白板：严格对齐教材与复盘笔记原话，内嵌14张核心原理图、4张对比速查表、2道精讲微例题、4处右括号总结、4张必背便签与12道408真题精选。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232563eb'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>6</text></svg>">
+  <title>第6章 应用层 · 图文强化思维导图白板</title>
   <script src="study/theme-boot.js?v=1"></script>
   <link rel="stylesheet" href="study/mindmap.css?v=5">
 </head>
 <body>
   <script>
   window.MINDMAP_CONFIG = {
+    rich: true,
     chapter: 6,
     pageFile: 'network-ch6-mindmap.html',
+    kicker: '408 COMPUTER NETWORK · CH06 WHITEBOARD',
     title: '第6章 应用层',
+    subtitle: '规定应用进程之间交换消息的格式、语义与顺序：C/S 与 P2P 应用模型 → DNS 层次域名解析 → FTP 双连接 → 电子邮件收发协议 → WWW 与 HTTP 连接时延 → 跨层综合与熟知端口。',
     noteHref: 'network-6.html',
     hubHref: 'network-0.html',
     storageKey: 'notes-network-ch6-mindmap-v1',
@@ -28,225 +31,975 @@
       { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
     ],
     tree: [
+      /* ==================== 6.1 网络应用模型 ==================== */
       {
-        id: '6.1',
-        title: '6.1 应用模型',
-        col: 'left',
+        id: 'm1',
+        navLabel: '1 应用模型',
+        title: '6.1 网络应用模型（C/S 与 P2P）',
+        sub: '应用进程之间如何组织通信角色？集中式服务提供与分布式对等协作的适用边界在哪里？',
         children: [
           {
-            id: '6.1-cs',
-            title: 'C/S 模型',
+            id: 'm1-cs',
+            title: '客户/服务器模型（C/S）',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.1-C-S模型.jpg', caption: '图 6.1 客户/服务器（C/S）模型：客户主动请求，服务器持续监听', width: 300 }
+            ],
+            summary: {
+              title: '应用模型与角色判型速判',
+              text: '① “客户”和“服务器”是@@通信中的进程角色@@，不是固定的硬件类型；同一主机不同进程可在不同通信中扮演不同角色。\n② C/S 中==客户间通常不直接通信==；P2P 是建立在 IP 网络之上的@@逻辑覆盖网络@@，节点动态兼任客户与服务器。'
+            },
             children: [
-              { id: 'c6-01', bold: '角色分工', text: '客户主动发请求，服务器持续等请求', tag: '大纲', kw: 'IP 端口 进程角色', href: 'network-6.html#section-6' },
-              { id: 'c6-02', bold: '客户间通信', text: '服务集中中心，客户间通常不直接通信', tag: '2019', red: true, kw: '2019-T40 瓶颈 单点', href: 'network-6.html#section-6' },
-              { id: 'c6-03', bold: '两大边界', text: '同机可兼任两角；建连后服务器仍可推数据', tag: '边界', kw: '进程 非硬件', href: 'network-6.html#section-7' }
-            ]
-          },
-          {
-            id: '6.1-p2p',
-            title: 'P2P 模型',
-            children: [
-              { id: 'c6-04', bold: '动态对等', text: '节点既下又传，不要求硬件性能相等', tag: '大纲', kw: 'BitTorrent chunk', href: 'network-6.html#section-11' },
-              { id: 'c6-05', bold: '扩展健壮', text: '新节点既增需求又增上传，单点退出不失效', tag: '大纲', kw: '分发大文件', href: 'network-6.html#section-12' },
-              { id: 'c6-06', bold: '覆盖与判型', text: '覆盖在 IP 上的逻辑网；含 Tracker 仍算 P2P', tag: '大纲', kw: '覆盖网络 索引', href: 'network-6.html#section-12' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '6.2',
-        title: '6.2 域名系统 DNS',
-        col: 'left',
-        children: [
-          {
-            id: '6.2-base',
-            title: '基础与空间',
-            children: [
-              { id: 'c6-07', bold: '架构与端口', text: 'C/S＋分布式；常规查 UDP 53（区传用 TCP）', tag: '2018', red: true, kw: '2018-T33 超时重传', href: 'network-6.html#section-15' },
-              { id: 'c6-08', bold: '书写与分类', text: '从右往左(末含.)；标号≤63总≤255不分大小写', tag: '大纲', kw: '.cn .com .arpa 顶级域', href: 'network-6.html#section-17' },
-              { id: 'c6-09', bold: '映射关系', text: '域名与 IP 不一一对应（均衡 / 虚拟主机）', tag: '大纲', kw: '一对多 多对一', href: 'network-6.html#section-17' }
-            ]
-          },
-          {
-            id: '6.2-srv',
-            title: '服务器与域区',
-            children: [
-              { id: 'c6-10', bold: '四类服务器', text: '主机先找本地 DNS；权威记录在权限 DNS', tag: '大纲', kw: '根 顶级 权限 本地', href: 'network-6.html#section-21' },
-              { id: 'c6-55', bold: '只需知本地IP', text: '主机不需预知根/顶级/权限IP；8报文非通用上限', tag: '边界', kw: '2×(1+4)=10 报文数', href: 'network-6.html#section-21' },
-              { id: 'c6-11', bold: '域与区区别', text: 'Zone ⊆ Domain，层数≠权限服务器数', tag: '边界', kw: '管理权限', href: 'network-6.html#section-20' }
-            ]
-          },
-          {
-            id: '6.2-proc',
-            title: '解析与 RTT',
-            children: [
-              { id: 'c6-12', bold: '递归 vs 迭代', text: '看谁查下一站：人查到底=递归，自己跑=迭代', tag: '大纲', kw: '王道默认', href: 'network-6.html#section-23' },
-              { id: 'c6-13', bold: '全递归条数', text: '指定“递归方法”时主机和本地各只发 1 条', tag: '2010·错', red: true, kw: '2010-T40 一条', href: 'network-6.html#section-26' },
-              { id: 'c6-14', bold: '缓存与 TTL', text: '两级缓存；未命中发 1+k 请求、2(1+k) 报文', tag: '大纲', kw: 'TTL 生存时间', href: 'network-6.html#section-24' },
-              { id: 'c6-15', bold: '多级委派', text: '不按点数死算：www.abc.xyz.com 最少 0 最多 4 次', tag: '2016', red: true, kw: '2016-T40 第12题', href: 'network-6.html#section-26' },
               {
-                id: '6.2-2020',
-                title: '2020 RTT 边界',
-                children: [
-                  { id: 'c6-16', bold: '最短 20ms', text: 'DNS 命中仍需 TCP 1RTT ＋ HTTP 1RTT', tag: '2020·错', red: true, kw: '2020-T40 2RTT', href: 'network-6.html#section-27' },
-                  { id: 'c6-46', bold: '最长 50ms', text: '本地 DNS 在局域网忽略时延（非 60ms）', tag: '2020·错', red: true, kw: '2020-T40 5RTT', href: 'network-6.html#section-27' }
+                id: 'c6-01',
+                bold: '角色分工与地址获知',
+                text: '服务器是==始终处于开启状态的服务提供方==，启动后在熟知端口监听并并发处理多个客户；客户是==主动发起请求并接收结果的服务请求方==。客户事先需知道服务器的 IP 地址与端口，服务器可从客户报文中获知客户地址。',
+                short: '客户主动请求，服务器持续监听熟知端口提供服务',
+                tag: '大纲',
+                kw: 'IP 端口 进程角色 监听',
+                href: 'network-6.html#section-6'
+              },
+              {
+                id: 'c6-02',
+                bold: '客户间通信与集中瓶颈',
+                text: 'C/S 网络中计算机地位不平等，权限、数据与管理集中在服务器便于统一维护；!!客户之间通常不直接通信!!（如两个浏览器不直接交换 Web 数据）。服务器处理能力与出口带宽决定吞吐量，客户过多时易成性能瓶颈与单点故障。',
+                short: '管理集中但易成瓶颈，客户间通常不直接通信',
+                tag: '2019',
+                red: true,
+                kw: '2019-T40 瓶颈 单点 集中管理',
+                href: 'network-6.html#section-6'
+              },
+              {
+                id: 'c6-03',
+                bold: '进程角色与发送方向边界',
+                text: '“客户”和“服务器”是==进程角色而非固定硬件类型==，同一主机可同时运行客户与服务器进程；服务器能否主动向客户发送数据取决于具体协议与连接状态，!!不可将“客户主动发起请求”误读为“建连后服务器不能发送数据”!!。',
+                short: '同机可兼任两角；建连后服务器按协议仍可发数据',
+                tag: '边界',
+                kw: '进程 非硬件 通知',
+                href: 'network-6.html#section-7'
+              }
+            ]
+          },
+          {
+            id: 'm1-p2p',
+            title: '对等模型（P2P）与模型对比',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.2-P2P模型.jpg', caption: '图 6.2 对等（P2P）模型：任意对等节点既可下载也可上传', width: 290 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: 'C/S 模型 vs P2P 模型核心特征对比',
+                headers: ['比较维度', 'C/S 模型', 'P2P 模型'],
+                rows: [
+                  ['资源位置', '主要集中在服务器', '分散在众多对等节点'],
+                  ['通信关系', '!!客户之间通常不直接通信!!', '==任意两个对等节点可直接通信=='],
+                  ['可扩展性', '受单一服务器性能与出口带宽限制', '==节点增加既增需求又增上传服务能力=='],
+                  ['健壮性', '中心服务器故障影响全局', '单节点退出通常不影响系统整体运行'],
+                  ['管理与代价', '集中便于权限管理；服务器承担主要压力', '管理与安全复杂；占用节点 CPU/内存/磁盘与上行带宽']
                 ]
+              }
+            ],
+            children: [
+              {
+                id: 'c6-04',
+                bold: '动态对等角色',
+                text: 'P2P 中没有固定的客户/服务器划分，==每个节点既能下载也能上传，任意两个对等方可直接通信==。节点请求他人资源时为客户，提供资源时为服务器，本质是角色在节点间动态切换；!!“对等”不要求所有节点硬件性能相同!!。',
+                short: '节点既下又传动态切换角色，不要求硬件性能相同',
+                tag: '大纲',
+                kw: 'BitTorrent 对等方 硬件性能',
+                href: 'network-6.html#section-11'
+              },
+              {
+                id: 'c6-05',
+                bold: '扩展性、健壮性与资源代价',
+                text: '大量用户下载大文件时，新加入节点既带来需求也贡献上传带宽，==系统总服务能力随节点数增加而扩展==，避免单点依赖；代价是加重本机资源开销，且大量 P2P 流量可能造成 ISP 链路拥塞。',
+                short: '新节点兼增需求与上传能力，单点退出不失效',
+                tag: '2019',
+                red: true,
+                kw: '2019-T40 分发大文件 扩展性',
+                href: 'network-6.html#section-12'
+              },
+              {
+                id: 'c6-06',
+                bold: '逻辑覆盖网络与模型判型',
+                text: 'P2P 是建立在 IP 网络之上的@@逻辑覆盖网络@@，不是独立铺设的物理网络；部分 P2P 系统包含用于节点发现/索引的辅助服务器（如 Tracker），其主要数据仍在对等节点间直接交换，仍属于 P2P 模型。',
+                short: '覆盖在 IP 上的逻辑网；含索引辅助服务器仍属 P2P',
+                tag: '大纲',
+                kw: '覆盖网络 Tracker 索引',
+                href: 'network-6.html#section-12'
               }
             ]
           }
         ]
       },
+
+      /* ==================== 6.2 域名系统 DNS ==================== */
       {
-        id: '6.3',
-        title: '6.3 文件传输 FTP',
-        col: 'left',
+        id: 'm2',
+        navLabel: '2 DNS域名系统',
+        title: '6.2 域名系统 DNS',
+        sub: '如何用层次化分布式数据库把易记域名解析为路由所需的 IP 地址？递归与迭代如何决定查询条数与 RTT？',
         children: [
           {
-            id: '6.3-conn',
-            title: '双连接与状态',
-            children: [
-              { id: 'c6-17', bold: '基本属性', text: 'TCP＋有状态、带外传送；主进程派从属进程并发', tag: '2009', red: true, kw: '2009-T40 匿名FTP', href: 'network-6.html#section-33' },
-              { id: 'c6-18', bold: '生命周期', text: '控制(21)贯穿全程；数据传完即关(含 LIST)', tag: '2017', red: true, kw: '2017-T40', href: 'network-6.html#section-34' }
-            ]
-          },
-          {
-            id: '6.3-mode',
-            title: 'PORT 与 PASV',
-            children: [
-              { id: 'c6-19', bold: '主/被动含义', text: 'PORT 服 20 连客；PASV 客连服（易穿 NAT）', tag: '大纲', kw: '上传 下载', href: 'network-6.html#section-35' },
-              { id: 'c6-20', bold: '端口归属陷阱', text: '20 和 21 属服务器，客户端全用随机临时口', tag: '2017·错', red: true, kw: '2017-T40 临时端口', href: 'network-6.html#section-35' }
-            ]
-          },
-          {
-            id: '6.3-calc',
-            title: '跨章综合计算',
-            children: [
-              { id: 'c6-21', bold: '序号计算', text: 'SYN 与 FIN 各占 1 号，确认 FIN 为 ISN+2+L', tag: '2023大题', red: true, kw: '2023-T47 101 18102', href: 'network-6.html#section-38' },
-              { id: 'c6-22', bold: '慢开始尺度', text: '达门限前每收 1 新 ACK +1MSS；后整轮 +1', tag: '2023大题', red: true, kw: '2023-T47 2101 7101', href: 'network-6.html#section-38' },
-              { id: 'c6-47', bold: '平均比特率', text: 'v = 8L / T，做题先盯死 T 的起止点', tag: '2023大题', red: true, kw: '2023-T47 2.4Mbps', href: 'network-6.html#section-38' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '6.4',
-        title: '6.4 电子邮件',
-        col: 'right',
-        children: [
-          {
-            id: '6.4-flow',
-            title: '组成与 Push/Pull',
-            children: [
-              { id: 'c6-23', bold: '发信与转交', text: '发UA → 发服务器 → 收服务器均用 SMTP 推', tag: '2012', red: true, kw: '2012-T40 2013-T40 兼任', href: 'network-6.html#section-43' },
-              { id: 'c6-48', bold: '收信拉取', text: '收UA ← 收服务器用 POP3/IMAP 拉，无服→UA 推', tag: '2012/2013', red: true, kw: 'Push Pull', href: 'network-6.html#section-44' }
-            ]
-          },
-          {
-            id: '6.4-fmt',
-            title: '格式与 MIME',
-            children: [
-              { id: 'c6-24', bold: '首部与空行', text: '内容 = 首部 ＋ 1 个空行 ＋ 主体；用户@域名', tag: '大纲', kw: 'From To Subject MX Bcc RFC5322', href: 'network-6.html#section-46' },
-              { id: 'c6-25', bold: 'MIME 编码', text: 'SMTP 原生只传 7 位 ASCII；非 ASCII 须 MIME 转换', tag: '2013/2018', red: true, kw: '2013-T40 2018-T40 Base64', href: 'network-6.html#section-47' }
-            ]
-          },
-          {
-            id: '6.4-proto',
-            title: 'SMTP / POP3 / IMAP',
-            children: [
-              { id: 'c6-26', bold: 'SMTP(TCP 25)', text: 'HELO/MAIL/RCPT/DATA/./QUIT；220/250/354/221', tag: '大纲', kw: '三阶段 响应码', href: 'network-6.html#section-49' },
-              { id: 'c6-27', bold: 'POP3(TCP 110)', text: '有连接可靠；1 条 TCP 可连续读多封邮件', tag: '2015/2025', red: true, kw: '2015-T33 2025-T40 删除 保留', href: 'network-6.html#section-50' },
-              { id: 'c6-28', bold: 'IMAP 与 Web 邮箱', text: 'IMAP(143) 同步管理；Web 邮箱用 HTTP/HTTPS', tag: '大纲', kw: '文件夹 部分下载', href: 'network-6.html#section-50' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '6.5',
-        title: '6.5 WWW 与 HTTP',
-        col: 'right',
-        children: [
-          {
-            id: '6.5-base',
-            title: 'URL、特性与 Cookie',
-            children: [
-              { id: 'c6-29', bold: 'URL 与端口', text: '缺省默认 TCP 80；若写 :8088 则连 8088', tag: '错题', red: true, kw: 'WWW HTML 显式端口', href: 'network-6.html#section-57' },
-              { id: 'c6-30', bold: '无连接 & 无状态', text: '应用层无连接但底层用 TCP（非 UDP）；不记历史', tag: '边界', kw: '1.0 1.1 套接字 互联网', href: 'network-6.html#section-60' },
-              { id: 'c6-31', bold: 'Cookie 机制', text: 'Set-Cookie 发标识、复访带 Cookie；绝不减 RTT', tag: '2015/2026', red: true, kw: '2015-T40 2026-T40', href: 'network-6.html#section-61' }
-            ]
-          },
-          {
-            id: '6.5-rtt',
-            title: '连接模式与慢开始',
+            id: 'm2-space',
+            title: '架构、层次域名空间与映射关系',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.3-域名示例.jpg', caption: '图 6.3 域名标号层级：从左到右由低级到顶级', width: 280 },
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.4-域名空间.jpg', caption: '图 6.4 互联网层次树状域名空间结构', width: 300 }
+            ],
+            exams: [
+              {
+                year: '2018·T33',
+                star: true,
+                nodeId: 'c6-07',
+                href: 'network-6.html#section-15',
+                q: '下列 TCP/IP 应用层协议中，可以使用传输层无连接服务的是？',
+                opts: ['A. FTP', 'B. DNS', 'C. SMTP', 'D. HTTP'],
+                ans: 'B',
+                explain: '传输层无连接服务指 ==UDP==。常规 **DNS** 查询报文短、追求低时延且可由应用层定时器重传，默认采用 ==UDP 53==（大报文或区域传送时可用 TCP）；FTP、SMTP、HTTP 均为面向连接的可靠交付，使用 TCP。'
+              }
+            ],
             children: [
               {
-                id: '6.5-modes',
-                title: '1 HTML + n 小图',
-                children: [
-                  { id: 'c6-32', bold: 'HTTP/1.0 非持久', text: '串行 2(n+1) RTT；全并行 4 RTT', tag: '2024', red: true, kw: '2024-T40 16RTT', href: 'network-6.html#section-62' },
-                  { id: 'c6-49', bold: 'HTTP/1.1 持久', text: '非流水线 (n+2) RTT；流水线 3 RTT', tag: '大纲', kw: '2011-T47', href: 'network-6.html#section-62' }
+                id: 'c6-07',
+                bold: '分布式 C/S 架构与传输协议',
+                text: 'DNS 是基于 C/S 模型的==分布式数据库系统==，主要完成域名到 IP 地址的正向映射（也支持反向解析）。王道本章默认：==DNS → UDP → 53==，查询报文短、开销低，丢包时由 DNS 应用自行设置定时器重发（大报文或区域传送等特殊情况可用 TCP）。',
+                short: '分布式 C/S；本章默认 UDP 53，丢包由应用超时重传',
+                tag: '2018',
+                red: true,
+                kw: '2018-T33 UDP53 超时重传 区域传送',
+                href: 'network-6.html#section-15'
+              },
+              {
+                id: 'c6-08',
+                bold: '域名书写规则与顶级域分类',
+                text: '域名由点分隔的标号序列组成，==最低级在最左、顶级域在最右==；英文字母不区分大小写，除连字符 `-` 外不用其他标点；单个标号 `≤ 63` 字符，完整域名（含点）`≤ 255` 字符。顶级域分三类：国家顶级域 ccTLD（`.cn`/`.us`）、通用顶级域 gTLD（`.com`/`.net`/`.org`/`.edu`/`.gov`）、基础结构域（`.arpa`）。',
+                short: '左低右高；标号≤63总≤255不分大小写；三类顶级域',
+                tag: '大纲',
+                kw: '.cn .com .arpa 顶级域 标号',
+                href: 'network-6.html#section-17'
+              },
+              {
+                id: 'c6-09',
+                bold: '域名与 IP 不一一对应',
+                text: '域名能解析为 IP 只说明存在映射关系，!!绝不是一一对应!!：一个域名可对应多个 IP（负载均衡/多机集群），多个域名也可对应同一 IP（虚拟主机），同一主机还可拥有多个域名；IP 网络通信需要 IP，不一定需要域名。',
+                short: '域名与 IP 非一一对应，支持一对多与多对一映射',
+                tag: '大纲',
+                kw: '一对多 多对一 负载均衡 虚拟主机',
+                href: 'network-6.html#section-17'
+              }
+            ]
+          },
+          {
+            id: 'm2-srv',
+            title: '四类域名服务器与域/区划分',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.5-DNS层次.jpg', caption: '图 6.5 根、顶级、权限三层权威体系与本地域名服务器', width: 320 }
+            ],
+            summary: {
+              title: '本地 DNS vs 权限 DNS 与域/区辨析',
+              text: '① “主机首先问谁、主机须配置谁的 IP”选@@本地域名服务器@@；“保存管辖主机权威映射”选==权限域名服务器==（本地 DNS 能回答不等于有管理权限）。\n② `区（Zone）⊆ 域（Domain）`，域名层级数不等于独立权限服务器数。'
+            },
+            children: [
+              {
+                id: 'c6-10',
+                bold: '四类域名服务器分工',
+                text: '① @@根域名服务器@@：返回对应顶级域服务器地址；② @@顶级域名服务器（TLD）@@：管理二级域，返回目标区权限服务器地址或直接答案；③ ==权限/授权域名服务器==：保存管辖区内主机的权威 IP 映射；④ ==本地域名服务器==：由 ISP/组织配置，替主机代查并缓存（也可兼任某区权限服务器）。',
+                short: '根指TLD、TLD指权限、权限存权威映射、本地代查缓存',
+                tag: '必背',
+                kw: '根 顶级 权限 本地 权威记录',
+                href: 'network-6.html#section-21'
+              },
+              {
+                id: 'c6-55',
+                bold: '主机仅需配置本地 DNS 与报文数误区',
+                text: '主机缓存未命中时首先联系配置的==本地域名服务器==，!!主机只需知道本地 DNS 的 IP，不必预先知道根、TLD、权限服务器的 IP!!。教材典型 3 级外网查询得 `8` 个 DNS 报文只是该例数值，!!不是 DNS 报文数的普遍上限!!（4 级委派含主机问答为 `2×(1+4)=10` 个报文）。',
+                short: '主机只须知本地 DNS IP；8 报文仅特例非通用上限',
+                tag: '边界',
+                kw: '2×(1+4)=10 报文数 8报文',
+                href: 'network-6.html#section-21'
+              },
+              {
+                id: 'c6-11',
+                bold: '域（Domain）与区（Zone）的区别',
+                text: '域是域名空间中可管理的树状划分，可继续委派为子域；==区（Zone）是一台权限服务器实际管辖的范围，满足 `Zone ⊆ Domain`==。上级域可整体或分段委派，因此域名层级数不一定等于独立权限服务器的数量。',
+                short: '区是服务器管辖范围，Zone⊆Domain，层数≠服务器数',
+                tag: '边界',
+                kw: '管理权限 委派 Zone Domain',
+                href: 'network-6.html#section-20'
+              }
+            ]
+          },
+          {
+            id: 'm2-proc',
+            title: '域名解析过程、缓存与 RTT 边界',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.6a-DNS递归.jpg', caption: '图 6.6a 递归查询：被询问服务器代查到底并返回最终结果', width: 290 },
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.6b-DNS迭代.jpg', caption: '图 6.6b 迭代查询：返回下一站线索，由原请求方继续查询', width: 290 }
+            ],
+            media: [
+              {
+                type: 'example',
+                title: '2020·T40 DNS 缓存开关 + 局域网 RTT 双边界（20ms vs 50ms）',
+                body: '拓扑：局域网含主机 `H`、路由器与本地 DNS；Internet 含根、`.com`、`abc.com` 与 `www.abc.com`；访问 Internet 上各服务器 `RTT = 10ms`，忽略其他时延。\n① 最短时间（DNS 缓存命中）：DNS 耗时 `0ms`，但浏览网页仍须 ==TCP 建连 1 RTT（10ms）+ HTTP 请求响应 1 RTT（10ms）= 20ms==（非 `10ms`）。\n② 最长时间（缓存全空）：本地 DNS 在局域网内，故 `H ↔ 本地 DNS` 记 `0ms`；本地 DNS 向 Internet 迭代查询根 → `.com` → `abc.com` 占 `3 × 10ms = 30ms`，叠加 TCP `10ms` + HTTP `10ms` = ==50ms==（非 `60ms`）。'
+              }
+            ],
+            sticky: {
+              title: '递归 vs 迭代与纯递归 1 条铁律',
+              text: '① 判别依据：看当前一跳@@谁继续向下一站发请求@@——被问者代查到底是递归，原请求者按线索续查是迭代。\n② 王道默认“主机向本地递归、本地向外迭代”；但题干明确写“!!采用递归方法解析!!”时，主机和本地 DNS ==各只发 1 条==请求！\n③ 问“请求次数”不乘 2，问“请求+响应报文总数”才在一问一答模型下乘 2。'
+            },
+            exams: [
+              {
+                year: '2010·T40',
+                mistake: true,
+                nodeId: 'c6-13',
+                href: 'network-6.html#section-26',
+                q: '如果本地域名服务器无缓存，当采用==递归方法==解析另一网络某主机域名时，用户主机、本地域名服务器发送的域名请求消息数分别为？',
+                opts: ['A. 一条、一条', 'B. 一条、多条', 'C. 多条、一条', 'D. 多条、多条'],
+                ans: 'A',
+                explain: '题干明确指定“采用递归方法解析”：用户主机向本地 DNS 发 ==1 条==递归请求，本地 DNS 向根域名服务器也只发 ==1 条==递归请求，后续由根/顶级服务器之间递归转查。',
+                pitfall: '当时习惯性套用现实默认的“本地 DNS 向外迭代”，以为本地 DNS 要发多条请求而错选 B。'
+              },
+              {
+                year: '2016·T40',
+                star: true,
+                nodeId: 'c6-15',
+                href: 'network-6.html#section-26',
+                q: '所有域名服务器均采用迭代查询方式。主机 `H4` 访问 `www.abc.xyz.com` 时，其默认本地 DNS 服务器 `201.1.1.1` 可能发出 DNS 查询的最少和最多次数分别是？',
+                opts: ['A. 1, 3', 'B. 0, 3', 'C. 0, 4', 'D. 1, 4'],
+                ans: 'C',
+                explain: '① 最少 ==0 次==：`H4` 本机缓存命中或 `201.1.1.1` 自身缓存命中；② 最多 ==4 次==：缓存全空且各级独立委派，依次迭代询问根 → `.com` → `xyz.com` → `abc.xyz.com` 服务器（不为主机名 `www` 另造一级）。'
+              },
+              {
+                year: '2020·T40',
+                mistake: true,
+                nodeId: 'c6-16',
+                href: 'network-6.html#section-27',
+                q: '局域网内含主机 `H` 与本地 DNS（仅提供递归），Internet 上各服务器（根/`.com`/`abc.com`/`www.abc.com`）仅提供迭代且访问 `RTT=10ms`，忽略其他时延。点击 `http://www.abc.com/index.html` 到接收该纯文本页，最短与最长时间分别为？',
+                opts: ['A. 10ms、40ms', 'B. 10ms、50ms', 'C. 20ms、40ms', 'D. 20ms、50ms'],
+                ans: 'D',
+                explain: '最短：DNS 缓存命中（`0ms`）+ TCP 建连（`10ms`）+ HTTP 请求响应（`10ms`）= ==20ms==；最长：局域网 `H ↔ 本地 DNS` 忽略（`0ms`）+ Internet 三级迭代（`30ms`）+ TCP（`10ms`）+ HTTP（`10ms`）= ==50ms==。',
+                pitfall: '当时最长 50ms 算对，但算最短时间误以为 DNS 缓存命中后直接 1 RTT 取网页（10ms），漏算 TCP 握手 1 RTT 而错选 B。'
+              }
+            ],
+            children: [
+              {
+                id: 'c6-12',
+                bold: '递归查询 vs 迭代查询',
+                text: '@@递归查询@@由被询问服务器代替请求方查到底并返回最终答案或失败信息；@@迭代查询@@由被询问服务器返回答案、下一站服务器线索或失败信息，原请求方自行继续查询。王道默认：==主机→本地 DNS 采用递归，本地 DNS→其他服务器通常采用迭代==（二者可并存，题干另给方式则按题干）。',
+                short: '被问者代查为递归，按线索自查为迭代；默认客递本迭',
+                tag: '必背',
+                kw: '王道默认 线索 代查',
+                href: 'network-6.html#section-23'
+              },
+              {
+                id: 'c6-13',
+                bold: '指定纯递归查询的请求条数',
+                text: '当题干明确限定“采用递归方法解析”且无缓存、无重传时，用户主机向本地 DNS 发 ==1 条==请求，本地 DNS 向根域名服务器也只发 ==1 条==请求，后续查询由上级服务器逐级递归接力。',
+                short: '题干指定全递归时，主机和本地 DNS 各只发 1 条请求',
+                tag: '2010·错',
+                red: true,
+                kw: '2010-T40 一条 递归方法',
+                href: 'network-6.html#section-26'
+              },
+              {
+                id: 'c6-14',
+                bold: '两级缓存与 TTL 生存时间',
+                text: '主机与本地 DNS 均缓存近期解析记录，每条记录带 `TTL` 到期自动失效。主机缓存命中则发 `0` 条查询；主机未命中而本地命中则主机问本地、本地向外查 `0` 次；未命中经 `k` 次外网查询，含主机问答共 `1+k` 次请求、一问一答共 `2(1+k)` 个报文。',
+                short: '主机与本地两级缓存带 TTL；未命中 1+k 请求、2(1+k) 报文',
+                tag: '大纲',
+                kw: 'TTL 生存时间 缓存端',
+                href: 'network-6.html#section-24'
+              },
+              {
+                id: 'c6-15',
+                bold: '多级委派查询次数范围',
+                text: '迭代解析 `www.abc.xyz.com` 时须按区域委派计数，不按点号机械计算也不为主机标号 `www` 另造一级：缓存命中时本地 DNS 最少发出 ==0 次==查询，逐级委派时最多依次问根、`.com`、`xyz.com`、`abc.xyz.com` 共 ==4 次==查询。',
+                short: '按区域委派非死数点号：www.abc.xyz.com 最少0最多4次',
+                tag: '2016',
+                red: true,
+                kw: '2016-T40 第12题 多级委派',
+                href: 'network-6.html#section-26'
+              },
+              {
+                id: 'c6-16',
+                bold: 'DNS 缓存命中最短时延边界（20ms）',
+                text: '即使主机本地缓存已命中目标 Web 服务器 IP（DNS 耗时 `0ms`），通过 HTTP 获取纯文本网页仍须执行 ==TCP 前两次握手 `1 RTT` + 第 3 次握手捎带 HTTP 请求与响应 `1 RTT` = `2 RTT`==（`RTT=10ms` 时为 `20ms`，非 `10ms`）。',
+                short: 'DNS 缓存命中仍须 TCP 1RTT + HTTP 1RTT = 20ms',
+                tag: '2020·错',
+                red: true,
+                kw: '2020-T40 2RTT 20ms',
+                href: 'network-6.html#section-27'
+              },
+              {
+                id: 'c6-46',
+                bold: '局域网本地 DNS 最长时延边界（50ms）',
+                text: '当拓扑将本地 DNS 置于局域网内且题干仅规定“访问 Internet 上各服务器的 RTT 为 `10ms`，忽略其他时延”时，!!主机与本地 DNS 的局域网 RTT 记为 0ms!!；按根→`.com`→`abc.com` 三级外网迭代 `3 RTT` 加 HTTP `2 RTT`，共 `5 RTT = 50ms`（非 `60ms`）。',
+                short: '局域网内本地 DNS 忽略时延：3RTT 迭代 + 2RTT = 50ms',
+                tag: '2020·错',
+                red: true,
+                kw: '2020-T40 5RTT 50ms 局域网',
+                href: 'network-6.html#section-27'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 6.3 文件传输协议 FTP ==================== */
+      {
+        id: 'm3',
+        navLabel: '3 FTP文件传输',
+        title: '6.3 文件传输协议 FTP',
+        sub: '为什么 FTP 需要控制连接和数据连接分离？PORT 与 PASV 的端口归属与 TCP 慢开始如何考查？',
+        children: [
+          {
+            id: 'm3-conn',
+            title: '服务器进程、带外双连接与生命周期',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.7-FTP双连接.jpg', caption: '图 6.7 FTP 控制连接（TCP 21）与数据连接（TCP 20）并行工作', width: 320 }
+            ],
+            sticky: {
+              title: '20/21 永属服务器与带外双连接',
+              text: '① !!20（主动模式数据口）和 21（控制口）永远属于 FTP 服务器!!，客户端两类端口均由操作系统随机分配；看到“客户端的 TCP 20 端口”直接判错。\n② 控制连接贯穿整个会话；数据连接按次建立、传完即关（`LIST` 目录列表也走数据连接）。\n③ 明确指定 `PASV` 被动模式时，服务器不再使用 `20` 端口。'
+            },
+            children: [
+              {
+                id: 'c6-17',
+                bold: 'TCP 有状态与带外传送',
+                text: 'FTP 基于 ==TCP==、采用 C/S 模式，面向异构网络提供可靠交互式文件传输（支持匿名 FTP）。服务器==主进程==监听熟知端口 `21`，为每个客户创建==从属进程==并发处理。FTP 是@@有状态协议@@（维护账户与当前工作目录），控制命令与文件数据分走两条连接，称为==带外传送==。',
+                short: '基于 TCP 有状态、带外传送；主进程监听 21 派从属进程',
+                tag: '2009',
+                red: true,
+                kw: '2009-T40 匿名FTP 从属进程 带外',
+                href: 'network-6.html#section-33'
+              },
+              {
+                id: 'c6-18',
+                bold: '双连接内容与生命周期',
+                text: '@@控制连接@@（服务器 `21`）传输登录、目录切换、传送与中断命令，==整个会话期间保持打开（先建立、后释放）==；@@数据连接@@传输文件内容与 `LIST` 目录列表，==每次传输按需建立，传输完毕立即关闭（后建立、先释放）==。',
+                short: '控制(21)贯穿全程先建后关；数据按次建完即关(含LIST)',
+                tag: '2017/23',
+                red: true,
+                kw: '2017-T40 2023-T47 LIST 生命周期',
+                href: 'network-6.html#section-34'
+              }
+            ]
+          },
+          {
+            id: 'm3-mode',
+            title: 'PORT 主动模式 vs PASV 被动模式',
+            media: [
+              {
+                type: 'table',
+                title: 'FTP PORT（主动）vs PASV（被动）数据连接模式对比',
+                headers: ['比较维度', 'PORT 主动模式（教材默认）', 'PASV 被动模式'],
+                rows: [
+                  ['控制连接', '客户随机临时端口 → 服务器 `TCP 21`', '客户随机临时端口 → 服务器 `TCP 21`'],
+                  ['端口协商方式', '客户随机开本地端口并用 `PORT` 告知服务器', '客户发 `PASV`，服务器随机开数据端口并回复端口号'],
+                  ['数据连接发起方', '==服务器主动连接客户端==', '==客户端主动连接服务器==（利于穿越客户端 NAT/防火墙）'],
+                  ['服务器数据端口', '熟知端口 ==TCP 20==', '!!服务器动态协商的临时端口（非 20）!!'],
+                  ['客户端数据端口', '操作系统随机分配的临时端口', '操作系统随机分配的临时端口']
+                ]
+              }
+            ],
+            exams: [
+              {
+                year: '2017·T40',
+                mistake: true,
+                nodeId: 'c6-20',
+                href: 'network-6.html#section-35',
+                q: '下列关于 FTP 协议的叙述中，错误的是？',
+                opts: [
+                  'A. 数据连接在每次数据传输完毕后就关闭',
+                  'B. 控制连接在整个会话期间保持打开状态',
+                  'C. 服务器与客户端的 TCP20 端口建立数据连接',
+                  'D. 客户端与服务器的 TCP21 端口建立控制连接'
+                ],
+                ans: 'C',
+                explain: 'A、B、D 均符合 FTP 双连接规范。`20`（主动模式数据口）与 `21`（控制口）均属于==服务器端==熟知端口，客户端数据端口由操作系统动态分配，故 C 中“客户端的 TCP20 端口”错误。',
+                pitfall: '当时把“数据连接按次关闭”记反而错选 A，且审题时看漏了 C 选项中的“客户端的”三个字。'
+              }
+            ],
+            children: [
+              {
+                id: 'c6-19',
+                bold: 'PORT 主动与 PASV 被动含义',
+                text: '@@PORT（主动）模式@@：客户告知临时端口，==服务器从 `20` 端口主动连接客户==；@@PASV（被动）模式@@：服务器开放随机临时数据端口，==客户主动连接该端口==，更易穿越客户端防火墙/NAT。未特别说明时按主动模式处理，指定 PASV 时不再使用服务器 `20` 端口。',
+                short: 'PORT 服 20 主动连客；PASV 客连服随机口，易穿 NAT',
+                tag: '大纲',
+                kw: 'PORT PASV 主动 被动 NAT',
+                href: 'network-6.html#section-35'
+              },
+              {
+                id: 'c6-20',
+                bold: '服务器熟知端口与客户端临时端口',
+                text: '“FTP 使用 `20`、`21` 端口”默认指!!服务器端熟知端口!!；客户端建立控制连接和数据连接使用的均为==操作系统动态分配的临时端口==，判断时须核对端口归属方与报文方向。',
+                short: '20 与 21 永属服务器，客户端均用随机临时端口',
+                tag: '2017·错',
+                red: true,
+                kw: '2017-T40 临时端口 端口归属',
+                href: 'network-6.html#section-35'
+              }
+            ]
+          },
+          {
+            id: 'm3-calc',
+            title: 'FTP 叠加 TCP 序号与慢开始综合计算',
+            exams: [
+              {
+                year: '2023·T47 大题',
+                star: true,
+                nodeId: 'c6-21',
+                href: 'network-6.html#section-38',
+                q: '主机 `H` 向 FTP 服务器 `S` 上传 `18000B` 文件 `F`；`MSS=1000B`，`RTT=10ms`，`ssthresh=4MSS`，`rwnd` 足够大，数据连接 `H` 初始序号 `100`。问：双连接持久性与登录连接？`F` 首字节序号与确认 `FIN` 的 `ack`？收 `ack=2101` 与 `7101` 时的 `cwnd`？从建连到确认全收最短时间与平均速率？',
+                ans: '控制持久/数据非持久/控制连接｜101 / 18102｜3MSS / 5MSS｜60ms / 2.4Mbps',
+                explain: '① `SYN` 占 `100`，`F` 占 `101~18100`，`FIN` 占 `18101`，故对 `FIN` 的确认号为 ==18102==；② 第 2 轮发 `1101~2100` 与 `2101~3100`，收 `ack=2101` 仍在慢开始故逐 ACK 加 1 得 `cwnd=3MSS`；第 3 轮拥塞避免发 `4MSS`（累计至 `7101`），整轮确认完线性加 1 得 `cwnd=5MSS`；③ 握手 `1 RTT` + 五轮发送 `1+2+4+5+6=18MSS` 共 ==6 RTT = 60ms==，平均速率 `18000×8 / 0.06 = 2.4 Mbps`。'
+              }
+            ],
+            children: [
+              {
+                id: 'c6-21',
+                bold: '数据连接 SYN/FIN 序号推导',
+                text: '`SYN`、`FIN` 即使不带数据也各消耗 `1` 个序号，纯 `ACK` 消耗 `0` 个序号。若发送方从初始序号 `I` 起仅上传 `L` 字节文件，则文件首字节序号为 `I+1`，独立 `FIN` 序号为 `I+1+L`，对方确认该 `FIN` 的确认号为 ==I + 2 + L==。',
+                short: 'SYN/FIN 各占 1 号：首字节 I+1，确认 FIN 为 I+2+L',
+                tag: '2023大题',
+                red: true,
+                kw: '2023-T47 101 18102 SYN FIN',
+                href: 'network-6.html#section-38'
+              },
+              {
+                id: 'c6-22',
+                bold: '慢开始逐 ACK 与拥塞避免整轮尺度',
+                text: '按教材模型，初始 `cwnd = 1 MSS`、`ssthresh = 4 MSS` 且无丢包、接收窗口足够大时，各轮发送上限为 `1, 2, 4, 5, 6…` 个 MSS：==达门限前每收 1 个新 ACK 令 `cwnd + 1 MSS`；进入拥塞避免后每经历 1 整轮 RTT 线性 `+1 MSS`==。',
+                short: '达门限前每新 ACK +1MSS；进入避免后整轮 +1MSS',
+                tag: '2023大题',
+                red: true,
+                kw: '2023-T47 2101 7101 cwnd',
+                href: 'network-6.html#section-38'
+              },
+              {
+                id: 'c6-47',
+                bold: '应用层平均比特率与计时口径',
+                text: '平均应用层传输速率 `v = 8L / T`（`L` 为字节数，换算为 bit/s 必须乘 `8`）；总时间 `T` 是否计入前两次握手建连或连接释放，必须严格核对题干给定的计时起点与终点事件。',
+                short: '平均速率 v=8L/T，先核对计时起止事件再代 T',
+                tag: '2023大题',
+                red: true,
+                kw: '2023-T47 2.4Mbps 平均速率',
+                href: 'network-6.html#section-38'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 6.4 电子邮件 ==================== */
+      {
+        id: 'm4',
+        navLabel: '4 电子邮件',
+        title: '6.4 电子邮件（SMTP / POP3 / IMAP / MIME）',
+        sub: '异步电子邮件如何借助“推/拉”协议完成投递与读取？非 ASCII 附件如何通过仅支持 7 位 ASCII 的 SMTP？',
+        children: [
+          {
+            id: 'm4-flow',
+            title: '系统组成与 Push/Pull 收发流程',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.8-邮件系统.jpg', caption: '图 6.8 电子邮件三要素：用户代理（UA）、邮件服务器与收发协议', width: 310 },
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.9-邮件收发.jpg', caption: '图 6.9 邮件发送（SMTP 推）与读取（POP3/IMAP 拉）完整路径', width: 320 }
+            ],
+            sticky: {
+              title: 'SMTP 推 vs POP3/IMAP 拉与 7 位 ASCII',
+              text: '① @@SMTP（TCP 25）@@是==推（Push）==协议，用于“发 UA→发服”和“发服→收服”，!!不能用于用户从邮箱读取邮件!!。\n② @@POP3（TCP 110）/ IMAP（TCP 143）@@是==拉（Pull）==协议，由收件 UA 主动建连请求，邮件内容由服务器传向 UA；POP3 可在==同一条 TCP 连接==中连续读取多封邮件。\n③ SMTP 原生仅直接传 `7 位 ASCII`，非 ASCII 须先经 MIME 编码。'
+            },
+            children: [
+              {
+                id: 'c6-23',
+                bold: '异步通信与两段 SMTP 推送',
+                text: '电子邮件为异步通信，由==用户代理（UA）、邮件服务器与邮件收发协议==构成。邮件服务器既可作 SMTP 服务器收信，也可作 SMTP 客户向下一服务器发信；普通客户端模型下，==发件 UA → 发送服务器 → 接收服务器==两段均使用 `SMTP over TCP` 主动推送（Push）。',
+                short: '发 UA→发服→收服两段均用 SMTP(TCP) 推，服务器兼任两角',
+                tag: '2012/25',
+                red: true,
+                kw: '2012-T40 2013-T40 2025-T40 异步 Push',
+                href: 'network-6.html#section-43'
+              },
+              {
+                id: 'c6-48',
+                bold: '收件拉取机制（Pull）',
+                text: '收件人读取邮件时，由==接收方 UA 主动向接收方邮件服务器建立 TCP 连接并发出请求==，采用 `POP3` 或 `IMAP` 拉取（Pull），邮件内容由服务器流向 UA；不存在邮件服务器用 SMTP 主动推给收件人 UA 的阶段。',
+                short: '收 UA 主动连收服以 POP3/IMAP 拉取，无服→UA 推送',
+                tag: '2012/13',
+                red: true,
+                kw: 'Push Pull 读取 UA',
+                href: 'network-6.html#section-44'
+              }
+            ]
+          },
+          {
+            id: 'm4-fmt',
+            title: '邮件格式与 MIME 多媒体扩展',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.10-MIME与SMTP.jpg', caption: '图 6.10 MIME 在发送端编码为 ASCII 交 SMTP 传输、接收端解码还原', width: 320 }
+            ],
+            children: [
+              {
+                id: 'c6-24',
+                bold: '信封、首部、空行与主体结构',
+                text: '一封邮件分为@@信封@@（用于实际投递，不必与显示首部完全相同）和@@内容@@；内容由==首部 + 1 个空行 + 主体==构成。首部行格式为 `字段名: 值`（如 `From` 常由系统填充，`To` 与 `Subject` 通常由用户填写）；邮箱地址形如 `用户名@域名`。',
+                short: '内容=首部+1空行+主体；信封与首部分离；用户@域名',
+                tag: '大纲',
+                kw: 'From To Subject 空行 信封 RFC5322',
+                href: 'network-6.html#section-46'
+              },
+              {
+                id: 'c6-25',
+                bold: 'MIME 扩展与 7 位 ASCII 边界',
+                text: 'SMTP 原生==仅直接支持 7 位 ASCII 文本==，不能直接传输中文、图像或二进制附件。==MIME 不替换 SMTP，而是在发送端将非 ASCII 内容编码（如 Base64）为 ASCII 文本交 SMTP 传送，接收端再解码还原==，并增加 `MIME-Version`、`Content-Type`、`Content-Transfer-Encoding` 等首部字段。',
+                short: 'SMTP 原生仅传 7 位 ASCII；MIME 编码扩展而非替换 SMTP',
+                tag: '2013/18',
+                red: true,
+                kw: '2013-T40 2018-T40 Base64 7位ASCII',
+                href: 'network-6.html#section-47'
+              }
+            ]
+          },
+          {
+            id: 'm4-proto',
+            title: 'SMTP、POP3、IMAP 与 Web 邮箱',
+            summary: {
+              title: '电子邮件协议阶段速判',
+              text: '① 端口 `25` 对应 ==SMTP==（发送推送）；端口 `110` 对应 @@POP3@@，端口 `143` 对应 @@IMAP@@（读取拉取）。\n② 浏览器访问 Web 邮箱（如 Gmail）时，==浏览器 ↔ 邮件服务器使用 HTTP/HTTPS==，仅邮件服务器之间转交使用 SMTP。'
+            },
+            children: [
+              {
+                id: 'c6-26',
+                bold: 'SMTP 三阶段交互（TCP 25）',
+                text: '基于 TCP 熟知端口 `25`，双服务器模型中发服与收服直接建 TCP（沿途路由器仅转 IP 包）。三阶段：① 连接建立（收服 `220`、客户 `HELO`）；② 邮件传送（`MAIL FROM`→`250`、`RCPT TO` 先验地址防空传、`DATA`→`354`、正文以 `<CRLF>.<CRLF>` 结束）；③ 连接释放（`QUIT`→`221`）。',
+                short: 'TCP 25 三阶段：220/HELO→MAIL/RCPT/DATA/.→QUIT/221',
+                tag: '大纲',
+                kw: '三阶段 响应码 220 250 354 221',
+                href: 'network-6.html#section-49'
+              },
+              {
+                id: 'c6-27',
+                bold: 'POP3 特点与单连接多封读取（TCP 110）',
+                text: 'POP3 基于 ==TCP 端口 `110`==，功能简单，提供“下载并保留”和“下载并删除”两种模式，不能代替 SMTP 发送。==一次 POP3 会话可经同一条 TCP 连接连续读取多封邮件，不必为每封邮件重新建连==。',
+                short: 'TCP 110 简单拉取；1 条 TCP 连接可连续读取多封邮件',
+                tag: '2015/25',
+                red: true,
+                kw: '2015-T33 2025-T40 下载并删除 同一TCP',
+                href: 'network-6.html#section-50'
+              },
+              {
+                id: 'c6-28',
+                bold: 'IMAP 与基于万维网的 Web 邮箱',
+                text: '@@IMAP（TCP 143）@@在服务器端保留邮件与文件夹层次，维护会话状态，支持远程搜索、移动及仅下载首部或部分附件。@@Web 邮箱@@中，浏览器与邮件服务器之间的发信与收信均使用 ==HTTP/HTTPS==，仅不同邮件服务器间传递邮件使用 SMTP。',
+                short: 'IMAP(143) 同步目录可部分下载；Web 邮箱客服间用 HTTP',
+                tag: '大纲',
+                kw: 'IMAP 143 文件夹 部分下载 Web邮箱',
+                href: 'network-6.html#section-50'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 6.5 WWW 与 HTTP ==================== */
+      {
+        id: 'm5',
+        navLabel: '5 WWW与HTTP',
+        title: '6.5 万维网 WWW 与超文本传输协议 HTTP',
+        sub: 'URL/HTML/HTTP 如何构成万维网生态？四种 HTTP 连接模式叠加 TCP 慢开始与半关闭该如何精确计时？',
+        children: [
+          {
+            id: 'm5-base',
+            title: 'WWW 核心标准、HTTP 特性与 Cookie',
+            sticky: {
+              title: 'HTTP 无连接、无状态与 1.5/2 RTT 边界',
+              text: '① “HTTP 本身无连接”指应用层无需在 TCP 之外另建独立 HTTP 连接；!!本章 HTTP/1.0、HTTP/1.1 底层均用 TCP，绝不可误选 UDP!!。\n② “HTTP 无状态”指协议不记录历史；`Cookie` 用于服务端跟踪会话，!!不能缩短 Web 对象响应时间!!。\n③ 第 3 次 ACK 捎带请求时，服务器收请求为 `1.5 RTT`，客户收响应为 ==2 RTT==（非 `2.5 RTT`）。'
+            },
+            children: [
+              {
+                id: 'c6-29',
+                bold: 'WWW 三标准与 URL 显式端口',
+                text: 'WWW 是建立在互联网之上的分布式超媒体信息空间，由 ==URL（定位资源）、HTTP（应用层传输）、HTML（描述网页结构）==组成。URL 形如 `<协议>://<主机>:<端口>/<路径>`，HTTP 默认端口 `80`；!!若 URL 显式指明端口（如 `:8088`），则连接该指定端口!!。',
+                short: 'WWW=URL+HTTP+HTML；HTTP 默 80，显式端口按 URL 连',
+                tag: '错题',
+                red: true,
+                kw: 'WWW HTML URL 显式端口 互联网区别',
+                href: 'network-6.html#section-57'
+              },
+              {
+                id: 'c6-30',
+                bold: 'HTTP 无连接与无状态语义边界',
+                text: 'HTTP 本身@@无连接@@，指交换 HTTP 报文前无需在 TCP 之外再建立独立 HTTP 连接（本章 HTTP/1.0、HTTP/1.1 均运行在 TCP 之上）；HTTP @@无状态@@，指协议本身不要求请求依赖先前交互状态（也不保证重复请求返回内容相同）。',
+                short: '应用层无连接但底层用 TCP；协议无状态不记历史',
+                tag: '边界',
+                kw: '1.0 1.1 TCP 无连接 无状态',
+                href: 'network-6.html#section-60'
+              },
+              {
+                id: 'c6-31',
+                bold: 'Cookie 跟踪会话机制与作用边界',
+                text: '首次访问时服务器在响应中发 `Set-Cookie` 识别码并由浏览器存至本机；复访时浏览器在请求头附带 `Cookie`，服务器据此查后端数据库恢复会话或提供个性化服务。注意：!!Cookie 仅用于会话跟踪与状态识别，不能缩短 Web 对象响应时间!!。',
+                short: 'Set-Cookie 下发、复访带 Cookie 识会话，绝不减 RTT',
+                tag: '2015/26',
+                red: true,
+                kw: '2015-T40 2026-T40 Set-Cookie 会话',
+                href: 'network-6.html#section-61'
+              }
+            ]
+          },
+          {
+            id: 'm5-rtt',
+            title: '四种连接模式、捎带与 TCP 慢开始时延',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.12-非持续连接时延.jpg', caption: '图 6.12 HTTP/1.0 非持续连接：每个对象均需 2 RTT + 传输时延', width: 290 },
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.13-持续连接.jpg', caption: '图 6.13 HTTP/1.1 持续连接（非流水线）：复用同一条 TCP 连接', width: 290 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: 'HTTP 四种连接模式 RTT 公式对比（1 个 HTML + n 个同服务器小对象）',
+                headers: ['连接工作模式', '从 SYN 起总耗时', '从发 HTML 请求起', '核心前提与动作'],
+                rows: [
+                  ['HTTP/1.0 非持续、非并行（串行）', '==2(n + 1) RTT==', '`(2n + 1) RTT`', '每个对象单独建连 `1 RTT` + 请求响应 `1 RTT`'],
+                  ['HTTP/1.0 非持续、全并行（`n ≥ 1`）', '==4 RTT==', '`3 RTT`', '拿 HTML 后同时开 `n` 条并行 TCP；限并行数则分批计'],
+                  ['HTTP/1.1 持续、非流水线', '==(n + 2) RTT==', '==(n + 1) RTT==', '仅建 1 次 TCP；逐个请求并等待前一个响应返回'],
+                  ['HTTP/1.1 持续、流水线（`n ≥ 1`）', '==3 RTT==', '`2 RTT`', '连续发 `n` 个请求；!!须满足发送/拥塞窗口不构成瓶颈!!']
                 ]
               },
-              { id: 'c6-33', bold: '握手捎带玄机', text: '第 3 次 ACK 捎带请求共 2RTT（服务端收为 1.5RTT）', tag: '大纲', kw: '1.5RTT 2RTT', href: 'network-6.html#section-62' },
               {
-                id: '6.5-ss',
-                title: '叠加 TCP 慢开始',
-                children: [
-                  { id: 'c6-34', bold: '2022 慢开始', text: '1+3 MSS 共需 4 RTT = 40ms', tag: '2022', red: true, kw: '2022-T40 流水线', href: 'network-6.html#section-62' },
-                  { id: 'c6-50', bold: '7 MSS 终点', text: '客户收齐 4.0 RTT，服务器收末 ACK 4.5 RTT', tag: '4.5RTT 追问', red: true, kw: '4.5RTT', href: 'network-6.html#section-62' }
-                ]
+                type: 'example',
+                title: '2022·T40 HTTP/1.1 + TCP 慢开始时间轴（4 RTT 与 4.5 RTT 终点）',
+                body: '条件：HTML `1 MSS` + 图像 `3 MSS`，`RTT = 10ms`，教材初始 `cwnd = 1 MSS`，无丢包且 `rwnd` 足够大。\n① `0~1 RTT`：前两次握手（`SYN` / `SYN+ACK`）；\n② `1~2 RTT`：第 3 次握手 `ACK` 捎带请求 HTML，服务器 `cwnd=1` 发回 `1 MSS` HTML；\n③ `2~3 RTT`：客户请求图像（顺带确认 HTML），服务器 `cwnd=2` 发前 `2 MSS` 图像；\n④ `3~4 RTT`：客户确认后服务器 `cwnd=4` 发余下 `1 MSS` → 客户收齐共 ==4 RTT = 40ms==。\n追问（如 `7 MSS` 对象经 `1+2+4` 三轮）：客户收齐为 ==4.0 RTT==，若问“服务器收到最终确认”再加 `0.5 RTT` = ==4.5 RTT==。'
+              }
+            ],
+            exams: [
+              {
+                year: '2022·T40',
+                star: true,
+                nodeId: 'c6-34',
+                href: 'network-6.html#section-62',
+                q: '主机 `H` 通过 `HTTP/1.1` 请求 `news408.html`（`1 MSS`）及其引用的同目录 1 幅图像（`3 MSS`），`RTT=10ms`，忽略首部与传输时延。已完成 DNS 解析，从请求建连到接收全部内容至少需？',
+                opts: ['A. 30ms', 'B. 40ms', 'C. 50ms', 'D. 60ms'],
+                ans: 'B',
+                explain: '初始 `cwnd=1 MSS`：`0~1 RTT` 前两次握手；`1~2 RTT` 第 3 次 ACK 捎带取 HTML（`1 MSS`）；`2~3 RTT` 请求图像，`cwnd=2` 发前 `2 MSS`；`3~4 RTT` `cwnd=4` 发剩余 `1 MSS` → 共 ==4 RTT = 40ms==。'
+              },
+              {
+                year: '2024·T40',
+                star: true,
+                nodeId: 'c6-32',
+                href: 'network-6.html#section-62',
+                q: '浏览器不支持并行 TCP 连接，用非持久 `HTTP/1.0` 浏览 1 个 Web 页（含同网站 7 个小图像），从请求建连到接收完所有内容所需 RTT 数至少是？',
+                opts: ['A. 4', 'B. 9', 'C. 14', 'D. 16'],
+                ans: 'D',
+                explain: '非持续且不并行：共 `1` 个 HTML + `7` 个小图像 = `8` 个对象，每个对象各需 `2 RTT`（TCP 握手 `1 RTT` + 请求响应 `1 RTT`），总计 `2 × (7 + 1) = 16 RTT`。'
+              }
+            ],
+            children: [
+              {
+                id: 'c6-32',
+                bold: 'HTTP/1.0 非持续连接时延',
+                text: 'HTTP/1.0 默认非持续连接，每个对象单独建立并释放 TCP（单对象 `2 RTT + T_传输`）。1 个 HTML 加 `n` 个小图像：不支持并行时串行为 ==2(n + 1) RTT==（`n=7` 得 `16 RTT`）；允许全并行且忽略传输时延时为 ==4 RTT==。',
+                short: 'HTTP/1.0 非持续：串行 2(n+1) RTT，全并行 4 RTT',
+                tag: '2024',
+                red: true,
+                kw: '2024-T40 16RTT 4RTT 并行',
+                href: 'network-6.html#section-62'
+              },
+              {
+                id: 'c6-49',
+                bold: 'HTTP/1.1 持续连接（非流水/流水线）',
+                text: 'HTTP/1.1 默认持续连接，复用同一条 TCP 省去重复握手。从发 `SYN` 算起：@@非流水线@@逐个问答共 ==(n + 2) RTT==（若从发 HTML 请求起算如 `2011-T47` 则为 `(n + 1) RTT`）；@@流水线@@连续发请求，窗口不受限时共 ==3 RTT==。',
+                short: 'HTTP/1.1 持续：非流水 (n+2)RTT，流水理想 3RTT',
+                tag: '2011大题',
+                red: true,
+                kw: '2011-T47 6RTT 流水线 非流水线',
+                href: 'network-6.html#section-62'
+              },
+              {
+                id: 'c6-33',
+                bold: '第 3 次握手捎带请求的 1.5RTT 与 2RTT',
+                text: '对称时延且忽略小报文发送时延：`0` 时刻发 `SYN`，`1 RTT` 收到 `SYN+ACK` 并由==第 3 次握手 ACK 捎带 HTTP 请求==，`1.5 RTT` 服务器收齐握手与请求并返回响应，==2 RTT== 客户端收到小对象响应；后半段已计入请求响应，不可重复算为 `2.5 RTT`。',
+                short: '第 3 次 ACK 捎带请求：服收 1.5RTT，客收响应 2RTT',
+                tag: '必背',
+                kw: '1.5RTT 2RTT 捎带',
+                href: 'network-6.html#section-62'
+              },
+              {
+                id: 'c6-34',
+                bold: 'HTTP/1.1 叠加 TCP 慢开始窗口制约',
+                text: '持续连接与流水线减少建连次数，!!但不消除 TCP 拥塞控制!!。一旦题干给出 `MSS`、`cwnd` 且对象大于当前窗口，不得套普通 RTT 公式，须画时间轴逐轮演进（如 `1 MSS` HTML + `3 MSS` 图像在初窗 `1 MSS` 下需 `4 RTT = 40ms`）。',
+                short: '出现 MSS/cwnd 必画时间轴：1+3 MSS 慢开始需 4 RTT',
+                tag: '2022',
+                red: true,
+                kw: '2022-T40 40ms 慢开始 流水线',
+                href: 'network-6.html#section-62'
+              },
+              {
+                id: 'c6-50',
+                bold: '客户收齐数据 vs 服务器收末 ACK 终点',
+                text: '计算大对象慢开始传输（如 `7 MSS` 经 `1+2+4` 三轮发完）必须严格核对终点：==客户端收齐全部数据为 `4.0 RTT`==，若题目追问==服务器收到客户端最终确认==，则再加半个来回得 `4.5 RTT`。',
+                short: '7 MSS 三轮发完：客户收齐 4.0 RTT，服收末 ACK 4.5 RTT',
+                tag: '4.5RTT追问',
+                red: true,
+                kw: '4.5RTT 终点事件 7MSS',
+                href: 'network-6.html#section-62'
               }
             ]
           },
           {
-            id: '6.5-msg',
-            title: '报文、缓存与挥手',
-            children: [
-              { id: 'c6-35', bold: '报文与状态码', text: '开始行+首部+空行+主体；2xx成功/4xx客错/5xx服错', tag: '大纲', kw: 'Host 200 404 500', href: 'network-6.html#section-63' },
-              { id: 'c6-54', bold: '常用请求方法', text: 'GET/HEAD常无主体；POST提交/PUT存储可有主体', tag: '大纲', kw: 'DELETE CONNECT', href: 'network-6.html#section-63' },
-              { id: 'c6-36', bold: 'HEAD 与连接头', text: 'HEAD 响应绝无主体；Connection: close 表非持久', tag: '2015', red: true, kw: '2015-T40 keep-alive', href: 'network-6.html#section-63' },
+            id: 'm5-msg',
+            title: 'HTTP 报文、方法、代理缓存与半关闭',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch6/图6.14-HTTP报文结构.jpg', caption: '图 6.14 HTTP 请求报文与响应报文文本格式结构', width: 320 }
+            ],
+            exams: [
               {
-                id: '6.5-close',
-                title: '缓存与挥手',
-                children: [
-                  { id: 'c6-37', bold: '代理与半关闭', text: '代理缓存省外网 RTT；发 FIN 后仍可收剩余数据', tag: '大纲', kw: 'Web cache 高速缓存', href: 'network-6.html#section-64' },
-                  { id: 'c6-51', bold: 'FIN 与 2MSL', text: 'FIN 可搭末段不占载荷；彻底 CLOSED 才加 2MSL', tag: '大纲', kw: '第14题 TIME_WAIT 1800ms', href: 'network-6.html#section-69' }
-                ]
+                year: '2015·T40',
+                star: true,
+                nodeId: 'c6-36',
+                href: 'network-6.html#section-63',
+                q: '某浏览器发出 HTTP 请求报文：`GET /index.html HTTP/1.1` / `Host: www.test.edu.cn` / `Connection: Close` / `Cookie: 123456`，下列叙述错误的是？',
+                opts: [
+                  'A. 该浏览器请求浏览 index.html',
+                  'B. index.html 存放在 www.test.edu.cn 上',
+                  'C. 该浏览器请求使用持续连接',
+                  'D. 该浏览器曾经浏览过 www.test.edu.cn'
+                ],
+                ans: 'C',
+                explain: '请求行指明获取 `/index.html`（A 对），`Host` 指明域名（B 对），携带 `Cookie` 说明此前已获发识别码（D 对）；而 ==`Connection: Close` 明确要求传输后关闭连接（非持续）==，故 C 错误。'
+              }
+            ],
+            children: [
+              {
+                id: 'c6-35',
+                bold: '报文结构与状态码大类',
+                text: 'HTTP/1.x 开始行与首部为文本格式：==开始行（请求行/状态行）+ 首部行（含 `Host` 供相对 URL 定位）+ 仅含 CRLF 的空行 + 实体主体==。状态码首位含义：`1xx` 通知、`2xx` 成功（`200`/`202`）、`3xx` 重定向、`4xx` 客户端差错（`400`/`404`）、`5xx` 服务器差错（`500`）。',
+                short: '开始行+首部+空行+主体；2xx成功/3xx跳转/4xx客错/5xx服错',
+                tag: '大纲',
+                kw: 'Host 200 400 404 500 状态行',
+                href: 'network-6.html#section-63'
+              },
+              {
+                id: 'c6-54',
+                bold: '常用 HTTP 请求方法与主体',
+                text: '`GET` 读取资源、`HEAD` 仅请求首部、`POST` 提交添加信息、`PUT` 存储文档、`DELETE` 删除资源、`CONNECT` 用于代理服务器隧道。`GET`/`HEAD` 请求通常无主体，`POST`/`PUT` 请求可携带实体主体。',
+                short: 'GET/HEAD 常无主体，POST/PUT 可带主体；DELETE/CONNECT',
+                tag: '大纲',
+                kw: 'GET POST PUT DELETE CONNECT',
+                href: 'network-6.html#section-63'
+              },
+              {
+                id: 'c6-36',
+                bold: 'HEAD 响应与 Connection 首部',
+                text: '对 `HEAD` 请求的响应==绝不返回实体主体==，仅返回首部行（用于检查/调试）；`Connection: Keep-Alive` 请求持续连接，==`Connection: Close` 请求本次响应完毕后关闭 TCP（非持续连接）==。',
+                short: 'HEAD 响应绝无主体；Connection: Close 要求非持续连接',
+                tag: '2015',
+                red: true,
+                kw: '2015-T40 keep-alive HEAD Close',
+                href: 'network-6.html#section-63'
+              },
+              {
+                id: 'c6-37',
+                bold: 'Web 代理缓存与 TCP 半关闭',
+                text: '@@代理服务器（Web cache）@@在本地磁盘缓存近期响应，命中时直接返回，可==减少出口链路流量与访问时延==。在 HTTP+TCP 释放模型中，客户发 `FIN` 仅关闭“客户→服务器”发送方向，进入半关闭后==仍可继续接收服务器剩余数据并回发 ACK==。',
+                short: '代理缓存降时延省出口流量；发 FIN 后仍可收余数据与发 ACK',
+                tag: '2026/大纲',
+                kw: 'Web cache 代理 半关闭',
+                href: 'network-6.html#section-64'
+              },
+              {
+                id: 'c6-51',
+                bold: 'FIN 捎带与 TIME_WAIT 2MSL 计时起点',
+                text: '服务器可将 `FIN` 捎带在最后一段数据中（不突破 `MSS` 限制）；只有题目终点要求主动关闭方进入 `CLOSED` 时，才从==主动方收到对方 FIN 并发出最终 ACK 进入 TIME_WAIT== 起加 `2MSL`（教材第 14 题 `5KB/1KB/50ms/800ms`：`4 RTT + 2MSL = 1800ms`），只问收到数据不加 `2MSL`。',
+                short: 'FIN 可搭末段不破 MSS；仅问主动 CLOSED 才加 2MSL',
+                tag: '第14题模型',
+                red: true,
+                kw: '第14题 TIME_WAIT 1800ms 2MSL',
+                href: 'network-6.html#section-69'
               }
             ]
           }
         ]
       },
+
+      /* ==================== 6.6 跨层综合与熟知端口 ==================== */
       {
-        id: '6.6',
-        title: '6.6 跨层综合与端口',
-        col: 'right',
+        id: 'm6',
+        navLabel: '6 跨层综合与端口',
+        title: '6.6 跨层综合链路、抓包与熟知端口',
+        sub: '开机访问 Web 串联哪些跨层协议？如何切片读取十六进制以太网帧，并准确掌握 12 个高频熟知端口？',
         children: [
           {
-            id: '6.6-boot',
-            title: '开机全链路与 DHCP',
+            id: 'm6-boot',
+            title: '开机访网全链路、DHCP 与 ARP/交换机',
+            summary: {
+              title: '跨层封装、ARP 与 NAT 三铁律',
+              text: '① 发送自顶向下封装、接收自底向上解封装；@@“直接封装”只看相邻下一层@@（DNS/DHCP → UDP，FTP/HTTP → TCP）。\n② 目标在外网时 ARP 仅解析==默认网关 MAC==（广播 `FF-FF-FF-FF-FF-FF`）；交换机只学习收到的@@源 MAC@@。\n③ 私有地址出公网过 NAT 路由器必改：==TTL、首部校验和、源 IP==。'
+            },
+            exams: [
+              {
+                year: '2014·T40',
+                star: true,
+                nodeId: 'c6-38',
+                href: 'network-6.html#section-76',
+                q: '使用浏览器访问某大学 Web 网站主页时，不可能使用到的协议是？',
+                opts: ['A. PPP', 'B. ARP', 'C. UDP', 'D. SMTP'],
+                ans: 'D',
+                explain: '拨号接入或路由器广域网点对点专线链路层可用 **PPP**；局域网查网关/本地 DNS 的 MAC 用 **ARP**；常规 DNS 查询用 **UDP**；唯有 **SMTP** 专用于发送电子邮件，访问网页绝不会用到。'
+              },
+              {
+                year: '2021·T47 大题',
+                star: true,
+                nodeId: 'c6-40',
+                href: 'network-6.html#section-76',
+                q: '交换机 `S` 接本地 DNS（端口 1）、路由器 `R`（端口 2）、`H2`（端口 3）、`H1`（端口 4）。`t0` 时刻 ARP 表与交换表均空，`H1` 访问 `www.abc.com` 至 `t1` 时刻 `S` 首次收到 HTTP 请求帧。问：还运行何应用层协议及逐层封装？`t1` 交换表项？`H2` 至少收到几个相关帧及目的 MAC？',
+                ans: 'DNS (DNS→UDP→IP→以太网帧)｜3 条(无 H2)｜至少 2 个 ARP 广播帧 (FF-FF-FF-FF-FF-FF)',
+                explain: '① 还运行 ==DNS==，逐层封装：`DNS → UDP → IP → 以太网帧`；② `H1(口4)`、`本地DNS(口1)`、`R(口2)` 均发过帧入表，==`H2` 全程未发帧不入交换表==；③ `H1` 先后广播 ARP 查本地 DNS 与默认网关 `R` 的 MAC，故 `H2` 至少收 ==2 个==封装 ARP 查询的以太网帧，目的 MAC 为 `FF-FF-FF-FF-FF-FF`。'
+              }
+            ],
             children: [
-              { id: 'c6-38', bold: '开机访网 6 步', text: 'DHCP → ARP → DNS(UDP) → TCP → HTTP → 渲染', tag: '2014', red: true, kw: '2014-T40 不用SMTP PPP', href: 'network-6.html#section-76' },
-              { id: 'c6-39', bold: 'DHCP(UDP 67/68)', text: 'D→O→R→A；未获 IP 前广播源 0.0.0.0 → 255.255.255.255', tag: '2025', red: true, kw: '2025-T36 Discover Request', href: 'network-6.html#section-76' },
-              { id: 'c6-40', bold: 'ARP 与交换表', text: 'DNS(名→IP)/ARP(IP→MAC)；H2不入表收2ARP', tag: '2021大题', red: true, kw: '2021-T47 默认网关 交换表', href: 'network-6.html#section-76' }
+              {
+                id: 'c6-38',
+                bold: '开机访问 Web 跨层 6 步链',
+                text: '新主机开机访问域名网页典型流程：① `DHCP` 获取 IP/掩码/网关/本地 DNS → ② `ARP` 查同网段 DNS 或默认网关 MAC → ③ `DNS(UDP)` 解析 Web 服务器 IP → ④ `TCP` 三次握手连 `80` → ⑤ `HTTP GET` 获取页面与资源 → ⑥ 浏览器渲染。完整过程同时用到 UDP 与 TCP，!!绝不用 SMTP!!，广域网点对点链路可用 PPP。',
+                short: 'DHCP→ARP→DNS(UDP)→TCP→HTTP→渲染；绝不用 SMTP',
+                tag: '2014',
+                red: true,
+                kw: '2014-T40 PPP SMTP Web全链路',
+                href: 'network-6.html#section-76'
+              },
+              {
+                id: 'c6-39',
+                bold: 'DHCP 动态配置（UDP 67/68）',
+                text: '未获 IP 的主机按 `Discover → Offer → Request → ACK` 四步向 DHCP 服务器动态获取 IP、子网掩码、默认网关与本地 DNS 地址；封装于 ==UDP（服务器端口 `67`、客户端口 `68`）==，未获地址前广播源 IP `0.0.0.0` → 目的 IP `255.255.255.255`。',
+                short: 'UDP 67(服)/68(客)；D→O→R→A；源0.0.0.0播全255',
+                tag: '2025',
+                red: true,
+                kw: '2025-T36 Discover Request 0.0.0.0',
+                href: 'network-6.html#section-76'
+              },
+              {
+                id: 'c6-40',
+                bold: 'DNS vs ARP 与交换机自学习边界',
+                text: 'DNS 做@@域名 → IP@@，ARP 做@@本链路下一跳 IPv4 → MAC@@（跨网段只查默认网关 MAC，请求帧目的 MAC 为 `FF-FF-FF-FF-FF-FF`）。交换机==仅自学习收到帧的源 MAC 与入端口==，全程只收不发的旁听主机不进交换表，但会收到局域网 ARP 广播帧。',
+                short: 'DNS名→IP、ARP下跳IP→MAC；只学源MAC，旁听机收广播不入表',
+                tag: '2021大题',
+                red: true,
+                kw: '2021-T47 默认网关 交换表 H2',
+                href: 'network-6.html#section-76'
+              }
             ]
           },
           {
-            id: '6.6-pcap',
-            title: '抓包、NAT 与 PPP',
+            id: 'm6-pcap',
+            title: '十六进制抓包切片、NAT 与 PPP 协议',
+            exams: [
+              {
+                year: '2011·T47 大题',
+                star: true,
+                nodeId: 'c6-41',
+                href: 'network-6.html#section-65',
+                q: '主机私有 IP `10.2.128.100`，给出 Web 请求以太网帧前 80B 十六进制（`00~05: 00 21 27 21 51 ee`、`16~17: 01 ef`、`30~33: 40 aa 62 20`、后接 `GET /rfc.html HTTP/1.1`），经 NAT 路由器 `R`（`MTU=1500B`）出公网。问：Web 服务器 IP 与默认网关 MAC？求 MAC 协议及请求帧目的 MAC？持续非流水线含 5 小图自发此帧起需几 RTT？过 `R` 改 IP 哪些字段？',
+                ans: '64.170.98.32 / 00-21-27-21-51-ee｜ARP / 全F｜6 RTT｜TTL、首部校验和、源 IP',
+                explain: '① 第 `30~33B` `40 aa 62 20` 即 `64.170.98.32`；跨网段故前 `6B` 即默认网关 MAC；② 用 ==ARP==，广播目的 MAC 全 `F`；③ 帧已含 `GET`（不含建连），`1 + 5 = 6 RTT`；④ 总长 `0x01ef = 495B < 1500B` 不分片，但属==私有地址经 NAT 出公网==，必改 `TTL`、首部校验和与 ==源 IP 地址==。'
+              }
+            ],
             children: [
-              { id: 'c6-41', bold: '抓包帧偏移', text: '以太网 14B(0800) ＋ IP 20B ＋ TCP 20B(0050=80)', tag: '2011大题', red: true, kw: '2011-T47 目的MAC', href: 'network-6.html#section-65' },
-              { id: 'c6-52', bold: 'IP 关键字节', text: '16~17 总长、22 TTL、23 协议(06=TCP)、26~33 源目 IP', tag: '2011大题', red: true, kw: '2011-T47 MTU 01ef', href: 'network-6.html#section-65' },
-              { id: 'c6-42', bold: 'NAT 必改字段', text: '私有地址过 NAT 路由器必改：TTL、校验和、源 IP', tag: '2011大题', red: true, kw: '2011-T47 10 172.16 192.168', href: 'network-6.html#section-76' },
-              { id: 'c6-43', bold: '封装铁律 & PPP', text: '发送下封/接收上解(DNS→UDP)；PPP 0x7D与五1插0', tag: '2014·卡点', kw: 'LCP NCP 0xFF', href: 'network-6.html#section-39' }
+              {
+                id: 'c6-41',
+                bold: '以太网/IP/TCP 抓包分层偏移',
+                text: '按层切片定位：① 以太网首部 `14B`（`0~5B` 目的 MAC、`6~11B` 源 MAC、`12~13B` 类型 `08 00`=IPv4 / `08 06`=ARP）；② IPv4 固定首部 `20B`（`14~33B`）；③ TCP 固定首部 `20B`（`34~35B` 源端口、`36~37B` 目的端口 `00 50`=`80`）；④ `54B` 起为 HTTP ASCII 文本。',
+                short: '14B以太网(0800)+20B IP+20B TCP(0050=80)+HTTP文本',
+                tag: '2011大题',
+                red: true,
+                kw: '2011-T47 目的MAC 0800 0050',
+                href: 'network-6.html#section-65'
+              },
+              {
+                id: 'c6-52',
+                bold: 'IPv4 首部关键字节定位',
+                text: '在以太网帧偏移中：`16~17B` 为 ==IP 总长度==（核对是否超过链路 `MTU` 触发分片，如 `0x01ef=495B < 1500B`）、`22B` 为 `TTL`、`23B` 为协议号（`06`=TCP、`11`=UDP）、`26~29B` 为源 IP、`30~33B` 为目的 IP。',
+                short: '16~17总长、22 TTL、23协议(06/11)、26~33源目IP',
+                tag: '2011大题',
+                red: true,
+                kw: '2011-T47 MTU 01ef TTL',
+                href: 'network-6.html#section-65'
+              },
+              {
+                id: 'c6-42',
+                bold: '私有地址过 NAT 路由器必改字段',
+                text: '普通路由器转发必改 `TTL`（减 `1`）与首部校验和；当源主机使用==私有地址（`10.x`、`172.16~31.x`、`192.168.x`）==经 NAT 路由器访问公网时，!!还必须修改源 IP 地址!!（未超 MTU 则不改片偏移与 MF 标志）。',
+                short: '私有地址过 NAT 必改 TTL、首部校验和与源 IP',
+                tag: '2011大题',
+                red: true,
+                kw: '2011-T47 NAT 10 172.16 192.168',
+                href: 'network-6.html#section-76'
+              },
+              {
+                id: 'c6-43',
+                bold: '直接封装铁律与 PPP 点对点唤醒',
+                text: '发送向下逐层封装、接收向上逐层解封装，!!“直接封装”仅指相邻下一层!!（DNS/DHCP 直接由 UDP 封装，不可跳层选 IP）。广域网点对点链路常用 ==PPP==（封装+LCP+NCP，无确认全双工，地址固定 `0xFF`，异步字节填充转义 `0x7D`、同步零比特填充“五 1 插 0”）。',
+                short: '直接封装看相邻下层(DNS→UDP)；PPP 0x7D 与五1插0',
+                tag: '2014·标星',
+                kw: '直接封装 LCP NCP 0xFF 0x7D',
+                href: 'network-6.html#section-39'
+              }
             ]
           },
           {
-            id: '6.6-port',
-            title: '高频熟知端口',
+            id: 'm6-port',
+            title: '应用层 12 个高频熟知端口与协议总表',
+            media: [
+              {
+                type: 'table',
+                title: '应用层 12 个高频熟知端口与传输层协议速查总表',
+                headers: ['应用层协议', '传输层协议', '服务器熟知端口', '核心用途与易错边界'],
+                rows: [
+                  ['FTP 数据连接', 'TCP', '==20==', '仅 PORT 主动模式用 `20`；PASV 用协商临时端口'],
+                  ['FTP 控制连接', 'TCP', '==21==', '贯穿整个会话；`20/21` 永属服务器端'],
+                  ['TELNET', 'TCP', '`23`', '远程终端登录（明文）'],
+                  ['SMTP', 'TCP', '==25==', '邮件推送（发 UA→发服、发服→收服），原生 7 位 ASCII'],
+                  ['DNS', '!!UDP（默认）!!', '==53==', '常规查询用 UDP 53；大报文/区域传送可用 TCP'],
+                  ['DHCP', '!!UDP!!', '`67(服) / 68(客)`', '动态分配 IP/掩码/网关/DNS；D→O→R→A'],
+                  ['TFTP', '!!UDP!!', '`69`', '简单文件传输协议，无连接、应用层自行停等确认'],
+                  ['HTTP', 'TCP', '==80==', '万维网超文本传输；应用层无连接但底层用 TCP'],
+                  ['POP3', 'TCP', '==110==', '简单邮件拉取；1 条 TCP 连接可连续读多封邮件'],
+                  ['IMAP', 'TCP', '`143`', '交互式邮件读取，服务器端同步目录、支持部分下载'],
+                  ['SNMP', '!!UDP!!', '`161`', '简单网络管理协议（Trap 通知端口 `162`）'],
+                  ['HTTPS', 'TCP', '`443`', 'HTTP 叠加 TLS/SSL 安全传输']
+                ]
+              }
+            ],
             children: [
-              { id: 'c6-44', bold: 'TCP 常用前 4', text: 'FTP 数据 20 / 控制 21 · TELNET 23 · SMTP 25 · HTTP 80', tag: '必背', kw: 'TCP端口', href: 'network-6.html#section-66' },
-              { id: 'c6-53', bold: 'TCP 常用后 3', text: 'POP3 110 · IMAP 143 · HTTPS 443', tag: '必背', kw: 'TLS', href: 'network-6.html#section-66' },
-              { id: 'c6-45', bold: 'UDP 族（4 个）', text: 'DNS 53 · DHCP 67(服)/68(客) · TFTP 69 · SNMP 161', tag: '必背', kw: 'UDP端口', href: 'network-6.html#section-66' }
+              {
+                id: 'c6-44',
+                bold: 'TCP 高频端口前 4（20/21/23/25/80）',
+                text: '面向连接可靠流式应用均基于 TCP：FTP 主动数据 `20` / 控制 `21`、远程登录 TELNET `23`、邮件推送 SMTP `25`、万维网 HTTP `80`。',
+                short: 'TCP 前 4：FTP 20/21 · TELNET 23 · SMTP 25 · HTTP 80',
+                tag: '必背',
+                kw: 'TCP端口 20 21 23 25 80',
+                href: 'network-6.html#section-66'
+              },
+              {
+                id: 'c6-53',
+                bold: 'TCP 高频端口后 3（110/143/443）',
+                text: '邮件拉取与安全 Web 基于 TCP：简单邮件读取 POP3 `110`、同步目录读取 IMAP `143`、加密超文本传输 HTTPS `443`（运行于 TLS/TCP 之上）。',
+                short: 'TCP 后 3：POP3 110 · IMAP 143 · HTTPS 443',
+                tag: '必背',
+                kw: '110 143 443 TLS',
+                href: 'network-6.html#section-66'
+              },
+              {
+                id: 'c6-45',
+                bold: 'UDP 高频协议族（4 个）',
+                text: '报文短、追求低时延或支持广播的应用默认基于 UDP：域名解析 ==DNS `53`==、动态主机配置 ==DHCP `67(服)/68(客)`==、简单文件传输 ==TFTP `69`==、网络管理 ==SNMP `161`==。',
+                short: 'UDP 4 族：DNS 53 · DHCP 67/68 · TFTP 69 · SNMP 161',
+                tag: '必背',
+                kw: 'UDP端口 53 67 68 69 161',
+                href: 'network-6.html#section-66'
+              }
             ]
           }
         ]

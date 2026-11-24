@@ -4,18 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f5f3ed">
-  <meta name="description" content="408计算机网络第2章物理层全屏思维导图，覆盖考纲重点与2009–2026真题。">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232952cc'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>2</text></svg>">
-  <title>第2章 物理层 · 考纲与真题思维导图</title>
+  <meta name="description" content="408计算机网络第2章物理层双模式强化思维导图白板：严格对齐教材与复盘笔记原话，内嵌7张核心原理图、4张速查对比表、2个精讲算例、右括号总结、必背便签与14道408真题精选。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%232563eb'/><text x='12' y='16.5' text-anchor='middle' font-size='12' fill='%23ffffff' font-family='sans-serif'>2</text></svg>">
+  <title>第2章 物理层 · 图文强化思维导图白板</title>
   <script src="study/theme-boot.js?v=1"></script>
   <link rel="stylesheet" href="study/mindmap.css?v=5">
 </head>
 <body>
   <script>
   window.MINDMAP_CONFIG = {
+    rich: true,
     chapter: 2,
     pageFile: 'network-ch2-mindmap.html',
+    kicker: '408 COMPUTER NETWORK · CH02 WHITEBOARD',
     title: '第2章 物理层',
+    subtitle: '解决怎样将比特流可靠地转换为信号并经传输介质送达相邻节点：通信基础与速率换算 → 奈氏准则与香农定理 → 编码与调制 → 传输介质与接口特性 → 中继器、集线器与跨章时延。',
     noteHref: 'network-2.html',
     hubHref: 'network-0.html',
     storageKey: 'notes-network-ch2-mindmap-v1',
@@ -28,233 +31,898 @@
       { num: 6, label: '6', title: '第6章 应用层', href: 'network-ch6-mindmap.html' }
     ],
     tree: [
+      /* ==================== 1 通信基础 ==================== */
       {
-        id: '2.1.1',
-        title: '2.1.1 通信基本概念',
-        col: 'left',
+        id: 'm1',
+        navLabel: '1 通信基础',
+        title: '2.1.1 通信基本概念与速率换算',
+        sub: '信息、数据、信号与码元的层次关系 → 信源、信道与传输方式 → 波特率、比特率与带宽的两种语境',
         children: [
           {
-            id: '2.1.1-base',
-            title: '数据、信号与码元',
-            children: [
-              { id: 'c2-01', bold: '信息与信号', text: '数据载信息，信号是数据的电磁表现', tag: '大纲', kw: '模拟 数字 编码 调制', href: 'network-2.html#section-6' },
-              { id: 'c2-02', bold: '码元与比特', text: '每码元含log₂V比特，仅V=2时1码元=1bit', tag: '必背', kw: '状态数', href: 'network-2.html#section-6' }
-            ]
-          },
-          {
-            id: '2.1.1-ch',
-            title: '信道与传输方式',
-            children: [
-              { id: 'c2-03', bold: '信源与信道', text: '信源经信道至信宿；双向线含两信道，信道≠电路', tag: '大纲', kw: '噪声源 变换器', href: 'network-2.html#section-7' },
-              { id: 'c2-04', bold: '串行与并行', text: '长距网络用串行、机内短距并行；与同步/异步无关', tag: '边界', kw: '字符同步', href: 'network-2.html#section-9' },
-              { id: 'c2-05', bold: '单向/半/全双工', text: '半双工共信道分时双向，全双工须两独立方向信道', tag: '大纲', kw: '交互方式', href: 'network-2.html#section-10' },
-              { id: 'c2-06', bold: '基带/频带/宽带', text: '基带直传原始电信号，频带载波调制，宽带多频分并行', tag: '边界', kw: '有线电视 载波', href: 'network-2.html#section-72' }
-            ]
-          },
-          {
-            id: '2.1.1-rate',
-            title: '速率、波特与带宽',
-            children: [
-              { id: 'c2-07', bold: '波特与比特率', text: 'Rb=RB·log₂V，波特率无关进制；四相位仅2bit', tag: '2011', red: true, kw: '2011-T34 1200Baud', href: 'network-2.html#section-12' },
-              { id: 'c2-08', bold: '带宽两种语境', text: '公式代Hz频宽W=fH-fL，勿代b/s网速', tag: '必背', kw: '频率范围', href: 'network-2.html#section-13' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '2.1.2',
-        title: '2.1.2 信道极限容量',
-        col: 'left',
-        children: [
-          {
-            id: '2.1.2-nyq',
-            title: '奈氏准则（无噪声）',
-            children: [
-              { id: 'c2-09', bold: '失真与串扰', text: '速率高/距远/噪大/质差加重失真，超2W致码间串扰', tag: '大纲', kw: '带限低通 判决', href: 'network-2.html#section-19' },
-              {
-                id: '2.1.2-nyq-2step',
-                title: '无噪声两步模板',
-                children: [
-                  { id: 'c2-10', bold: '第1步：乘2W', text: '极限波特率RB=2W Baud，绝不可漏乘系数2', tag: '2009·错', red: true, kw: '2009-T34 24kbps', href: 'network-2.html#section-20' },
-                  { id: 'c2-11', bold: '再乘log₂V', text: '极限比特率CN=2W·log₂V，算完波特率别停笔', tag: '2022·错', red: true, kw: '2022-T34 4级ASK 800kbps', href: 'network-2.html#section-20' }
-                ]
-              }
-            ]
-          },
-          {
-            id: '2.1.2-sha',
-            title: '香农定理（有噪声）',
-            children: [
-              { id: 'c2-12', bold: '香农容量公式', text: 'CS=W·log₂(1+S/N)，前缀无2，调制难突破', tag: '必背', red: true, kw: '高斯白噪声 SNR', href: 'network-2.html#section-21' },
-              { id: 'c2-13', bold: 'dB换算与近似', text: '先转线性S/N：30dB=1000勿直代，近似非取整', tag: '2016', red: true, kw: '2016-T34 10log10', href: 'network-2.html#section-21' },
-              { id: 'c2-14', bold: '容量反推时延', text: '先算香农极限C，再用帧长L/C求最小发送时延', tag: '2026', red: true, kw: '2026-T34 1023 1500B 6ms', href: 'network-2.html#section-21' }
-            ]
-          },
-          {
-            id: '2.1.2-comb',
-            title: '联合约束与影响因素',
-            children: [
-              { id: 'c2-15', bold: '双约束取小值', text: '同给V和SNR取min(CN,CS)；二进制锁死V=2', tag: '必背', red: true, kw: '联合上限', href: 'network-2.html#section-22' },
-              { id: 'c2-16', bold: '反求最少状态', text: '约去W得V≥√(1+S/N)，30dB至少需32种状态', tag: '2017', red: true, kw: '2017-T34', href: 'network-2.html#section-27' },
-              { id: 'c2-17', bold: '传播速度无关', text: '信号传播速度v(m/s)只定传播时延，不影响数据率', tag: '2014', red: true, kw: '2014-T35', href: 'network-2.html#section-24' }
-            ]
-          }
-        ]
-      },
-      {
-        id: '2.1.3',
-        title: '2.1.3 编码与调制',
-        col: 'left',
-        children: [
-          {
-            id: '2.1.3-code',
-            title: '基带数字编码',
+            id: 'm1-base',
+            title: '数据、信号、码元与通信系统',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch2/图2.1-单向通信系统.jpg', caption: '图 2.1 单向通信系统：信源 → 变换器 → 信道 → 反变换器 → 信宿（噪声作用于信道）', width: 340 }
+            ],
             children: [
               {
-                id: '2.1.3-nrz',
-                title: '非归零与 4B/5B',
-                children: [
-                  { id: 'c2-18', bold: 'NRZ与RZ', text: 'NRZ看整码元绝对电平(无同步)，RZ码元中点归零', tag: '2015·错', red: true, kw: '2015-T34 电平', href: 'network-2.html#section-32' },
-                  { id: 'c2-19', bold: 'NRZI编码', text: 'NRZI看起点是否翻转；4B/5B用于快速以太网保同步', tag: '2015', kw: '100BASE-T MLT-3', href: 'network-2.html#section-32' }
-                ]
+                id: 'c2-01',
+                bold: '信息、数据与信号',
+                text: '信息是通信要表达的内容；==数据是信息的载体==；==信号是数据的电气或电磁表现==（模拟信号取值连续，数字信号取值离散）。将源数据转为数字信号称@@编码@@，转为模拟信号称@@调制@@。',
+                short: '数据载信息，信号是数据的电磁表现；编码得数字、调制得模拟',
+                tag: '大纲',
+                kw: '模拟 数字 编码 调制',
+                href: 'network-2.html#section-6'
               },
               {
-                id: '2.1.3-man',
-                title: '曼彻斯特家族',
-                children: [
-                  { id: 'c2-20', bold: '曼彻斯特编码', text: '中点必跳兼传时钟数据，10BASE-T必用，占2倍带', tag: '2013·错', red: true, kw: '2013-T34 以太网', href: 'network-2.html#section-33' },
-                  { id: 'c2-21', bold: '差分曼彻斯特', text: '中点仅同步，起点跳变=0/不跳=1，抗极性反转', tag: '2021', red: true, kw: '2021-T34 电平比较', href: 'network-2.html#section-33' }
-                ]
-              }
-            ]
-          },
-          {
-            id: '2.1.3-pcm',
-            title: '模拟数字化 PCM',
-            children: [
-              { id: 'c2-22', bold: 'PCM三步骤', text: '采样(fs≥2fmax)→量化(有误差)→编码，勿混2W', tag: '大纲', kw: '脉冲编码调制', href: 'network-2.html#section-34' }
-            ]
-          },
-          {
-            id: '2.1.3-mod',
-            title: '带通数字调制与 QAM',
-            children: [
-              { id: 'c2-23', bold: '四大数字调制', text: 'ASK改幅、FSK改频、PSK绝对相、DPSK看相位差', tag: '必背', kw: 'AM FM PM', href: 'network-2.html#section-35' },
-              { id: 'c2-24', bold: 'FSK双频载波', text: '二进制调制中唯一需2个不同频率载波的是FSK', tag: '2024', red: true, kw: '2024-T34', href: 'network-2.html#section-35' },
+                id: 'c2-02',
+                bold: '码元与比特换算',
+                text: '码元是在固定时长（码元宽度）内表示一个 `V` 进制符号的基本信号波形。若码元有 `V` 种离散状态，每码元携带 ==n = log₂V bit==（反之 `V = 2ⁿ`）；!!码元不等于比特，仅 V = 2 时 1 码元才恰好等于 1 bit!!。',
+                short: '每码元含 log₂V bit，仅 V=2 时 1 码元 = 1 bit',
+                tag: '必背',
+                kw: '状态数 V=2^n QAM-16',
+                href: 'network-2.html#section-6'
+              },
               {
-                id: '2.1.3-qam',
-                title: 'QAM 星座图计算',
-                children: [
-                  { id: 'c2-25', bold: 'QAM星座状态', text: '幅相组合V=mn，QAM-M每码元带log₂M bit', tag: '必背', kw: '正交振幅', href: 'network-2.html#section-36' },
-                  { id: 'c2-26', bold: 'QAM阶数反推', text: '先算n=C/(2W)，必再算V=2ⁿ得型号勿直选n', tag: '2023', red: true, kw: '2023-T34 48Mbps QAM-64', href: 'network-2.html#section-36' }
-                ]
+                id: 'c2-03',
+                bold: '信源、信道与信宿',
+                text: '信源产生数据，经发送变换器送入==信道==（信号传输通路），经接收反变换器还原后交给信宿；噪声源作用于信道。!!一条双向通信线路往往包含发送、接收两个信道!!，信道不等于通信电路。',
+                short: '信源经变换器、信道至信宿；双向线含两信道，信道≠电路',
+                tag: '大纲',
+                kw: '噪声源 变换器 模拟信道 数字信道',
+                href: 'network-2.html#section-7'
               }
             ]
-          }
-        ]
-      },
-      {
-        id: '2.2.1',
-        title: '2.2.1 传输介质',
-        col: 'right',
-        children: [
+          },
           {
-            id: '2.2.1-guided',
-            title: '导向介质（有线）',
+            id: 'm1-ch',
+            title: '传输方式与基带/频带/宽带',
             children: [
-              { id: 'c2-27', bold: '介质属第0层', text: '传输介质在物理层之下(第0层)，只传信号不解比特', tag: '边界', kw: '导向 非导向', href: 'network-2.html#section-71' },
-              { id: 'c2-28', bold: '双绞线与命名', text: '绞合/STP屏蔽防干扰；100BASE-T的T=双绞线', tag: '2019·错', red: true, kw: '2019-T34 UTP STP', href: 'network-2.html#section-48' },
-              { id: 'c2-29', bold: '同轴电缆', text: '外导体屏蔽抗噪优于双绞；50Ω基带，75Ω宽带电视', tag: '大纲', kw: '10BASE5 10BASE2', href: 'network-2.html#section-49' },
               {
-                id: '2.2.1-fiber',
-                title: '光纤与单/多模',
-                children: [
-                  { id: 'c2-30', bold: '光纤共性边界', text: '抗雷电电磁干扰、无串音保密好，仍有衰减与色散', tag: '边界', kw: '纤芯 包层', href: 'network-2.html#section-50' },
-                  { id: 'c2-31', bold: '多模与单模', text: '多模全反射粗芯LED短距；单模直线细芯LD长距', tag: '必背', kw: '全反射 模态色散', href: 'network-2.html#section-50' }
-                ]
+                id: 'c2-04',
+                bold: '串行传输与并行传输',
+                text: '@@串行传输@@逐比特按序传送，线路少，用于==长距离通信和计算机网络==；@@并行传输@@经多条信道同时传送多比特，用于==短距离、计算机内部（CPU 与主存之间）==。串行/并行描述比特通路组织，!!与同步/异步无关，不能互换!!。',
+                short: '长距网络用串行、机内短距用并行；与同步/异步无关',
+                tag: '边界',
+                kw: '字符同步 CPU 主存',
+                href: 'network-2.html#section-9'
+              },
+              {
+                id: 'c2-05',
+                bold: '单向、半双工与全双工',
+                text: '单向通信仅一方发送（广播、电视）；==半双工==双方均可发送但只能分时，@@同一信道可分时双向传输，无须两个物理信道@@（如传统同轴电缆总线以太网）；==全双工==双方可同时双向传输，须具备!!两个独立方向的信道!!。',
+                short: '半双工共信道分时双向，全双工须两独立方向信道',
+                tag: '大纲',
+                kw: '交互方式 传统同轴以太网',
+                href: 'network-2.html#section-10'
+              },
+              {
+                id: 'c2-06',
+                bold: '基带、频带与宽带传输',
+                text: '@@基带传输@@直接传送未经载波调制的原始电信号（局域网、机内）；@@频带传输@@将基带信号调制到高频载波上传输（电话线、无线）；传统通信语境下@@宽带传输@@用频分等方法将线路划分为多个频带信道并行传输（有线电视）。',
+                short: '基带直传原始信号，频带载波调制，宽带多频分并行',
+                tag: '边界',
+                kw: '有线电视 载波 宽带信号',
+                href: 'network-2.html#section-72'
               }
             ]
           },
           {
-            id: '2.2.1-wireless',
-            title: '非导向介质（无线）',
+            id: 'm1-rate',
+            title: '波特率、比特率与带宽语境',
+            sticky: {
+              title: '波特率与两种带宽语境铁律',
+              text: '① ==波特率 R_B 只数每秒多少个码元，与码元进制 V 无关==；进制只通过 `log₂V` 影响比特率 `R_b = R_B × log₂V`。\n② 代入奈氏/香农公式的 `W` 必须是 ==Hz 频率带宽==（给频率范围先算 `W = f_H − f_L`），!!绝不可代入 b/s 网络带宽!!。'
+            },
+            exams: [
+              {
+                year: '2011·T34',
+                star: true,
+                nodeId: 'c2-07',
+                href: 'network-2.html#section-12',
+                q: '假设某通信链路的数据传输速率为 `2400 bps`，采用四相位调制，则该通信链路的波特率是（ ）。',
+                opts: ['A. 600 波特', 'B. 1200 波特', 'C. 4800 波特', 'D. 9600 波特'],
+                ans: 'B',
+                explain: '① 四相位调制状态数 `V = 4`，每码元携带 `log₂4 = 2 bit`（不是 4 bit）；② 已知比特率反求波特率不用 `2W`，直接做除法：`R_B = R_b / log₂V = 2400 / 2 = 1200 波特`。'
+              }
+            ],
             children: [
-              { id: 'c2-32', bold: '无线电波', text: '穿透强、全向传播不必精确对准，用于移动与WLAN', tag: '大纲', kw: '全向', href: 'network-2.html#section-52' },
-              { id: 'c2-33', bold: '微波/红外/激光', text: '均定向视距；红外/激光不穿墙，地面微波远距需中继', tag: '大纲', kw: '视距 中继站', href: 'network-2.html#section-53' },
-              { id: 'c2-34', bold: 'GEO卫星中继', text: '上行+下行单程0.24s、RTT0.48s，广覆盖受气候', tag: '2025大题', red: true, kw: '2025-T47 36000km', href: 'network-2.html#section-53' }
+              {
+                id: 'c2-07',
+                bold: '波特率与比特率换算',
+                text: '码元传输速率（波特率 `R_B`，单位 `Baud`）与进制无关；信息传输速率（比特率 `R_b`，单位 `b/s`）满足 ==R_b = R_B × log₂V==，等价地 `R_B = R_b / log₂V`。已知码元周期 `T` 时 `R_B = 1/T`。!!四相位指 V = 4，每码元仅 2 bit 而非 4 bit!!。',
+                short: 'R_b = R_B × log₂V，波特率无关进制；四相位仅 2 bit',
+                tag: '2011',
+                red: true,
+                kw: '2011-T34 1200Baud 码元周期',
+                href: 'network-2.html#section-12'
+              },
+              {
+                id: 'c2-08',
+                bold: '带宽的两种语境',
+                text: '模拟通信及奈氏/香农公式中，带宽指信道可通过的==频率范围 `W = f_H − f_L`（单位 Hz）==；数字通信与计算机网络中，带宽指链路传送数据的能力，即最大数据率（单位 `b/s`）。公式计算!!严禁混用两种单位!!。',
+                short: '公式代 Hz 频宽 W = f_H − f_L，勿代 b/s 网速',
+                tag: '必背',
+                kw: '频率范围 Hz b/s',
+                href: 'network-2.html#section-13'
+              }
             ]
           }
         ]
       },
+
+      /* ==================== 2 奈氏与香农 ==================== */
       {
-        id: '2.2.2',
-        title: '2.2.2 物理层接口特性',
-        col: 'right',
+        id: 'm2',
+        navLabel: '2 奈氏与香农',
+        title: '2.1.2 信道极限容量：奈氏准则与香农定理',
+        sub: '带限失真与码间串扰 → 无噪声两步计算（2W·log₂V）→ 有噪声香农容量与 dB 线性还原 → 联合约束取小值',
         children: [
           {
-            id: '2.2.2-four',
-            title: '四大特性（机电功过）',
+            id: 'm2-nyq',
+            title: '奈奎斯特定理（理想无噪声带限低通）',
+            media: [
+              {
+                type: 'example',
+                title: '无噪声两步模板与参数提升瓶颈转移算例（2009 / 2022）',
+                body: '**无噪声固定两行草稿：** ① `R_B,max = 2W`（必写系数 `2`）；② `C_N = R_B,max × log₂V`（必乘 `log₂V`）。\n**瓶颈转移算例：** `W: 10MHz → 20MHz`，`SNR: 30dB → 40dB`，固定 `QAM-32 (V = 32)`：\n• 提升前：`C_S1 = 10 × log₂(1001) ≈ 100 Mb/s`，`C_N1 = 2 × 10 × 5 = 100 Mb/s` → `min = 100 Mb/s`；\n• 提升后：`C_S2 = 20 × log₂(10001) ≈ 266 Mb/s`，`C_N2 = 2 × 20 × 5 = 200 Mb/s` → 瓶颈转移至奈氏 ==min = 200 Mb/s==（理论上限仅提升 2 倍）。'
+              }
+            ],
+            exams: [
+              {
+                year: '2009·T34',
+                mistake: true,
+                nodeId: 'c2-10',
+                href: 'network-2.html#section-20',
+                q: '在无噪声情况下，若某通信链路的带宽为 `3 kHz`，采用 4 个相位、每个相位具有 4 种振幅的 QAM 调制技术，则该通信链路的最大数据传输速率是（ ）。',
+                opts: ['A. 12 kbps', 'B. 24 kbps', 'C. 48 kbps', 'D. 96 kbps'],
+                ans: 'B',
+                explain: '① 极限波特率 `R_B,max = 2W = 2 × 3000 = 6000 Baud`；② `V = 4 × 4 = 16`，每码元 `log₂16 = 4 bit`；③ 最大数据率 `C_N = 6000 × 4 = 24 kbps`。',
+                pitfall: '当时正确算出 V = 16（4 bit/码元），但遗漏奈氏第 1 个系数 2，直接算 3 kHz × 4 = 12 kbps 错选 A。'
+              },
+              {
+                year: '2022·T34',
+                mistake: true,
+                nodeId: 'c2-11',
+                href: 'network-2.html#section-20',
+                q: '在一条带宽为 `200 kHz` 的无噪声信道上，若采用 4 个幅值的 ASK 调制，则该信道的最大数据传输速率是（ ）。',
+                opts: ['A. 200 kbps', 'B. 400 kbps', 'C. 800 kbps', 'D. 1600 kbps'],
+                ans: 'C',
+                explain: '① 第 1 步：`R_B,max = 2W = 2 × 200 kHz = 400 kBaud`；② 第 2 步：`V = 4`，每码元 `log₂4 = 2 bit`，故 `C_N = 400 kBaud × 2 = 800 kbps`。',
+                pitfall: '当时算出 2W = 400 kBaud 后停笔直接选了 B（400 kbps），忘记乘以每码元比特数 log₂4 = 2。'
+              }
+            ],
             children: [
-              { id: 'c2-35', bold: '机械特性', text: '定插头形状、尺寸、引脚数目排列与固定锁定装置', tag: '必背', kw: 'D型插座 外形', href: 'network-2.html#section-55' },
-              { id: 'c2-36', bold: '电气特性', text: '定电压范围、电平幅度、传输速率与最大电缆长度', tag: '必背', kw: '电平 距离上限', href: 'network-2.html#section-55' },
-              { id: 'c2-37', bold: '功能特性', text: '指明某电平表示何种意义(0/1)及每条线缆引脚功能', tag: '必背', kw: '引脚功能', href: 'network-2.html#section-55' },
-              { id: 'c2-38', bold: '过程/规程特性', text: '规定完成各功能时物理线路事件发生的先后顺序时序', tag: '2012', red: true, kw: '2012-T34 规程特性 时序', href: 'network-2.html#section-55' }
+              {
+                id: 'c2-09',
+                bold: '失真与码间串扰',
+                text: '码元速率提高、传输距离增大、噪声干扰增强、传输介质质量下降均会加重失真。带限信道无法使高频分量无衰减通过，码元速率超过极限值 `2W` 时相邻码元边界模糊并相互影响，产生==码间串扰==。',
+                short: '速率高/距远/噪大/质差加重失真，超 2W 致码间串扰',
+                tag: '大纲',
+                kw: '带限低通 判决 高频分量',
+                href: 'network-2.html#section-19'
+              },
+              {
+                id: 'c2-10',
+                bold: '无噪声第 1 步：乘 2W 求极限波特率',
+                text: '对理想、无噪声、带宽有限的低通信道，无码间串扰的==极限码元传输速率 `R_B,max = 2W`（Baud）==。草稿第一行必须显式写出系数 `2`，!!绝不可漏乘 2!!。',
+                short: '极限波特率 R_B,max = 2W Baud，绝不可漏乘系数 2',
+                tag: '2009·错',
+                red: true,
+                kw: '2009-T34 24kbps 极限波特率',
+                href: 'network-2.html#section-20'
+              },
+              {
+                id: 'c2-11',
+                bold: '无噪声第 2 步：再乘 log₂V 求极限比特率',
+                text: '若每码元有 `V` 种离散状态，理想低通信道==极限数据传输速率 `C_N = 2W × log₂V`（b/s）==。!!算出 2W（波特率）后不得停笔，须再乘 log₂V!!；若题干限定二进制信号，则锁定 `V = 2`。',
+                short: '极限比特率 C_N = 2W·log₂V，算完波特率别停笔',
+                tag: '2022·错',
+                red: true,
+                kw: '2022-T34 4级ASK 800kbps',
+                href: 'network-2.html#section-20'
+              }
             ]
           },
           {
-            id: '2.2.2-bound',
-            title: '接口层次边界',
+            id: 'm2-sha',
+            title: '香农定理（有高斯白噪声带限信道）',
+            sticky: {
+              title: 'dB 线性还原与近似估算边界',
+              text: '① 香农公式前缀是 ==W（绝无系数 2）==，只能代入==线性功率比 S/N==：`10 dB → 10`，`20 dB → 100`，`30 dB → 1000`，`40 dB → 10000`。\n② `log₂(1001) ≈ 10` 是利用 `2¹⁰ = 1024 ≈ 1000` 的工程近似，!!香农容量不是向上取整!!；仅计算离散不可分实体（编码位数、分组个数、最小状态数 `V`）才向上取整 `⌈·⌉`。'
+            },
+            exams: [
+              {
+                year: '2026·T34',
+                star: true,
+                nodeId: 'c2-14',
+                href: 'network-2.html#section-21',
+                q: '【真题核心模型】已知有噪声信道带宽 `W = 200 kHz`，线性信噪比 `S/N = 1023`，在该信道上传送一个 `1500 B` 的数据帧，所需的最小发送时延为？',
+                ans: '6 ms',
+                explain: '① 由香农定理求信道容量：`C_S = 200 kHz × log₂(1 + 1023) = 200 k × 10 = 2 Mb/s`；② 统一字节与比特单位，求最小发送时延：`t_t = (1500 × 8) / (2 × 10⁶) = 12000 / 2000000 = 6 ms`。'
+              }
+            ],
             children: [
-              { id: 'c2-39', bold: '不含MAC地址', text: '物理层四特性均不规定MAC地址(MAC属数据链路层)', tag: '2018', red: true, kw: '2018-T34 物理地址', href: 'network-2.html#section-55' }
+              {
+                id: 'c2-12',
+                bold: '香农信道容量公式',
+                text: '对带宽受限且受高斯白噪声干扰的信道，理论极限数据率 ==C_S = W × log₂(1 + S/N)（b/s）==（!!前缀为 W，绝无系数 2!!）。给定 `W` 与 `S/N` 后，可靠信息率存在确定上限，仅靠提高调制阶数无法突破。',
+                short: 'C_S = W·log₂(1 + S/N)，前缀无 2，高阶调制难突破',
+                tag: '必背',
+                red: true,
+                kw: '高斯白噪声 SNR 信道容量',
+                href: 'network-2.html#section-21'
+              },
+              {
+                id: 'c2-13',
+                bold: 'dB 换算与工程近似',
+                text: '`SNR_dB = 10 × log₁₀(S/N)`，还原线性比值 ==S/N = 10^(SNR_dB / 10)==（如 `30 dB → S/N = 1000`），!!严禁将 30 直接代入公式!!。考场写 `log₂1001 ≈ 10` 为工程近似，不代表香农公式存在向上取整规则；若有“实际为理论 50%”等工程折扣须最后再乘。',
+                short: '先转线性 S/N：30 dB = 1000 勿直代；近似非取整',
+                tag: '2016',
+                red: true,
+                kw: '2016-T34 10log10 50%',
+                href: 'network-2.html#section-21'
+              },
+              {
+                id: 'c2-14',
+                bold: '香农容量反推最小发送时延',
+                text: '先由带宽与信噪比用香农公式求出极限信道容量 `C_S`，再将帧长由字节换算为比特（`× 8`），用 ==t_t,min = L / C_S== 求得最小发送时延。',
+                short: '先算香农极限 C_S，再用帧长 L/C_S 求最小发送时延',
+                tag: '2026',
+                red: true,
+                kw: '2026-T34 1023 1500B 6ms',
+                href: 'network-2.html#section-21'
+              }
+            ]
+          },
+          {
+            id: 'm2-comb',
+            title: '联合约束、状态数反推与影响因素',
+            media: [
+              {
+                type: 'table',
+                title: '奈氏准则 vs 香农定理联合约束对照',
+                headers: ['对比维度', '奈奎斯特定理（奈氏准则）', '香农定理'],
+                rows: [
+                  ['信道模型', '理想、==无噪声==、带宽有限低通信道', '==有高斯白噪声==、带宽受限信道'],
+                  ['制约因素', '频率带宽 `W`、码元离散状态数 `V`', '频率带宽 `W`、线性信噪比 `S/N`'],
+                  ['物理意义', '限制==码元速率==（超过 `2W` 发生码间串扰）', '给出可靠==信息传输速率==的最终理论上界'],
+                  ['计算公式', '`C_N = 2W × log₂V`（前缀为 !!2W!!）', '`C_S = W × log₂(1 + S/N)`（前缀为 !!W!!，无 2）']
+                ]
+              }
+            ],
+            summary: {
+              title: '奈氏 + 香农联合约束取小值',
+              text: '同时给出带宽 `W`、状态数 `V`（或“二进制信号”隐含 `V = 2`）和信噪比 `S/N` 时，必须两式同算并取较小值：\n==C_max = min(2W × log₂V, W × log₂(1 + S/N))==。\n奈氏管“码元能多快”，香农管“信息最终能多快”。'
+            },
+            exams: [
+              {
+                year: '2014·T35',
+                star: true,
+                nodeId: 'c2-17',
+                href: 'network-2.html#section-24',
+                q: '下列因素中，不会影响信道数据传输速率的是（ ）。',
+                opts: ['A. 信噪比', 'B. 频率带宽', 'C. 调制速率', 'D. 信号传播速度'],
+                ans: 'D',
+                explain: '信噪比（香农）、频率带宽（奈氏/香农）、调制速率即波特率（`R_b = R_B × log₂V`）均直接决定信道数据传输速率（`b/s`）；==信号传播速度 `v`（`m/s`）仅决定传播时延 `t_p = d/v`==，不在任何速率公式中。'
+              }
+            ],
+            children: [
+              {
+                id: 'c2-15',
+                bold: '双约束取小值与二进制限定',
+                text: '题干同时提供码元状态数 `V` 与信噪比 `S/N` 时，可靠数据率须同时满足两套限制，理论上限取 ==min(C_N, C_S)==。若题干出现“二进制信号”，则硬性锁定 !!V = 2（C_N = 2W）!!，香农算得再大也不得超过 `2W`。',
+                short: '同给 V 和 SNR 取 min(C_N, C_S)；二进制锁死 V=2',
+                tag: '必背',
+                red: true,
+                kw: '联合上限 二进制信号',
+                href: 'network-2.html#section-22'
+              },
+              {
+                id: 'c2-16',
+                bold: '反求最少信号状态数',
+                text: '为达到香农极限所需最少码元状态数，列不等式 `2W × log₂V ≥ W × log₂(1 + S/N)`，约去 `W` 得 ==V ≥ √(1 + S/N)==。当 `SNR = 30 dB`（`S/N = 1000`）时，`V ≥ √1001 ≈ 31.64`，取整数至少需 ==32 种状态==。',
+                short: '约去 W 得 V ≥ √(1 + S/N)，30 dB 至少需 32 种状态',
+                tag: '2017',
+                red: true,
+                kw: '2017-T34 32种状态 向上取整',
+                href: 'network-2.html#section-27'
+              },
+              {
+                id: 'c2-17',
+                bold: '信号传播速度不影响信道数据率',
+                text: '信噪比、频率带宽、调制速率（波特率）、调制阶数均直接影响信道数据传输速率（单位 `b/s`）；!!信号传播速度 `v`（单位 `m/s`）不出现在奈氏或香农公式中!!，它与距离决定单程传播时延 `t_p = d/v`。',
+                short: '信号传播速度 v(m/s) 只定传播时延，不影响数据率',
+                tag: '2014',
+                red: true,
+                kw: '2014-T35 m/s bit/s',
+                href: 'network-2.html#section-24'
+              }
             ]
           }
         ]
       },
+
+      /* ==================== 3 编码与调制 ==================== */
       {
-        id: '2.3',
-        title: '2.3 物理层设备',
-        col: 'right',
+        id: 'm3',
+        navLabel: '3 编码与调制',
+        title: '2.1.3 数字编码、PCM 与带通调制',
+        sub: '编码得到数字信号 vs 调制得到模拟信号 → 五种基带编码波形判读 → PCM 三步 → ASK/FSK/PSK/DPSK 与 QAM 星座图',
         children: [
           {
-            id: '2.3-rep',
-            title: '中继器（2 端口）',
+            id: 'm3-code',
+            title: '五种基带数字编码与波形判读',
+            media: [
+              {
+                type: 'table',
+                title: '五种基带数字编码判决规则与自同步对比',
+                headers: ['编码方案', '判决依据（信息位置）', '自同步能力', '带宽与核心识别点'],
+                rows: [
+                  ['`RZ`（归零）', '电平表示数据，每码元中点归零', '有一定同步能力', '归零消耗带宽，编码效率较低'],
+                  ['`NRZ`（非归零）', '==整个码元周期的绝对高低电平==', '!!无自同步信息!!', '效率高；连续相同位长时间不跳变；0/1 切换边界仍跳变'],
+                  ['`NRZI`（反向非归零）', '==码元起始处是否翻转==（教材：不跳=1，跳=0）', '需协议/冗余配合', '较少浪费带宽；4B/5B 配合用于 `100BASE-T`'],
+                  ['==曼彻斯特==', '==码元中点跳变方向==（兼传时钟与数据）', '&&有（自带时钟）&&', '占原始基带 ==2 倍频带==；!!10BASE-T 传统以太网必用!!'],
+                  ['@@差分曼彻斯特@@', '中点仅同步；==起始处跳变=0，无跳变=1==', '&&有（自带时钟）&&', '占 2 倍频带；比较前码元后半与本码元前半电平，抗极性反转']
+                ]
+              }
+            ],
+            sticky: {
+              title: '波形题两步固定读法与约定边界',
+              text: '① **第 1 步看码元中点**：每码元中点必跳变 → 锁定曼彻斯特家族（中点方向表数据 = 曼彻斯特；起点是否翻转表数据 = 差分曼彻斯特，首位须有前置参考电平）。\n② **第 2 步看中点不固定跳变**：盯紧==连续相同位（如 11 / 111）==区分 `NRZ`（保持恒定绝对电平）与 `NRZI`（看起点相对翻转）。\n③ 见到 `10BASE-T` 立即锁定曼彻斯特；若题目无极性约定，注意比特串可能整体取反。'
+            },
+            exams: [
+              {
+                year: '2013·T34',
+                mistake: true,
+                nodeId: 'c2-20',
+                href: 'network-2.html#section-33',
+                q: '`10BaseT` 网卡接收到 8 个等宽码元的信号波形（各码元中点跳变依次为 `L→H, L→H, H→L, H→L, L→H, H→L, H→L, L→H`），则该网卡收到的比特串是（ ）。',
+                opts: ['A. 00110110', 'B. 10101101', 'C. 01010010', 'D. 11000101'],
+                ans: 'A',
+                explain: '① 先拆标准名：`10BaseT` 为传统 10 Mb/s 双绞线以太网，==必然采用曼彻斯特编码==；② 直接读每码元中点跳变方向（本题约定 `L→H = 0`、`H→L = 1`），得 `00110110`。',
+                pitfall: '当时不知道 10BASE-T 对应传统以太网且隐含曼彻斯特编码，错套差分曼彻斯特起点跳变规则选了 B（10101101）。'
+              },
+              {
+                year: '2015·T34',
+                mistake: true,
+                nodeId: 'c2-18',
+                href: 'network-2.html#section-32',
+                q: '使用两种编码方案对比特流 `01100111` 编码（编码 1 各码元电平依次为 `L, H, H, L, L, H, H, H`；编码 2 中点跳变依次为 `L→H, H→L, H→L, L→H, L→H, H→L, H→L, H→L`），编码 1 和编码 2 分别是（ ）。',
+                opts: ['A. NRZ 和曼彻斯特编码', 'B. NRZ 和差分曼彻斯特编码', 'C. NRZI 和曼彻斯特编码', 'D. NRZI 和差分曼彻斯特编码'],
+                ans: 'A',
+                explain: '① 编码 1 所有 `0` 为 `L`、所有 `1` 为 `H`，连 `1`（位 2~3、位 6~8）恒定高电平无翻转，为 ==NRZ==；② 编码 2 每码元中点跳变方向与位值一一对应（`0 = L→H`，`1 = H→L`），为==曼彻斯特编码==。',
+                pitfall: '纸面曾出现填 A 与圈选 C 矛盾标记；因 NRZ 在 0/1 切换边界同样存在电平跳变，容易误判为 NRZI。判定时须盯连续相同比特位。'
+              }
+            ],
             children: [
-              { id: 'c2-40', bold: '再生非纯放大', text: '中继器对数字信号整形再生；模拟信号才用放大器', tag: '边界', red: true, kw: '整形 再生 噪声放大', href: 'network-2.html#section-62' },
-              { id: 'c2-41', bold: '异介质不转协议', text: '可连不同传输介质但须同链路协议，不能转帧格式', tag: '边界', kw: '网段 同一局域网', href: 'network-2.html#section-69' },
-              { id: 'c2-42', bold: '5-4-3规则', text: '串联受时延限制不可无限级联：5段电缆4中继3挂主机', tag: '必背', kw: '10Base5', href: 'network-2.html#section-62' }
+              {
+                id: 'c2-18',
+                bold: 'NRZ 与 RZ 编码',
+                text: '`NRZ`（非归零）用==整个码元周期的绝对高低电平==表示 0 和 1，效率高但!!无自同步信息!!（连续相同位长时间不跳变，0/1 切换边界仍会跳变）；`RZ`（归零）每个码元中点回到零电平，有一定同步能力但效率较低。',
+                short: 'NRZ 看整码元绝对电平（无同步），RZ 码元中点归零',
+                tag: '2015·错',
+                red: true,
+                kw: '2015-T34 电平 连续相同位',
+                href: 'network-2.html#section-32'
+              },
+              {
+                id: 'c2-19',
+                bold: 'NRZI 与 4B/5B 编码',
+                text: '`NRZI`（反向非归零）依据==码元起始处是否跳变==表征数据（教材约定：不跳变为 1，跳变为 0），需协议或冗余配合保证同步；`100BASE-T` 快速以太网采用 `4B/5B` 冗余编码配合 `MLT-3` 保证同步。',
+                short: 'NRZI 看起点是否翻转；4B/5B 用于快速以太网保同步',
+                tag: '2015',
+                kw: '100BASE-T MLT-3 反向非归零',
+                href: 'network-2.html#section-32'
+              },
+              {
+                id: 'c2-20',
+                bold: '曼彻斯特编码',
+                text: '每个码元中点必跳变，==中点跳变同时传递时钟同步信息与数据==（教材常用约定高到低为 1、低到高为 0，也可采用相反约定）；所需频带为原始基带的 ==2 倍==，是 !!10BASE-T 传统以太网!! 的标准编码。',
+                short: '中点必跳兼传时钟数据，10BASE-T 必用，占 2 倍带宽',
+                tag: '2013·错',
+                red: true,
+                kw: '2013-T34 10BaseT 以太网',
+                href: 'network-2.html#section-33'
+              },
+              {
+                id: 'c2-21',
+                bold: '差分曼彻斯特编码',
+                text: '每个码元中点必跳变但@@仅用于时钟同步@@，数据由==码元起始处是否跳变决定==（起始处跳变为 0，无跳变为 1），实战比较“当前码元前半与前一码元后半电平”；首位须有前置参考电平，抗线路极性反转能力强。',
+                short: '中点仅同步，起点跳变=0/不跳=1，抗极性反转',
+                tag: '2021',
+                red: true,
+                kw: '2021-T34 电平比较 前置参考电平',
+                href: 'network-2.html#section-33'
+              }
             ]
           },
           {
-            id: '2.3-hub',
-            title: '集线器 Hub（多口中继）',
+            id: 'm3-pcm',
+            title: '模拟数据数字化（PCM）',
             children: [
-              { id: 'c2-43', bold: '广播不识址', text: '多口中继器，无缓存不识MAC，向其余工作口广播', tag: '必背', kw: '无交换表', href: 'network-2.html#section-64' },
-              { id: 'c2-44', bold: '拓扑与半双工', text: '物理星形、逻辑总线形；仅半双工，同时只单口输入', tag: '必背', red: true, kw: '逻辑总线', href: 'network-2.html#section-64' },
-              { id: 'c2-45', bold: '不隔冲突/广播', text: '所有端口同属1个冲突域与广播域，反而扩大冲突', tag: '2016/2020', red: true, kw: '2016-T35 2020-T35', href: 'network-2.html#section-64' },
-              { id: 'c2-46', bold: '共享带宽降速', text: 'n台共享总带宽均值≤R/n；混接按共同低速工作', tag: '边界', kw: '瓜分带宽', href: 'network-2.html#section-68' }
+              {
+                id: 'c2-22',
+                bold: 'PCM 三步骤与采样定理',
+                text: '脉冲编码调制（PCM）属于==编码（模拟数据 → 数字信号）==，固定顺序为@@采样 → 量化（引入量化误差）→ 编码@@。无失真恢复最高频率 `f_max` 的模拟信号须满足采样频率 ==f_s ≥ 2f_max==；!!不可将采样频率直接等同于信道允许波特率 2W!!。',
+                short: '采样（f_s ≥ 2f_max）→ 量化（有误差）→ 编码，勿混 2W',
+                tag: '大纲',
+                kw: '脉冲编码调制 采样定理 量化误差',
+                href: 'network-2.html#section-34'
+              }
+            ]
+          },
+          {
+            id: 'm3-mod',
+            title: '带通数字调制（ASK/FSK/PSK/DPSK）',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch2/图2.3-ASK-FSK-PSK.jpg', caption: '图 2.3 二进制 ASK（改幅）、FSK（改频）、PSK（改相）波形对照', width: 320 }
+            ],
+            children: [
+              {
+                id: 'c2-23',
+                bold: '四大数字调制与模拟调制',
+                text: '数字数据调制为模拟信号：@@ASK@@ 改变载波振幅（易实现、抗干扰差）；@@FSK@@ 改变载波频率（抗干扰较强）；@@PSK@@ 改变载波绝对相位（如 `0` 与 `π`）；@@DPSK@@（相对调相）看相邻码元相位差。模拟数据加载到高频载波则用 `AM / FM / PM`。',
+                short: 'ASK 改幅、FSK 改频、PSK 绝对相、DPSK 看相位差',
+                tag: '必背',
+                kw: 'AM FM PM 相对调相',
+                href: 'network-2.html#section-35'
+              },
+              {
+                id: 'c2-24',
+                bold: 'FSK 双频载波识别',
+                text: '在二进制数字调制方法中，!!唯一需要 2 个不同频率载波分别表示 0 和 1 的是 FSK!!；`ASK`、`PSK`、`DPSK` 均仅使用单一频率载波。',
+                short: '二进制调制中唯一需 2 个不同频率载波的是 FSK',
+                tag: '2024',
+                red: true,
+                kw: '2024-T34 单一频率载波',
+                href: 'network-2.html#section-35'
+              }
+            ]
+          },
+          {
+            id: 'm3-qam',
+            title: 'QAM 正交振幅调制与阶数反推',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch2/图2.4a-QAM16星座图.jpg', caption: '图 2.4(a) QAM-16 星座图（16 状态，4 bit/码元）', width: 210 },
+              { type: 'img', src: 'study/mm-assets/network/ch2/图2.4b-QAM64星座图.jpg', caption: '图 2.4(b) QAM-64 星座图（64 状态，6 bit/码元）', width: 210 }
+            ],
+            media: [
+              {
+                type: 'example',
+                title: 'QAM 阶数反推固定三步（2023·T34）',
+                body: '已知无噪声带宽 `W = 4 MHz`，最大数据率 `C = 48 Mb/s`，求 QAM 调制方案：\n① 极限波特率：`R_B,max = 2W = 2 × 4 MHz = 8 MBaud`；\n② 每码元比特数：`n = log₂V = C / R_B,max = 48 / 8 = 6 bit/码元`；\n③ 反推状态数对应型号：==V = 2⁶ = 64 → QAM-64==（!!切勿直接把 n = 6 当作型号!!）。'
+              }
+            ],
+            exams: [
+              {
+                year: '2023·T34',
+                star: true,
+                nodeId: 'c2-26',
+                href: 'network-2.html#section-36',
+                q: '某无噪声理想信道带宽为 `4 MHz`，采用 QAM 调制，若该信道的最大数据传输率是 `48 Mbps`，则该信道采用的 QAM 调制方案是（ ）。',
+                opts: ['A. QAM-16', 'B. QAM-32', 'C. QAM-64', 'D. QAM-128'],
+                ans: 'C',
+                explain: '① 极限波特率 `R_B,max = 2W = 8 MBaud`；② 每码元比特数 `n = 48 / 8 = 6 bit`；③ `QAM-M` 的 `M` 为总状态数 `V = 2ⁿ = 2⁶ = 64`，即 ==QAM-64==。'
+              }
+            ],
+            children: [
+              {
+                id: 'c2-25',
+                bold: 'QAM 星座状态与每码元比特',
+                text: 'QAM 用同频、相差 `90°` 的正弦和余弦两路正交载波同时调制振幅与相位。若有 `m` 种相位、每相位 `n` 种振幅，总状态数 ==V = mn==，`R_b = R_B × log₂(mn)`；`QAM-M` 每码元携带 ==log₂M bit==（QAM-16 为 4 bit，QAM-64 为 6 bit）。',
+                short: '幅相组合 V = mn，QAM-M 每码元带 log₂M bit',
+                tag: '必背',
+                kw: '正交振幅 90度 QAM-16 QAM-64',
+                href: 'network-2.html#section-36'
+              },
+              {
+                id: 'c2-26',
+                bold: 'QAM 阶数反推',
+                text: '由无噪声信道最大速率 `C` 与带宽 `W` 反求 QAM 方案时，先求每码元比特数 `n = C / (2W)`，!!必须再计算总状态数 `V = 2ⁿ` 对应 `QAM-V`!!，不可将比特数 `n` 直接选作调制阶数。',
+                short: '先算 n = C/(2W)，必再算 V = 2ⁿ 得型号勿直选 n',
+                tag: '2023',
+                red: true,
+                kw: '2023-T34 48Mbps QAM-64',
+                href: 'network-2.html#section-36'
+              }
             ]
           }
         ]
       },
+
+      /* ==================== 4 传输介质与接口 ==================== */
       {
-        id: '2.4',
-        title: '2.4 跨章时延与交换性能',
-        col: 'right',
+        id: 'm4',
+        navLabel: '4 传输介质与接口',
+        title: '2.2 传输介质与物理层接口特性',
+        sub: '传输介质属第 0 层 → 有线导向介质（双绞线/同轴/光纤）与无线非导向介质（无线电/微波/卫星）→ 物理层四大接口特性',
         children: [
           {
-            id: '2.4-pipe',
-            title: '流水线与吞吐量',
+            id: 'm4-guided',
+            title: '导向介质（有线）：双绞线、同轴与光纤',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch2/图2.8-多模光纤.jpg', caption: '图 2.8 多模光纤：纤芯较粗，全反射多路径传播，模态色散大', width: 250 },
+              { type: 'img', src: 'study/mm-assets/network/ch2/图2.9-单模光纤.jpg', caption: '图 2.9 单模光纤：纤芯极细（光波长级），近似直线传播，适长距骨干', width: 250 }
+            ],
+            media: [
+              {
+                type: 'table',
+                title: '有线（导向）与无线（非导向）传输介质核心对比',
+                headers: ['介质类型', '物理机制 / 结构', '核心优点与场景', '高频边界 / 缺陷'],
+                rows: [
+                  ['双绞线（UTP / STP）', '两根绝缘铜线规则绞合（STP 另加金属屏蔽层）', '绞合/屏蔽==减小电磁干扰与串扰==；`10/100BASE-T`', '模拟远距用放大器，数字远距用中继器'],
+                  ['同轴电缆', '内导体 + 绝缘层 + 外导体金属屏蔽层 + 保护套', '外导体屏蔽抗噪、带宽优于双绞线；`50Ω` 基带 / `75Ω` 宽带', '传统 `10BASE5/2` 总线以太网为半双工'],
+                  ['@@多模光纤@@', '==光的全反射==，多条路径，粗纤芯（几十 μm），`LED` 光源', '抗电磁干扰、无串音、保密好；短距局域网', '模态色散大、脉冲展宽，距离较短（几 km）'],
+                  ['==单模光纤==', '==无反射近似直线传播==，极细纤芯（光波长级），`LD` 激光器', '无模态色散、高带宽；长距骨干网（几十 km+）', '成本高于多模；仍有衰减与色散'],
+                  ['无线电波', '自由空间==全向传播==', '穿透力强、传距远、无需精确对准（移动/WLAN）', '易受干扰、安全性较低'],
+                  ['微波 / 卫星 / 红外激光', '==视距定向传播==（红外/激光不能穿墙）', 'GEO 卫星覆盖广、易广播与多址通信', 'GEO 单程 `0.24 s`、`RTT 0.48 s`，受气候影响、误码率较高']
+                ]
+              }
+            ],
+            exams: [
+              {
+                year: '2019·T34',
+                mistake: true,
+                nodeId: 'c2-28',
+                href: 'network-2.html#section-48',
+                q: '`100BaseT` 快速以太网使用的导向传输介质是（ ）。',
+                opts: ['A. 双绞线', 'B. 单模光纤', 'C. 多模光纤', 'D. 同轴电缆'],
+                ans: 'A',
+                explain: '拆解以太网物理标准命名：`100` 表示 `100 Mb/s`，`Base` 表示基带传输，==`T` 代表双绞线（Twisted Pair）==；光纤对应 `FX/SX/LX`，同轴电缆仅用于早期 `10BASE5/2`。',
+                pitfall: '当时误将早期共享总线以太网的“半双工 + 同轴电缆”推广到所有以太网而错选 D；双工方式与传输介质属不同维度。'
+              }
+            ],
             children: [
-              { id: 'c2-47', bold: '流水线算时延', text: 'k段链路T=(k+m-1)tt+Σtp，tp加k次不乘m', tag: '2023·错', red: true, kw: '2023-T33 80.10ms 路由器', href: 'network-2.html#section-43' },
-              { id: 'c2-48', bold: '时延带宽积', text: 'BDP=R·tp(单位bit)，tp=BDP/R防混字节', tag: '2023', kw: '2023-T33', href: 'network-2.html#section-43' },
-              { id: 'c2-49', bold: '多路径吞吐量', text: '先卡两端必经接入边，能绕开的中间慢链路非瓶颈', tag: '2024', red: true, kw: '2024-T33 10Mb/s', href: 'network-2.html#section-43' }
+              {
+                id: 'c2-27',
+                bold: '传输介质属于物理层之下（第 0 层）',
+                text: '从体系结构看，传输介质==不属于物理层==，位于物理层之下（常非正式称为第 0 层）。传输介质只提供电、光或电磁波传播通路，本身不解释电平对应的 0/1 语义；物理层负责赋予比特语义。',
+                short: '传输介质在物理层之下（第 0 层），只传信号不解比特',
+                tag: '边界',
+                kw: '导向 非导向 第0层',
+                href: 'network-2.html#section-71'
+              },
+              {
+                id: 'c2-28',
+                bold: '双绞线与以太网标准命名',
+                text: '两根绝缘铜线规则绞合的主要目的是==减小相邻导线间电磁干扰与串扰==（非提高机械强度）；`STP` 金属屏蔽层亦用于抑制电磁干扰与辐射。以太网命名中 ==`T` 代表双绞线==（如 `10BASE-T`、`100BASE-T`）。',
+                short: '绞合/STP 屏蔽防电磁干扰；100BASE-T 的 T = 双绞线',
+                tag: '2019·错',
+                red: true,
+                kw: '2019-T34 UTP STP 100BaseT',
+                href: 'network-2.html#section-48'
+              },
+              {
+                id: 'c2-29',
+                bold: '同轴电缆屏蔽与阻抗分类',
+                text: '外导体金属屏蔽层使其带宽和抗噪性优于双绞线。按特性阻抗分为两类：`50 Ω` 用于早期基带局域网（传统 `10BASE5/2` 总线以太网为半双工）；`75 Ω` 用于宽带有线电视系统。',
+                short: '外导体屏蔽抗噪优于双绞；50Ω 基带、75Ω 宽带电视',
+                tag: '大纲',
+                kw: '10BASE5 10BASE2 50欧 75欧',
+                href: 'network-2.html#section-49'
+              },
+              {
+                id: 'c2-30',
+                bold: '光纤共性优点与边界',
+                text: '纤芯折射率高于包层，以光脉冲（有光/无光）传数据。优点：容量大、损耗小、中继距长、==抗雷电与电磁干扰性能极佳、无串音保密性好==、体积小重量轻。!!但不能据此推出光信号在光纤中完全无衰减或无色散!!。',
+                short: '抗雷电电磁干扰、无串音保密好，但仍有衰减与色散',
+                tag: '边界',
+                kw: '纤芯 包层 折射率',
+                href: 'network-2.html#section-50'
+              },
+              {
+                id: 'c2-31',
+                bold: '多模光纤 vs 单模光纤',
+                text: '@@多模光纤@@利用==光的全反射==（非折射/绕射），纤芯较粗、多路径致模态色散大、脉冲展宽，可用 `LED` 光源，适短距局域网；@@单模光纤@@纤芯细至光波长级，==近似直线传播无模态色散==，须用定向性极好的半导体激光器 `LD`，适长距骨干网。',
+                short: '多模全反射粗芯 LED 短距；单模直线细芯 LD 长距',
+                tag: '必背',
+                kw: '全反射 模态色散 LED LD',
+                href: 'network-2.html#section-50'
+              }
             ]
           },
           {
-            id: '2.4-vc',
-            title: '虚电路交换边界',
+            id: 'm4-wireless',
+            title: '非导向介质（无线）与卫星通信',
+            exams: [
+              {
+                year: '2025·T47(1)',
+                star: true,
+                nodeId: 'c2-34',
+                href: 'network-2.html#section-53',
+                q: '【真题核心计算】地球静止轨道（GEO）卫星轨高 `36000 km`，电磁波传播速度 `300000 km/s`，地面站经该卫星中继向另一地面站发送信号的单程传播时延与往返时间 `RTT` 分别为？',
+                ans: '单程 0.24 s（240 ms）｜RTT = 0.48 s（480 ms）',
+                explain: '信号经 GEO 卫星中继单程必须走完==上行 + 下行两段==，单程距离 `2 × 36000 = 72000 km`，单程传播时延 `72000 / 300000 = 0.24 s`；往返 `RTT = 2 × 0.24 = 0.48 s`（切勿漏算下行误得 `0.12 s`）。'
+              }
+            ],
             children: [
-              { id: 'c2-50', bold: '虚电路不预留', text: '建逻辑连接按VCID保序转发，但不必预分配带宽', tag: '2020', red: true, kw: '2020-T34 逻辑连接', href: 'network-2.html#section-43' }
+              {
+                id: 'c2-32',
+                bold: '无线电波',
+                text: '穿透能力强、传播距离远，多为==全向传播==，接收端不必精确对准发射源，广泛用于移动通信与无线局域网（WLAN）。',
+                short: '穿透强、全向传播不必精确对准，用于移动与 WLAN',
+                tag: '大纲',
+                kw: '全向 WLAN 移动通信',
+                href: 'network-2.html#section-52'
+              },
+              {
+                id: 'c2-33',
+                bold: '微波、红外线与激光',
+                text: '三者均要求==定向视距传播==。地面微波沿直线传播，远距离须设中继站；红外线和激光用于短距离点对点或室内通信，易受障碍物阻挡，!!不能穿墙!!。',
+                short: '均定向视距；红外/激光不穿墙，地面微波远距需中继',
+                tag: '大纲',
+                kw: '视距 中继站 障碍物',
+                href: 'network-2.html#section-53'
+              },
+              {
+                id: 'c2-34',
+                bold: 'GEO 同步卫星微波中继',
+                text: '以卫星作微波中继，覆盖范围广、易实现广播与多址通信；缺点为费用高、传播时延大、保密性差、受气候影响且误码率较高。GEO 轨高 `36000 km`，单程含==上行 + 下行==（`0.24 s`），往返 ==RTT = 0.48 s==。',
+                short: '上行+下行单程 0.24 s、RTT 0.48 s，广覆盖受气候',
+                tag: '2025大题',
+                red: true,
+                kw: '2025-T47 36000km 0.24s 0.48s',
+                href: 'network-2.html#section-53'
+              }
+            ]
+          },
+          {
+            id: 'm4-iface',
+            title: '物理层接口四大特性与层次边界',
+            leadMedia: [
+              { type: 'img', src: 'study/mm-assets/network/ch2/图2.10-传输介质与物理层.jpg', caption: '图 2.10 传输介质承载信号；物理层通过接口四特性与编码规则向上交付比特流', width: 320 }
+            ],
+            summary: {
+              title: '物理层四大特性口诀（机、电、功、过）',
+              text: '• @@机械@@：形状尺寸、引脚数与排列、固定锁定；\n• @@电气@@：电压范围、电平幅度、速率与电缆长度数值上限；\n• @@功能@@：某电平代表何种含义（0/1）及各引脚功能；\n• @@过程@@：物理线路事件发生的先后顺序与时序。\n!!电气看数值/距离范围，功能看电平语义/引脚功能；MAC 地址不属物理层!!。'
+            },
+            children: [
+              {
+                id: 'c2-35',
+                bold: '机械特性',
+                text: '规定物理层接口所用接线器的==形状、几何尺寸、引脚数目与排列、固定和锁定装置==（如 D 型插座与插头外形）。',
+                short: '定插头形状、尺寸、引脚数目排列与固定锁定装置',
+                tag: '必背',
+                kw: 'D型插座 外形 引脚排列',
+                href: 'network-2.html#section-55'
+              },
+              {
+                id: 'c2-36',
+                bold: '电气特性',
+                text: '规定接口电缆各条线上出现的==电压范围、信号电平幅度、传输速率与最大电缆长度限制==（如 `-15V ~ -10V`、最长 `15 m`、速率 `≤ 20 kb/s`）。',
+                short: '定电压范围、电平幅度、传输速率与最大电缆长度',
+                tag: '必背',
+                kw: '电平 距离上限 数值范围',
+                href: 'network-2.html#section-55'
+              },
+              {
+                id: 'c2-37',
+                bold: '功能特性',
+                text: '指明==某条线上出现的某一电平表示何种意义==（如某高电平代表二进制 0/1），以及每条信号线/引脚的功能分类（数据线、控制线、时钟线等）。',
+                short: '指明某电平表示何种意义（0/1）及每条引脚功能',
+                tag: '必背',
+                kw: '引脚功能 电平意义',
+                href: 'network-2.html#section-55'
+              },
+              {
+                id: 'c2-38',
+                bold: '过程特性（规程特性）',
+                text: '规定对于不同功能的各种可能==物理线路事件发生的先后顺序和时序关系==（如建立物理连接 → 传输数据 → 释放连接的操作步骤）。',
+                short: '规定完成各功能时物理线路事件发生的先后顺序时序',
+                tag: '2012',
+                red: true,
+                kw: '2012-T34 规程特性 时序 先后顺序',
+                href: 'network-2.html#section-55'
+              },
+              {
+                id: 'c2-39',
+                bold: '层次边界：不含 MAC 地址',
+                text: '物理地址（MAC 地址）用于标识数据链路层接口，属于==数据链路层范畴==；!!物理层机械、电气、功能、过程四特性均不规定 MAC 地址!!。',
+                short: '物理层四特性均不规定 MAC 地址（MAC 属数据链路层）',
+                tag: '2018',
+                red: true,
+                kw: '2018-T34 物理地址 MAC',
+                href: 'network-2.html#section-55'
+              }
+            ]
+          }
+        ]
+      },
+
+      /* ==================== 5 物理层设备与跨章 ==================== */
+      {
+        id: 'm5',
+        navLabel: '5 物理层设备与跨章',
+        title: '2.3–2.4 物理层设备与跨章时延性能',
+        sub: '中继器（2 端口信号再生）与集线器（多端口广播、逻辑总线、单冲突域）→ 流水线时延、时延带宽积、多路径吞吐量与虚电路边界',
+        children: [
+          {
+            id: 'm5-dev',
+            title: '物理层设备：中继器与集线器（Hub）',
+            media: [
+              {
+                type: 'table',
+                title: '中继器与集线器（Hub）核心特性与 5-4-3 规则速查',
+                headers: ['对比属性', '中继器（Repeater）', '集线器（Hub）'],
+                rows: [
+                  ['定位与端口', '物理层；通常 ==2 个端口==，延长数字信号传输距离', '物理层；实质为==多端口中继器==（4 口及以上）'],
+                  ['信号处理', '对数字信号==整形再生（放大 + 整形）==，非简单放大器', '整形放大后从==除输入口外所有工作口广播转发=='],
+                  ['拓扑与双工', '连接两个局域网网段，须遵循 `5-4-3` 级联规则', '==物理星形、逻辑总线形==；仅!!半双工!!，同时只单口输入'],
+                  ['识址 / 缓存 / 域', '无缓存、不识 MAC、不转协议；仍属==同一冲突域与广播域==', '无缓存、无交换表不识 MAC；!!所有口同属 1 冲突域和 1 广播域!!'],
+                  ['带宽与速率', '受传播时延限制，==5 段电缆、4 中继器、3 段挂主机==', '`n` 台共享总带宽，无冲突理想均值 `≤ R/n`；混接按共同低速']
+                ]
+              }
+            ],
+            summary: {
+              title: '中继器与集线器四大共性边界',
+              text: '① 均工作在==物理层==，仅处理电气/光信号，==不识别帧和 MAC 地址、无缓存、不具备协议转换能力==；\n② 连接的网段仍属同一个局域网，!!无法隔离冲突域和广播域!!；\n③ 均受传播时延约束，不能无限串联；\n④ 集线器推演链：多端口广播 → 同时发必冲突 → 半双工 → 单冲突域 → 共享带宽 → 物理星形逻辑总线形。'
+            },
+            exams: [
+              {
+                year: '2016·T35',
+                star: true,
+                nodeId: 'c2-45',
+                href: 'network-2.html#section-64',
+                q: '在 OSI 参考模型中，路由器、交换机（Switch）、集线器（Hub）实现的最高功能层分别是（ ）。',
+                opts: ['A. 2, 2, 1', 'B. 2, 2, 2', 'C. 3, 2, 1', 'D. 3, 2, 2'],
+                ans: 'C',
+                explain: '按设备识别的地址层级判定：路由器读 `IP` 地址与路由表 → ==第 3 层网络层==；普通二层交换机读 `MAC` 地址与转发表 → ==第 2 层数据链路层==；集线器不识别任何地址，仅整形放大物理信号 → ==第 1 层物理层==。'
+              }
+            ],
+            children: [
+              {
+                id: 'c2-40',
+                bold: '中继器信号再生而非简单放大',
+                text: '放大器用于==模拟信号==，会将信号与噪声一同放大；中继器用于==数字信号==，工作原理是!!信号再生（判决 + 放大 + 整形）!!，重新生成理想数字波形以消除衰减与失真。将原理写成“仅放大衰减信号”判错。',
+                short: '中继器对数字信号整形再生；模拟信号才用放大器',
+                tag: '边界',
+                red: true,
+                kw: '整形 再生 噪声放大 放大器',
+                href: 'network-2.html#section-62'
+              },
+              {
+                id: 'c2-41',
+                bold: '可连异介质但不能转换协议',
+                text: '中继器可连接==传输介质不同==（如光纤与双绞线）但==链路层协议相同==的局域网段，连接的多个网段仍是同一个局域网；!!无法承担不同链路层协议之间的帧格式转换!!。',
+                short: '可连不同传输介质但须同链路协议，不能转帧格式',
+                tag: '边界',
+                kw: '网段 同一局域网 协议转换',
+                href: 'network-2.html#section-69'
+              },
+              {
+                id: 'c2-42',
+                bold: '串联受限与 5-4-3 规则',
+                text: '受网络标准与最大传播时延限制，中继器!!绝不能无限串联!!；传统 `10Base5` 以太网遵循 ==5-4-3 规则==：最多 `5` 段电缆、`4` 个中继器，其中仅 `3` 段可挂接主机。',
+                short: '串联受时延限制不可无限级联：5 段电缆 4 中继 3 挂主机',
+                tag: '必背',
+                kw: '10Base5 5-4-3规则 级联',
+                href: 'network-2.html#section-62'
+              },
+              {
+                id: 'c2-43',
+                bold: '集线器多端口广播、无缓存不识址',
+                text: '集线器实质是多端口中继器，无缓存、无交换表、!!不识别 MAC 地址、无定向寻址能力!!；收到信号后经整形放大，从==除输入端口外的所有处于工作状态的端口广播转发==。',
+                short: '多口中继器，无缓存不识 MAC，向其余工作口广播',
+                tag: '必背',
+                kw: '无交换表 广播转发',
+                href: 'network-2.html#section-64'
+              },
+              {
+                id: 'c2-44',
+                bold: '物理星形、逻辑总线形与半双工',
+                text: '多设备连在以集线器为中心的节点上，==物理拓扑为星形==；因广播转发且同一时刻仅允许单端口有效输入，==逻辑拓扑为总线形==，!!只能工作在半双工模式!!。',
+                short: '物理星形、逻辑总线形；仅半双工，同时只单口输入',
+                tag: '必背',
+                red: true,
+                kw: '逻辑总线 半双工 星形',
+                href: 'network-2.html#section-64'
+              },
+              {
+                id: 'c2-45',
+                bold: '不隔离冲突域与广播域',
+                text: '集线器工作在物理层（第 1 层），!!所有连接端口同属 1 个冲突域和 1 个广播域!!，不仅无法隔离冲突，反而扩大了冲突范围（按 MAC 定向转发并隔离端口冲突是二层交换机的功能）。',
+                short: '所有端口同属 1 个冲突域与广播域，反而扩大冲突',
+                tag: '2016/2020',
+                red: true,
+                kw: '2016-T35 2020-T35 交换机对比',
+                href: 'network-2.html#section-64'
+              },
+              {
+                id: 'c2-46',
+                bold: '共享总带宽与混接降速',
+                text: '`n` 台主机公平共享总速率 `R` 的集线器时，无冲突理想情况下每台平均可用带宽至多为 ==R/n==（实际存在冲突时低于 `R/n`）；混接 `10 Mb/s` 与 `10/100 Mb/s` 网段时，整个共享网络按共同支持的较低速率工作。',
+                short: 'n 台共享总带宽均值 ≤ R/n；混接按共同低速工作',
+                tag: '边界',
+                kw: '共享带宽 R/n 降速',
+                href: 'network-2.html#section-68'
+              }
+            ]
+          },
+          {
+            id: 'm5-cross',
+            title: '跨章流水线时延、吞吐量与虚电路边界',
+            sticky: {
+              title: '流水线时延与多路径吞吐量铁律',
+              text: '① **先数链路数 k**：`H1 — R — H2` 有 1 台路由器，对应 ==k = 2 段链路==，传播时延须加 ==k 次（绝不可只加 1 次，也绝不可乘分组数 m）==。\n② **时延带宽积 BDP**：单位是 ==bit==，求传播时延用 `t_p = BDP / R`，统一 `1 B = 8 bit` 与 `M = 10⁶`。\n③ **多路径最大吞吐量**：先卡两端必经接入边，能被高速路径绕开的中间慢链路不是瓶颈。'
+            },
+            summary: {
+              title: '虚电路分组交换 vs 电路交换',
+              text: '虚电路本质仍是==分组存储转发（共享链路）==：传前建立逻辑连接并选定路径、按 `VCID` 逐跳存储转发、同路径通常保序，但!!不必为每条虚电路预分配专用带宽!!（独占预留带宽是电路交换的特征）。'
+            },
+            exams: [
+              {
+                year: '2023·T33',
+                mistake: true,
+                nodeId: 'c2-47',
+                href: 'network-2.html#section-43',
+                q: '分组交换网络 `H1 — R — H2` 中，2 段链路带宽均为 `100 Mbps`，时延带宽积均为 `1000 b`。H1 向 H2 发送 `1 MB` 文件（分组长 `1000 B`，`M = 10⁶`），从 H1 开始发送到 H2 收齐至少需（ ）。',
+                opts: ['A. 80.02 ms', 'B. 80.08 ms', 'C. 80.09 ms', 'D. 80.10 ms'],
+                ans: 'D',
+                explain: '① 分组数 `m = 10⁶ / 1000 = 1000`，1 台路由器对应 `k = 2` 段链路；② `t_t = (1000 × 8) / 10⁸ = 0.08 ms`，`t_p = 1000 / 10⁸ = 0.01 ms`；③ `T = (2 + 1000 − 1) × 0.08 + 2 × 0.01 = 80.08 + 0.02 = 80.10 ms`。',
+                pitfall: '当时纯发送流水线算对 80.08 ms，但误以为整条路径只加 1 次单向传播时延 0.01 ms，错选 C（80.09 ms）。'
+              },
+              {
+                year: '2024·T33',
+                star: true,
+                nodeId: 'c2-49',
+                href: 'network-2.html#section-43',
+                q: '分组交换网络中两端必经接入链路均为 `10 Mb/s`（`H1—左路由` 与 `右路由—H2`），左、右路由器间有 3 条并行路（上路 `1000 Mb/s`、中路直连 `1 Mb/s`、下路 `100 Mb/s`），H1 到 H2 的最大吞吐量约为（ ）。',
+                opts: ['A. 1 Mb/s', 'B. 10 Mb/s', 'C. 100 Mb/s', 'D. 1000 Mb/s'],
+                ans: 'B',
+                explain: '① 两端接入链路必经，将吞吐量上界卡死在 `min(10, 10) = 10 Mb/s`；② 中间存在 `1000 Mb/s` 与 `100 Mb/s` 并行高速路径，可完全绕开 `1 Mb/s` 慢链路，故最大吞吐量为 ==10 Mb/s==。'
+              },
+              {
+                year: '2020·T34',
+                star: true,
+                nodeId: 'c2-50',
+                href: 'network-2.html#section-43',
+                q: '下列关于虚电路网络的叙述中，错误的是（ ）。',
+                opts: ['A. 可以确保数据分组传输顺序', 'B. 需要为每条虚电路预分配带宽', 'C. 建立虚电路时需要进行路由选择', 'D. 依据虚电路号（VCID）进行数据分组转发'],
+                ans: 'B',
+                explain: '虚电路在建连时选定逻辑路径（C 对），按 `VCID` 逐跳存储转发（D 对），沿同路径通常按序到达（A 对）；但虚电路属于分组交换、共享链路，!!不必为每条虚电路预分配专用带宽!!（B 错）。'
+              }
+            ],
+            children: [
+              {
+                id: 'c2-47',
+                bold: '存储转发分组流水线时延',
+                text: '`m` 个等长分组经 `k` 段等速链路（`k − 1` 个存储转发节点）理想流水传输，总时间 ==T = (k + m − 1) × t_t + Σt_p==（等传播时延时为 `(k + m − 1) × t_t + k × t_p`）。!!先数链路数 k 而非路由器数，传播时延加 k 次绝不乘 m!!。',
+                short: 'k 段链路 T = (k + m − 1)t_t + Σt_p，t_p 加 k 次不乘 m',
+                tag: '2023·错',
+                red: true,
+                kw: '2023-T33 80.10ms 路由器 流水线',
+                href: 'network-2.html#section-43'
+              },
+              {
+                id: 'c2-48',
+                bold: '时延带宽积 BDP 换算',
+                text: '时延带宽积 ==BDP = R × t_p==，物理含义为信道在传播时延内可容纳的比特数（单位 `bit`）。已知 `BDP` 和链路带宽 `R` 时，单段单向传播时延 ==t_p = BDP / R==，计算前须统一 `1 B = 8 bit` 与 `M = 10⁶`。',
+                short: 'BDP = R·t_p（单位 bit），t_p = BDP/R 防混字节',
+                tag: '2023',
+                kw: '2023-T33 1000b 时延带宽积',
+                href: 'network-2.html#section-43'
+              },
+              {
+                id: 'c2-49',
+                bold: '多路径网络最大吞吐量',
+                text: '评估端到端最大吞吐量时，先识别所有可行路径共同经过的==必经接入链路==以确定上界；若中间慢链路存在高速并行替代路径，则可绕开的慢链路!!不是瓶颈!!。',
+                short: '先卡两端必经接入边，能绕开的中间慢链路非瓶颈',
+                tag: '2024',
+                red: true,
+                kw: '2024-T33 10Mb/s 瓶颈',
+                href: 'network-2.html#section-43'
+              },
+              {
+                id: 'c2-50',
+                bold: '虚电路分组交换边界',
+                text: '虚电路在传输前建立逻辑连接并完成路由选择，数据分组按虚电路号（`VCID`）逐跳存储转发，沿同路径在正常模型下可确保分组顺序；但虚电路共享链路，!!不需要为每条虚电路预分配专用带宽!!。',
+                short: '建逻辑连接按 VCID 保序转发，但不必预分配带宽',
+                tag: '2020',
+                red: true,
+                kw: '2020-T34 逻辑连接 VCID 预分配带宽',
+                href: 'network-2.html#section-43'
+              }
             ]
           }
         ]
