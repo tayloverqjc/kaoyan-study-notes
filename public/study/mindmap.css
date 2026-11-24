@@ -196,7 +196,6 @@ button, a {
   left: 0;
   top: 0;
   transform-origin: 0 0;
-  will-change: transform;
 }
 
 /* Dual-column & Single-tree containers */
@@ -658,6 +657,7 @@ html[data-theme="glass"] .tp-wp-wrap { display: block; }
   }
   .hud-tl, .hud-br, .mm-toast, .theme-pop { display: none !important; }
   .canvas-vp { position: static !important; overflow: visible !important; width: auto !important; height: auto !important; }
-  .tree-world { position: static !important; transform: scale(0.84) !important; transform-origin: 0 0 !important; }
+  .tree-world { position: static !important; left: 0 !important; top: 0 !important; transform: none !important; }
+  .board-dual, .board-single { zoom: 0.84 !important; }
   body.recall-blur .leaf-plain { filter: none !important; opacity: 1 !important; }
 }

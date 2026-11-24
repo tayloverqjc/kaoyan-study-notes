@@ -141,6 +141,8 @@
   const vp = document.getElementById('vp');
   const world = document.getElementById('world');
   const toastEl = document.getElementById('mm-toast');
+  const USE_CSS_ZOOM = typeof CSS !== 'undefined' && typeof CSS.supports === 'function' && CSS.supports('zoom', '1.5');
+  let bracketRaf = 0;
 
   function showToast(msg) {
     toastEl.textContent = msg;
@@ -330,8 +332,9 @@
     }
 
     updateHudStats();
+    applyTransform(false);
     if (syncBracketsNow) drawAllBrackets();
-    else requestAnimationFrame(drawAllBrackets);
+    else scheduleBrackets();
   }
 
   function makeBracketPath(px, py, anchors, radius, isSpine) {
@@ -447,9 +450,28 @@
     svg.innerHTML = paths.join('');
   }
 
-  function applyTransform() {
-    world.style.transform = `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) scale(${zoom})`;
+  function scheduleBrackets() {
+    if (bracketRaf) return;
+    bracketRaf = requestAnimationFrame(() => {
+      bracketRaf = 0;
+      drawAllBrackets();
+    });
+  }
+
+  function applyTransform(redrawBrackets) {
     document.getElementById('z-val').textContent = `${Math.round(zoom * 100)}%`;
+    if (USE_CSS_ZOOM) {
+      world.style.transform = '';
+      world.style.left = `${Math.round(tx)}px`;
+      world.style.top = `${Math.round(ty)}px`;
+      const board = document.getElementById('board');
+      if (board) board.style.zoom = String(zoom);
+    } else {
+      world.style.left = '0px';
+      world.style.top = '0px';
+      world.style.transform = `translate(${Math.round(tx)}px, ${Math.round(ty)}px) scale(${zoom})`;
+    }
+    if (redrawBrackets) scheduleBrackets();
   }
 
   function fitToViewport(skipBracketRedraw) {
@@ -467,8 +489,7 @@
     zoom = Math.max(0.28, Number(fit.toFixed(3)));
     tx = Math.max(6, (vw - bw * zoom) / 2);
     ty = topSafe + Math.max(0, (availH - bh * zoom) / 2);
-    applyTransform();
-    if (!skipBracketRedraw) requestAnimationFrame(drawAllBrackets);
+    applyTransform(!skipBracketRedraw);
   }
 
   function zoomAtPoint(nextZoom, clientX, clientY) {
@@ -477,7 +498,7 @@
     tx = clientX - (clientX - tx) * ratio;
     ty = clientY - (clientY - ty) * ratio;
     zoom = clamped;
-    applyTransform();
+    applyTransform(true);
   }
 
   function updateHudStats() {
