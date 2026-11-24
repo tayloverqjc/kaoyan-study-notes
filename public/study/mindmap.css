@@ -385,6 +385,7 @@ button, a {
   position: absolute;
   left: 0;
   top: 0;
+  width: max-content;
   transform-origin: 0 0;
 }
 
@@ -393,6 +394,8 @@ button, a {
   position: relative;
   display: inline-flex;
   align-items: center;
+  width: max-content;
+  flex: none;
   gap: 36px;
   padding: 14px 22px 18px 34px;
 }
@@ -401,6 +404,7 @@ button, a {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: none;
   gap: 14px;
 }
 
@@ -408,6 +412,8 @@ button, a {
   position: relative;
   display: inline-flex;
   align-items: center;
+  width: max-content;
+  flex: none;
   padding: 22px 34px;
 }
 
@@ -416,6 +422,8 @@ button, a {
   position: relative;
   display: inline-flex;
   align-items: center;
+  width: max-content;
+  flex: none;
   padding: 58px 88px 88px 56px;
 }
 
@@ -459,6 +467,7 @@ button, a {
 .t-children {
   display: flex;
   flex-direction: column;
+  flex: none;
 }
 .t-children.gap-root { gap: 15px; }
 .t-children.gap-1 { gap: 8px; }
@@ -655,15 +664,17 @@ button, a {
 .node-leaf.is-dim { opacity: 0.2; }
 .node-leaf.is-match { background: rgba(247, 198, 72, 0.3); }
 
-/* Rich conversational multi-line leaf */
+/* Rich conversational multi-line leaf (fixed max width inside max-content canvas so panning never reflows) */
 .board-rich .node-leaf {
   white-space: normal;
   align-items: flex-start;
+  width: 470px;
   max-width: 470px;
+  flex: none;
   padding: 5px 10px;
   border-radius: 8px;
   font-size: 13.5px;
-  line-height: 1.62;
+  line-height: 1.65;
 }
 .board-rich .node-leaf .leaf-dot { margin-top: 7px; }
 .board-rich .node-leaf .leaf-tag { margin-left: 5px; white-space: nowrap; }
@@ -793,7 +804,9 @@ body.recall-blur .node-leaf:not(.is-revealed):not(:hover) .leaf-copy .leaf-plain
   background: var(--card);
   border: 1px solid var(--line);
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  width: 520px;
   max-width: 520px;
+  flex: none;
 }
 .mm-table-title {
   font-size: 12px;
@@ -828,7 +841,9 @@ body.recall-blur .node-leaf:not(.is-revealed):not(:hover) .leaf-copy .leaf-plain
   border: 1px solid var(--line);
   border-left: 4px solid var(--brace-sum);
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  width: 470px;
   max-width: 470px;
+  flex: none;
   font-size: 12.5px;
   line-height: 1.62;
 }
@@ -849,13 +864,15 @@ body.recall-blur .node-leaf:not(.is-revealed):not(:hover) .leaf-copy .leaf-plain
 }
 
 .mm-summary {
+  width: 310px;
   max-width: 310px;
+  flex: none;
   padding: 10px 14px;
   border-radius: 11px;
   background: var(--sum-bg);
   border: 1px solid var(--sum-bd);
   font-size: 12.8px;
-  line-height: 1.6;
+  line-height: 1.62;
   color: var(--ink);
 }
 .mm-summary-head {
@@ -866,14 +883,16 @@ body.recall-blur .node-leaf:not(.is-revealed):not(:hover) .leaf-copy .leaf-plain
 }
 
 .mm-sticky {
-  max-width: 285px;
+  width: 290px;
+  max-width: 290px;
+  flex: none;
   padding: 11px 14px;
   border-radius: 10px;
   background: var(--sticky-bg);
   border: 1.5px solid var(--sticky-bd);
   color: var(--sticky-fg);
   font-size: 12.8px;
-  line-height: 1.6;
+  line-height: 1.62;
   box-shadow: 0 6px 18px rgba(202, 138, 4, 0.16);
 }
 .mm-sticky-head {
@@ -1038,6 +1057,7 @@ body.mode-skeleton .board-rich .node-branch.depth-3 {
   font-size: 12.5px;
 }
 body.mode-skeleton .board-rich .node-leaf {
+  width: auto;
   max-width: none;
   white-space: nowrap;
   padding: 2px 6px;

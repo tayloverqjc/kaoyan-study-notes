@@ -690,15 +690,15 @@
   function applyTransform(redrawBrackets) {
     document.getElementById('z-val').textContent = `${Math.round(zoom * 100)}%`;
     if (USE_CSS_ZOOM) {
-      world.style.transform = '';
-      world.style.left = `${Math.round(tx)}px`;
-      world.style.top = `${Math.round(ty)}px`;
+      world.style.left = '0px';
+      world.style.top = '0px';
+      world.style.transform = `translate3d(${Math.round(tx)}px, ${Math.round(ty)}px, 0)`;
       const board = document.getElementById('board');
       if (board) board.style.zoom = String(zoom);
     } else {
       world.style.left = '0px';
       world.style.top = '0px';
-      world.style.transform = `translate(${Math.round(tx)}px, ${Math.round(ty)}px) scale(${zoom})`;
+      world.style.transform = `translate3d(${Math.round(tx)}px, ${Math.round(ty)}px, 0) scale(${zoom})`;
     }
     if (redrawBrackets) scheduleBrackets();
   }
@@ -972,10 +972,11 @@
     else fitToViewport(false);
   }
 
-  // Pan & Zoom
+  // Pan & Zoom (allows grabbing anywhere inside canvas; suppresses click if dragged > 4px)
   let drag = null;
+  let suppressClickUntil = 0;
   vp.addEventListener('mousedown', e => {
-    if (e.button !== 0 || e.target.closest('button, a, input, summary, .mm-fig')) return;
+    if (e.button !== 0 || e.target.closest('a, input, summary')) return;
     drag = { sx: e.clientX, sy: e.clientY, tx0: tx, ty0: ty, moved: false };
     vp.classList.add('grabbing');
   });
@@ -983,17 +984,20 @@
     if (!drag) return;
     const dx = e.clientX - drag.sx;
     const dy = e.clientY - drag.sy;
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) drag.moved = true;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) drag.moved = true;
+    if (!drag.moved) return;
     tx = drag.tx0 + dx;
     ty = drag.ty0 + dy;
     applyTransform();
   });
   window.addEventListener('mouseup', e => {
     if (!drag) return;
-    const wasClick = !drag.moved && !e.target.closest('button, a, summary, .mm-fig');
+    const didMove = drag.moved;
+    const wasBlankClick = !didMove && !e.target.closest('button, a, summary, .mm-fig');
     drag = null;
     vp.classList.remove('grabbing');
-    if (wasClick) clearReturnedHighlight();
+    if (didMove) suppressClickUntil = Date.now() + 120;
+    if (wasBlankClick) clearReturnedHighlight();
   });
   vp.addEventListener('wheel', e => {
     e.preventDefault();
@@ -1036,6 +1040,11 @@
   world.addEventListener('toggle', () => scheduleBrackets(), true);
 
   world.addEventListener('click', e => {
+    if (Date.now() < suppressClickUntil) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
     const fig = e.target.closest('[data-lightbox]');
     if (fig) {
       openLightbox(fig.dataset.lightbox, fig.dataset.cap);
